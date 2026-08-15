@@ -1,0 +1,53 @@
+~ start
+旁白: [#speaker=narrator, #mood=uneasy]废弃支线尽头，锈轨钻进齐腰高的夏草。空气里没有风，枕木下却传来规律的震动。 [ID:EVT_D2_ANOMALY_001]
+沈砚: [#speaker=shen_yan]怀表的秒针在倒着走。 [ID:EVT_D2_ANOMALY_002]
+周明: [#speaker=zhou_ming]地面没有列车经过的振幅。声音来自更深的地方。 [ID:EVT_D2_ANOMALY_003]
+旁白: 一层白霜沿铁轨迅速铺开。草叶没有结冰，倒影里却出现一座不存在的黑色山门。 [ID:EVT_D2_ANOMALY_004]
+林晓雨: [#speaker=lin_xiaoyu, #mood=strained]它不是在说话……它只是在跟着我的声音呼吸。 [ID:EVT_D2_ANOMALY_005]
+旁白: 她哼出一个极轻的长音。震动慢了下来，山门的倒影也随之闭合。坡上忽然传来相机快门般的脆响。 [ID:EVT_D2_ANOMALY_006]
+
+- 【隐瞒】挡住坡上的视线，让晓雨只维持最短的安抚。 [ID:EVT_D2_ANOMALY_CHOICE_CONCEAL]
+	你: 周明，记振动间隔。沈砚，帮我挡住上坡。晓雨，够了就停，不需要证明什么。 [ID:EVT_D2_ANOMALY_007]
+	林晓雨: [#speaker=lin_xiaoyu, #mood=grateful]好。数到三，我会收声。 [ID:EVT_D2_ANOMALY_008]
+	do Narrative.Execute("add_fact", "slice.d2.anomaly_concealed")
+	do Narrative.Execute("add_evidence", "slice.evidence.resonance_frost_pattern")
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "6")
+	do Narrative.Execute("remember", "lin_xiaoyu", "protagonist", "slice.memory.protected_resonance_secret")
+	=> aftermath
+- 【冒险】请晓雨再维持片刻，确认共鸣指向哪里。 [ID:EVT_D2_ANOMALY_CHOICE_RISK]
+	你: 再给我们五秒。周明记录方向，沈砚看怀表；我会守着你。 [ID:EVT_D2_ANOMALY_009]
+	林晓雨: [#speaker=lin_xiaoyu, #mood=focused]那就别松手。声音会往旧隧道下面走。 [ID:EVT_D2_ANOMALY_010]
+	旁白: 黑色山门完全显现了一瞬。坡上的树影随即向后缩去，有人看见了这一幕。 [ID:EVT_D2_ANOMALY_011]
+	do Narrative.Execute("add_fact", "slice.d2.anomaly_traced")
+	do Narrative.Execute("add_fact", "slice.d2.ability_seen_from_slope")
+	do Narrative.Execute("add_evidence", "slice.evidence.resonance_directional_echo")
+	do Narrative.Execute("add_lead", "slice.lead.old_tunnel_below")
+	do Narrative.Execute("raise_exposure", "1")
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "4")
+	do Narrative.Execute("change_affinity", "lin_xiaoyu", "protagonist", "2")
+	do Narrative.Execute("remember", "lin_xiaoyu", "protagonist", "slice.memory.traced_resonance_together")
+	=> aftermath
+- 立即撤离，先确保所有人安全。 [ID:EVT_D2_ANOMALY_CHOICE_WITHDRAW]
+	你: 不继续试。我们记住现象，带齐工具再回来。 [ID:EVT_D2_ANOMALY_012]
+	林晓雨: [#speaker=lin_xiaoyu, #mood=relieved]谢谢。刚才那东西没有恶意，可我不知道再唱下去会发生什么。 [ID:EVT_D2_ANOMALY_013]
+	do Narrative.Execute("add_fact", "slice.d2.anomaly_withdrawal")
+	do Narrative.Execute("add_lead", "slice.lead.return_to_old_railway_prepared")
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "3")
+	=> aftermath
+
+~ aftermath
+if Narrative.Evaluate("has_fact", "slice.d2.ability_seen_from_slope")
+	旁白: [#speaker=narrator]回程时，你在泥地里发现一枚陌生鞋印。它从施工区方向而来，又在看见你们后匆忙折返。 [ID:EVT_D2_ANOMALY_AFTERMATH_RISK]
+elif Narrative.Evaluate("has_fact", "slice.d2.anomaly_concealed")
+	旁白: [#speaker=narrator]坡上只剩一根新折断的树枝。你无法确认那里是否有人，也无法确认对方看见了多少。 [ID:EVT_D2_ANOMALY_AFTERMATH_CONCEAL]
+else
+	旁白: [#speaker=narrator]震动在你们离开后停下。没有人受伤，但旧隧道下方仍传来极轻的呼吸声。 [ID:EVT_D2_ANOMALY_AFTERMATH_WITHDRAW]
+
+周明: [#speaker=zhou_ming]今天能确认三件事：工程范围有问题，旧隧道下面有东西，晓雨能暂时让它平静。 [ID:EVT_D2_ANOMALY_014]
+沈砚: [#speaker=shen_yan]第四件事——我们别再让任何人单独来。 [ID:EVT_D2_ANOMALY_015]
+林晓雨: [#speaker=lin_xiaoyu]这次，我同意。 [ID:EVT_D2_ANOMALY_016]
+do Narrative.Execute("add_fact", "slice.d2.first_anomaly_witnessed")
+do Narrative.Execute("timeline", "TIMELINE_D2_WITNESSED_FIRST_ANOMALY")
+do Narrative.Execute("complete_event", "slice.d2.first_anomaly")
+do Narrative.Execute("grant_xp", "20")
+=> END

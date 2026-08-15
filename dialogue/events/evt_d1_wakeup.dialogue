@@ -1,0 +1,20 @@
+~ start
+旁白: [#speaker=narrator, #mood=quiet]蝉声从旧宅的木窗缝里钻进来。暑假的第一天，屋里只剩你一个人。 [ID:EVT_D1_WAKEUP_001]
+旁白: 山脚传来一声很轻的列车汽笛。那条停用多年的支线，本不该有车经过。 [ID:EVT_D1_WAKEUP_002]
+
+- 拉开窗帘，确认声音的方向。 [ID:EVT_D1_WAKEUP_CHOICE_LOOK]
+	旁白: 雾贴在北山腰上，废线的信号灯却像刚熄灭一样，留着一点暗红。 [ID:EVT_D1_WAKEUP_003]
+	do Narrative.Execute("add_fact", "slice.d1.saw_dark_signal")
+	=> ready
+- 再安静地听一会儿。 [ID:EVT_D1_WAKEUP_CHOICE_LISTEN]
+	旁白: 汽笛没有再响。取而代之的是某种低沉的回音，仿佛从山腹传来。 [ID:EVT_D1_WAKEUP_004]
+	do Narrative.Execute("add_fact", "slice.d1.heard_mountain_echo")
+	=> ready
+
+~ ready
+旁白: 餐桌上压着家人的便笺：冰箱里有早饭，傍晚记得锁好院门。 [ID:EVT_D1_WAKEUP_005]
+你: [#speaker=protagonist, #mood=resolved]先去镇上看看吧。好几年没回来，总得跟大家打声招呼。 [ID:EVT_D1_WAKEUP_006]
+do Narrative.Execute("add_fact", "slice.d1.awake")
+do Narrative.Execute("timeline", "TIMELINE_D1_WOKE_AT_OLD_HOUSE")
+do Narrative.Execute("complete_event", "slice.d1.wakeup")
+=> END

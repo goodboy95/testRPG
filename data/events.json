@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "events": [
+    {
+      "id": "slice.d1.wakeup",
+      "day": 1,
+      "locationId": "old_house",
+      "startMinute": 480,
+      "endMinute": 660,
+      "priority": "ambient",
+      "requiredFacts": [],
+      "forbiddenFacts": [
+        "slice.d1.awake"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d1_wakeup.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D1_WAKEUP_NAME"
+    },
+    {
+      "id": "slice.d1.four_way_reunion",
+      "day": 1,
+      "locationId": "station_square",
+      "startMinute": 540,
+      "endMinute": 720,
+      "priority": "relationship",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ],
+      "forbiddenFacts": [
+        "slice.d1.reunion_complete"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d1_four_way_reunion.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D1_REUNION_NAME"
+    },
+    {
+      "id": "slice.d1.activity_xiaoyu",
+      "day": 1,
+      "locationId": "riverbank",
+      "startMinute": 720,
+      "endMinute": 1080,
+      "priority": "relationship",
+      "requiredFacts": [
+        "slice.d1.reunion_complete"
+      ],
+      "forbiddenFacts": [
+        "slice.d1.shared_activity_chosen"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d1_activity_xiaoyu.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D1_ACTIVITY_XIAOYU_NAME"
+    },
+    {
+      "id": "slice.d1.activity_zhou",
+      "day": 1,
+      "locationId": "school_archive",
+      "startMinute": 720,
+      "endMinute": 1080,
+      "priority": "relationship",
+      "requiredFacts": [
+        "slice.d1.reunion_complete"
+      ],
+      "forbiddenFacts": [
+        "slice.d1.shared_activity_chosen"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d1_activity_zhou.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D1_ACTIVITY_ZHOU_NAME"
+    },
+    {
+      "id": "slice.d1.activity_shen",
+      "day": 1,
+      "locationId": "station_market",
+      "startMinute": 720,
+      "endMinute": 1080,
+      "priority": "relationship",
+      "requiredFacts": [
+        "slice.d1.reunion_complete"
+      ],
+      "forbiddenFacts": [
+        "slice.d1.shared_activity_chosen"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d1_activity_shen.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D1_ACTIVITY_SHEN_NAME"
+    },
+    {
+      "id": "slice.d1.promise",
+      "day": 1,
+      "locationId": "residential_lane",
+      "startMinute": 1080,
+      "endMinute": 1380,
+      "priority": "relationship",
+      "requiredFacts": [
+        "slice.d1.shared_activity_chosen"
+      ],
+      "forbiddenFacts": [
+        "slice.promise.rail_notice"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d1_promise.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D1_PROMISE_NAME"
+    },
+    {
+      "id": "slice.d2.railway_notice",
+      "day": 2,
+      "locationId": "station_square",
+      "startMinute": 480,
+      "endMinute": 780,
+      "priority": "investigation",
+      "requiredFacts": [
+        "slice.promise.rail_notice"
+      ],
+      "forbiddenFacts": [
+        "slice.d2.railway_notice_read"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d2_railway_notice.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D2_RAILWAY_NOTICE_NAME"
+    },
+    {
+      "id": "slice.d2.first_anomaly",
+      "day": 2,
+      "locationId": "abandoned_railway",
+      "startMinute": 780,
+      "endMinute": 1380,
+      "priority": "dangerWarning",
+      "requiredFacts": [
+        "slice.d2.railway_notice_read"
+      ],
+      "forbiddenFacts": [
+        "slice.d2.first_anomaly_witnessed"
+      ],
+      "dialoguePath": "res://dialogue/events/evt_d2_first_anomaly.dialogue",
+      "startTitle": "start",
+      "displayNameKey": "EVENT_D2_FIRST_ANOMALY_NAME"
+    }
+  ]
+}

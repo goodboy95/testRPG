@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "npcId": "lin_xiaoyu",
+      "day": 1,
+      "startMinute": 540,
+      "endMinute": 720,
+      "locationId": "station_square",
+      "activityKey": "SCHEDULE_REUNION",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ]
+    },
+    {
+      "npcId": "lin_xiaoyu",
+      "day": 1,
+      "startMinute": 720,
+      "endMinute": 1080,
+      "locationId": "riverbank",
+      "activityKey": "SCHEDULE_LIN_RIVERBANK",
+      "requiredFacts": [
+        "slice.d1.reunion_complete"
+      ]
+    },
+    {
+      "npcId": "lin_xiaoyu",
+      "day": 1,
+      "startMinute": 1080,
+      "endMinute": 1380,
+      "locationId": "residential_lane",
+      "activityKey": "SCHEDULE_EVENING_HOMEWARD",
+      "requiredFacts": [
+        "slice.d1.shared_activity_chosen"
+      ]
+    },
+    {
+      "npcId": "zhou_ming",
+      "day": 1,
+      "startMinute": 540,
+      "endMinute": 720,
+      "locationId": "station_square",
+      "activityKey": "SCHEDULE_REUNION",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ]
+    },
+    {
+      "npcId": "zhou_ming",
+      "day": 1,
+      "startMinute": 720,
+      "endMinute": 1080,
+      "locationId": "school_archive",
+      "activityKey": "SCHEDULE_ZHOU_ARCHIVE",
+      "requiredFacts": [
+        "slice.d1.reunion_complete"
+      ]
+    },
+    {
+      "npcId": "zhou_ming",
+      "day": 1,
+      "startMinute": 1080,
+      "endMinute": 1380,
+      "locationId": "residential_lane",
+      "activityKey": "SCHEDULE_EVENING_HOMEWARD",
+      "requiredFacts": [
+        "slice.d1.shared_activity_chosen"
+      ]
+    },
+    {
+      "npcId": "shen_yan",
+      "day": 1,
+      "startMinute": 540,
+      "endMinute": 720,
+      "locationId": "station_square",
+      "activityKey": "SCHEDULE_REUNION",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ]
+    },
+    {
+      "npcId": "shen_yan",
+      "day": 1,
+      "startMinute": 720,
+      "endMinute": 1080,
+      "locationId": "station_market",
+      "activityKey": "SCHEDULE_SHEN_WATCH",
+      "requiredFacts": [
+        "slice.d1.reunion_complete"
+      ]
+    },
+    {
+      "npcId": "shen_yan",
+      "day": 1,
+      "startMinute": 1080,
+      "endMinute": 1380,
+      "locationId": "residential_lane",
+      "activityKey": "SCHEDULE_EVENING_HOMEWARD",
+      "requiredFacts": [
+        "slice.d1.shared_activity_chosen"
+      ]
+    },
+    {
+      "npcId": "aunt_qiao",
+      "day": 1,
+      "startMinute": 480,
+      "endMinute": 1200,
+      "locationId": "station_market",
+      "activityKey": "SCHEDULE_AUNT_QIAO_SHOP",
+      "requiredFacts": []
+    },
+    {
+      "npcId": "lin_xiaoyu",
+      "day": 2,
+      "startMinute": 480,
+      "endMinute": 780,
+      "locationId": "station_square",
+      "activityKey": "SCHEDULE_NOTICE_MEETING",
+      "requiredFacts": [
+        "slice.promise.rail_notice"
+      ]
+    },
+    {
+      "npcId": "zhou_ming",
+      "day": 2,
+      "startMinute": 480,
+      "endMinute": 780,
+      "locationId": "station_square",
+      "activityKey": "SCHEDULE_NOTICE_MEETING",
+      "requiredFacts": [
+        "slice.promise.rail_notice"
+      ]
+    },
+    {
+      "npcId": "shen_yan",
+      "day": 2,
+      "startMinute": 480,
+      "endMinute": 780,
+      "locationId": "station_square",
+      "activityKey": "SCHEDULE_NOTICE_MEETING",
+      "requiredFacts": [
+        "slice.promise.rail_notice"
+      ]
+    },
+    {
+      "npcId": "aunt_qiao",
+      "day": 2,
+      "startMinute": 480,
+      "endMinute": 1200,
+      "locationId": "station_market",
+      "activityKey": "SCHEDULE_AUNT_QIAO_SHOP",
+      "requiredFacts": []
+    },
+    {
+      "npcId": "lin_xiaoyu",
+      "day": 2,
+      "startMinute": 780,
+      "endMinute": 1380,
+      "locationId": "abandoned_railway",
+      "activityKey": "SCHEDULE_FOLLOW_ANOMALY",
+      "requiredFacts": [
+        "slice.d2.railway_notice_read"
+      ]
+    },
+    {
+      "npcId": "zhou_ming",
+      "day": 2,
+      "startMinute": 780,
+      "endMinute": 1380,
+      "locationId": "abandoned_railway",
+      "activityKey": "SCHEDULE_FOLLOW_ANOMALY",
+      "requiredFacts": [
+        "slice.d2.railway_notice_read"
+      ]
+    },
+    {
+      "npcId": "shen_yan",
+      "day": 2,
+      "startMinute": 780,
+      "endMinute": 1380,
+      "locationId": "abandoned_railway",
+      "activityKey": "SCHEDULE_FOLLOW_ANOMALY",
+      "requiredFacts": [
+        "slice.d2.railway_notice_read"
+      ]
+    },
+    {
+      "npcId": "lin_xiaoyu",
+      "day": null,
+      "startMinute": 480,
+      "endMinute": 1380,
+      "locationId": "riverbank",
+      "activityKey": "SCHEDULE_LIN_RIVERBANK",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ]
+    },
+    {
+      "npcId": "zhou_ming",
+      "day": null,
+      "startMinute": 480,
+      "endMinute": 1380,
+      "locationId": "school_archive",
+      "activityKey": "SCHEDULE_ZHOU_ARCHIVE",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ]
+    },
+    {
+      "npcId": "shen_yan",
+      "day": null,
+      "startMinute": 480,
+      "endMinute": 1380,
+      "locationId": "station_market",
+      "activityKey": "SCHEDULE_SHEN_WATCH",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ]
+    },
+    {
+      "npcId": "aunt_qiao",
+      "day": null,
+      "startMinute": 480,
+      "endMinute": 1200,
+      "locationId": "station_market",
+      "activityKey": "SCHEDULE_AUNT_QIAO_SHOP",
+      "requiredFacts": [
+        "slice.d1.awake"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "town_style_anchor_dusk",
+      "sourceFile": "town-style-anchor-source.png",
+      "gameFile": "title-town-dusk.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-13",
+      "referenceImages": [],
+      "postprocessing": [
+        "Lanczos resize to 640x360",
+        "PNG optimize"
+      ],
+      "prompt": "Original pixel-art East Asian mountain railway town during a warm summer evening; old station, tiled-roof homes, shop street, forested slopes and distant disused tunnel; 32-bit-era crisp pixel art; deep navy, teal and warm amber palette; comforting surface with an unsettling undertone; no text, logos, watermark, UI or close characters."
+    }
+  ]
+}

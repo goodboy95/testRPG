@@ -1,0 +1,47 @@
+~ start
+if Narrative.Evaluate("has_fact", "slice.d1.activity_xiaoyu")
+	林晓雨: [#speaker=lin_xiaoyu, #mood=relieved]你来了。我还以为昨晚那段录音会让你改主意。 [ID:EVT_D2_NOTICE_XIAOYU_001]
+elif Narrative.Evaluate("has_fact", "slice.d1.activity_zhou")
+	周明: [#speaker=zhou_ming, #mood=warm]很准时。告示刚贴好，浆糊还没干。 [ID:EVT_D2_NOTICE_ZHOU_001]
+elif Narrative.Evaluate("has_fact", "slice.d1.activity_shen")
+	沈砚: [#speaker=shen_yan, #mood=warm]守约的人有优先阅读权。来，占个好位置。 [ID:EVT_D2_NOTICE_SHEN_001]
+
+旁白: [#speaker=narrator]新告示盖住了旧时刻表。标题写着“北山旧铁路安全整修与遗迹勘察工程”。 [ID:EVT_D2_NOTICE_001]
+旁白: 承建方是东岚遗迹调查开发有限公司。红色施工边界越过废弃支线，正好包住地图上被抹去的旧隧道。 [ID:EVT_D2_NOTICE_002]
+周明: 他们说是清理落石，可勘察点全在线路外侧。 [ID:EVT_D2_NOTICE_003]
+沈砚: 而且怀表现在完全停了。 [ID:EVT_D2_NOTICE_004]
+林晓雨: 北边又有那个声音。比昨天清楚。 [ID:EVT_D2_NOTICE_005]
+
+- 对照告示与残存的旧线路图。 [ID:EVT_D2_NOTICE_CHOICE_MAP]
+	你: 施工边界绕过车站，却精确覆盖了旧隧道旁那条被删掉的山路。 [ID:EVT_D2_NOTICE_006]
+	周明: 这不像普通养护。先把两个版本都留档。 [ID:EVT_D2_NOTICE_007]
+	do Narrative.Execute("add_evidence", "slice.evidence.notice_route_mismatch")
+	do Narrative.Execute("add_fact", "slice.d2.inspected_notice_map")
+	=> kept_promise
+- 记录公司、审批章和现场联络方式。 [ID:EVT_D2_NOTICE_CHOICE_COMPANY]
+	你: 公司成立时间很新，审批章却来自已经撤销的旧铁路办事处。 [ID:EVT_D2_NOTICE_008]
+	沈砚: 先拍下来。以后有人换掉告示，我们至少还有原件记录。 [ID:EVT_D2_NOTICE_009]
+	do Narrative.Execute("add_evidence", "slice.evidence.notice_office_mismatch")
+	do Narrative.Execute("add_fact", "slice.d2.inspected_notice_company")
+	=> kept_promise
+
+~ kept_promise
+do Narrative.Execute("resolve_promise", "promise.slice.rail_notice", "fulfilled")
+if Narrative.Evaluate("has_fact", "slice.d1.activity_xiaoyu")
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "6")
+	do Narrative.Execute("remember", "lin_xiaoyu", "protagonist", "slice.memory.kept_rail_notice_promise")
+elif Narrative.Evaluate("has_fact", "slice.d1.activity_zhou")
+	do Narrative.Execute("change_trust", "zhou_ming", "protagonist", "6")
+	do Narrative.Execute("remember", "zhou_ming", "protagonist", "slice.memory.kept_rail_notice_promise")
+elif Narrative.Evaluate("has_fact", "slice.d1.activity_shen")
+	do Narrative.Execute("change_trust", "shen_yan", "protagonist", "6")
+	do Narrative.Execute("remember", "shen_yan", "protagonist", "slice.memory.kept_rail_notice_promise")
+
+旁白: [#speaker=narrator]承诺已履行。四个人决定沿公开步道走到废弃支线外缘，只确认声音来源，不进入施工封锁区。 [ID:EVT_D2_NOTICE_010]
+do Narrative.Execute("add_fact", "slice.d2.railway_notice_read")
+do Narrative.Execute("add_fact", "slice.d2.railway_repair_announced")
+do Narrative.Execute("add_lead", "slice.lead.visit_abandoned_railway")
+do Narrative.Execute("timeline", "TIMELINE_D2_READ_RAIL_NOTICE")
+do Narrative.Execute("complete_event", "slice.d2.railway_notice")
+do Narrative.Execute("grant_xp", "15")
+=> END

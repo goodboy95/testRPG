@@ -1,0 +1,29 @@
+~ start
+旁白: [#speaker=narrator]河滩的石头被晒得发白。林晓雨把录音机架在旧铁路桥的阴影里。 [ID:EVT_D1_XIAOYU_001]
+林晓雨: [#speaker=lin_xiaoyu]我想录风穿过桥洞的声音。上周开始，里面总夹着一个不属于这里的低音。 [ID:EVT_D1_XIAOYU_002]
+你: 你一个人来过几次了？ [ID:EVT_D1_XIAOYU_003]
+林晓雨: 三次。别露出那种表情，我只是录音，没有做危险的事。 [ID:EVT_D1_XIAOYU_004]
+
+- 承认自己是在担心她。 [ID:EVT_D1_XIAOYU_CHOICE_HONEST]
+	你: 我知道你能照顾自己。担心和不相信你，不是一回事。 [ID:EVT_D1_XIAOYU_005]
+	林晓雨: [#speaker=lin_xiaoyu, #mood=softened]……你以前不会把后半句说出来。 [ID:EVT_D1_XIAOYU_006]
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "4")
+	do Narrative.Execute("remember", "lin_xiaoyu", "protagonist", "slice.memory.spoke_honestly_by_river")
+	=> echo
+- 尊重她的判断，帮忙检查录音设备。 [ID:EVT_D1_XIAOYU_CHOICE_HELP]
+	你: 好，那我负责电池和收音范围。发现异常时，我们一起判断要不要继续。 [ID:EVT_D1_XIAOYU_007]
+	林晓雨: [#speaker=lin_xiaoyu, #mood=relieved]这样就好。 [ID:EVT_D1_XIAOYU_008]
+	do Narrative.Execute("change_affinity", "lin_xiaoyu", "protagonist", "5")
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "2")
+	=> echo
+
+~ echo
+旁白: 耳机里掠过一阵近似人声的泛音。林晓雨立刻按下停止键，桥洞中却又回荡了一遍。 [ID:EVT_D1_XIAOYU_009]
+林晓雨: 不是回声。至少，不只是回声。 [ID:EVT_D1_XIAOYU_010]
+do Narrative.Execute("add_fact", "slice.d1.shared_activity_chosen")
+do Narrative.Execute("add_fact", "slice.d1.activity_xiaoyu")
+do Narrative.Execute("add_lead", "slice.lead.river_recording")
+do Narrative.Execute("timeline", "TIMELINE_D1_RECORDED_RIVER_ECHO")
+do Narrative.Execute("complete_event", "slice.d1.activity_xiaoyu")
+do Narrative.Execute("grant_xp", "10")
+=> END

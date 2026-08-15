@@ -1,0 +1,27 @@
+~ start
+旁白: [#speaker=narrator]乔姨的杂货店后门敞着。沈砚坐在工作台前，掌心托着一只磨花的铁路怀表。 [ID:EVT_D1_SHEN_001]
+沈砚: [#speaker=shen_yan]我外公当扳道工时带着它。离开旧支线以后，它一直慢三分钟。 [ID:EVT_D1_SHEN_002]
+你: 今天呢？ [ID:EVT_D1_SHEN_003]
+沈砚: 靠近北山就停。离远一点，又自己走起来。 [ID:EVT_D1_SHEN_004]
+
+- 帮他逐件检查机械结构。 [ID:EVT_D1_SHEN_CHOICE_REPAIR]
+	旁白: 齿轮、游丝和发条都没有故障。你把后盖合上，秒针恰好在指向北方时顿了一拍。 [ID:EVT_D1_SHEN_005]
+	沈砚: [#speaker=shen_yan, #mood=serious]所以不是我手艺退步。说真的，这反而更麻烦。 [ID:EVT_D1_SHEN_006]
+	do Narrative.Execute("change_trust", "shen_yan", "protagonist", "4")
+	=> finish
+- 提议带到街口，测试停止的方向。 [ID:EVT_D1_SHEN_CHOICE_TEST]
+	旁白: 你们换了三个位置。怀表每次都在表冠朝向废弃支线时停止。 [ID:EVT_D1_SHEN_007]
+	沈砚: [#speaker=shen_yan, #mood=grinning]有你陪着，做这种怪事就像正经调查了。 [ID:EVT_D1_SHEN_008]
+	do Narrative.Execute("change_affinity", "shen_yan", "protagonist", "5")
+	=> finish
+
+~ finish
+乔姨: [#speaker=aunt_qiao]你们两个别拆到忘了吃饭。对了，车站明早要贴新的工程告示。 [ID:EVT_D1_SHEN_009]
+do Narrative.Execute("add_fact", "slice.d1.shared_activity_chosen")
+do Narrative.Execute("add_fact", "slice.d1.activity_shen")
+do Narrative.Execute("add_lead", "slice.lead.watch_points_north")
+do Narrative.Execute("remember", "shen_yan", "protagonist", "slice.memory.tested_railway_watch_together")
+do Narrative.Execute("timeline", "TIMELINE_D1_TESTED_RAILWAY_WATCH")
+do Narrative.Execute("complete_event", "slice.d1.activity_shen")
+do Narrative.Execute("grant_xp", "10")
+=> END

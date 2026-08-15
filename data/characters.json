@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "characters": [
+    {
+      "id": "protagonist",
+      "nameKey": "CHARACTER_PROTAGONIST_NAME",
+      "roleKey": "ROLE_PROTAGONIST",
+      "colorHex": "#D9CBB5",
+      "portraitId": "protagonist",
+      "canJoinParty": true,
+      "romanceCandidate": false,
+      "preferredGifts": []
+    },
+    {
+      "id": "lin_xiaoyu",
+      "nameKey": "CHARACTER_LIN_XIAOYU_NAME",
+      "roleKey": "ROLE_ABILITY_HOLDER",
+      "colorHex": "#8DA9C4",
+      "portraitId": "lin_xiaoyu",
+      "canJoinParty": true,
+      "romanceCandidate": true,
+      "preferredGifts": [
+        "old_songbook",
+        "honey_loquat_candy"
+      ]
+    },
+    {
+      "id": "zhou_ming",
+      "nameKey": "CHARACTER_ZHOU_MING_NAME",
+      "roleKey": "ROLE_KNOWLEDGE_FRIEND",
+      "colorHex": "#C2A878",
+      "portraitId": "zhou_ming",
+      "canJoinParty": true,
+      "romanceCandidate": false,
+      "preferredGifts": [
+        "archival_gloves",
+        "local_history_offprint"
+      ]
+    },
+    {
+      "id": "shen_yan",
+      "nameKey": "CHARACTER_SHEN_YAN_NAME",
+      "roleKey": "ROLE_TOKEN_HOLDER",
+      "colorHex": "#B8795E",
+      "portraitId": "shen_yan",
+      "canJoinParty": true,
+      "romanceCandidate": true,
+      "preferredGifts": [
+        "watchmakers_oil",
+        "station_coffee"
+      ]
+    },
+    {
+      "id": "aunt_qiao",
+      "nameKey": "CHARACTER_AUNT_QIAO_NAME",
+      "roleKey": "ROLE_SHOPKEEPER",
+      "colorHex": "#8E9C76",
+      "portraitId": "aunt_qiao",
+      "canJoinParty": false,
+      "romanceCandidate": false,
+      "preferredGifts": [
+        "tea_tin"
+      ]
+    }
+  ]
+}

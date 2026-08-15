@@ -1,0 +1,22 @@
+# Godot imports and generated .NET files
+.godot/
+.mono/
+bin/
+obj/
+
+# IDEs
+.idea/
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Local saves, logs and exports
+user-data/
+logs/
+exports/
+*.log
+
+# Local packaging, validation and delivery artifacts
+/outputs/
+/work/

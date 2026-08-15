@@ -1,0 +1,34 @@
+~ start
+旁白: [#speaker=narrator]车站广场比记忆里空旷。旧候车室锁着门，屋檐下却站着三个熟悉的人。 [ID:EVT_D1_REUNION_001]
+周明: [#speaker=zhou_ming, #mood=warm]我就说你今天会出来。欢迎回来，民俗学者。 [ID:EVT_D1_REUNION_002]
+沈砚: [#speaker=shen_yan, #mood=teasing]他从八点半就开始等，还不许我发消息催你。 [ID:EVT_D1_REUNION_003]
+林晓雨: [#speaker=lin_xiaoyu, #mood=guarded]……好久不见。 [ID:EVT_D1_REUNION_004]
+旁白: 她的语气很平静。你们之间那场没有说清的争执，也安静地横在这句问候里。 [ID:EVT_D1_REUNION_005]
+
+- 先为久等道歉，再认真和每个人打招呼。 [ID:EVT_D1_REUNION_CHOICE_APOLOGIZE]
+	你: [#speaker=protagonist]抱歉，让你们等了。周明、沈砚……晓雨，我回来了。 [ID:EVT_D1_REUNION_006]
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "2")
+	do Narrative.Execute("change_affinity", "zhou_ming", "protagonist", "2")
+	do Narrative.Execute("change_affinity", "shen_yan", "protagonist", "2")
+	=> invitations
+- 用以前的语气开个玩笑，缓和尴尬。 [ID:EVT_D1_REUNION_CHOICE_JOKE]
+	你: [#speaker=protagonist, #mood=light]三个人一起堵在车站，是准备收我返乡通行费吗？ [ID:EVT_D1_REUNION_007]
+	沈砚: 至少得收一顿冰棍。 [ID:EVT_D1_REUNION_008]
+	林晓雨: [#speaker=lin_xiaoyu, #mood=faint_smile]还是老样子。 [ID:EVT_D1_REUNION_009]
+	do Narrative.Execute("change_affinity", "lin_xiaoyu", "protagonist", "2")
+	do Narrative.Execute("change_affinity", "zhou_ming", "protagonist", "2")
+	do Narrative.Execute("change_affinity", "shen_yan", "protagonist", "2")
+	=> invitations
+
+~ invitations
+周明: 我下午要整理学校旧档案室。里面有几册镇志，你可能会感兴趣。 [ID:EVT_D1_REUNION_010]
+沈砚: 乔姨让我修一只老怀表。要是你来商店街，我们可以一起拆开看看。 [ID:EVT_D1_REUNION_011]
+林晓雨: 我会去河边试录音。那里……最近总有奇怪的回声。 [ID:EVT_D1_REUNION_012]
+旁白: [#speaker=narrator]三个人都没有催促。午后去哪里，由你自己决定。 [ID:EVT_D1_REUNION_013]
+do Narrative.Execute("add_fact", "slice.d1.met_lin_xiaoyu")
+do Narrative.Execute("add_fact", "slice.d1.met_zhou_ming")
+do Narrative.Execute("add_fact", "slice.d1.met_shen_yan")
+do Narrative.Execute("add_fact", "slice.d1.reunion_complete")
+do Narrative.Execute("timeline", "TIMELINE_D1_FOUR_WAY_REUNION")
+do Narrative.Execute("complete_event", "slice.d1.four_way_reunion")
+=> END

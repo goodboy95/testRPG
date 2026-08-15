@@ -1,0 +1,58 @@
+~ start
+if Narrative.Evaluate("has_fact", "slice.d1.activity_xiaoyu")
+	=> xiaoyu
+elif Narrative.Evaluate("has_fact", "slice.d1.activity_zhou")
+	=> zhou
+elif Narrative.Evaluate("has_fact", "slice.d1.activity_shen")
+	=> shen
+else
+	=> END
+
+~ xiaoyu
+旁白: [#speaker=narrator]住宅巷口，林晓雨停下脚步。她还抱着装录音机的帆布包。 [ID:EVT_D1_PROMISE_XIAOYU_001]
+林晓雨: [#speaker=lin_xiaoyu]乔姨说车站明早会贴工程告示。也许和河边的声音有关。 [ID:EVT_D1_PROMISE_XIAOYU_002]
+林晓雨: 你愿意和我一起去看吗？ [ID:EVT_D1_PROMISE_XIAOYU_003]
+- 【承诺】明早在车站见，我一定到。 [ID:EVT_D1_PROMISE_XIAOYU_CHOICE_FIRM]
+	do Narrative.Execute("create_promise", "promise.slice.rail_notice", "protagonist", "lin_xiaoyu", "PROMISE_INSPECT_RAIL_NOTICE")
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "3")
+	=> promised
+- 【承诺】我会去；如果临时有事，我会先告诉你。 [ID:EVT_D1_PROMISE_XIAOYU_CHOICE_CAREFUL]
+	do Narrative.Execute("create_promise", "promise.slice.rail_notice", "protagonist", "lin_xiaoyu", "PROMISE_INSPECT_RAIL_NOTICE")
+	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "2")
+	do Narrative.Execute("change_affinity", "lin_xiaoyu", "protagonist", "1")
+	=> promised
+
+~ zhou
+旁白: [#speaker=narrator]住宅巷口，周明把旧地图仔细收回防水袋。 [ID:EVT_D1_PROMISE_ZHOU_001]
+周明: [#speaker=zhou_ming]车站明早会贴工程告示。新线路图或许能解释旧地图为什么被改过。 [ID:EVT_D1_PROMISE_ZHOU_002]
+周明: 一起去核对？ [ID:EVT_D1_PROMISE_ZHOU_003]
+- 【承诺】明早在车站见，我一定到。 [ID:EVT_D1_PROMISE_ZHOU_CHOICE_FIRM]
+	do Narrative.Execute("create_promise", "promise.slice.rail_notice", "protagonist", "zhou_ming", "PROMISE_INSPECT_RAIL_NOTICE")
+	do Narrative.Execute("change_trust", "zhou_ming", "protagonist", "3")
+	=> promised
+- 【承诺】我会去；如果临时有事，我会先告诉你。 [ID:EVT_D1_PROMISE_ZHOU_CHOICE_CAREFUL]
+	do Narrative.Execute("create_promise", "promise.slice.rail_notice", "protagonist", "zhou_ming", "PROMISE_INSPECT_RAIL_NOTICE")
+	do Narrative.Execute("change_trust", "zhou_ming", "protagonist", "2")
+	do Narrative.Execute("change_affinity", "zhou_ming", "protagonist", "1")
+	=> promised
+
+~ shen
+旁白: [#speaker=narrator]住宅巷口，沈砚晃了晃重新走动的怀表。秒针仍会偶尔迟疑。 [ID:EVT_D1_PROMISE_SHEN_001]
+沈砚: [#speaker=shen_yan]乔姨说车站明早贴工程告示。要是施工范围正好在怀表指的方向，就有意思了。 [ID:EVT_D1_PROMISE_SHEN_002]
+沈砚: 陪我去确认一下？ [ID:EVT_D1_PROMISE_SHEN_003]
+- 【承诺】明早在车站见，我一定到。 [ID:EVT_D1_PROMISE_SHEN_CHOICE_FIRM]
+	do Narrative.Execute("create_promise", "promise.slice.rail_notice", "protagonist", "shen_yan", "PROMISE_INSPECT_RAIL_NOTICE")
+	do Narrative.Execute("change_trust", "shen_yan", "protagonist", "3")
+	=> promised
+- 【承诺】我会去；如果临时有事，我会先告诉你。 [ID:EVT_D1_PROMISE_SHEN_CHOICE_CAREFUL]
+	do Narrative.Execute("create_promise", "promise.slice.rail_notice", "protagonist", "shen_yan", "PROMISE_INSPECT_RAIL_NOTICE")
+	do Narrative.Execute("change_trust", "shen_yan", "protagonist", "2")
+	do Narrative.Execute("change_affinity", "shen_yan", "protagonist", "1")
+	=> promised
+
+~ promised
+旁白: [#speaker=narrator]这项承诺已记入事实手册。它没有隐藏期限；如果无法履行，你可以主动解释。 [ID:EVT_D1_PROMISE_001]
+do Narrative.Execute("add_fact", "slice.promise.rail_notice")
+do Narrative.Execute("timeline", "TIMELINE_D1_PROMISED_RAIL_NOTICE")
+do Narrative.Execute("complete_event", "slice.d1.promise")
+=> END
