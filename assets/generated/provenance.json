@@ -237,6 +237,42 @@
       "referenceImages": ["dream_escape/lin-xiaoyu-neutral.png"],
       "postprocessing": ["Drawn at 32x48 per frame", "Four frames for each of down/left/right/up", "Packed into a 128x192 transparent RGBA sheet"],
       "prompt": "Programmatic specification: Lin Xiaoyu with dark low ponytail, teal hair clip and practical summer blouse; neutral four-direction walk cycle without hostility or romance cues."
+    },
+    {
+      "id": "dream_classroom_original_source_v1",
+      "sourceFile": "exec-05c444e1-91fc-44d0-8242-deddae854856.png",
+      "gameFile": "dream_escape/experimental/classroom-original-source-v1.png",
+      "status": "experimental-adopted-source",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["town-style-anchor-source.png"],
+      "postprocessing": ["Copied byte-for-byte from the offline work reference", "Original 1672x941 RGB PNG retained for reproducibility"],
+      "prompt": "Believable abandoned 1990s Chinese secondary-school classroom for a top-down 2D mystery RPG; erased blackboard, map cabinet, student desks, teacher desk, old window, seven-o'clock clock and duty roster; crisp 32-bit-era pixel-art reference; deep navy, muted teal and restrained warm amber; realistic base with subtle dreamlike unease; no characters, labels, UI, puzzle answers or watermark."
+    },
+    {
+      "id": "dream_classroom_original_background_v1",
+      "sourceFile": "dream_escape/experimental/classroom-original-source-v1.png",
+      "gameFile": "dream_escape/experimental/classroom-original-background-v1.png",
+      "status": "experimental-runtime",
+      "generator": "Pillow deterministic preprocessing",
+      "model": "Pillow 12.1.1",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["dream_escape/experimental/classroom-original-source-v1.png"],
+      "postprocessing": ["Lanczos resize to 640x360", "RGBA conversion", "Deterministic optimized PNG encoding"],
+      "prompt": "Deterministic runtime preparation of the adopted classroom composition without generative modification."
+    },
+    {
+      "id": "dream_classroom_original_occluders_v1",
+      "sourceFile": "scripts/tools/prepare_original_classroom.py",
+      "gameFile": "dream_escape/experimental/classroom-original-occluders-v1.png",
+      "status": "experimental-runtime",
+      "generator": "Pillow deterministic masking",
+      "model": "Pillow 12.1.1",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["dream_escape/experimental/classroom-original-source-v1.png"],
+      "postprocessing": ["Four 640x360 transparent occlusion bands", "Polygon masks for cabinet, teacher desk and ten student desks", "Packed vertically into a 640x1440 RGBA atlas"],
+      "prompt": "Deterministic foreground masks copied from the adopted classroom image for player depth sorting; no synthesized pixels."
     }
   ]
 }

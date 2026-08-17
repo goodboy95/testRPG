@@ -50,7 +50,7 @@ public partial class GodotSmokeRunner : Node
             if (!string.IsNullOrWhiteSpace(captureDirectory))
             {
                 await CaptureDreamClassroomArt(session, Path.GetFullPath(captureDirectory));
-                GD.Print("DREAM_ART_CAPTURE_PASS files=4");
+                GD.Print("DREAM_ART_CAPTURE_PASS files=5");
                 GetTree().Quit(0);
                 return;
             }
@@ -77,7 +77,10 @@ public partial class GodotSmokeRunner : Node
                 "res://assets/generated/dream_escape/pixel/classroom-props-v1.png",
                 "res://assets/generated/dream_escape/pixel/dream-ambient-v1.png",
                 "res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png",
-                "res://assets/generated/dream_escape/pixel/lin-xiaoyu-walk-4x4-v2.png"
+                "res://assets/generated/dream_escape/pixel/lin-xiaoyu-walk-4x4-v2.png",
+                "res://assets/generated/dream_escape/experimental/classroom-original-source-v1.png",
+                "res://assets/generated/dream_escape/experimental/classroom-original-background-v1.png",
+                "res://assets/generated/dream_escape/experimental/classroom-original-occluders-v1.png"
             };
             foreach (var visual in dreamVisuals)
             {
@@ -108,15 +111,28 @@ public partial class GodotSmokeRunner : Node
                 await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
                 if (scenePath == "res://scenes/dream/DreamClassroom.tscn")
                 {
-                    var visual = instance.GetNode<DreamClassroomVisual>("ClassroomVisual");
-                    var tileLayerCount = visual.GetChildren().OfType<TileMapLayer>().Count();
+                    var visual = instance.GetNode<DreamOriginalClassroomVisual>("ClassroomVisual");
                     var markerCount = instance.GetNode("InteractionMarkers").GetChildren()
                         .OfType<DreamInteractionMarker>().Count();
-                    if (tileLayerCount != 2 || markerCount != 9)
+                    var blockedMarkers = instance.GetNode("InteractionMarkers").GetChildren()
+                        .OfType<DreamInteractionMarker>()
+                        .Where(marker => visual.IsBlocked(marker.Position))
+                        .Select(marker => marker.TargetId)
+                        .ToArray();
+                    var collisionNodes = visual.GetNode("CollisionBodies").GetChildren()
+                        .OfType<StaticBody2D>().Count();
+                    var player = instance.GetNode<PlayerController>("Player");
+                    var playerShape = player.GetNode<CollisionShape2D>("CollisionShape2D").Shape;
+                    if (markerCount != 9 || collisionNodes != 17 ||
+                        visual.CollisionBodyCount != 17 || visual.FurnitureCollisionCount != 12 ||
+                        playerShape is null || blockedMarkers.Length > 0)
                     {
                         throw new InvalidOperationException(
-                            $"Dream classroom composition invalid: tileLayers={tileLayerCount} markers={markerCount}.");
+                            $"Original classroom composition invalid: collisions={collisionNodes} " +
+                            $"furniture={visual.FurnitureCollisionCount} markers={markerCount} " +
+                            $"playerShape={playerShape is not null} blockedMarkers={string.Join(',', blockedMarkers)}.");
                     }
+                    await ProbeClassroomPhysics(player, visual);
                 }
                 instance.QueueFree();
                 await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -144,7 +160,7 @@ public partial class GodotSmokeRunner : Node
         var classroom = packed.Instantiate<DreamAreaController>();
         AddChild(classroom);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        var visual = classroom.GetNode<DreamClassroomVisual>("ClassroomVisual");
+        var visual = classroom.GetNode<DreamOriginalClassroomVisual>("ClassroomVisual");
         var dream = session.State.DreamEscape
             ?? throw new InvalidOperationException("Dream state missing during art capture.");
 
@@ -162,7 +178,37 @@ public partial class GodotSmokeRunner : Node
         dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMapCabinet);
         visual.ApplyState(dream);
         await SaveCapture(outputDirectory, "04-classroom-map-cabinet.png");
+        visual.SetCollisionDebug(true);
+        await SaveCapture(outputDirectory, "05-classroom-collisions.png");
+        visual.SetCollisionDebug(false);
         classroom.QueueFree();
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+    }
+
+    private async Task ProbeClassroomPhysics(
+        PlayerController player,
+        DreamOriginalClassroomVisual visual)
+    {
+        if (!visual.IsBlocked(new Vector2(100, 300)) ||
+            visual.IsBlocked(new Vector2(178, 260)) ||
+            visual.IsBlocked(visual.ResolveSpawn(new Vector2(320, 280))))
+        {
+            throw new InvalidOperationException("Original classroom collision layout rejected its deterministic probes.");
+        }
+
+        await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+        player.Position = new Vector2(100, 250);
+        if (!player.TestMove(player.Transform, new Vector2(0, 60)))
+            throw new InvalidOperationException("Physics probe crossed a student desk.");
+        player.Position = new Vector2(178, 250);
+        if (player.TestMove(player.Transform, new Vector2(0, 60)))
+            throw new InvalidOperationException("Physics probe blocked the central aisle.");
+        player.Position = new Vector2(335, 190);
+        if (!player.TestMove(player.Transform, new Vector2(0, 45)))
+            throw new InvalidOperationException("Physics probe crossed the teacher desk.");
+        player.Position = new Vector2(590, 220);
+        if (player.TestMove(player.Transform, new Vector2(25, 0)))
+            throw new InvalidOperationException("Physics probe blocked the right-side doorway.");
     }
 
     private async Task SaveCapture(string outputDirectory, string fileName)

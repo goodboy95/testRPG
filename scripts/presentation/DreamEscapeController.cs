@@ -241,9 +241,12 @@ public partial class DreamEscapeController : Node2D
         if (targetId.StartsWith("area:", StringComparison.Ordinal))
         {
             var nextArea = targetId["area:".Length..];
-            var spawn = nextArea == DreamEscapeIds.AreaCorridor
-                ? new Vector2(320, 270)
-                : new Vector2(320, 282);
+            var spawn = nextArea switch
+            {
+                DreamEscapeIds.AreaCorridor => new Vector2(320, 270),
+                DreamEscapeIds.AreaClassroom => new Vector2(588, 232),
+                _ => new Vector2(320, 282)
+            };
             var result = _session.MoveDreamToArea(nextArea, spawn.X, spawn.Y);
             if (result.Changed) LoadArea(nextArea);
             else ShowResult(result);

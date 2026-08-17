@@ -17,7 +17,8 @@ public partial class DreamAreaController : Node2D
     private string _lastPrompt = "\0";
     private string _selectedItemId = string.Empty;
     private bool _useGamepadPrompts;
-    private DreamClassroomVisual? _classroomVisual;
+    private IDreamAreaVisual? _areaVisual;
+    private IDreamCollisionLayout? _collisionLayout;
     private readonly Dictionary<string, Vector2> _markerPositions = new(StringComparer.Ordinal);
 
     public override void _Ready()
@@ -26,8 +27,17 @@ public partial class DreamAreaController : Node2D
         _player = GetNode<PlayerController>("Player");
         var dream = _session.State.DreamEscape
             ?? throw new InvalidOperationException("Dream area loaded without dream state.");
-        _player.Position = new Vector2(dream.PositionX, dream.PositionY);
-        _player.MovementBounds = new Rect2(24, 54, 592, 270);
+        var visualNode = GetNodeOrNull<Node>("ClassroomVisual");
+        _areaVisual = visualNode as IDreamAreaVisual;
+        _collisionLayout = visualNode as IDreamCollisionLayout;
+        var requestedPosition = new Vector2(dream.PositionX, dream.PositionY);
+        var resolvedPosition = _collisionLayout?.ResolveSpawn(requestedPosition) ?? requestedPosition;
+        if (!resolvedPosition.IsEqualApprox(requestedPosition))
+        {
+            _session.MoveDreamToArea(AreaId, resolvedPosition.X, resolvedPosition.Y);
+        }
+        _player.Position = resolvedPosition;
+        _player.MovementBounds = _collisionLayout?.MovementBounds ?? new Rect2(24, 54, 592, 270);
         var protagonistTexture = ResourceLoader.Load<Texture2D>(
             "res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png");
         if (protagonistTexture is not null)
@@ -39,8 +49,7 @@ public partial class DreamAreaController : Node2D
             painter.AreaId = AreaId;
             painter.QueueRedraw();
         }
-        _classroomVisual = GetNodeOrNull<DreamClassroomVisual>("ClassroomVisual");
-        _classroomVisual?.ApplySettings(_session.State.Settings);
+        _areaVisual?.ApplySettings(_session.State.Settings);
         LoadInteractionMarkers();
         SpawnXiaoyuIfNeeded(dream);
     }
@@ -51,13 +60,13 @@ public partial class DreamAreaController : Node2D
         if (_session.Modal.IsBlocked)
         {
             SetPrompt(string.Empty);
-            _classroomVisual?.SetFocusedTarget(null, _session.State.Settings.HighContrastPrompts);
+            _areaVisual?.SetFocusedTarget(null, _session.State.Settings.HighContrastPrompts);
             return;
         }
 
         var target = FindInteractionTarget();
         _currentTargetId = target?.Id ?? string.Empty;
-        _classroomVisual?.SetFocusedTarget(target?.Id, _session.State.Settings.HighContrastPrompts);
+        _areaVisual?.SetFocusedTarget(target?.Id, _session.State.Settings.HighContrastPrompts);
         SetPrompt(target is null ? string.Empty : InteractionPrompt(target));
     }
 
@@ -88,7 +97,7 @@ public partial class DreamAreaController : Node2D
 
     public void ApplySettings(PlayerSettings settings)
     {
-        _classroomVisual?.ApplySettings(settings);
+        _areaVisual?.ApplySettings(settings);
     }
 
     private InteractionTarget? FindInteractionTarget()

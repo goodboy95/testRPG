@@ -174,5 +174,11 @@ do Narrative.Execute("complete_event", "main.d3.example")
 
 - 构图和角色生成图只作离线参考，不能直接充当最终房间背景或未经校准的整张行走表。
 - 最终梦境像素资产由 `scripts/tools/build_dream_pixel_art.py build` 在原始像素尺寸绘制；`check` 模式在内存中重绘并比对尺寸、RGBA、透明边、调色板和哈希，不得改写现有文件。
+
+### 第一室原图实验管线
+
+- `scripts/tools/prepare_original_classroom.py build --import-source` 仅用于首次把离线参考图按原始字节纳入 `experimental/`；之后普通 `build` 从已采用源图生成 640×360 RGBA 背景、四层透明遮挡图集和哈希清单。
+- 提交前执行 `py -3 scripts/tools/prepare_original_classroom.py check`。校验模式只在内存重建并比对源图尺寸、PNG 字节和清单，不改写仓库。
+- 原图与派生 PNG 受仓库现有 Git LFS 规则管理；运行时不调用 Python 或生成模型。
 - 共享图块使用 32px 网格；角色表为 128×192，每格 32×48、四列动作帧、四行方向（下/左/右/上）。最终 PNG 使用最近邻采样且不生成 mipmap。
 - 参考图保存在 `work/dream_escape_art_refs/`，不进入导出；运行时图集与区域清单位于 `assets/generated/dream_escape/pixel/`，采用记录统一写入 `assets/generated/provenance.json`。

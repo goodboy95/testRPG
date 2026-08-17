@@ -7,6 +7,7 @@ town-rpg/
 ├─ assets/generated/
 │  ├─ dream_escape/             八图标、半身/四向素材、三张谜题特写
 │  │  └─ pixel/                 第一室共享图块、机关、环境动效、主角/晓雨 4×4 行走表及清单
+│  │  └─ experimental/          第一室原图实验源图、运行时背景、四层遮挡图集及清单
 │  └─ provenance.json           采用资产的生成与后处理记录
 ├─ assets/shaders/
 │  └─ pixel_outline.gdshader    第一室接近交互目标时的一像素轮廓
@@ -24,9 +25,9 @@ town-rpg/
 │  └─ world/                    Legacy 旧宅、车站地图
 ├─ scripts/
 │  ├─ application/              GameSession、内容仓库、叙事桥、ModalGate
-│  ├─ presentation/             世界/梦境控制器、第一室图块表现、角色精灵、分页背包和通用谜题 UI
-│  ├─ testing/                  九场景引擎冒烟及可选第一室四状态截图采集
-│  └─ tools/                    既有素材整理脚本与确定性梦境像素图集构建/校验脚本
+│  ├─ presentation/             世界/梦境控制器、可替换第一室视觉、碰撞布局、角色精灵、分页背包和谜题 UI
+│  ├─ testing/                  九场景冒烟、原图物理探针及可选第一室五状态截图采集
+│  └─ tools/                    梦境像素图集与第一室原图遮挡层的确定性构建/校验脚本
 ├─ src/TownRpg.Core/
 │  ├─ Content/                  catalog DTO 与严格 JSON
 │  ├─ Domain/                   GameState、DreamEscapeState 等可存档状态

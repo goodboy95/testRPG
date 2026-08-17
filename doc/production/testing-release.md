@@ -90,19 +90,20 @@ $GodotConsole = 'D:\ProgramFiles\Godot\Godot_v4.6.3-stable_mono_win64_console.ex
 GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8
 ```
 
-冒烟验证 Autoload、主场景、旧宅、车站、梦境根、走廊、四室、物品目录、第一室像素图集、交互轮廓 shader 和 4×4 `SpriteFrames` 可以实例化。它不能证明谜题理解、手柄手感、存档 I/O 或完整流程正确。
+冒烟验证 Autoload、九场景、物品目录、第一室原图/遮挡图集、17组静态碰撞、九个可达交互标记、脚部碰撞体、物理通阻探针和 4×4 `SpriteFrames`。它不能证明谜题理解、手柄手感、存档 I/O 或完整流程正确。
 
 第一室素材及截图可复核：
 
 ```powershell
 $PythonExe = 'C:\Python314\python.exe'
 & $PythonExe .\scripts\tools\build_dream_pixel_art.py check
+& $PythonExe .\scripts\tools\prepare_original_classroom.py check
 
 $CaptureDir = Join-Path (Get-Location) 'outputs\dream-art-qa'
 & $GodotConsole --path . --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- "--capture-dream-art=$CaptureDir"
 ```
 
-预期分别出现 `DREAM_PIXEL_ART_CHECK_PASS files=5 paletteMax=32` 与 `DREAM_ART_CAPTURE_PASS files=4`。截图覆盖初始、黑板显形、教师桌打开、地图柜打开；截图采集是视觉复核证据，不代替完整人工操作。
+预期出现 `DREAM_PIXEL_ART_CHECK_PASS files=5 paletteMax=32`、`ORIGINAL_CLASSROOM_CHECK_PASS source=1672x941 occluders=4` 与 `DREAM_ART_CAPTURE_PASS files=5`。截图覆盖初始、黑板显形、教师桌打开、地图柜打开及碰撞调试；截图采集是视觉复核证据，不代替完整人工操作。
 
 ## 四室梦境人工验收
 
@@ -115,7 +116,7 @@ $CaptureDir = Join-Path (Get-Location) 'outputs\dream-art-qa'
 7. 在走廊和四室分别取消一次大头针确认；再于五个区域分别确认刺醒，验证清空梦境物品、无现实纸条、重载不能重进或领奖。
 8. 完成出口后确认只显示第一阶段开发完成页，不揭示正式信息、不生成纸条、不标记 `CompletedEscape`。
 9. 以 100%/125%/150% 字号检查物品/记录/晓雨分页、数字直输、逐项撤销、确认框的焦点链与取消行为。
-10. 第一室默认无悬浮物件标签；接近粉笔、黑板、窗、时钟、值日表、教师桌和地图柜时出现一像素轮廓且底部提示与目标一致。检查普通/高对比轮廓，以及“减少闪烁”开启时窗光保持稳定。
+10. 第一室默认无悬浮物件标签；接近粉笔、黑板、窗、时钟、值日表、教师桌和地图柜时出现轮廓且底部提示与目标一致。检查普通/高对比轮廓、“减少闪烁”，并确认角色不能穿过墙、柜和桌椅但可通过中央过道与右侧门洞。
 11. 用键盘和 Xbox 分别检查主角下/左/右/上四方向动画和停止朝向；后续房间的晓雨使用新版 4×4 素材但仍停在既定同行位置。
 
 目标游玩时长 30–45 分钟必须通过真实首次游玩记录确认，自动测试和熟练开发者速通不能替代。
