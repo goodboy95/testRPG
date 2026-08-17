@@ -2,7 +2,9 @@
 
 ## 交付边界
 
-`[已实现]` 当前是预计 15–30 分钟的“两日生活＋首次异象”垂直切片，用于验证探索、时间、关系、承诺、调查、暴露提示、情境战和存档是否形成可理解的因果链。
+`[已实现]` 新游戏进入目标 30–45 分钟的“四室旧校舍梦境”序章第一阶段，用于验证跨房间谜题、道具、记录、提示、刺醒和存档。出口开启后停在机制完成页，不生成正式重要信息或纸条。
+
+`[已实现·Legacy]` 原 15–30 分钟“两日生活＋首次异象”切片仍在源码中，旧 v1 存档缺少 `DreamEscape` 字段时可继续该流程；新游戏不再进入。其中林晓雨旧友与四人重逢内容已失去剧情权威，等待重写。
 
 `[计划]` 完整 3–5 小时版本的五个居民、完整小镇、公司设施、谨慎/救援路线、恋爱确认、终战和结局尚未成为可游玩内容。Core 中已有部分枚举和判定骨架，但这不等于内容已经完成。
 
@@ -14,8 +16,19 @@
 - 可开始新游戏或在存在主档/备份时继续。
 - 新游戏允许输入姓名和称谓；空值分别回退为“小岚”和“同学”。
 - 设置保留在新游戏之间，剧情状态会重置。
+- 姓名确认后直接加载梦境根场景，不显示梦境/醒来/跳过提示。
 
-### 第一天
+### 四室梦境序章
+
+1. 新游戏出生在第一室；房间已使用可复用像素图块、状态机关精灵和主角四向动画精绘。粉笔显出观察顺序，分别调查窗、时钟和值日表后以 `372` 取得第二室钥匙，地图柜留待回访。
+2. 第二室输入 `1—4—2—3` 救出初次见面的林晓雨，完成三处辨听后开放第三室。
+3. 第三室档案顺序取得维护钥匙与红尺；依次回第一、第二、第三室取得并修复录音机。
+4. 广播序列开放第四室；三块控制板复现旧答案，晓雨与主角同时操作机关后开启出口。
+5. 任意进行中区域可从背包对自己使用大头针，二次确认后清包、标记 `CompletedPin` 并揭示梦境。
+
+详细固定答案、提示与结算边界见[四室梦境密室规格](../design/dream-escape.md)。
+
+### Legacy 第一天
 
 1. 在旧宅醒来，选择关注车站信号或山中回声，写入不同事实。
 2. 离开旧宅，在车站与林晓雨、周明、沈砚重逢；问候态度改变关系。
@@ -24,7 +37,7 @@
 5. 与活动伙伴建立明确的【承诺】：次日一起查看工程告示。
 6. 回旧宅睡觉，进入下一日 08:00；睡眠本身不推进剧情事实。
 
-### 第二天
+### Legacy 第二天
 
 1. 四名 NPC 改变位置，手册可显示已知作息和下一可见时段。
 2. 与承诺对象查看“北山旧铁路安全整修与遗迹勘察工程”告示。
@@ -39,6 +52,7 @@
 | 系统 | 当前行为 | 主要入口 |
 | --- | --- | --- |
 | 应用导航 | 标题、改名、世界、暂停、设置、完成页。 | `MainController` |
+| 梦境密室 | 第一室出生、走廊与四室回访、分页背包/记录、晓雨加入后三级提示、通用谜题、刺醒、出口完成页。 | `DreamEscapeService`、`DreamEscapeController` |
 | 世界场景 | 旧宅和车站分区；C# 原型绘制地图与 NPC。 | `Main.tscn`、`WorldSceneController`、`WorldPainter` |
 | 移动/交互 | 8 方向移动、对角归一化、邻近目标按距离与朝向选择。 | `PlayerController`、`WorldSceneController` |
 | 时间 | 仅实际移动推进，23:00 封顶，睡眠跨日。 | `TimeService`、`GameSession` |
@@ -53,9 +67,9 @@
 ## 运行链路
 
 1. Godot 加载 `Main.tscn`，之前先创建 `GameSession` 和 `Narrative` Autoload。
-2. `GameSession._Ready` 加载三个 JSON catalog，验证引用并绑定 Core 服务。
+2. `GameSession._Ready` 加载四个 JSON catalog，验证引用并绑定 Core 服务。
 3. `MainController._Ready` 创建 HUD 和模态面板，显示标题。
-4. 新游戏载入旧宅；世界控制器根据日程创建 NPC，并将交互 ID传给 `MainController`。
+4. 新游戏创建 `DreamEscapeState` 并载入梦境根场景；旧存档没有该字段时载入 Legacy 世界。
 5. 切片事件由 `MainController` 运行异步对白；C# 演示流程的具名结果经 `EventOutcomeService` 应用。
 6. `StateChanged` 驱动 HUD、NPC 日程和手册刷新。
 7. 进入异象时创建战前检查点；战斗对象只活在会话内，不写入存档。
@@ -65,6 +79,7 @@
 - `data/characters.json`：5 个定义，主角、林晓雨、周明、沈砚、乔姨。
 - `data/schedules.json`：21 条两日和后续兜底日程。
 - `data/events.json`：8 个切片事件。
+- `data/items.json`：8 个梦境道具定义及图标路径。
 - `dialogue/events/`：8 个对应 `.dialogue` 文件。
 - `localization/zh_CN.csv`：角色、日程、事件和对白静态 ID 的简体中文文本。
 - Core 预留 8 名核心 NPC ID；何医生、温老师、罗记者、彭师傅目前没有完整角色 catalog、个人事件和可见地图内容。
@@ -74,7 +89,7 @@
 ### `src/TownRpg.Core`
 
 - `Domain/`：存档状态、枚举、角色 ID 和内容模型。
-- `Services/`：时间、关系、承诺、日程、事件排序、叙事命令、原子结果、路线/结局、战斗和存档。
+- `Services/`：梦境密室、时间、关系、承诺、日程、事件排序、叙事命令、原子结果、路线/结局、战斗和存档。
 - `Content/`：JSON catalog DTO 与严格解析选项。
 
 ### `scripts/application`
@@ -87,9 +102,12 @@
 ### `scripts/presentation`
 
 - `MainController.cs`：当前最大文件，负责应用 UI、世界切换和全部切片事件演示。
+- `DreamEscapeController.cs`、`DreamAreaController.cs`：梦境表现编排、场景交互标记与稳定交互 ID；答案只由 Core 判定。
+- `DreamClassroomVisual.cs`、`DreamCharacterFrames.cs`：第一室双图块层、状态机关、环境动效，以及 4×4 角色表到 `SpriteFrames` 的转换。
+- `DreamInventoryPanel.cs`、`DreamPuzzlePanel.cs`：分页背包/记录/晓雨提示，以及支持数字直输和逐项撤销的通用排列输入。
 - `WorldSceneController.cs`：NPC 日程、交互目标、提示和地图事件入口。
 - `DialoguePanel.cs`、`JournalPanel.cs`、`BattlePanel.cs`：对应模态 UI。
-- `PlayerController.cs`、`NpcActor.cs`、`WorldPainter.cs`：移动和原型世界表现。
+- `PlayerController.cs`、`NpcActor.cs`、`WorldPainter.cs`：移动、可选角色精灵动画和原型世界表现。
 
 ## 调试入口
 
@@ -101,23 +119,22 @@
 
 ## 已完成验证
 
-截至 2026-08-15：
+截至 2026-08-17：
 
-- Core、应用规则和内容完整性测试 71/71 通过。
+- Core、应用规则和内容完整性测试 84/84 通过；新增用例验证林晓雨加入前提示不可用。
 - 根 Godot 项目 Debug/Release 构建通过。
-- 主场景 headless 30 帧启动通过。
-- `Main.tscn`、`OldHouse.tscn`、`StationQuarter.tscn` 实例化通过。
-- 内容仓库报告 `characters=5 schedules=21 events=8`。
-- Compatibility/OpenGL 标题取帧确认标题图、中文字体和 640×360 UI 可显示。
+- 主场景、Legacy 两图、梦境根、走廊与四室共九场景实例化通过。
+- 内容仓库报告 `characters=5 schedules=21 events=8 items=8`。
+- 第一室五张像素图集通过确定性重绘/哈希校验，并可自动输出初始、黑板、教师桌和地图柜四种状态截图。
 
 ## 已知缺口
 
 - Dialogue Manager v3.10.4 未放入 `addons/`；`.dialogue` 尚不是运行时入口。
 - 当前 `NarrativeBridge.Execute` 对单条命令做白名单写入，但没有把一段 `.dialogue` 的多条命令组成原子 outcome；插件接入时必须迁移，不能直接视为完成的事务桥。
 - `MainController` 同时负责导航和剧情演示，后续内容扩展前应完成对白接入与职责拆分。
-- 当前角色和地图主要是 C# 原型图形，尚无完整像素角色、四向动画、立绘、音频和战斗资产。
+- 第一室已经迁移为模块化像素图块与机关状态精灵；走廊、音乐教室、档案室和礼堂主体仍为 C# 原型绘制。已有八个道具图标、晓雨中性半身、主角/晓雨 4×4 四向行走表、合影滤色/录音机特写和礼堂控制板底图。音频及晓雨跟随动画尚未制作。
 - 名称输入的完整 Windows IME、按键重映射、手柄震动和所有辅助设置尚未做实机闭环验证。
-- 完整两日流程的各条分支、连续睡多日、窗口缩放、60 FPS 和切图耗时尚未人工验收。
+- 梦境 30–45 分钟完整路径、键盘/Xbox、150% 字号、窗口缩放、60 FPS 和切图耗时尚未人工验收；Legacy 两日流程仍需旧存档回归。
 - Windows 导出模板缺失，未生成可分发 ZIP。
 - 导出 preset 会排除 `doc/`、`tests/`、`work/` 和 `outputs/`；但实际导出尚未验证。
 

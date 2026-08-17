@@ -16,6 +16,7 @@ public partial class GameSession : Node
     public RelationshipService Relationships { get; private set; } = null!;
     public NarrativeCommandService NarrativeCommands { get; private set; } = null!;
     public EventOutcomeService Outcomes { get; private set; } = null!;
+    public DreamEscapeService DreamEscape { get; private set; } = null!;
     public ResonanceBattle? ActiveBattle { get; set; }
     public string PlayerName => State.Player.Name;
     public string PlayerTitle => State.Player.Title;
@@ -50,7 +51,7 @@ public partial class GameSession : Node
     public void NewGame(string playerName, string playerTitle)
     {
         var retainedSettings = State.Settings;
-        State = GameState.CreateVerticalSlice();
+        State = GameState.CreateDreamPrologue();
         State.Settings = retainedSettings;
         State.Player.Name = string.IsNullOrWhiteSpace(playerName) ? "小岚" : playerName.Trim();
         State.Player.Title = string.IsNullOrWhiteSpace(playerTitle) ? "同学" : playerTitle.Trim();
@@ -87,6 +88,33 @@ public partial class GameSession : Node
     }
 
     public void SaveCheckpoint() => WriteSave();
+
+    public DreamActionResult MoveDreamToArea(string areaId, float x, float y) =>
+        ApplyDreamAction(() => DreamEscape.MoveToArea(areaId, x, y));
+
+    public DreamActionResult PickupDreamItem(string itemId) =>
+        ApplyDreamAction(() => DreamEscape.Pickup(itemId));
+
+    public DreamActionResult UseDreamItem(string itemId, string targetId) =>
+        ApplyDreamAction(() => DreamEscape.UseItem(itemId, targetId));
+
+    public DreamActionResult ObserveDreamTarget(string targetId) =>
+        ApplyDreamAction(() => DreamEscape.Observe(targetId));
+
+    public DreamActionResult SubmitDreamPuzzle(string puzzleId, params string[] answer) =>
+        ApplyDreamAction(() => DreamEscape.SubmitPuzzle(puzzleId, answer));
+
+    public DreamActionResult AdvanceDreamHint(string puzzleId) =>
+        ApplyDreamAction(() => DreamEscape.AdvanceHint(puzzleId));
+
+    public DreamActionResult PrepareDreamLeftLever() =>
+        ApplyDreamAction(DreamEscape.PrepareLeftLever);
+
+    public DreamActionResult OpenDreamExit() =>
+        ApplyDreamAction(DreamEscape.OpenExit);
+
+    public DreamActionResult CompletePinWake() =>
+        ApplyDreamAction(DreamEscape.CompletePinWake);
 
     private void WriteSave()
     {
@@ -198,5 +226,17 @@ public partial class GameSession : Node
         Relationships = new RelationshipService(State);
         NarrativeCommands = new NarrativeCommandService(State);
         Outcomes = new EventOutcomeService(State);
+        DreamEscape = new DreamEscapeService(State);
+    }
+
+    private DreamActionResult ApplyDreamAction(Func<DreamActionResult> action)
+    {
+        var result = action();
+        if (result.Changed)
+        {
+            NotifyChanged();
+            SaveCheckpoint();
+        }
+        return result;
     }
 }

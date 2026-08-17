@@ -16,7 +16,8 @@ public static class SaveGameSerializer
     private static readonly HashSet<string> ValidPlayerLocations = new(StringComparer.Ordinal)
     {
         "old_house",
-        "station_quarter"
+        "station_quarter",
+        DreamEscapeIds.Location
     };
 
     private static readonly JsonSerializerOptions Options = new()
@@ -118,6 +119,42 @@ public static class SaveGameSerializer
             game.Settings.FontScale is < 0.75f or > 2f)
         {
             throw new InvalidDataException("Save data contains an invalid journal, inventory, progression, or setting value.");
+        }
+
+        ValidateDreamEscape(game.DreamEscape);
+    }
+
+    private static void ValidateDreamEscape(DreamEscapeState? dream)
+    {
+        if (dream is null)
+        {
+            return;
+        }
+
+        if (!Enum.IsDefined(dream.Status) ||
+            !DreamEscapeIds.Areas.Contains(dream.CurrentAreaId) ||
+            !float.IsFinite(dream.PositionX) ||
+            !float.IsFinite(dream.PositionY) ||
+            dream.PositionX is < 0 or > 640 ||
+            dream.PositionY is < 0 or > 360 ||
+            dream.Items is null ||
+            dream.SolvedPuzzles is null ||
+            dream.UnlockedAreas is null ||
+            dream.DiscoveredClues is null ||
+            dream.HintLevels is null ||
+            dream.Items.Any(item => !DreamEscapeIds.Items.Contains(item)) ||
+            dream.SolvedPuzzles.Any(puzzle =>
+                puzzle != "dream.pickup.chalk" && !DreamEscapeIds.Puzzles.Contains(puzzle)) ||
+            dream.UnlockedAreas.Any(area => !DreamEscapeIds.Areas.Contains(area)) ||
+            dream.DiscoveredClues.Any(clue => !DreamEscapeIds.Clues.Contains(clue)) ||
+            dream.HintLevels.Any(entry =>
+                !DreamEscapeIds.Puzzles.Contains(entry.Key) || entry.Value is < 0 or > 3) ||
+            !dream.UnlockedAreas.Contains(DreamEscapeIds.AreaCorridor) ||
+            !dream.UnlockedAreas.Contains(DreamEscapeIds.AreaClassroom) ||
+            !dream.UnlockedAreas.Contains(dream.CurrentAreaId) ||
+            dream.Status == DreamEscapeStatus.CompletedPin && dream.Items.Count != 0)
+        {
+            throw new InvalidDataException("Save data contains an invalid dream escape state.");
         }
     }
 }

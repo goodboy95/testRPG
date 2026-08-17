@@ -13,6 +13,17 @@ public sealed class GameState
     public HashSet<string> AppliedOutcomes { get; set; } = new(StringComparer.Ordinal);
     public HashSet<string> ReadDialogueLines { get; set; } = new(StringComparer.Ordinal);
     public PlayerSettings Settings { get; set; } = new();
+    public DreamEscapeState? DreamEscape { get; set; }
+
+    public static GameState CreateDreamPrologue()
+    {
+        var state = new GameState
+        {
+            DreamEscape = new DreamEscapeState()
+        };
+        state.Player.LocationId = DreamEscapeIds.Location;
+        return state;
+    }
 
     public static GameState CreateVerticalSlice()
     {

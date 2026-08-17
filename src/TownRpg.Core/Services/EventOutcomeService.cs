@@ -55,6 +55,7 @@ public sealed class EventOutcomeService(GameState state)
         state.AppliedOutcomes = restored.AppliedOutcomes;
         state.ReadDialogueLines = restored.ReadDialogueLines;
         state.Settings = restored.Settings;
+        state.DreamEscape = restored.DreamEscape;
     }
 }
 

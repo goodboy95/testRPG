@@ -13,6 +13,7 @@ public partial class MainController : Node
     private CanvasLayer _uiLayer = null!;
     private Control _uiRoot = null!;
     private WorldSceneController? _world;
+    private DreamEscapeController? _dream;
     private Control? _titleScreen;
     private Control? _pauseScreen;
     private Control? _completionScreen;
@@ -65,6 +66,7 @@ public partial class MainController : Node
         }
 
         DisconnectWorld();
+        DisconnectDream();
         _titleLease?.Dispose();
         _journalLease?.Dispose();
         _pauseLease?.Dispose();
@@ -97,6 +99,11 @@ public partial class MainController : Node
             _debugLabel.Visible = !_debugLabel.Visible;
             RefreshHud();
             GetViewport().SetInputAsHandled();
+            return;
+        }
+
+        if (_dream is not null)
+        {
             return;
         }
 
@@ -224,6 +231,7 @@ public partial class MainController : Node
     {
         CloseCompletion();
         DisconnectWorld();
+        DisconnectDream();
         foreach (var child in _worldHost.GetChildren())
         {
             child.QueueFree();
@@ -284,7 +292,7 @@ public partial class MainController : Node
         column.AddChild(continueGame);
         var note = new Label
         {
-            Text = "当前构建：两日生活＋首次异象垂直切片",
+            Text = "当前构建：四室旧校舍序章机制版",
             AutowrapMode = TextServer.AutowrapMode.WordSmart
         };
         note.AddThemeFontSizeOverride("font_size", 11);
@@ -371,9 +379,9 @@ public partial class MainController : Node
         _session.NewGame(playerName, playerTitle);
         ApplySettingsVisuals();
         CloseTitle();
-        LoadWorld("old_house", new Vector2(320, 260));
-        await RunWakeupAsync();
+        LoadDream();
         _session.SaveCheckpoint();
+        await Task.CompletedTask;
     }
 
     private void ContinueGame()
@@ -389,6 +397,34 @@ public partial class MainController : Node
 
         CloseTitle();
         ApplySettingsVisuals();
+        if (_session.State.DreamEscape is { } dream)
+        {
+            if (dream.Status == DreamEscapeStatus.PinPendingWake)
+            {
+                _session.CompletePinWake();
+                LoadWorld("old_house", new Vector2(320, 260));
+                ShowPinCompletion();
+                return;
+            }
+            if (dream.Status == DreamEscapeStatus.CompletedPin)
+            {
+                LoadWorld("old_house", new Vector2(320, 260));
+                ShowPinCompletion();
+                return;
+            }
+
+            LoadDream();
+            if (dream.Status == DreamEscapeStatus.ExitOpened)
+            {
+                ShowDreamMechanicsComplete();
+            }
+            else
+            {
+                ShowToast("进度已从最近一次有效操作恢复。");
+            }
+            return;
+        }
+
         LoadWorld(_session.State.Player.LocationId);
         ShowToast("存档已载入。主线不会因为多睡几天而错过。");
         if (!_session.State.World.HasFact("slice.d1.awake"))
@@ -403,7 +439,7 @@ public partial class MainController : Node
         _titleScreen = null;
         _titleLease?.Dispose();
         _titleLease = null;
-        _hud.Visible = true;
+        _hud.Visible = _session.State.DreamEscape is null;
         RefreshHud();
     }
 
@@ -440,14 +476,36 @@ public partial class MainController : Node
             ?? throw new FileNotFoundException($"World scene '{path}' is missing.");
         var next = packed.Instantiate<WorldSceneController>();
         var previous = _world;
+        var previousDream = _dream;
         DisconnectWorld();
+        DisconnectDream();
         _worldHost.AddChild(next);
         _world = next;
         _world.InteractionRequested += OnInteractionRequested;
         _world.PromptChanged += OnPromptChanged;
         _world.SetGamepadPrompts(_usingGamepad);
         previous?.QueueFree();
+        previousDream?.QueueFree();
+        _hud.Visible = true;
         RefreshHud();
+    }
+
+    private void LoadDream()
+    {
+        var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
+            ?? throw new FileNotFoundException("Dream escape root scene is missing.");
+        var next = packed.Instantiate<DreamEscapeController>();
+        var previousWorld = _world;
+        var previousDream = _dream;
+        DisconnectWorld();
+        DisconnectDream();
+        _worldHost.AddChild(next);
+        _dream = next;
+        _dream.PinWakeRequested += OnDreamPinWakeRequested;
+        _dream.ExitOpened += OnDreamExitOpened;
+        previousWorld?.QueueFree();
+        previousDream?.QueueFree();
+        _hud.Visible = false;
     }
 
     private void DisconnectWorld()
@@ -459,7 +517,33 @@ public partial class MainController : Node
 
         _world.InteractionRequested -= OnInteractionRequested;
         _world.PromptChanged -= OnPromptChanged;
+        _world = null;
     }
+
+    private void DisconnectDream()
+    {
+        if (_dream is null)
+        {
+            return;
+        }
+
+        _dream.PinWakeRequested -= OnDreamPinWakeRequested;
+        _dream.ExitOpened -= OnDreamExitOpened;
+        _dream = null;
+    }
+
+    private void OnDreamPinWakeRequested()
+    {
+        var result = _session.CompletePinWake();
+        if (!result.Changed && _session.State.DreamEscape?.Status != DreamEscapeStatus.CompletedPin)
+        {
+            return;
+        }
+        LoadWorld("old_house", new Vector2(320, 260));
+        ShowPinCompletion();
+    }
+
+    private void OnDreamExitOpened() => ShowDreamMechanicsComplete();
 
     private void OnInteractionRequested(string targetId) => _ = HandleInteractionAsync(targetId);
 
@@ -1001,6 +1085,74 @@ public partial class MainController : Node
         keepExploring.GrabFocus();
     }
 
+    private void ShowDreamMechanicsComplete()
+    {
+        CloseCompletion();
+        _completionScreen = NewScreen("DreamMechanicsComplete");
+        _completionLease = _session.Modal.Acquire("dream-mechanics-complete");
+        var shade = new ColorRect { Color = new Color("061019ed") };
+        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        _completionScreen.AddChild(shade);
+        var panel = new PanelContainer { Position = new Vector2(112, 64), Size = new Vector2(416, 232) };
+        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("172b39fa"), 10));
+        _completionScreen.AddChild(panel);
+        var column = new VBoxContainer();
+        column.AddThemeConstantOverride("separation", 10);
+        panel.AddChild(column);
+        var title = new Label { Text = "出口已开启" };
+        title.AddThemeFontSizeOverride("font_size", 26);
+        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
+        column.AddChild(title);
+        column.AddChild(new Label
+        {
+            Text = "四室密室的第一阶段机制到此完成。正式逃出、出口后的信息、现实承接与纸条奖励尚未加入；本构建不会用占位内容替代它们。",
+            AutowrapMode = TextServer.AutowrapMode.WordSmart,
+            CustomMinimumSize = new Vector2(376, 86)
+        });
+        var titleButton = UiStyles.Button("返回标题");
+        titleButton.Pressed += () =>
+        {
+            CloseCompletion();
+            ShowTitle();
+        };
+        column.AddChild(titleButton);
+        titleButton.GrabFocus();
+    }
+
+    private void ShowPinCompletion()
+    {
+        CloseCompletion();
+        _completionScreen = NewScreen("PinCompletion");
+        _completionLease = _session.Modal.Acquire("pin-complete");
+        var shade = new ColorRect { Color = new Color("07101bf0") };
+        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        _completionScreen.AddChild(shade);
+        var panel = new PanelContainer { Position = new Vector2(112, 67), Size = new Vector2(416, 226) };
+        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("1b2c3af8"), 10));
+        _completionScreen.AddChild(panel);
+        var column = new VBoxContainer();
+        column.AddThemeConstantOverride("separation", 10);
+        panel.AddChild(column);
+        var title = new Label { Text = "你睁开了眼" };
+        title.AddThemeFontSizeOverride("font_size", 25);
+        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
+        column.AddChild(title);
+        column.AddChild(new Label
+        {
+            Text = "针尖的疼痛让旧校舍骤然碎开。你在旧宅的床上醒来——刚才只是一场梦。梦里拿到的东西已经全部消失，那条尚未弄清的信息也没能留下。",
+            AutowrapMode = TextServer.AutowrapMode.WordSmart,
+            CustomMinimumSize = new Vector2(376, 94)
+        });
+        var titleButton = UiStyles.Button("返回标题");
+        titleButton.Pressed += () =>
+        {
+            CloseCompletion();
+            ShowTitle();
+        };
+        column.AddChild(titleButton);
+        titleButton.GrabFocus();
+    }
+
     private void OpenJournal()
     {
         _journalLease = _session.Modal.Acquire("journal");
@@ -1134,7 +1286,11 @@ public partial class MainController : Node
             ApplySettingsVisuals();
         };
         var flashing = AddToggle(column, "减少闪烁（本切片默认无闪烁）", _session.State.Settings.ReduceFlashing);
-        flashing.Toggled += enabled => _session.State.Settings.ReduceFlashing = enabled;
+        flashing.Toggled += enabled =>
+        {
+            _session.State.Settings.ReduceFlashing = enabled;
+            ApplySettingsVisuals();
+        };
         var vibration = AddToggle(column, "手柄震动", _session.State.Settings.VibrationEnabled);
         vibration.Toggled += enabled => _session.State.Settings.VibrationEnabled = enabled;
         var fullscreen = AddToggle(column, "无边框全屏", _session.State.Settings.BorderlessFullscreen);
@@ -1195,6 +1351,7 @@ public partial class MainController : Node
         _uiRoot.Theme.DefaultFontSize = Mathf.RoundToInt(14 * _session.State.Settings.FontScale);
         _promptLabel?.AddThemeStyleboxOverride("normal", UiStyles.Panel(
             _session.State.Settings.HighContrastPrompts ? new Color("000000ff") : new Color("1a2638e5"), 5));
+        _dream?.ApplySettings(_session.State.Settings);
         DisplayServer.WindowSetMode(_session.State.Settings.BorderlessFullscreen
             ? DisplayServer.WindowMode.Fullscreen
             : DisplayServer.WindowMode.Windowed);

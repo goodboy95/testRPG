@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "items": [
+    {
+      "id": "dream.pin",
+      "nameKey": "ITEM_DREAM_PIN_NAME",
+      "descriptionKey": "ITEM_DREAM_PIN_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-pin.png",
+      "selectable": true,
+      "canUseOnSelf": true
+    },
+    {
+      "id": "dream.chalk",
+      "nameKey": "ITEM_DREAM_CHALK_NAME",
+      "descriptionKey": "ITEM_DREAM_CHALK_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-chalk.png",
+      "selectable": true,
+      "canUseOnSelf": false
+    },
+    {
+      "id": "dream.room_two_key",
+      "nameKey": "ITEM_DREAM_ROOM_TWO_KEY_NAME",
+      "descriptionKey": "ITEM_DREAM_ROOM_TWO_KEY_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-room-two-key.png",
+      "selectable": true,
+      "canUseOnSelf": false
+    },
+    {
+      "id": "dream.maintenance_key",
+      "nameKey": "ITEM_DREAM_MAINTENANCE_KEY_NAME",
+      "descriptionKey": "ITEM_DREAM_MAINTENANCE_KEY_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-maintenance-key.png",
+      "selectable": true,
+      "canUseOnSelf": false
+    },
+    {
+      "id": "dream.red_filter",
+      "nameKey": "ITEM_DREAM_RED_FILTER_NAME",
+      "descriptionKey": "ITEM_DREAM_RED_FILTER_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-red-filter.png",
+      "selectable": true,
+      "canUseOnSelf": false
+    },
+    {
+      "id": "dream.class_photo",
+      "nameKey": "ITEM_DREAM_CLASS_PHOTO_NAME",
+      "descriptionKey": "ITEM_DREAM_CLASS_PHOTO_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-class-photo.png",
+      "selectable": true,
+      "canUseOnSelf": false
+    },
+    {
+      "id": "dream.tape_reel",
+      "nameKey": "ITEM_DREAM_TAPE_REEL_NAME",
+      "descriptionKey": "ITEM_DREAM_TAPE_REEL_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-tape-reel.png",
+      "selectable": true,
+      "canUseOnSelf": false
+    },
+    {
+      "id": "dream.recorder_crank",
+      "nameKey": "ITEM_DREAM_RECORDER_CRANK_NAME",
+      "descriptionKey": "ITEM_DREAM_RECORDER_CRANK_DESCRIPTION",
+      "iconPath": "res://assets/generated/dream_escape/item-recorder-crank.png",
+      "selectable": true,
+      "canUseOnSelf": false
+    }
+  ]
+}

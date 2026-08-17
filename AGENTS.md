@@ -66,7 +66,7 @@ Web、数据库、外部微服务、HTTP/gRPC、域名、监听端口、反向�
 - 主题固定为“信任先于证据，真相修复信任”；主角从旁观者成长为愿意承担误解和责任的人。
 - 基调是青春奇幻冒险，保留民俗悬疑，不写成持续压迫的心理惊悚。
 - 古老存在没有人类意义上的善恶，只通过声音、梦境、地层和情绪共鸣表达，不进行人格化对话。
-- 林晓雨与主角的旧日隔阂来自主角曾否定她听见的声音并向成年人求助，间接使她被孤立。
+- 主角与林晓雨在现实中此前从未见过；两人在旧校舍梦境中初次相遇。主角醒后只记得她的姓名与尚未确定的重要信息，无法清楚回忆她的面容。不得恢复“少年时否定她听见声音”或“四人旧友重逢”的设定。
 - 小镇居民本质善良，不设置居民内鬼；被误导时表现为恐惧、犹疑或劝阻，不主动迫害林晓雨。
 - 组织普通成员不知道唤醒灾厄的真实计划，必须保留通过证据策反部分成员的空间。
 - 舆论操控只是阻止主角救出林晓雨的手段，不是组织或领袖的最终目的。
@@ -117,7 +117,7 @@ $GodotPackages = Join-Path $GodotRoot 'GodotSharp\Tools\nupkgs'
 换机时只替换本机绝对路径，不得改变版本。冒烟必须出现：
 
 ```text
-GODOT_SMOKE_PASS scenes=3 characters=5 schedules=21 events=8
+GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8
 ```
 
 人工验收、性能和导出要求见 [测试与发布](doc/production/testing-release.md)。
@@ -131,7 +131,7 @@ GODOT_SMOKE_PASS scenes=3 characters=5 schedules=21 events=8
 
 ## 当前阻断项与提交前检查
 
-截至 2026-08-15：Dialogue Manager v3.10.4 尚未放入 `addons/dialogue_manager/`；Windows 导出模板缺失；完整两日人工游玩、手柄、性能和导出尚未验收。
+截至 2026-08-16：Dialogue Manager v3.10.4 尚未放入 `addons/dialogue_manager/`；Windows 导出模板缺失；梦境密室 30–45 分钟完整人工游玩、手柄、性能和导出尚未验收。旧两日切片仍保留给旧存档与回归，但新游戏不再进入。
 
 提交或交付前必须确认：
 

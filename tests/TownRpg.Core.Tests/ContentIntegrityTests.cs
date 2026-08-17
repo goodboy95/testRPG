@@ -39,16 +39,28 @@ public sealed class ContentIntegrityTests
         var characters = LoadCatalog<CharacterCatalog>("data/characters.json");
         var schedules = LoadCatalog<ScheduleCatalog>("data/schedules.json");
         var events = LoadCatalog<EventCatalog>("data/events.json");
+        var items = LoadCatalog<ItemCatalog>("data/items.json");
 
         Assert.Equal(ExpectedSchemaVersion, characters.SchemaVersion);
         Assert.Equal(ExpectedSchemaVersion, schedules.SchemaVersion);
         Assert.Equal(ExpectedSchemaVersion, events.SchemaVersion);
+        Assert.Equal(ExpectedSchemaVersion, items.SchemaVersion);
         Assert.NotEmpty(characters.Characters);
         Assert.NotEmpty(schedules.Entries);
         Assert.NotEmpty(events.Events);
+        Assert.Equal(8, items.Items.Count);
 
         AssertUnique(characters.Characters.Select(character => character.Id), "character ID");
         AssertUnique(events.Events.Select(definition => definition.Id), "event ID");
+        AssertUnique(items.Items.Select(item => item.Id), "item ID");
+        Assert.True(DreamEscapeIds.Items.SetEquals(items.Items.Select(item => item.Id)));
+        Assert.All(items.Items, item =>
+        {
+            Assert.False(string.IsNullOrWhiteSpace(item.NameKey));
+            Assert.False(string.IsNullOrWhiteSpace(item.DescriptionKey));
+            Assert.StartsWith("res://assets/generated/dream_escape/", item.IconPath, StringComparison.Ordinal);
+            Assert.True(File.Exists(ResolveResourcePath(item.IconPath)), $"Missing item icon '{item.IconPath}'.");
+        });
 
         Assert.All(characters.Characters, character =>
         {
@@ -268,6 +280,7 @@ public sealed class ContentIntegrityTests
     {
         var characters = LoadCatalog<CharacterCatalog>("data/characters.json");
         var schedules = LoadCatalog<ScheduleCatalog>("data/schedules.json");
+        var items = LoadCatalog<ItemCatalog>("data/items.json");
         var localizationRows = ReadLocalizationRows();
         var errors = new List<string>();
         var staticIds = new List<string>();
@@ -318,6 +331,8 @@ public sealed class ContentIntegrityTests
         requiredKeys.UnionWith(characters.Characters.Select(character => character.NameKey));
         requiredKeys.UnionWith(characters.Characters.Select(character => character.RoleKey));
         requiredKeys.UnionWith(schedules.Entries.Select(entry => entry.ActivityKey));
+        requiredKeys.UnionWith(items.Items.Select(item => item.NameKey));
+        requiredKeys.UnionWith(items.Items.Select(item => item.DescriptionKey));
         requiredKeys.UnionWith(ReadEventDisplayNameKeys());
 
         foreach (var mutation in GetDialogueFiles().SelectMany(ReadMutationCalls))
@@ -352,10 +367,33 @@ public sealed class ContentIntegrityTests
             "scenes/app/Main.tscn",
             "scenes/world/OldHouse.tscn",
             "scenes/world/StationQuarter.tscn",
+            "scenes/dream/DreamEscape.tscn",
+            "scenes/dream/DreamCorridor.tscn",
+            "scenes/dream/DreamClassroom.tscn",
+            "scenes/dream/DreamMusicRoom.tscn",
+            "scenes/dream/DreamArchiveRoom.tscn",
+            "scenes/dream/DreamAuditorium.tscn",
             "scenes/testing/GodotSmokeRunner.tscn",
             "scripts/presentation/MainController.cs",
             "scripts/application/GameSession.cs",
             "scripts/testing/GodotSmokeRunner.cs",
+            "scripts/presentation/DreamEscapeController.cs",
+            "scripts/presentation/DreamInventoryPanel.cs",
+            "scripts/presentation/DreamPuzzlePanel.cs",
+            "data/items.json",
+            "assets/generated/dream_escape/item-pin.png",
+            "assets/generated/dream_escape/item-chalk.png",
+            "assets/generated/dream_escape/item-room-two-key.png",
+            "assets/generated/dream_escape/item-maintenance-key.png",
+            "assets/generated/dream_escape/item-red-filter.png",
+            "assets/generated/dream_escape/item-class-photo.png",
+            "assets/generated/dream_escape/item-tape-reel.png",
+            "assets/generated/dream_escape/item-recorder-crank.png",
+            "assets/generated/dream_escape/lin-xiaoyu-neutral.png",
+            "assets/generated/dream_escape/lin-xiaoyu-walk-4x3.png",
+            "assets/generated/dream_escape/class-photo-filter-closeup.png",
+            "assets/generated/dream_escape/recorder-closeup.png",
+            "assets/generated/dream_escape/auditorium-control-board.png",
             "assets/generated/title-town-dusk.png",
             "assets/generated/provenance.json",
             "localization/zh_CN.csv",

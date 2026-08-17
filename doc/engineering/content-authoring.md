@@ -169,3 +169,10 @@ do Narrative.Execute("complete_event", "main.d3.example")
 - 游戏内用途、许可证或使用限制。
 
 固定视觉规格：640×360 内部分辨率、32px 地块、48px 行走角色；8 方向移动复用 4 朝向，每向 4 帧。战斗只制作待机、技能、受击、倒地等关键动作；对话使用半身立绘和少量表情差分。
+
+### 梦境像素图集管线
+
+- 构图和角色生成图只作离线参考，不能直接充当最终房间背景或未经校准的整张行走表。
+- 最终梦境像素资产由 `scripts/tools/build_dream_pixel_art.py build` 在原始像素尺寸绘制；`check` 模式在内存中重绘并比对尺寸、RGBA、透明边、调色板和哈希，不得改写现有文件。
+- 共享图块使用 32px 网格；角色表为 128×192，每格 32×48、四列动作帧、四行方向（下/左/右/上）。最终 PNG 使用最近邻采样且不生成 mipmap。
+- 参考图保存在 `work/dream_escape_art_refs/`，不进入导出；运行时图集与区域清单位于 `assets/generated/dream_escape/pixel/`，采用记录统一写入 `assets/generated/provenance.json`。

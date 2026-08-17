@@ -28,7 +28,7 @@ flowchart TD
 - `[已实现]` `GameSession`：持有唯一 `GameState`、内容仓库、模态门、规则服务和当前战斗；负责新游戏、时间、睡眠、存读档和服务重绑定。
 - `[已实现]` `Narrative`：`NarrativeBridge` 的 Autoload 名称。向对白层暴露固定参数数量的 `Evaluate`/`Execute` 重载、玩家姓名和称谓。
 
-`GameSession` 是 composition root，不是领域模型。每次新游戏或读取存档后，它用新的 `GameState` 重建 `TimeService`、`RelationshipService`、`NarrativeCommandService` 和 `EventOutcomeService`。
+`GameSession` 是 composition root，不是领域模型。每次新游戏或读取存档后，它用新的 `GameState` 重建 `TimeService`、`RelationshipService`、`NarrativeCommandService`、`EventOutcomeService` 和 `DreamEscapeService`。
 
 ### Core 领域聚合
 
@@ -42,6 +42,7 @@ flowchart TD
 | `Promises` | 无期限承诺及其单向状态机。 |
 | `Investigation` | 线索、已知日程和按日期记录的时间线。 |
 | `Inventory` / `Progression` | 金钱、物品、1–10 级经验。 |
+| `DreamEscape`（可选） | 梦境状态、区域坐标、独立物品、谜题、开放区、线索、提示等级和晓雨加入状态；旧存档为 `null`。 |
 | 完成集合 | 已完成事件、已应用结果、已读对白。 |
 | `Settings` | 文本速度、字号、闪烁、震动、高对比、故事模式和全屏。 |
 
@@ -52,6 +53,8 @@ flowchart TD
 ### 普通规则
 
 关系、承诺、时间、日程、路线和结局都通过 Core 服务修改或判断。UI 读取阶段文本，不读取内部阈值后自行复制业务规则。
+
+`DreamEscapeService` 同样是唯一谜题判定入口。它先验证当前状态、区域、前置线索与物品，再原子完成一次小操作；`DreamActionResult.Changed=false` 表示错误或重复操作，`GameSession` 不保存。选中物品属于临时 UI 状态，不进入 `GameState`。
 
 ### 叙事命令
 
@@ -100,16 +103,16 @@ sequenceDiagram
 
 ## 时间、模态与输入
 
-- `[已实现]` 新游戏第 1 日 08:00；每现实移动秒推进 0.75 游戏分钟，约 20 分钟走完 08:00–23:00。
+- `[已实现]` 新游戏的世界时钟仍初始化为第 1 日 08:00，但先进入梦境；梦中移动只更新梦境坐标，不推进世界时间。Legacy 世界每现实移动秒推进 0.75 游戏分钟。
 - `[已实现]` `PlayerController` 比较移动前后位置，只在实际位移时调用 `AdvanceMovingTime`，顶墙不走时钟。
 - `[已实现]` `ModalGate` 按 owner 引用计数。对话、手册、暂停、标题、战斗和完成页持有 lease，阻止玩家移动和时间推进。
 - `[固定约束]` 不使用全局 `SceneTree.Paused` 冻结业务流程；异步流程必须在 `finally` 或统一关闭方法中释放 lease。
 - `[已实现]` `WorldSceneController._UnhandledInput` 处理世界交互，减少 UI 已消费确认键后重复触发的风险。
-- `[已实现]` 输入提示根据最后一次键盘/手柄事件切换；键盘为 WASD/方向键、E/空格、J、Esc，Xbox 为左摇杆、A、Y、Menu。
+- `[已实现]` 输入提示根据最后一次键盘/手柄事件切换；梦境背包为 `I`/`Tab` 或 Xbox `X`，其余移动/交互保持 WASD/方向键、E/空格或左摇杆、A。
 
 ## 场景生命周期
 
-主场景 `Main.tscn` 常驻。`MainController` 在 `SceneHost` 下实例化 `OldHouse.tscn` 或 `StationQuarter.tscn`，切换时断开旧世界事件并释放旧节点。长期状态只保存 `LocationId` 和坐标。
+主场景 `Main.tscn` 常驻。新游戏实例化 `DreamEscape.tscn`，后者在自身 `AreaHost` 中替换走廊/四室；Legacy 存档实例化 `OldHouse.tscn` 或 `StationQuarter.tscn`。切换时均断开普通 .NET 事件并释放旧节点，长期状态只保存稳定区域 ID 和基础坐标。
 
 当前独立世界场景只有旧宅和车站分区；河岸、学校档案室、商店活动和废弃铁路主要通过事件段落或同一车站地图上的交互点表现。完整版本扩图时继续保持“常驻应用壳 + 可替换世界子场景”。
 
@@ -117,12 +120,13 @@ sequenceDiagram
 
 ## 内容加载
 
-`ContentRepository` 启动时从 `res://data/` 读取 `characters.json`、`schedules.json` 和 `events.json`：
+`ContentRepository` 启动时从 `res://data/` 读取 `characters.json`、`schedules.json`、`events.json` 和 `items.json`：
 
-- 三个 catalog 必须使用 `schemaVersion: 1`。
+- 四个 catalog 必须使用 `schemaVersion: 1`。
 - 角色 ID 必须唯一且包含主角。
 - 日程 NPC 必须存在，等价条件的时间段不得重叠。
 - 每个事件的 `dialoguePath` 必须存在。
+- 八个梦境道具 ID 必须完整唯一，本地化键和图标路径必须存在。
 - 验证失败写入 `InitializationError`，标题页应阻止新游戏而不是带着残缺内容继续。
 
 更完整的跳转、命令、本地化和资源检查由 `ContentIntegrityTests` 完成。
@@ -135,7 +139,7 @@ sequenceDiagram
 - `[已实现]` 空文件、坏 JSON、缺少必要分区、非法枚举/范围、重复关系/承诺和版本不匹配都会明确拒绝。
 - `[固定约束]` 手动保存只允许稳定状态；对话或战斗前使用检查点。退出战斗后应回到战前状态，而非序列化半场对象。
 
-当前 `ValidPlayerLocations` 只有 `old_house` 和 `station_quarter`。新增地图时必须同步存档校验与对应测试。
+`ValidPlayerLocations` 包含 `old_house`、`station_quarter` 和 `dream_school`。`DreamEscape` 是 v1 内可选分区：缺失时按 Legacy 流程；存在时会严格拒绝未知区域/物品/谜题/线索、越界提示等级和不一致状态，因此本次未提升格式版本。
 
 ## Dialogue Manager 边界
 

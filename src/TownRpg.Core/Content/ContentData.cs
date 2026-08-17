@@ -29,6 +29,22 @@ public sealed class EventCatalog
     public List<ContentEventDefinition> Events { get; init; } = [];
 }
 
+public sealed class ItemCatalog
+{
+    public int SchemaVersion { get; init; }
+    public List<ItemDefinition> Items { get; init; } = [];
+}
+
+public sealed class ItemDefinition
+{
+    public required string Id { get; init; }
+    public required string NameKey { get; init; }
+    public required string DescriptionKey { get; init; }
+    public required string IconPath { get; init; }
+    public bool Selectable { get; init; } = true;
+    public bool CanUseOnSelf { get; init; }
+}
+
 public sealed class ContentEventDefinition
 {
     public required string Id { get; init; }

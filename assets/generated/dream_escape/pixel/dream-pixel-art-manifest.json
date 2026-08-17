@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/tools/build_dream_pixel_art.py",
+  "pillowVersion": "12.1.1",
+  "tileSize": 32,
+  "characterFrameSize": [
+    32,
+    48
+  ],
+  "characterLayout": {
+    "columns": 4,
+    "rows": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ]
+  },
+  "files": {
+    "school-interior-tiles-v1.png": {
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "opaqueColors": 12,
+      "sha256": "5b04d759209746af74cc475f888ffa554b7d9560e6fe7fd41ce1c10e5269c6af"
+    },
+    "classroom-props-v1.png": {
+      "width": 512,
+      "height": 256,
+      "mode": "RGBA",
+      "opaqueColors": 17,
+      "sha256": "37db3c0176a751012d9b170d639db378c3732948b1c272eb566c261f3dc0acd6"
+    },
+    "dream-ambient-v1.png": {
+      "width": 128,
+      "height": 64,
+      "mode": "RGBA",
+      "opaqueColors": 0,
+      "sha256": "2ab795ae7585c2d9c1efea4a9c9292cf429f0c4c8dc65b78d5d4edb72fa9221a"
+    },
+    "protagonist-walk-4x4-v1.png": {
+      "width": 128,
+      "height": 192,
+      "mode": "RGBA",
+      "opaqueColors": 7,
+      "sha256": "cf6942f1d6b64a1c7b97d657b9b57b935d434b60a180f4175d71eca89d624bb8"
+    },
+    "lin-xiaoyu-walk-4x4-v2.png": {
+      "width": 128,
+      "height": 192,
+      "mode": "RGBA",
+      "opaqueColors": 7,
+      "sha256": "6198cc0c66a242dba10436a4d0cacbd67c6aa84e33a76fc087ef4504df310fcf"
+    }
+  },
+  "classroomPropRegions": {
+    "blackboard_blank": [
+      0,
+      0,
+      212,
+      58
+    ],
+    "blackboard_revealed": [
+      216,
+      0,
+      212,
+      58
+    ],
+    "map_cabinet_locked": [
+      0,
+      64,
+      96,
+      96
+    ],
+    "map_cabinet_open": [
+      96,
+      64,
+      96,
+      96
+    ],
+    "window_marked": [
+      192,
+      64,
+      96,
+      96
+    ],
+    "clock_seven": [
+      288,
+      64,
+      64,
+      64
+    ],
+    "duty_roster_second": [
+      352,
+      64,
+      80,
+      96
+    ],
+    "teacher_desk_locked": [
+      0,
+      160,
+      112,
+      72
+    ],
+    "teacher_desk_open": [
+      112,
+      160,
+      112,
+      72
+    ],
+    "chalk_pickup": [
+      224,
+      160,
+      32,
+      16
+    ],
+    "student_desk_0": [
+      256,
+      160,
+      56,
+      48
+    ],
+    "student_desk_1": [
+      320,
+      160,
+      56,
+      48
+    ],
+    "student_desk_2": [
+      384,
+      160,
+      56,
+      48
+    ],
+    "student_desk_3": [
+      448,
+      160,
+      56,
+      48
+    ]
+  }
+}

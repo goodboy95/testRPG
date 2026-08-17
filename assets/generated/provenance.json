@@ -14,6 +14,229 @@
         "PNG optimize"
       ],
       "prompt": "Original pixel-art East Asian mountain railway town during a warm summer evening; old station, tiled-roof homes, shop street, forested slopes and distant disused tunnel; 32-bit-era crisp pixel art; deep navy, teal and warm amber palette; comforting surface with an unsettling undertone; no text, logos, watermark, UI or close characters."
+    },
+    {
+      "id": "dream_item_pin",
+      "sourceFile": "exec-511bb6a9-3950-4439-8985-fd9a2f25d1b8.png",
+      "gameFile": "dream_escape/item-pin.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Green-screen removal", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Isolated steel pushpin with warm amber head; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; deep navy, teal and amber palette; chroma-green background; no text or UI."
+    },
+    {
+      "id": "dream_item_chalk",
+      "sourceFile": "exec-ad50a755-263e-4268-b7ea-54e9206debf6.png",
+      "gameFile": "dream_escape/item-chalk.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Single worn white classroom chalk stick; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
+    },
+    {
+      "id": "dream_item_room_two_key",
+      "sourceFile": "exec-06f0122a-9ff8-4681-a61d-ef7fba41c921.png",
+      "gameFile": "dream_escape/item-room-two-key.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Single old brass room key with a small second-room tag; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no UI."
+    },
+    {
+      "id": "dream_item_maintenance_key",
+      "sourceFile": "exec-afb62572-035f-48d9-81e3-b03adb36e8f5.png",
+      "gameFile": "dream_escape/item-maintenance-key.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Green-screen removal", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Compact aged brass maintenance key with triangular head; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; chroma-green background; no text or UI."
+    },
+    {
+      "id": "dream_item_red_filter",
+      "sourceFile": "exec-8b647d93-ec19-4de7-9055-38afdc0440fd.png",
+      "gameFile": "dream_escape/item-red-filter.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Translucent worn red plastic ruler/filter strip; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
+    },
+    {
+      "id": "dream_item_class_photo",
+      "sourceFile": "exec-71f9c5f8-7f38-4671-b6a9-455ef1870633.png",
+      "gameFile": "dream_escape/item-class-photo.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Faded 1990s Chinese school class group photograph with worn cream border and unreadable faces; hand-painted pixel-art-inspired RPG icon; transparent background; no readable text."
+    },
+    {
+      "id": "dream_item_tape_reel",
+      "sourceFile": "exec-bf64aeb2-655a-4aa0-a0c0-9f55c0aa2c7c.png",
+      "gameFile": "dream_escape/item-tape-reel.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Vintage open-reel magnetic recording tape spool in muted teal and brown; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
+    },
+    {
+      "id": "dream_item_recorder_crank",
+      "sourceFile": "exec-9544d5db-58b0-40bb-a6f9-bf01dc32765f.png",
+      "gameFile": "dream_escape/item-recorder-crank.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Removable vintage tape-recorder hand crank with square mounting socket; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
+    },
+    {
+      "id": "dream_lin_xiaoyu_neutral",
+      "sourceFile": "exec-ae141914-01ac-405d-9467-96344a506e29.png",
+      "gameFile": "dream_escape/lin-xiaoyu-neutral.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-15",
+      "referenceImages": [],
+      "postprocessing": ["Alpha crop", "Bicubic resize and bottom-align to 256x256", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Original neutral half-body portrait of Chinese university-age Lin Xiaoyu; dark low ponytail, teal hair clip, practical summer blouse, calm alert expression, no hostility or romance; youth-fantasy mystery RPG style; transparent background."
+    },
+    {
+      "id": "dream_lin_xiaoyu_walk_4x3",
+      "sourceFile": "exec-1c24aa51-5a65-4c1f-a86c-7a81eee89b78.png",
+      "gameFile": "dream_escape/lin-xiaoyu-walk-4x3.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-16",
+      "referenceImages": [],
+      "postprocessing": ["Green-screen removal", "Bicubic resize to 128x144 four-column/three-row sheet", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Original 4-column by 3-row Lin Xiaoyu RPG walk spritesheet; dark low ponytail, teal hair clip, summer clothes; down/left/right/up views and three walking phases; crisp pixel-art style; chroma-green background; no text or UI.",
+      "supersededBy": "dream_lin_xiaoyu_walk_4x4_v2"
+    },
+    {
+      "id": "dream_class_photo_filter_closeup",
+      "sourceFile": "exec-cd63ee2e-0908-4ad6-9e5a-cc47867988bc.png",
+      "gameFile": "dream_escape/class-photo-filter-closeup.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-16",
+      "referenceImages": [],
+      "postprocessing": ["Bicubic resize to 640x360", "PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Old Chinese school class photograph under a translucent red ruler/filter; B2, D1, A3 and C4 marked beside circled silhouettes; visible A-D/1-4 grid for a non-color-only clue; pixel-art-inspired 16:9 closeup."
+    },
+    {
+      "id": "dream_recorder_closeup",
+      "sourceFile": "exec-e13ca812-9b8b-466a-b413-be4da4add4a4.png",
+      "gameFile": "dream_escape/recorder-closeup.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-16",
+      "referenceImages": [],
+      "postprocessing": ["Bicubic resize to 640x360", "PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Repaired vintage school reel recorder with tape and crank; four ordered curtain, clock, bell and register pictograms, each paired with a distinct waveform for non-audio access; pixel-art-inspired 16:9 closeup."
+    },
+    {
+      "id": "dream_auditorium_control_board",
+      "sourceFile": "exec-73dc3a22-6cd7-4d99-ae87-7907b42416d7.png",
+      "gameFile": "dream_escape/auditorium-control-board.png",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-16",
+      "referenceImages": [],
+      "postprocessing": ["Bicubic resize to 640x360", "PNG export via PrepareDreamAssets.ps1"],
+      "prompt": "Old auditorium control console with three empty puzzle panels and two separated simultaneous levers; engraved shape and lamp state alternatives; navy/teal/brass pixel-art-inspired 16:9 backdrop; no filled answers."
+    },
+    {
+      "id": "dream_classroom_art_direction_reference",
+      "sourceFile": "exec-05c444e1-91fc-44d0-8242-deddae854856.png",
+      "gameFile": "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png",
+      "status": "reference-only",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["town-style-anchor-source.png"],
+      "postprocessing": ["Copied unchanged into offline work reference directory"],
+      "prompt": "Believable abandoned 1990s Chinese secondary-school classroom for a top-down 2D mystery RPG; erased blackboard, map cabinet, student desks, teacher desk, old window, seven-o'clock clock and duty roster; crisp 32-bit-era pixel-art reference; deep navy, muted teal and restrained warm amber; realistic base with subtle dreamlike unease; no characters, labels, UI, puzzle answers or watermark."
+    },
+    {
+      "id": "dream_protagonist_art_direction_reference",
+      "sourceFile": "exec-39a00a13-12ee-4af6-ab76-e33d902328de.png",
+      "gameFile": "work/dream_escape_art_refs/protagonist-art-direction-2026-08-17.png",
+      "status": "reference-only",
+      "generator": "OpenAI built-in image generation",
+      "model": "built-in default",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["town-style-anchor-source.png", "dream_escape/lin-xiaoyu-neutral.png"],
+      "postprocessing": ["Copied unchanged into offline work reference directory"],
+      "prompt": "Original Chinese male university student protagonist art-direction reference; short dark hair, brick-red short-sleeve shirt, deep navy trousers and canvas shoes; ordinary build and attentive expression; full-body view plus simplified directional silhouettes; no text, UI, watermark or extra characters."
+    },
+    {
+      "id": "dream_school_interior_tiles_v1",
+      "sourceFile": "scripts/tools/build_dream_pixel_art.py",
+      "gameFile": "dream_escape/pixel/school-interior-tiles-v1.png",
+      "generator": "Pillow deterministic pixel drawing",
+      "model": "Pillow 12.1.1",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["town-style-anchor-source.png", "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"],
+      "postprocessing": ["Drawn at 1x pixel resolution", "Limited to the project palette", "Packed into a 256x256 RGBA atlas", "PNG optimized without resampling"],
+      "prompt": "Programmatic specification: reusable 32px abandoned-school plaster, teal lower wall, baseboard, worn floor, threshold, shadow, crack and dust tiles in the navy/teal/amber dream palette."
+    },
+    {
+      "id": "dream_classroom_props_v1",
+      "sourceFile": "scripts/tools/build_dream_pixel_art.py",
+      "gameFile": "dream_escape/pixel/classroom-props-v1.png",
+      "generator": "Pillow deterministic pixel drawing",
+      "model": "Pillow 12.1.1",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"],
+      "postprocessing": ["Drawn at 1x pixel resolution", "State variants aligned to fixed atlas regions", "Packed into a 512x256 RGBA atlas", "PNG optimized without resampling"],
+      "prompt": "Programmatic specification: blank/revealed blackboard, locked/open map cabinet, marked window, seven-o'clock clock, second-row duty roster, locked/open teacher desk, chalk and four student-desk variants; no floating labels."
+    },
+    {
+      "id": "dream_classroom_ambient_v1",
+      "sourceFile": "scripts/tools/build_dream_pixel_art.py",
+      "gameFile": "dream_escape/pixel/dream-ambient-v1.png",
+      "generator": "Pillow deterministic pixel drawing",
+      "model": "Pillow 12.1.1",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"],
+      "postprocessing": ["Four 32x32 dust frames", "Low-alpha window-light regions", "Packed into a 128x64 RGBA atlas"],
+      "prompt": "Programmatic specification: slow amber dust motes and restrained translucent window-light shapes for a non-horror dream atmosphere."
+    },
+    {
+      "id": "dream_protagonist_walk_4x4_v1",
+      "sourceFile": "scripts/tools/build_dream_pixel_art.py",
+      "gameFile": "dream_escape/pixel/protagonist-walk-4x4-v1.png",
+      "generator": "Pillow deterministic pixel drawing",
+      "model": "Pillow 12.1.1",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["work/dream_escape_art_refs/protagonist-art-direction-2026-08-17.png"],
+      "postprocessing": ["Drawn at 32x48 per frame", "Four frames for each of down/left/right/up", "Packed into a 128x192 transparent RGBA sheet"],
+      "prompt": "Programmatic specification: masculine Chinese university student with short dark hair, brick-red summer shirt, navy trousers and canvas shoes; restrained four-direction walk cycle."
+    },
+    {
+      "id": "dream_lin_xiaoyu_walk_4x4_v2",
+      "sourceFile": "scripts/tools/build_dream_pixel_art.py",
+      "gameFile": "dream_escape/pixel/lin-xiaoyu-walk-4x4-v2.png",
+      "generator": "Pillow deterministic pixel drawing",
+      "model": "Pillow 12.1.1",
+      "generatedAt": "2026-08-17",
+      "referenceImages": ["dream_escape/lin-xiaoyu-neutral.png"],
+      "postprocessing": ["Drawn at 32x48 per frame", "Four frames for each of down/left/right/up", "Packed into a 128x192 transparent RGBA sheet"],
+      "prompt": "Programmatic specification: Lin Xiaoyu with dark low ponytail, teal hair clip and practical summer blouse; neutral four-direction walk cycle without hostility or romance cues."
     }
   ]
 }
