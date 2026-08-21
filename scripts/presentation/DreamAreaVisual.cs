@@ -3,6 +3,18 @@ using TownRpg.Core.Domain;
 
 namespace TownRpg.Presentation;
 
+public interface IDreamAreaRuntime
+{
+    event Action<string>? InteractionRequested;
+    event Action<string>? PromptChanged;
+
+    bool SupportsQuarterTurnCamera { get; }
+    void SetGamepadPrompts(bool value);
+    void SetSelectedItem(string itemId);
+    void ApplySettings(PlayerSettings settings);
+    void RefreshState();
+}
+
 public interface IDreamAreaVisual
 {
     void ApplyState(DreamEscapeState state);

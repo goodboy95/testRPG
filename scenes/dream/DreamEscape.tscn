@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scripts/presentation/DreamEscapeController.cs" id="1"]
 
-[node name="DreamEscape" type="Node2D"]
+[node name="DreamEscape" type="Node"]
 script = ExtResource("1")

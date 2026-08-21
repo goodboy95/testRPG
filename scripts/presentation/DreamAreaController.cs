@@ -4,7 +4,7 @@ using TownRpg.Core.Domain;
 
 namespace TownRpg.Presentation;
 
-public partial class DreamAreaController : Node2D
+public partial class DreamAreaController : Node2D, IDreamAreaRuntime
 {
     [Export] public string AreaId { get; set; } = DreamEscapeIds.AreaCorridor;
 
@@ -19,7 +19,10 @@ public partial class DreamAreaController : Node2D
     private bool _useGamepadPrompts;
     private IDreamAreaVisual? _areaVisual;
     private IDreamCollisionLayout? _collisionLayout;
+    private Node2D? _xiaoyuActor;
     private readonly Dictionary<string, Vector2> _markerPositions = new(StringComparer.Ordinal);
+
+    public bool SupportsQuarterTurnCamera => false;
 
     public override void _Ready()
     {
@@ -98,6 +101,15 @@ public partial class DreamAreaController : Node2D
     public void ApplySettings(PlayerSettings settings)
     {
         _areaVisual?.ApplySettings(settings);
+    }
+
+    public void RefreshState()
+    {
+        var dream = _session.State.DreamEscape
+            ?? throw new InvalidOperationException("Dream area refreshed without dream state.");
+        _areaVisual?.ApplyState(dream);
+        GetNodeOrNull<DreamAreaPainter>("Painter")?.QueueRedraw();
+        SpawnXiaoyuIfNeeded(dream);
     }
 
     private InteractionTarget? FindInteractionTarget()
@@ -191,24 +203,27 @@ public partial class DreamAreaController : Node2D
         {
             return;
         }
+        if (_xiaoyuActor is not null && GodotObject.IsInstanceValid(_xiaoyuActor)) return;
         var texture = ResourceLoader.Load<Texture2D>(
             "res://assets/generated/dream_escape/pixel/lin-xiaoyu-walk-4x4-v2.png");
         if (texture is not null)
         {
-            AddChild(new AnimatedSprite2D
+            _xiaoyuActor = new AnimatedSprite2D
             {
                 SpriteFrames = DreamCharacterFrames.Create(texture),
                 Animation = "down",
                 Frame = 0,
                 Position = new Vector2(375, 250),
                 ZIndex = 4
-            });
+            };
+            AddChild(_xiaoyuActor);
             return;
         }
 
         var fallback = new NpcActor { Position = new Vector2(375, 250), ZIndex = 4 };
         fallback.Configure(CharacterIds.AbilityHolder, "林晓雨", new Color("3b8791"));
-        AddChild(fallback);
+        _xiaoyuActor = fallback;
+        AddChild(_xiaoyuActor);
     }
 
     private InteractionTarget Target(string id, float x, float y, string prompt) =>
@@ -234,7 +249,7 @@ public partial class DreamAreaController : Node2D
 
     private string InteractionPrompt(InteractionTarget target)
     {
-        var button = _useGamepadPrompts ? "A" : "E";
+        var button = _useGamepadPrompts ? "A" : "F";
         if (!string.IsNullOrEmpty(_selectedItemId) && target.Id.StartsWith("target.", StringComparison.Ordinal))
         {
             return $"[{button}] 对目标使用：{DreamInventoryPanel.ItemName(_selectedItemId)}";

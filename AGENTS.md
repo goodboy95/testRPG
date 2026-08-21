@@ -5,7 +5,7 @@
 ## 项目约束
 
 - 项目名：town-rpg
-- 项目类型：Windows 单机 2D 剧情生活 RPG 原型
+- 项目类型：Windows 单机剧情生活 RPG 原型，当前为 2D/3D 混合表现并逐步迁移到 3D
 - 前端技术栈：N/A
 - 后端技术栈：N/A
 - 测试服域名：N/A
@@ -131,7 +131,7 @@ GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8
 
 ## 当前阻断项与提交前检查
 
-截至 2026-08-16：Dialogue Manager v3.10.4 尚未放入 `addons/dialogue_manager/`；Windows 导出模板缺失；梦境密室 30–45 分钟完整人工游玩、手柄、性能和导出尚未验收。旧两日切片仍保留给旧存档与回归，但新游戏不再进入。
+截至 2026-08-21：梦境第一室已迁移为 3D MVP，走廊、后三室与 Legacy 小镇仍为 2D；Dialogue Manager v3.10.4 尚未放入 `addons/dialogue_manager/`；Windows 导出模板缺失；梦境密室 30–45 分钟完整人工游玩、手柄、性能和导出尚未验收。旧两日切片仍保留给旧存档与回归，但新游戏不再进入。
 
 提交或交付前必须确认：
 

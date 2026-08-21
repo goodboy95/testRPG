@@ -5,20 +5,22 @@ using TownRpg.Core.Services;
 
 namespace TownRpg.Presentation;
 
-public partial class DreamEscapeController : Node2D
+public partial class DreamEscapeController : Node
 {
     public event Action? PinWakeRequested;
     public event Action? ExitOpened;
 
     private GameSession _session = null!;
-    private Node2D _areaHost = null!;
-    private DreamAreaController? _area;
+    private Node _areaHost = null!;
+    private Node? _areaNode;
+    private IDreamAreaRuntime? _area;
     private CanvasLayer _interface = null!;
     private Control _interfaceRoot = null!;
     private Label _areaLabel = null!;
     private Label _objective = null!;
     private Label _prompt = null!;
     private Label _selected = null!;
+    private Label _cameraHint = null!;
     private TextureRect _selectedIcon = null!;
     private Label _toast = null!;
     private TextureRect _clueCloseup = null!;
@@ -38,7 +40,7 @@ public partial class DreamEscapeController : Node2D
             throw new InvalidOperationException("DreamEscape scene requires a dream escape state.");
         }
         _session.State.Player.LocationId = DreamEscapeIds.Location;
-        _areaHost = new Node2D { Name = "AreaHost" };
+        _areaHost = new Node { Name = "AreaHost" };
         AddChild(_areaHost);
         BuildInterface();
         LoadArea(_session.State.DreamEscape.CurrentAreaId);
@@ -122,6 +124,15 @@ public partial class DreamEscapeController : Node2D
         };
         _selected.AddThemeColorOverride("font_color", new Color("9bd3c9"));
         topRow.AddChild(_selected);
+        _cameraHint = new Label
+        {
+            CustomMinimumSize = new Vector2(88, 28),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Visible = false
+        };
+        _cameraHint.AddThemeColorOverride("font_color", new Color("f2c66d"));
+        topRow.AddChild(_cameraHint);
         _xiaoyuPortrait = new TextureRect
         {
             CustomMinimumSize = new Vector2(34, 34),
@@ -214,10 +225,13 @@ public partial class DreamEscapeController : Node2D
         };
         var packed = ResourceLoader.Load<PackedScene>(path)
             ?? throw new FileNotFoundException($"Dream area scene '{path}' is missing.");
-        var next = packed.Instantiate<DreamAreaController>();
-        var previous = _area;
+        var nextNode = packed.Instantiate();
+        var next = nextNode as IDreamAreaRuntime
+            ?? throw new InvalidOperationException($"Dream area scene '{path}' does not implement IDreamAreaRuntime.");
+        var previous = _areaNode;
         DisconnectArea();
-        _areaHost.AddChild(next);
+        _areaHost.AddChild(nextNode);
+        _areaNode = nextNode;
         _area = next;
         next.InteractionRequested += HandleInteraction;
         next.PromptChanged += SetPrompt;
@@ -233,6 +247,7 @@ public partial class DreamEscapeController : Node2D
         _area.InteractionRequested -= HandleInteraction;
         _area.PromptChanged -= SetPrompt;
         _area = null;
+        _areaNode = null;
     }
 
     private void HandleInteraction(string targetId)
@@ -436,7 +451,7 @@ public partial class DreamEscapeController : Node2D
         if (result.Changed)
         {
             _inventory.Refresh();
-            if (_session.State.DreamEscape is { } dream) LoadArea(dream.CurrentAreaId);
+            _area?.RefreshState();
         }
         RefreshHud();
     }
@@ -463,6 +478,8 @@ public partial class DreamEscapeController : Node2D
             ? null
             : ResourceLoader.Load<Texture2D>(selectedDefinition.IconPath);
         _selectedIcon.Visible = _selectedIcon.Texture is not null;
+        _cameraHint.Visible = _area?.SupportsQuarterTurnCamera == true;
+        _cameraHint.Text = _usingGamepad ? "[LB/RB] 镜头" : "[Q/E] 镜头";
         _selected.TooltipText = string.IsNullOrEmpty(_selectedItemId)
             ? "打开随身物品"
             : $"当前选用：{DreamInventoryPanel.ItemName(_selectedItemId)}";

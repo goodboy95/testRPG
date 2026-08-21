@@ -90,20 +90,26 @@ $GodotConsole = 'D:\ProgramFiles\Godot\Godot_v4.6.3-stable_mono_win64_console.ex
 GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8
 ```
 
-冒烟验证 Autoload、九场景、物品目录、第一室原图/遮挡图集、17组静态碰撞、九个可达交互标记、脚部碰撞体、物理通阻探针和 4×4 `SpriteFrames`。它不能证明谜题理解、手柄手感、存档 I/O 或完整流程正确。
+冒烟验证 Autoload、九场景和物品目录，并对 3D 第一室检查 GLB/着色器加载、四个相机角位、旋转锁、普通/减少闪烁裁墙、二维/三维坐标往返、旧坐标安全落点、Fixed-Y billboard、九个唯一且可达交互标记、四类视觉状态、19 组静态碰撞与物理通阻探针。它不能证明谜题理解、手柄手感、存档 I/O 或完整流程正确。
 
-第一室素材及截图可复核：
+第一室 2D 基线仍可用原有 Pillow 命令复核；当前 3D MVP 另执行 Blender 只读校验和九张截图采集：
 
 ```powershell
 $PythonExe = 'C:\Python314\python.exe'
 & $PythonExe .\scripts\tools\build_dream_pixel_art.py check
 & $PythonExe .\scripts\tools\prepare_original_classroom.py check
 
-$CaptureDir = Join-Path (Get-Location) 'outputs\dream-art-qa'
-& $GodotConsole --path . --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- "--capture-dream-art=$CaptureDir"
+$BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
+& $BlenderExe --background --factory-startup --python .\scripts\tools\build_classroom_3d.py -- check --root (Get-Location).Path
+
+$CaptureDir = Join-Path (Get-Location) 'outputs\classroom-3d-mvp\3d'
+& $GodotConsole --path . --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- "--capture-classroom-3d=$CaptureDir"
+
+& $GodotConsole --path . --resolution 1280x720 --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- --profile-classroom-3d
+& $GodotConsole --path . --resolution 1920x1080 --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- --profile-classroom-3d
 ```
 
-预期出现 `DREAM_PIXEL_ART_CHECK_PASS files=5 paletteMax=32`、`ORIGINAL_CLASSROOM_CHECK_PASS source=1672x941 occluders=4` 与 `DREAM_ART_CAPTURE_PASS files=5`。截图覆盖初始、黑板显形、教师桌打开、地图柜打开及碰撞调试；截图采集是视觉复核证据，不代替完整人工操作。
+预期出现 `DREAM_PIXEL_ART_CHECK_PASS files=5 paletteMax=32`、`ORIGINAL_CLASSROOM_CHECK_PASS source=1672x941 occluders=4`、`CLASSROOM_3D_CHECK_PASS meshes=130 desks=10` 与 `CLASSROOM_3D_CAPTURE_PASS files=9`。截图覆盖东南/西南/西北/东北四个方向、初始/黑板/教师桌/地图柜四类状态及碰撞调试；截图采集是视觉复核证据，不代替完整人工操作。
 
 ## 四室梦境人工验收
 
@@ -116,8 +122,10 @@ $CaptureDir = Join-Path (Get-Location) 'outputs\dream-art-qa'
 7. 在走廊和四室分别取消一次大头针确认；再于五个区域分别确认刺醒，验证清空梦境物品、无现实纸条、重载不能重进或领奖。
 8. 完成出口后确认只显示第一阶段开发完成页，不揭示正式信息、不生成纸条、不标记 `CompletedEscape`。
 9. 以 100%/125%/150% 字号检查物品/记录/晓雨分页、数字直输、逐项撤销、确认框的焦点链与取消行为。
-10. 第一室默认无悬浮物件标签；接近粉笔、黑板、窗、时钟、值日表、教师桌和地图柜时出现轮廓且底部提示与目标一致。检查普通/高对比轮廓、“减少闪烁”，并确认角色不能穿过墙、柜和桌椅但可通过中央过道与右侧门洞。
-11. 用键盘和 Xbox 分别检查主角下/左/右/上四方向动画和停止朝向；后续房间的晓雨使用新版 4×4 素材但仍停在既定同行位置。
+10. 第一室默认无悬浮物件标签；接近粉笔、黑板、窗、时钟、值日表、教师桌和地图柜时出现地面光环且底部提示与目标一致。检查普通/高对比光环，确认角色不能穿过墙、柜和桌椅但可通过主要过道与东侧门洞。
+11. 在第一室用 `Q/E` 和 `LB/RB` 依次转过四个角位；确认严格每次 90°、约 0.3 秒、快速连按不排队，旋转期间角色/焦点/交互暂停，离开到 2D 走廊后旋转键无效，返回时重置为东南镜头。
+12. 在四个镜头方向分别检查 WASD/左摇杆始终按屏幕方向移动，主角下/左/右/上动画由实际位移选择且停止时保留朝向；后续房间的晓雨仍使用新版 4×4 2D 素材和既定同行位置。
+13. 普通模式确认墙体与镜头同步淡变；“减少闪烁”下旋转期间只出现完全显示/隐藏状态，不出现半透明墙。检查近墙不投射异常阴影或遮挡交互。
 
 目标游玩时长 30–45 分钟必须通过真实首次游玩记录确认，自动测试和熟练开发者速通不能替代。
 
@@ -150,7 +158,7 @@ $CaptureDir = Join-Path (Get-Location) 'outputs\dream-art-qa'
 
 | 项目 | 验收标准 |
 | --- | --- |
-| 键盘 | WASD/方向键、E/空格、J、Esc 均正确；UI 确认不重复触发世界。 |
+| 键盘 | WASD/方向键、F/空格、J、Esc 均正确；3D 第一室额外检查 Q/E；UI 确认不重复触发世界。 |
 | Xbox 手柄 | 左摇杆、A、Y、Menu 正确；提示随最后输入设备切换。 |
 | 1280×720 | 2× 整数缩放、像素边缘稳定、文字可读。 |
 | 1920×1080 | 3× 整数缩放、无非整数模糊或错误裁切。 |
@@ -162,7 +170,16 @@ $CaptureDir = Join-Path (Get-Location) 'outputs\dream-art-qa'
 
 ### 性能
 
-目标是在 1080p 显示环境和中低端集显上保持 60 FPS，地图切换约 2 秒以内。记录机器、分辨率、窗口模式、平均/最低 FPS 和切图耗时；不要只写“感觉流畅”。当前尚无正式性能记录。
+目标是在 1080p 显示环境和中低端集显上保持 60 FPS，地图切换约 2 秒以内。第一室使用 4× 3D MSAA；记录机器、分辨率、窗口模式、平均/最低 FPS、旋转帧时间和 2D/3D 换场耗时，不要只写“感觉流畅”。
+
+2026-08-21 自动窗口采样（RTX 2080 Ti、Compatibility/OpenGL、60 FPS 上限、每档 240 帧）：
+
+| 请求/实际窗口 | 平均 FPS | 最低瞬时 FPS | 最大旋转帧时 | 第一室场景加载 |
+| --- | ---: | ---: | ---: | ---: |
+| 1280×720 / 1280×720 | 60.0 | 52.2 | 17.02 ms | 89.70 ms |
+| 1920×1080 / 1920×1061（桌面工作区限制） | 60.0 | 54.4 | 18.38 ms | 76.92 ms |
+
+该记录证明当前独显和内部 640×360 Viewport 下达到目标，不代表中低端集显、完整四室长时游玩或 2D/3D 换场已经验收。
 
 ## Dialogue Manager 验收
 

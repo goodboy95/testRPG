@@ -108,11 +108,15 @@ sequenceDiagram
 - `[已实现]` `ModalGate` 按 owner 引用计数。对话、手册、暂停、标题、战斗和完成页持有 lease，阻止玩家移动和时间推进。
 - `[固定约束]` 不使用全局 `SceneTree.Paused` 冻结业务流程；异步流程必须在 `finally` 或统一关闭方法中释放 lease。
 - `[已实现]` `WorldSceneController._UnhandledInput` 处理世界交互，减少 UI 已消费确认键后重复触发的风险。
-- `[已实现]` 输入提示根据最后一次键盘/手柄事件切换；梦境背包为 `I`/`Tab` 或 Xbox `X`，其余移动/交互保持 WASD/方向键、E/空格或左摇杆、A。
+- `[已实现]` 输入提示根据最后一次键盘/手柄事件切换；梦境背包为 `I`/`Tab` 或 Xbox `X`，其余移动/交互保持 WASD/方向键、F/空格或左摇杆、A。支持旋转的 3D 区域额外使用 `Q/E` 或 `LB/RB`。
 
 ## 场景生命周期
 
-主场景 `Main.tscn` 常驻。新游戏实例化 `DreamEscape.tscn`，后者在自身 `AreaHost` 中替换走廊/四室；Legacy 存档实例化 `OldHouse.tscn` 或 `StationQuarter.tscn`。切换时均断开普通 .NET 事件并释放旧节点，长期状态只保存稳定区域 ID 和基础坐标。
+主场景 `Main.tscn` 常驻。新游戏实例化普通 `Node` 根的 `DreamEscape.tscn`，后者在自身 `AreaHost` 中替换走廊/四室；第一室是 `Node3D`，其余梦境区域仍是 `Node2D`。Legacy 存档实例化 `OldHouse.tscn` 或 `StationQuarter.tscn`。切换时均断开普通 .NET 事件并释放旧节点，长期状态只保存稳定区域 ID 和基础坐标。
+
+`IDreamAreaRuntime` 为 2D/3D 区域统一提供交互请求、提示变化、临时选中道具和辅助设置接口。通用 3D 表现层由 `WorldArea3D`、`PlayerController3D`、`QuarterTurnCameraRig`、`CameraRelativeMovement`、`InteractionMarker3D`、`WallCutawayController`、`StatefulObjectVisual3D` 与 `AreaCoordinateMapper3D` 组成；这些类型不引用梦境谜题答案，可继续用于后三室和未来小镇。`DreamAreaController3D` 只负责把第一室稳定 ID 与 `DreamEscapeState` 接入该通用层。
+
+梦境存档继续只保存旧二维 `PositionX/Y`。第一室在表现层把旧活动矩形映射到 9.04×6.60 米 X/Z 平面，若旧坐标位于新家具内则解析最近安全点，并通过 `GameSession.MoveDreamToArea` 保存修正。镜头角位、裁墙 alpha、当前焦点和动画帧均为临时表现状态。
 
 当前独立世界场景只有旧宅和车站分区；河岸、学校档案室、商店活动和废弃铁路主要通过事件段落或同一车站地图上的交互点表现。完整版本扩图时继续保持“常驻应用壳 + 可替换世界子场景”。
 

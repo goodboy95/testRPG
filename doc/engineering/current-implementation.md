@@ -20,7 +20,7 @@
 
 ### 四室梦境序章
 
-1. 新游戏出生在第一室；实验分支以原图背景、状态叠层、前景遮挡和真实家具碰撞表现房间，主角仍使用四向像素动画。粉笔显出观察顺序，分别调查窗、时钟和值日表后以 `372` 取得第二室钥匙，地图柜留待回访。
+1. 新游戏出生在第一室；当前分支以正交娃娃屋 3D 场景、四方向镜头、动态裁墙和真实家具碰撞表现房间，主角暂以二维四向精灵 billboard 行走。粉笔显出观察顺序，分别调查窗、时钟和值日表后以 `372` 取得第二室钥匙，地图柜留待回访。
 2. 第二室输入 `1—4—2—3` 救出初次见面的林晓雨，完成三处辨听后开放第三室。
 3. 第三室档案顺序取得维护钥匙与红尺；依次回第一、第二、第三室取得并修复录音机。
 4. 广播序列开放第四室；三块控制板复现旧答案，晓雨与主角同时操作机关后开启出口。
@@ -54,7 +54,7 @@
 | 应用导航 | 标题、改名、世界、暂停、设置、完成页。 | `MainController` |
 | 梦境密室 | 第一室出生、走廊与四室回访、分页背包/记录、晓雨加入后三级提示、通用谜题、刺醒、出口完成页。 | `DreamEscapeService`、`DreamEscapeController` |
 | 世界场景 | 旧宅和车站分区；C# 原型绘制地图与 NPC。 | `Main.tscn`、`WorldSceneController`、`WorldPainter` |
-| 移动/交互 | 8 方向移动、对角归一化、邻近目标按距离与朝向选择。 | `PlayerController`、`WorldSceneController` |
+| 移动/交互 | 2D 区域保持 8 方向移动；第一室使用镜头相对 X/Z 移动、四角 90°镜头和 3D 邻近交互。 | `PlayerController`、`PlayerController3D`、`WorldArea3D` |
 | 时间 | 仅实际移动推进，23:00 封顶，睡眠跨日。 | `TimeService`、`GameSession` |
 | 日程 | JSON 日程、剧情事实过滤、下一可见时段。 | `ScheduleService`、`data/schedules.json` |
 | 关系/承诺 | 有方向好感与信赖、四级标签、无期限承诺。 | `RelationshipService`、`PromiseService` |
@@ -102,9 +102,12 @@
 ### `scripts/presentation`
 
 - `MainController.cs`：当前最大文件，负责应用 UI、世界切换和全部切片事件演示。
-- `DreamEscapeController.cs`、`DreamAreaController.cs`：梦境表现编排、场景交互标记与稳定交互 ID；答案只由 Core 判定。
-- `DreamOriginalClassroomVisual.cs`、`DreamAreaVisual.cs`：实验第一室原图、状态叠层、前景遮挡、碰撞布局及可替换视觉接口；原有 `DreamClassroomVisual` 双图块实现保留。
-- `DreamCharacterFrames.cs`：将 4×4 角色表转换为 `SpriteFrames`。
+- `DreamEscapeController.cs`、`DreamAreaVisual.cs`：梦境表现编排与 2D/3D 区域统一运行时接口；答案只由 Core 判定。
+- `DreamAreaController.cs`：走廊和后三室的 2D 场景交互；`DreamAreaController3D.cs` 只把第一室稳定 ID 与坐标接入通用 3D 层。
+- `WorldArea3D.cs`、`PlayerController3D.cs`、`QuarterTurnCameraRig.cs`、`CameraRelativeMovement.cs`：可供后续梦境和未来小镇复用的 3D 区域、屏幕相对移动与四向镜头。
+- `InteractionMarker3D.cs`、`WallCutawayController.cs`、`StatefulObjectVisual3D.cs`、`AreaCoordinateMapper3D.cs`：3D 交互光环、Compatibility 裁墙、状态变体和二维/三维坐标转换。
+- `DreamClassroomVisual3D.cs`：第一室 GLB 状态绑定、19 组独立碰撞与旧坐标安全落点。原图和 TileMap 视觉脚本继续保留作分支对比。
+- `DreamCharacterFrames.cs`：将 4×4 角色表转换为 2D/3D 共用的 `SpriteFrames`。
 - `DreamInventoryPanel.cs`、`DreamPuzzlePanel.cs`：分页背包/记录/晓雨提示，以及支持数字直输和逐项撤销的通用排列输入。
 - `WorldSceneController.cs`：NPC 日程、交互目标、提示和地图事件入口。
 - `DialoguePanel.cs`、`JournalPanel.cs`、`BattlePanel.cs`：对应模态 UI。
@@ -120,20 +123,23 @@
 
 ## 已完成验证
 
-截至 2026-08-17：
+截至 2026-08-21：
 
 - Core、应用规则和内容完整性测试 84/84 通过；新增用例验证林晓雨加入前提示不可用。
 - 根 Godot 项目 Debug/Release 构建通过。
 - 主场景、Legacy 两图、梦境根、走廊与四室共九场景实例化通过。
 - 内容仓库报告 `characters=5 schedules=21 events=8 items=8`。
-- 第一室五张像素图集和原图派生背景/遮挡层均通过确定性哈希校验；可自动输出初始、黑板、教师桌、地图柜和碰撞调试五张截图。
+- 第一室 `.blend` 与 GLB 通过 Blender 5.2.0 后台结构、尺寸、节点、十组课桌实例和确定性导出校验。
+- 3D 冒烟覆盖四个严格 90°镜头、旋转重入锁、普通/减少闪烁裁墙、坐标往返、安全落点、九个稳定交互点、四类视觉状态、19 组真实碰撞和物理通阻探针。
+- 可自动输出东南/西南/西北/东北四张镜头图、初始/黑板/教师桌/地图柜四张状态图及碰撞调试图。
+- RTX 2080 Ti 的 Compatibility 自动窗口采样在 1280×720 与受工作区限制的 1920×1061 均为平均 60.0 FPS；最低瞬时 52.2/54.4 FPS，第一室加载 89.70/76.92 ms。中低端集显与完整人工路径仍未验收。
 
 ## 已知缺口
 
 - Dialogue Manager v3.10.4 未放入 `addons/`；`.dialogue` 尚不是运行时入口。
 - 当前 `NarrativeBridge.Execute` 对单条命令做白名单写入，但没有把一段 `.dialogue` 的多条命令组成原子 outcome；插件接入时必须迁移，不能直接视为完成的事务桥。
 - `MainController` 同时负责导航和剧情演示，后续内容扩展前应完成对白接入与职责拆分。
-- 第一室在当前实验分支采用原图＋碰撞方案，模块化像素图块版本保留在 `master`；走廊、音乐教室、档案室和礼堂主体仍为 C# 原型绘制。已有八个道具图标、晓雨中性半身、主角/晓雨 4×4 四向行走表、合影滤色/录音机特写和礼堂控制板底图。音频及晓雨跟随动画尚未制作。
+- 当前只有第一室完成 3D MVP；原图＋2D 碰撞版本保留在 `codex/classroom-original-image-collision`，模块化 TileMap 基线保留在更早提交。走廊、音乐教室、档案室、礼堂和 Legacy 小镇仍为 2D。已有八个道具图标、晓雨中性半身、主角/晓雨 4×4 四向行走表、合影滤色/录音机特写和礼堂控制板底图。音频、3D 晓雨同行和完整 3D 角色尚未制作。
 - 名称输入的完整 Windows IME、按键重映射、手柄震动和所有辅助设置尚未做实机闭环验证。
 - 梦境 30–45 分钟完整路径、键盘/Xbox、150% 字号、窗口缩放、60 FPS 和切图耗时尚未人工验收；Legacy 两日流程仍需旧存档回归。
 - Windows 导出模板缺失，未生成可分发 ZIP。

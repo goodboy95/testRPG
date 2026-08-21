@@ -1,8 +1,8 @@
 # town-rpg / 《雾山旧轨》
 
-`town-rpg` 是一款面向 Windows x64 的单机 2D 剧情生活 RPG。玩家扮演暑假回到故乡的大学生，在山间铁路小镇安排日常、建立关系，并调查开发工程背后的封印真相。
+`town-rpg` 是一款面向 Windows x64 的单机剧情生活 RPG。当前处于 2D/3D 混合迁移阶段：梦境第一室已经完成 3D MVP，走廊、后三室和 Legacy 小镇仍使用 2D 表现。玩家扮演暑假回到故乡的大学生，在山间铁路小镇安排日常、建立关系，并调查开发工程背后的封印真相。
 
-当前仓库交付的是约 **15–30 分钟**的“两日生活＋首次异象”垂直切片；计划中的完整版本为 3–5 小时、约七个内容日。两者必须明确区分，不能把剧情大纲写成已实现功能。
+新游戏当前进入目标 **30–45 分钟**的四室梦境序章第一阶段；旧存档仍可继续约 15–30 分钟的“两日生活＋首次异象”Legacy 切片。计划中的完整版本为 3–5 小时、约七个内容日，不能把剧情大纲写成已实现功能。
 
 ## 接手入口
 
@@ -25,8 +25,8 @@ D:\ProgramFiles\Godot\Godot_v4.6.3-stable_mono_win64_console.exe
 ## 已验证状态
 
 - Godot 4.6.3 Debug/Release C# 编译通过。
-- Core、应用规则和内容契约测试 **71/71 通过**。
-- 主场景 headless 启动、三场景实例化和 Compatibility/OpenGL 标题取帧通过。
-- 引擎冒烟成功标志：`GODOT_SMOKE_PASS scenes=3 characters=5 schedules=21 events=8`。
+- Core、应用规则和内容契约测试基线为 **84/84 通过**。
+- Godot Debug/Release 构建与九场景 Compatibility/OpenGL 冒烟通过；第一室另有 Blender/GLB 确定性校验和 3D 物理探针。
+- 引擎冒烟成功标志：`GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8`。
 
-尚未完成：两日流程全程人工验收、键鼠与 Xbox 手柄手感、1080p 整数缩放、性能计时、Dialogue Manager v3.10.4 实际接入，以及 Windows x64 导出。具体优先级见[交接路线图](doc/production/roadmap-handoff.md)。
+尚未完成：四室与 Legacy 全程人工验收、Xbox 手柄、1080p 性能计时、Dialogue Manager v3.10.4 实际接入，以及 Windows x64 导出。具体优先级见[交接路线图](doc/production/roadmap-handoff.md)。

@@ -1,12 +1,12 @@
 # town-rpg 交接文档
 
-> 文档基线：2026-08-17
+> 文档基线：2026-08-21
 
 这套文档面向将同时接手程序、内容、剧情、素材和测试的人。它包含完整剧透。当前源码包含四室梦境序章第一阶段及一个 Legacy 两日切片，不是完整七日版本。
 
 ## 当前结论
 
-- `[已实现·实验分支]` 新游戏进入 30–45 分钟目标的四室旧校舍序章第一阶段；第一室当前用生成构图原图、状态叠层、前景遮挡和真实碰撞体组成可玩对比版。模块化像素 TileMap 版本保留在 `master` 与源码中。
+- `[已实现·3D MVP 分支]` 新游戏进入 30–45 分钟目标的四室旧校舍序章第一阶段；第一室使用正交娃娃屋 3D 场景、四方向镜头、动态裁墙、真实 3D 碰撞和二维角色 billboard。原图＋2D 碰撞版本保留在上一实验分支，走廊与后三室仍为 2D。
 - `[已实现·Legacy]` 15–30 分钟“两日生活＋首次异象”源码仍存在并供旧存档继续，但新游戏不再进入，其中林晓雨旧友与四人重逢内容待重写。
 - `[已实现]` 纯 C# 规则与内容契约测试 84/84 通过；Godot Debug/Release 编译和九场景冒烟通过。完整人工路径、手柄与显示验收仍待执行。
 - `[计划]` Dialogue Manager v3.10.4 尚未 vendored；八个 `.dialogue` 文件已经准备，但运行时仍由 `MainController` 的 C# 演示流程呈现。
@@ -42,7 +42,8 @@
 ```text
 town-rpg/
 ├─ project.godot / TownRpg.csproj / TownRpg.sln
-├─ assets/generated/             AI 标题/梦境资产、风格锚点和来源清单
+├─ art/                          Blender 可编辑源文件（不进入 Godot 导入扫描）
+├─ assets/generated/             AI 标题/梦境资产、3D GLB、风格锚点和来源清单
 ├─ data/                         角色、日程、事件、物品 JSON
 ├─ dialogue/events/              八个切片 Dialogue Manager 源文件
 ├─ localization/                 简体中文 CSV 与 Godot 导入资源

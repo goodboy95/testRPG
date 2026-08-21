@@ -9,7 +9,7 @@ namespace TownRpg.Presentation;
 public partial class MainController : Node
 {
     private GameSession _session = null!;
-    private Node2D _worldHost = null!;
+    private Node _worldHost = null!;
     private CanvasLayer _uiLayer = null!;
     private Control _uiRoot = null!;
     private WorldSceneController? _world;
@@ -43,7 +43,7 @@ public partial class MainController : Node
         _session = GetNode<GameSession>("/root/GameSession");
         _session.StateChanged += RefreshHud;
 
-        _worldHost = new Node2D { Name = "WorldHost" };
+        _worldHost = new Node { Name = "WorldHost" };
         AddChild(_worldHost);
 
         _uiLayer = new CanvasLayer { Name = "Interface", Layer = 10 };
@@ -1480,7 +1480,7 @@ public partial class MainController : Node
 
         _inputHint.Text = _usingGamepad
             ? "左摇杆 移动　A 互动　Y 手册　Menu 暂停"
-            : "WASD / 方向键 移动　E / 空格 互动　J 手册　Esc 暂停";
+            : "WASD / 方向键 移动　F / 空格 互动　J 手册　Esc 暂停";
         _world?.SetGamepadPrompts(_usingGamepad);
         _journal?.SetGamepadPrompts(_usingGamepad);
     }

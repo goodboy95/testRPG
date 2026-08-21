@@ -20,3 +20,6 @@ exports/
 # Local packaging, validation and delivery artifacts
 /outputs/
 /work/
+
+# Blender rotating backups are local authoring artifacts.
+*.blend1

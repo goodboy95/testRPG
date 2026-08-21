@@ -273,6 +273,30 @@
       "referenceImages": ["dream_escape/experimental/classroom-original-source-v1.png"],
       "postprocessing": ["Four 640x360 transparent occlusion bands", "Polygon masks for cabinet, teacher desk and ten student desks", "Packed vertically into a 640x1440 RGBA atlas"],
       "prompt": "Deterministic foreground masks copied from the adopted classroom image for player depth sorting; no synthesized pixels."
+    },
+    {
+      "id": "dream_classroom_3d_source_mvp",
+      "sourceFile": "scripts/tools/build_classroom_3d.py",
+      "gameFile": "art/blender/dream_classroom/classroom-mvp.blend",
+      "status": "experimental-source",
+      "generator": "Deterministic Blender Python scene build",
+      "model": "Blender 5.2.0 LTS",
+      "generatedAt": "2026-08-21",
+      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png", "dream_escape/pixel/classroom-props-v1.png"],
+      "postprocessing": ["Built at metric scale 9.6x7.2x3.2m", "Converted Godot X/Y-up/Z coordinates to Blender X/Y/Z-up coordinates", "Saved editable .blend source with linked student desk meshes", "Validated required nodes, solid wall thickness, materials and ten desk groups"],
+      "prompt": "Programmatic specification: roofless abandoned-school classroom with four solid walls, east door, west window, blackboard, seven-o'clock clock, duty roster, teacher desk, map cabinet, chalk and ten instanced student desk/chair groups; realistic proportions, restrained low-poly wear, no new puzzle answers."
+    },
+    {
+      "id": "dream_classroom_3d_runtime_mvp",
+      "sourceFile": "art/blender/dream_classroom/classroom-mvp.blend",
+      "gameFile": "dream_escape/3d/classroom-mvp.glb",
+      "status": "experimental-runtime",
+      "generator": "Blender glTF 2.0 exporter",
+      "model": "Blender 5.2.0 LTS",
+      "generatedAt": "2026-08-21",
+      "referenceImages": ["art/blender/dream_classroom/classroom-mvp.blend"],
+      "postprocessing": ["GLB export with applied transforms, materials, normals and Y-up conversion", "Godot runtime uses separate StaticBody3D collisions", "Deterministic fresh-export hash checked against classroom-3d-manifest.json"],
+      "prompt": "Deterministic runtime export of the adopted classroom MVP; no generative modification and no runtime Blender dependency."
     }
   ]
 }

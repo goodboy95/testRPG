@@ -1,71 +1,127 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource type="Script" path="res://scripts/presentation/DreamAreaController.cs" id="1"]
-[ext_resource type="Script" path="res://scripts/presentation/PlayerController.cs" id="3"]
-[ext_resource type="Script" path="res://scripts/presentation/DreamOriginalClassroomVisual.cs" id="4"]
-[ext_resource type="Script" path="res://scripts/presentation/DreamInteractionMarker.cs" id="5"]
+[ext_resource type="Script" path="res://scripts/presentation/DreamAreaController3D.cs" id="1_controller"]
+[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/classroom-mvp.glb" id="2_model"]
+[ext_resource type="Script" path="res://scripts/presentation/QuarterTurnCameraRig.cs" id="3_camera"]
+[ext_resource type="Script" path="res://scripts/presentation/WallCutawayController.cs" id="4_walls"]
+[ext_resource type="Script" path="res://scripts/presentation/DreamClassroomVisual3D.cs" id="5_visual"]
+[ext_resource type="Script" path="res://scripts/presentation/InteractionMarker3D.cs" id="6_marker"]
+[ext_resource type="Script" path="res://scripts/presentation/PlayerController3D.cs" id="7_player"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
-size = Vector2(12, 8)
+[sub_resource type="Environment" id="Environment_classroom"]
+background_mode = 1
+background_color = Color(0.025, 0.055, 0.07, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.22, 0.34, 0.36, 1)
+ambient_light_energy = 0.62
+reflected_light_source = 2
+tonemap_mode = 2
 
-[node name="DreamClassroom" type="Node2D"]
-y_sort_enabled = true
-script = ExtResource("1")
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.28
+height = 1.6
+
+[node name="DreamClassroom3D" type="Node3D"]
+script = ExtResource("1_controller")
 AreaId = "dream.classroom"
-[node name="ClassroomVisual" type="Node2D" parent="."]
-script = ExtResource("4")
 
-[node name="InteractionMarkers" type="Node2D" parent="."]
+[node name="ClassroomModel" parent="." instance=ExtResource("2_model")]
 
-[node name="ExitToCorridor" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(598, 242)
-script = ExtResource("5")
+[node name="QuarterTurnCameraRig" type="Node3D" parent="."]
+position = Vector3(0, 1, 0)
+script = ExtResource("3_camera")
+
+[node name="Camera3D" type="Camera3D" parent="QuarterTurnCameraRig"]
+transform = Transform3D(1, 0, 0, 0, 0.615661, 0.788011, 0, -0.788011, 0.615661, 0, 8.2, 6.4)
+projection = 1
+size = 9.4
+near = 0.1
+far = 50.0
+current = true
+
+[node name="WallCutawayController" type="Node3D" parent="."]
+script = ExtResource("4_walls")
+
+[node name="ClassroomVisual" type="Node3D" parent="."]
+script = ExtResource("5_visual")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_classroom")
+
+[node name="WindowLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-48, -32, 0)
+light_color = Color(0.72, 0.86, 0.82, 1)
+light_energy = 1.05
+shadow_enabled = true
+directional_shadow_max_distance = 24.0
+
+[node name="WarmFill" type="OmniLight3D" parent="."]
+position = Vector3(2.6, 2.5, -1.2)
+light_color = Color(1, 0.67, 0.34, 1)
+light_energy = 1.2
+omni_range = 7.0
+shadow_enabled = false
+
+[node name="InteractionMarkers" type="Node3D" parent="."]
+
+[node name="ExitToCorridor" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(4.35, 0, 2.2)
+script = ExtResource("6_marker")
 TargetId = "area:dream.corridor"
+Prompt = "返回走廊"
 
-[node name="Chalk" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(106, 225)
-script = ExtResource("5")
+[node name="Chalk" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-4.05, 0, -1.35)
+script = ExtResource("6_marker")
 TargetId = "pickup:dream.chalk"
+Prompt = "拿起窗台边的粉笔"
 
-[node name="Blackboard" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(350, 190)
-script = ExtResource("5")
+[node name="Blackboard" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-1.2, 0, -2.85)
+script = ExtResource("6_marker")
 TargetId = "target.classroom.blackboard"
+Prompt = "查看黑板擦痕"
 
-[node name="Window" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(105, 225)
-script = ExtResource("5")
+[node name="Window" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-4.05, 0, -1.35)
+script = ExtResource("6_marker")
 TargetId = "observe:target.classroom.window"
+Prompt = "观察旧窗格"
 
-[node name="Clock" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(474, 198)
-script = ExtResource("5")
+[node name="Clock" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(2.72, 0, -2.82)
+script = ExtResource("6_marker")
 TargetId = "observe:target.classroom.clock"
+Prompt = "观察停住的时钟"
 
-[node name="DutyRoster" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(535, 198)
-script = ExtResource("5")
+[node name="DutyRoster" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(3.66, 0, -2.82)
+script = ExtResource("6_marker")
 TargetId = "observe:target.classroom.duty_roster"
+Prompt = "查看值日表"
 
-[node name="TeacherDesk" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(406, 245)
-script = ExtResource("5")
+[node name="TeacherDesk" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(0.4, 0, -1.28)
+script = ExtResource("6_marker")
 TargetId = "puzzle:teacher_desk"
+Prompt = "检查教师桌密码锁"
 
-[node name="MapCabinet" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(246, 205)
-script = ExtResource("5")
+[node name="MapCabinet" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-2.82, 0, -2.36)
+script = ExtResource("6_marker")
 TargetId = "target.classroom.map_cabinet"
+Prompt = "检查三角螺丝地图柜"
 
-[node name="ClassPhoto" type="Marker2D" parent="InteractionMarkers"]
-position = Vector2(246, 205)
-script = ExtResource("5")
+[node name="ClassPhoto" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-2.82, 0, -2.36)
+script = ExtResource("6_marker")
 TargetId = "target.classroom.class_photo"
+Prompt = "查看地图柜中的合影"
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(320, 280)
-script = ExtResource("3")
+[node name="Player" type="CharacterBody3D" parent="."]
+motion_mode = 1
+script = ExtResource("7_player")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 16)
-shape = SubResource("RectangleShape2D_player")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+position = Vector3(0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_player")

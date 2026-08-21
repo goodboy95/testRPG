@@ -182,3 +182,12 @@ do Narrative.Execute("complete_event", "main.d3.example")
 - 原图与派生 PNG 受仓库现有 Git LFS 规则管理；运行时不调用 Python 或生成模型。
 - 共享图块使用 32px 网格；角色表为 128×192，每格 32×48、四列动作帧、四行方向（下/左/右/上）。最终 PNG 使用最近邻采样且不生成 mipmap。
 - 参考图保存在 `work/dream_escape_art_refs/`，不进入导出；运行时图集与区域清单位于 `assets/generated/dream_escape/pixel/`，采用记录统一写入 `assets/generated/provenance.json`。
+
+### 第一室 Blender/GLB 管线
+
+- 当前 3D MVP 使用 `D:\ProgramFiles\Blender\blender.exe` 5.2.0 LTS。`scripts/tools/build_classroom_3d.py` 接受 `build` 与 `check`：前者从空场景构建、保存 `.blend`、导出 GLB并写 manifest；后者只读打开源文件、重新导出到临时目录并比对结构与哈希。
+- 脚本输入采用 Godot 的 X/Y 向上/Z 逻辑坐标，并统一转换到 Blender 的 X/Y/Z 向上坐标；不要在单个物件中绕过该转换。
+- 可编辑源位于 `art/blender/dream_classroom/classroom-mvp.blend`，运行时文件位于 `assets/generated/dream_escape/3d/classroom-mvp.glb`。`art/.gdignore` 阻止 Godot 导入 `.blend`，正式构建只读取 GLB。
+- `.blend` 与 `.glb` 都由 Git LFS 规则管理。GLB 只保存视觉网格和状态节点；碰撞继续在 Godot 中以独立 `StaticBody3D` 定义，避免美术重导出静默改变通路。
+- 必需节点、房间米制尺寸、十组课桌实例、材质数和源/运行时 SHA-256 写入 `classroom-3d-manifest.json`；缺失节点或导出不确定时校验必须失败。
+- AI 不生成整间 3D 教室。本轮几何由确定性脚本构建，原有生成图只作为构图参考；未来若采用独立家具或纹理参考，仍须逐项写入 provenance。
