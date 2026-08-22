@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "manifestSchema": {
+    "path": "scripts/tools/schemas/protagonist-art-pass-v2-manifest.schema.json",
+    "sha256": "1023bff198dcde49775caac97f17c8d516664ef78f43cc3f5f1df2927467609f"
+  },
+  "assetId": "protagonist.art_pass_v2",
+  "assetStage": "static-visual-candidate",
+  "visualCandidate": true,
+  "visualApprovalStatus": "pending",
+  "runtimeReady": false,
+  "sourceAuthority": "blend",
+  "sourceFile": "art/blender/characters/protagonist-art-pass-v2.blend",
+  "runtimeCandidateFile": "assets/generated/characters/3d/protagonist-art-pass-v2.glb",
+  "sourceSha256": "bb52a4a01d715b607175b445421ea790f3733bff72259e61a957ae060f0c33d5",
+  "runtimeSha256": "b739db511ecf9204e2d073d68c1e3cdb1362afca36b6c12608dd9e60d90b5f19",
+  "runtimeBytes": 1532748,
+  "blenderVersion": "5.2.0 LTS",
+  "bound": false,
+  "animated": false,
+  "heightMeters": 1.7017,
+  "worldBoundsMeters": {
+    "minimum": [
+      -0.44044,
+      -0.17946,
+      0.011
+    ],
+    "maximum": [
+      0.44028,
+      0.14382,
+      1.71273
+    ]
+  },
+  "requiredCollections": [
+    "Character",
+    "Accessories",
+    "Body",
+    "Garments",
+    "Hair",
+    "Lookdev"
+  ],
+  "requiredObjects": [
+    "Body",
+    "Eyes",
+    "FeetAnchor",
+    "Hair",
+    "HeadAnchor",
+    "ProtagonistRoot",
+    "Shirt",
+    "Shoes",
+    "Trousers"
+  ],
+  "exportedObjects": [
+    "Body",
+    "Eyes",
+    "FeetAnchor",
+    "Hair",
+    "HeadAnchor",
+    "ProtagonistRoot",
+    "Shirt",
+    "Shoes",
+    "Trousers"
+  ],
+  "majorVisibleMeshCount": 6,
+  "triangleCount": 34972,
+  "materialSurfaceCount": 1,
+  "materialNames": [
+    "M_Protagonist_Atlas"
+  ],
+  "topology": {
+    "meshReports": [
+      {
+        "name": "Body",
+        "vertexCount": 5679,
+        "polygonCount": 5577,
+        "triangleCount": 11342,
+        "boundaryEdgeCount": 0,
+        "nonManifoldEdgeCount": 0,
+        "looseEdgeCount": 0,
+        "looseVertexCount": 0,
+        "zeroAreaFaceCount": 0,
+        "closedComponentCount": 4,
+        "minimumSignedComponentVolumeMeters3": 0.000602456443,
+        "uvLayer": "UVMap",
+        "materialNames": [
+          "M_Protagonist_Atlas"
+        ]
+      },
+      {
+        "name": "Eyes",
+        "vertexCount": 1572,
+        "polygonCount": 1480,
+        "triangleCount": 3120,
+        "boundaryEdgeCount": 0,
+        "nonManifoldEdgeCount": 0,
+        "looseEdgeCount": 0,
+        "looseVertexCount": 0,
+        "zeroAreaFaceCount": 0,
+        "closedComponentCount": 6,
+        "minimumSignedComponentVolumeMeters3": 1.489e-09,
+        "uvLayer": "UVMap",
+        "materialNames": [
+          "M_Protagonist_Atlas"
+        ]
+      },
+      {
+        "name": "Hair",
+        "vertexCount": 2700,
+        "polygonCount": 2752,
+        "triangleCount": 5356,
+        "boundaryEdgeCount": 0,
+        "nonManifoldEdgeCount": 0,
+        "looseEdgeCount": 0,
+        "looseVertexCount": 0,
+        "zeroAreaFaceCount": 0,
+        "closedComponentCount": 11,
+        "minimumSignedComponentVolumeMeters3": 2.72442e-07,
+        "uvLayer": "UVMap",
+        "materialNames": [
+          "M_Protagonist_Atlas"
+        ]
+      },
+      {
+        "name": "Shirt",
+        "vertexCount": 3738,
+        "polygonCount": 3665,
+        "triangleCount": 7440,
+        "boundaryEdgeCount": 0,
+        "nonManifoldEdgeCount": 0,
+        "looseEdgeCount": 0,
+        "looseVertexCount": 0,
+        "zeroAreaFaceCount": 0,
+        "closedComponentCount": 13,
+        "minimumSignedComponentVolumeMeters3": 1.24979e-07,
+        "uvLayer": "UVMap",
+        "materialNames": [
+          "M_Protagonist_Atlas"
+        ]
+      },
+      {
+        "name": "Shoes",
+        "vertexCount": 3016,
+        "polygonCount": 3068,
+        "triangleCount": 5960,
+        "boundaryEdgeCount": 0,
+        "nonManifoldEdgeCount": 0,
+        "looseEdgeCount": 0,
+        "looseVertexCount": 0,
+        "zeroAreaFaceCount": 0,
+        "closedComponentCount": 38,
+        "minimumSignedComponentVolumeMeters3": 8.4261e-08,
+        "uvLayer": "UV贴图",
+        "materialNames": [
+          "M_Protagonist_Atlas"
+        ]
+      },
+      {
+        "name": "Trousers",
+        "vertexCount": 903,
+        "polygonCount": 766,
+        "triangleCount": 1754,
+        "boundaryEdgeCount": 0,
+        "nonManifoldEdgeCount": 0,
+        "looseEdgeCount": 0,
+        "looseVertexCount": 0,
+        "zeroAreaFaceCount": 0,
+        "closedComponentCount": 13,
+        "minimumSignedComponentVolumeMeters3": 1.213695e-06,
+        "uvLayer": "UVMap",
+        "materialNames": [
+          "M_Protagonist_Atlas"
+        ]
+      }
+    ],
+    "boundaryEdgeCount": 0,
+    "nonManifoldEdgeCount": 0,
+    "looseEdgeCount": 0,
+    "looseVertexCount": 0,
+    "zeroAreaFaceCount": 0,
+    "closedComponentCount": 85,
+    "minimumSignedComponentVolumeMeters3": 1.489e-09
+  },
+  "textures": [
+    {
+      "role": "albedo",
+      "path": "art/blender/characters/textures-v2/protagonist-art-pass-v2-albedo.png",
+      "sha256": "41f12ff27d4df7b473ab5bfce6779fe8245e06b7c805ff2e0a11ebf49c14313e",
+      "width": 2048,
+      "height": 2048,
+      "bitDepth": 8,
+      "colorType": 6,
+      "channels": 4,
+      "pixelFormat": "RGBA",
+      "colorSpace": "sRGB",
+      "usedByMaterials": [
+        "M_Protagonist_Atlas"
+      ]
+    },
+    {
+      "role": "normal",
+      "path": "art/blender/characters/textures-v2/protagonist-art-pass-v2-normal.png",
+      "sha256": "65ba401978c202028f2e6fbafb6a5d0f77617fc68bb6966497896d80163a0076",
+      "width": 2048,
+      "height": 2048,
+      "bitDepth": 8,
+      "colorType": 6,
+      "channels": 4,
+      "pixelFormat": "RGBA",
+      "colorSpace": "Non-Color",
+      "usedByMaterials": [
+        "M_Protagonist_Atlas"
+      ]
+    },
+    {
+      "role": "orm",
+      "path": "art/blender/characters/textures-v2/protagonist-art-pass-v2-orm.png",
+      "sha256": "fb255087f3e91f72e247720dccf42414f4f1e7c7d672adc63daf9a0234e8035e",
+      "width": 2048,
+      "height": 2048,
+      "bitDepth": 8,
+      "colorType": 6,
+      "channels": 4,
+      "pixelFormat": "RGBA",
+      "colorSpace": "Non-Color",
+      "usedByMaterials": [
+        "M_Protagonist_Atlas"
+      ]
+    }
+  ],
+  "missingExternalFiles": [],
+  "anchorsMeters": {
+    "head": [
+      0.0,
+      0.0,
+      1.66031
+    ],
+    "feet": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "runtimeInspection": {
+    "glbVersion": 2,
+    "nodeNames": [
+      "Body",
+      "Eyes",
+      "FeetAnchor",
+      "Hair",
+      "HeadAnchor",
+      "ProtagonistRoot",
+      "Shirt",
+      "Shoes",
+      "Trousers"
+    ],
+    "meshCount": 6,
+    "triangleCount": 34972,
+    "materialCount": 1,
+    "materialNames": [
+      "M_Protagonist_Atlas"
+    ],
+    "embeddedImages": [
+      {
+        "role": "albedo",
+        "name": "protagonist-art-pass-v2-albedo",
+        "mimeType": "image/png",
+        "byteLength": 265881,
+        "sha256": "41f12ff27d4df7b473ab5bfce6779fe8245e06b7c805ff2e0a11ebf49c14313e"
+      },
+      {
+        "role": "normal",
+        "name": "protagonist-art-pass-v2-normal",
+        "mimeType": "image/png",
+        "byteLength": 20334,
+        "sha256": "65ba401978c202028f2e6fbafb6a5d0f77617fc68bb6966497896d80163a0076"
+      },
+      {
+        "role": "orm",
+        "name": "protagonist-art-pass-v2-orm",
+        "mimeType": "image/png",
+        "byteLength": 20500,
+        "sha256": "fb255087f3e91f72e247720dccf42414f4f1e7c7d672adc63daf9a0234e8035e"
+      }
+    ],
+    "skinCount": 0,
+    "animationCount": 0,
+    "cameraCount": 0
+  },
+  "limits": {
+    "heightMeters": [
+      1.67,
+      1.71
+    ],
+    "triangles": [
+      30000,
+      36000
+    ],
+    "majorVisibleMeshes": 6,
+    "materialSurfaces": 5,
+    "textureSize": 2048,
+    "runtimeBytes": 20971520
+  },
+  "exportProfile": {
+    "format": "GLB",
+    "appliedModifiers": true,
+    "animations": false,
+    "armature": false,
+    "cameras": false,
+    "lights": false,
+    "tangents": "generated-by-godot-import",
+    "textures": "embedded-from-tracked-2k-rgba-png"
+  }
+}

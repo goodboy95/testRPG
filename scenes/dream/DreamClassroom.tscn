@@ -1,21 +1,27 @@
 [gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/presentation/DreamAreaController3D.cs" id="1_controller"]
-[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/classroom-mvp.glb" id="2_model"]
-[ext_resource type="Script" path="res://scripts/presentation/QuarterTurnCameraRig.cs" id="3_camera"]
-[ext_resource type="Script" path="res://scripts/presentation/WallCutawayController.cs" id="4_walls"]
+[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/classroom-art-pass-v2.glb" id="2_model"]
+[ext_resource type="Script" path="res://scripts/presentation/ThirdPersonCameraRig.cs" id="3_camera"]
 [ext_resource type="Script" path="res://scripts/presentation/DreamClassroomVisual3D.cs" id="5_visual"]
 [ext_resource type="Script" path="res://scripts/presentation/InteractionMarker3D.cs" id="6_marker"]
 [ext_resource type="Script" path="res://scripts/presentation/PlayerController3D.cs" id="7_player"]
 
 [sub_resource type="Environment" id="Environment_classroom"]
 background_mode = 1
-background_color = Color(0.025, 0.055, 0.07, 1)
+background_color = Color(0.018, 0.035, 0.045, 1)
 ambient_light_source = 3
-ambient_light_color = Color(0.22, 0.34, 0.36, 1)
-ambient_light_energy = 0.62
+ambient_light_color = Color(0.27, 0.36, 0.42, 1)
+ambient_light_energy = 0.82
 reflected_light_source = 2
 tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 1.3
+ssao_intensity = 1.35
+ssao_power = 1.15
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_camera"]
+radius = 0.16
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
 radius = 0.28
@@ -27,20 +33,25 @@ AreaId = "dream.classroom"
 
 [node name="ClassroomModel" parent="." instance=ExtResource("2_model")]
 
-[node name="QuarterTurnCameraRig" type="Node3D" parent="."]
-position = Vector3(0, 1, 0)
+[node name="ThirdPersonCameraRig" type="Node3D" parent="."]
 script = ExtResource("3_camera")
+FixedPitchDegrees = -21.0
+FollowTargetHeight = 1.3
 
-[node name="Camera3D" type="Camera3D" parent="QuarterTurnCameraRig"]
-transform = Transform3D(1, 0, 0, 0, 0.615661, 0.788011, 0, -0.788011, 0.615661, 0, 8.2, 6.4)
-projection = 1
-size = 9.4
-near = 0.1
+[node name="SpringArm3D" type="SpringArm3D" parent="ThirdPersonCameraRig"]
+spring_length = 3.4
+margin = 0.08
+collision_mask = 1
+shape = SubResource("SphereShape3D_camera")
+
+[node name="CameraSocket" type="Node3D" parent="ThirdPersonCameraRig/SpringArm3D"]
+
+[node name="Camera3D" type="Camera3D" parent="ThirdPersonCameraRig/SpringArm3D/CameraSocket"]
+position = Vector3(0.22, 0, 0)
+fov = 60.0
+near = 0.08
 far = 50.0
 current = true
-
-[node name="WallCutawayController" type="Node3D" parent="."]
-script = ExtResource("4_walls")
 
 [node name="ClassroomVisual" type="Node3D" parent="."]
 script = ExtResource("5_visual")
@@ -50,22 +61,29 @@ environment = SubResource("Environment_classroom")
 
 [node name="WindowLight" type="DirectionalLight3D" parent="."]
 rotation_degrees = Vector3(-48, -32, 0)
-light_color = Color(0.72, 0.86, 0.82, 1)
+light_color = Color(1, 0.69, 0.4, 1)
 light_energy = 1.05
 shadow_enabled = true
 directional_shadow_max_distance = 24.0
 
 [node name="WarmFill" type="OmniLight3D" parent="."]
 position = Vector3(2.6, 2.5, -1.2)
-light_color = Color(1, 0.67, 0.34, 1)
-light_energy = 1.2
+light_color = Color(0.38, 0.53, 0.62, 1)
+light_energy = 1.15
 omni_range = 7.0
+shadow_enabled = false
+
+[node name="DoorFill" type="OmniLight3D" parent="."]
+position = Vector3(3.75, 2.0, 1.95)
+light_color = Color(0.92, 0.7, 0.48, 1)
+light_energy = 0.52
+omni_range = 3.2
 shadow_enabled = false
 
 [node name="InteractionMarkers" type="Node3D" parent="."]
 
 [node name="ExitToCorridor" type="Marker3D" parent="InteractionMarkers"]
-position = Vector3(4.35, 0, 2.2)
+position = Vector3(4.05, 0, 2.75)
 script = ExtResource("6_marker")
 TargetId = "area:dream.corridor"
 Prompt = "返回走廊"

@@ -48,7 +48,7 @@ REQUIRED_OBJECTS = {
 def parse_args() -> argparse.Namespace:
     raw = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else []
     parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=("build", "check"))
+    parser.add_argument("mode", choices=("build", "check", "mvp-build", "mvp-check"))
     parser.add_argument("--root", required=True)
     return parser.parse_args(raw)
 
@@ -401,7 +401,7 @@ def check(root: Path) -> None:
 def main() -> None:
     args = parse_args()
     root = Path(os.path.abspath(args.root))
-    if args.mode == "build":
+    if args.mode in ("build", "mvp-build"):
         build(root)
     else:
         check(root)

@@ -15,11 +15,18 @@ public partial class DreamPuzzlePanel : Control
     private GridContainer _choices = null!;
     private Button _submit = null!;
     private string _puzzleId = string.Empty;
+
     private int _expectedLength;
     private bool _allowRepeats;
     private bool _numericInput;
     private readonly List<string> _tokens = [];
     private readonly Dictionary<string, Button> _choiceButtons = new(StringComparer.Ordinal);
+
+    public override void _ExitTree()
+    {
+        _modalLease?.Dispose();
+        _modalLease = null;
+    }
 
     public override void _Ready()
     {

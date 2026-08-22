@@ -9,7 +9,7 @@
 - Compatibility/OpenGL；
 - .NET SDK 10.0.400 用于命令行，项目目标框架 `net8.0`；
 - Dialogue Manager v3.10.4（当前未 vendored）；
-- 640×360 内部视口和整数缩放。
+- 640×360 逻辑坐标、`canvas_items` + `keep` + fractional 缩放；3D 按实际窗口分辨率渲染。
 
 当前工作机路径：
 
@@ -46,7 +46,7 @@ $DotnetExe = 'C:\Program Files\dotnet\dotnet.exe'
 & $DotnetExe test .\tests\TownRpg.Core.Tests\TownRpg.Core.Tests.csproj --configuration Release
 ```
 
-截至 2026-08-17 的基线是 **84/84 通过，0 失败，0 跳过**。相对旧 71 项新增 13 项，覆盖梦境第一室出生、分散观察链、固定答案、顺序开放、跨房间回访、错误无副作用、晓雨加入前提示门槛、三级提示、刺醒、存档往返、Legacy 兼容和非法梦境状态拒绝。既有测试继续覆盖：
+截至 2026-08-22 的基线是 **89/89 通过，0 失败，0 跳过**。相对 88 项新增 1 项，验证新游戏使用显式安全出生点时，缺失 `positionX/Y` 的旧 v1 梦境存档仍按旧坐标默认值恢复；此前新增的显示设置、梦境第一室出生与完整四室规则覆盖继续保留。既有测试继续覆盖：
 
 - 关系阶段、有方向关系、截断、礼物和救援同行资格；
 - 承诺状态机、不随日期过期、时间推进和模态引用计数；
@@ -90,7 +90,15 @@ $GodotConsole = 'D:\ProgramFiles\Godot\Godot_v4.6.3-stable_mono_win64_console.ex
 GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8
 ```
 
-冒烟验证 Autoload、九场景和物品目录，并对 3D 第一室检查 GLB/着色器加载、四个相机角位、旋转锁、普通/减少闪烁裁墙、二维/三维坐标往返、旧坐标安全落点、Fixed-Y billboard、九个唯一且可达交互标记、四类视觉状态、19 组静态碰撞与物理通阻探针。它不能证明谜题理解、手柄手感、存档 I/O 或完整流程正确。
+冒烟验证 Autoload、九场景、物品目录、`canvas_items` 显示策略和窗口预设，并对 3D 第一室检查当前运行时 v2 GLB/两套 PBR 图集、正式方案 A 的 FOV 60°/21°俯角/3.4 米 SpringArm/1.30 米跟随高度/0.22 米肩偏、连续水平环绕、任意角度屏幕相对移动、二维/三维坐标往返、新游戏 `(448, 214)` 出生点无碰撞且不自动聚焦初始机关、旧坐标安全落点、Fixed-Y billboard、九个唯一且可达交互标记、四类视觉状态、20 组静态碰撞、关闭门阻挡与开门动画物理探针。本轮输入回归还检查：
+
+- `inventory` 同时包含 I、真实 Tab 与 Xbox X，且不含 Backspace；
+- Tab 在场景中和背包按钮持有 GUI 焦点时都能开关面板，关闭后不遗留隐藏焦点；
+- 捕获状态下注入鼠标水平位移会改变 Orbit yaw，非捕获状态不会；
+- 背包、暂停和退出确认会释放指针；Esc 能打开梦境暂停，退出确认不会被快速输入重复创建。
+
+这些注入式检查不能替代真实物理鼠标的 captured/raw delta、Xbox 手感、谜题理解、存档 I/O 或完整流程验收。
+`GodotSmokeRunner` 在整个测试进程中持有存档抑制租约，冒烟、性能和截图入口不得写入普通 `user://save-slot-1.json`；涉及真实存档 I/O 的验证必须另用专门临时用户目录执行。
 
 第一室 2D 基线仍可用原有 Pillow 命令复核；当前 3D MVP 另执行 Blender 只读校验和九张截图采集：
 
@@ -100,20 +108,60 @@ $PythonExe = 'C:\Python314\python.exe'
 & $PythonExe .\scripts\tools\prepare_original_classroom.py check
 
 $BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
-& $BlenderExe --background --factory-startup --python .\scripts\tools\build_classroom_3d.py -- check --root (Get-Location).Path
+& $BlenderExe --background --python .\scripts\tools\build_classroom_3d.py -- mvp-check --root (Get-Location).Path
+& $PythonExe .\scripts\tools\build_classroom_art_textures.py check --root .
+& $BlenderExe --background --python .\scripts\tools\build_classroom_art_pass.py -- art-check --root (Get-Location).Path
 
-$CaptureDir = Join-Path (Get-Location) 'outputs\classroom-3d-mvp\3d'
+$CaptureDir = Join-Path (Get-Location) 'outputs\classroom-3d-art-pass\godot'
 & $GodotConsole --path . --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- "--capture-classroom-3d=$CaptureDir"
 
 & $GodotConsole --path . --resolution 1280x720 --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- --profile-classroom-3d
 & $GodotConsole --path . --resolution 1920x1080 --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- --profile-classroom-3d
 ```
 
-预期出现 `DREAM_PIXEL_ART_CHECK_PASS files=5 paletteMax=32`、`ORIGINAL_CLASSROOM_CHECK_PASS source=1672x941 occluders=4`、`CLASSROOM_3D_CHECK_PASS meshes=130 desks=10` 与 `CLASSROOM_3D_CAPTURE_PASS files=9`。截图覆盖东南/西南/西北/东北四个方向、初始/黑板/教师桌/地图柜四类状态及碰撞调试；截图采集是视觉复核证据，不代替完整人工操作。
+预期出现 `DREAM_PIXEL_ART_CHECK_PASS files=5 paletteMax=32`、`ORIGINAL_CLASSROOM_CHECK_PASS source=1672x941 occluders=4`、`CLASSROOM_3D_CHECK_PASS meshes=130 desks=10`、`CLASSROOM_ART_TEXTURES_CHECK_PASS files=8 atlases=2x2048 details=1024 exterior=1024x512`、`CLASSROOM_ART_CHECK_PASS meshes=133 triangles=19082 desks=10` 与 `CLASSROOM_3D_CAPTURE_PASS files=12`。精修 v2 已覆盖自由镜头可见全室，十二张采集包括四个环绕方向、四类状态、碰撞以及门/黑板/课桌近景；这些仍是自动视觉回归，不等同负责人视觉终验或人工操作。
+
+教室 v3 目前只做离线候选验证；3D 主角 v1 只是明确未通过视觉门槛的技术样模，原画式 v2 已生成静态 GLB/manifest 并通过技术检查，但仍在负责人视觉确认门槛之前。它们都不进入运行时冒烟，也不得替代上述教室 v2/二维角色基线。现有 v1 离线检查使用：
+
+```powershell
+$PythonExe = 'C:\Python314\python.exe'
+$BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
+
+& $PythonExe .\scripts\tools\build_classroom_art_textures_v3.py check --root .
+& $BlenderExe --background --python .\scripts\tools\build_classroom_art_pass_v3.py -- art-check --root (Get-Location).Path
+& $PythonExe .\scripts\tools\build_protagonist_static.py texture-check --root .
+& $BlenderExe --background --python .\scripts\tools\build_protagonist_static.py -- check --root (Get-Location).Path
+
+$PreviousGodotUserHome = $env:GODOT_USER_HOME
+$FramingUserHome = Join-Path (Get-Location) 'outputs\godot-user-home-camera-framing'
+New-Item -ItemType Directory -Path $FramingUserHome -Force | Out-Null
+try {
+    $env:GODOT_USER_HOME = $FramingUserHome
+    $FramingDir = Join-Path (Get-Location) 'outputs\classroom-camera-framing'
+    & $GodotConsole --path . --resolution 1920x1080 --scene 'res://scenes/testing/GodotSmokeRunner.tscn' -- "--capture-classroom-framing=$FramingDir"
+}
+finally {
+    $env:GODOT_USER_HOME = $PreviousGodotUserHome
+}
+```
+
+v3 检查关注必需状态根、十组共享课桌、门枢轴、零缺失外部文件、纹理和预算；主角 v1 技术检查关注官方 CC0 来源、比例、闭合网格、三角面、材质、GLB 哈希，以及明确不存在 Armature 和动画。镜头对照入口要求 Git LFS 内容和 v3 GLB 已完成 Godot 导入，成功输出 `CLASSROOM_CAMERA_FRAMING_CAPTURE_PASS images=6 reports=2`、六张 1920×1080 PNG、CSV 与说明文件；它在独立实例中对照旧构图、已正式采用的方案 A 与远距方案 B，临时加载 v3，但不修改第一室的 v2 运行时引用。
+
+主角 v2 的第一阶段只验收静态美术，不复用 v1 的“技术导出通过”结论。必须先核对三项正式参考的哈希与 provenance，再输出同尺度 A-pose 正/侧/背、面部正/3/4/侧、自然站姿四向、服装与鞋近景、方案 A 默认出生构图及四个环绕角度。默认构图中角色屏幕高度目标为 28%–31%；同时报告身高、可见三角面、网格、材质、纹理和缺失外链。负责人确认脸型、头发、服装轮廓、材质和教室比例前，不执行绑定、`idle/walk/jog`、`AnimationTree`、Godot 接入或运行时替换。
+
+当前独立捕获的实测值为：默认及前侧角度 `36.47%`，且 SpringArm 完整保持 `3.4m`；后侧角度因墙体将 SpringArm 压缩至 `2.430–2.444m`，屏幕高度升至 `49.25%–49.49%`。这说明原定 `28%–31%` 尚未通过，但不是 `1.7017m` 模型或捕获工具的尺度错误：旧二维 sprite 的有效透明边界只对应约 `1.38–1.45m`，不能直接作为真实身高 3D 人物的等价口径。视觉确认后应在“约 `35%–38%` 的真实 3D 构图”与“约 `4.0–4.2m` 臂长或更宽 FOV”之间另行确认；不得缩小角色世界尺寸。后侧 SpringArm 压缩也必须作为独立镜头舒适性问题处理。
+
+v2 候选资产落地后执行以下只读检查；它只能检查静态资产，不会绑定或生成动画：
+
+```powershell
+& $BlenderExe --background --python-exit-code 1 --python .\scripts\tools\build_protagonist_art_pass_v2.py -- art-check --root .
+```
+
+当前已实际得到 `PROTAGONIST_ART_V2_CHECK_PASS meshes=6 triangles=34972 height=1.7017 bytes=1532748 readOnly=true bound=false animated=false`。manifest 同时记录 6 个可见网格、1 个材质面、三张 2048² 纹理、零 Armature/Action，并明确设置 `runtimeReady=false`。这项 PASS 只覆盖静态技术资产；完整视觉图组与负责人视觉确认仍是独立门槛，不得据此开始绑定、动画或运行时接入。
 
 ## 四室梦境人工验收
 
-1. 新游戏确认姓名后直接出生在第一室，能从内侧前往走廊；进入前及 HUD 不出现“梦境”“醒来”“跳过”。
+1. 新游戏确认姓名后直接出生在第一室 `(448, 214)` 安全点，首帧不自动聚焦机关，默认朝向黑板且 SpringArm 实际长度接近 3.4 米；能从内侧前往走廊，进入前及 HUD 不出现“梦境”“醒来”“跳过”。
 2. 用键盘和 Xbox 分别完成：粉笔显序→窗/钟/值日表观察→`372`→钥匙开启第二室→`1-4-2-3`→三处辨听→社团档案→第一室合影→第二室点名柜→第三室录音机→第四室三板与双侧机关。
 3. 每次开新房后返回此前房间；在走廊和四室分别保存/继续，确认区域、坐标、物品、线索和提示等级恢复。
 4. 对每个目标尝试至少一个错误道具和错误答案，确认不消耗、不解锁、不自动保存伪进度。
@@ -122,10 +170,12 @@ $CaptureDir = Join-Path (Get-Location) 'outputs\classroom-3d-mvp\3d'
 7. 在走廊和四室分别取消一次大头针确认；再于五个区域分别确认刺醒，验证清空梦境物品、无现实纸条、重载不能重进或领奖。
 8. 完成出口后确认只显示第一阶段开发完成页，不揭示正式信息、不生成纸条、不标记 `CompletedEscape`。
 9. 以 100%/125%/150% 字号检查物品/记录/晓雨分页、数字直输、逐项撤销、确认框的焦点链与取消行为。
-10. 第一室默认无悬浮物件标签；接近粉笔、黑板、窗、时钟、值日表、教师桌和地图柜时出现地面光环且底部提示与目标一致。检查普通/高对比光环，确认角色不能穿过墙、柜和桌椅但可通过主要过道与东侧门洞。
-11. 在第一室用 `Q/E` 和 `LB/RB` 依次转过四个角位；确认严格每次 90°、约 0.3 秒、快速连按不排队，旋转期间角色/焦点/交互暂停，离开到 2D 走廊后旋转键无效，返回时重置为东南镜头。
-12. 在四个镜头方向分别检查 WASD/左摇杆始终按屏幕方向移动，主角下/左/右/上动画由实际位移选择且停止时保留朝向；后续房间的晓雨仍使用新版 4×4 2D 素材和既定同行位置。
-13. 普通模式确认墙体与镜头同步淡变；“减少闪烁”下旋转期间只出现完全显示/隐藏状态，不出现半透明墙。检查近墙不投射异常阴影或遮挡交互。
+10. 第一室默认无悬浮物件标签；接近粉笔、黑板、窗、时钟、值日表、教师桌和地图柜时出现地面光环且底部提示与目标一致。检查普通/高对比光环，确认角色不能穿过墙、柜、桌椅和关闭的教室门，但可抵达门内交互点。
+11. 在第一室用鼠标水平移动和手柄右摇杆连续环绕至少一周；确认俯角固定、不会自动回正，移动和交互在转镜时仍可同时进行。离开到 2D 走廊后 Orbit 输入无效，返回时采用默认朝向。
+12. 在至少八个非整 90°镜头角度检查 WASD/左摇杆始终按屏幕方向移动，主角下/左/右/上动画由实际位移投影选择且停止时保留朝向；后续房间的晓雨仍使用新版 4×4 2D 素材和既定同行位置。
+13. 在场景与背包按钮已有焦点时分别用 I/Tab 开关背包，确认 Backspace 不打开；背包、谜题、暂停和确认框打开或窗口失焦时鼠标释放、角色与镜头锁定，关闭模态后恢复捕获。若指针意外可见，点击画面可重新捕获。靠近四墙和家具时 SpringArm 拉近但不穿模，镜头不得露出无天花板模型之外。
+14. 与关闭教室门交互后确认角色、镜头和交互锁定，约 0.35 秒开门并在约 0.15 秒淡出后直接进入走廊；角色不能自行走出门洞。取消/异常时门重新关闭且锁释放，返回第一室时出生在门内安全点。
+15. 按 Esc 打开梦境暂停，依次检查继续、设置、返回标题和退出；退出二次确认取消后仍停留在暂停，确认后程序正常关闭。标题页的退出同样只显示一个确认框。
 
 目标游玩时长 30–45 分钟必须通过真实首次游玩记录确认，自动测试和熟练开发者速通不能替代。
 
@@ -158,10 +208,11 @@ $CaptureDir = Join-Path (Get-Location) 'outputs\classroom-3d-mvp\3d'
 
 | 项目 | 验收标准 |
 | --- | --- |
-| 键盘 | WASD/方向键、F/空格、J、Esc 均正确；3D 第一室额外检查 Q/E；UI 确认不重复触发世界。 |
-| Xbox 手柄 | 左摇杆、A、Y、Menu 正确；提示随最后输入设备切换。 |
-| 1280×720 | 2× 整数缩放、像素边缘稳定、文字可读。 |
-| 1920×1080 | 3× 整数缩放、无非整数模糊或错误裁切。 |
+| 键盘/鼠标 | WASD/方向键、F/空格、I、真实 Tab、J、Esc、F11 均正确，Backspace 不打开背包；3D 第一室物理鼠标 raw delta 可水平环绕，暂停/模态释放指针，UI 确认不重复触发世界。 |
+| Xbox 手柄 | 左摇杆、右摇杆、A、X、Y、Menu 正确；提示随最后输入设备切换。 |
+| 1280×720 | 默认窗口；HUD 清晰，像素人物最近邻边缘稳定，3D 原生渲染。 |
+| 1600×900 | fractional 缩放不裁切 UI；Legacy 像素可非整数缩放，文字与 3D 仍清晰。 |
+| 1920×1080 | 窗口与无边框全屏均输出原生 1920×1080，HUD、近景材质和角色边缘正确。 |
 | 字号 | 100%/125%/150% 不遮挡关键按钮和选项。 |
 | 高对比 | 交互提示有不透明深色背景。 |
 | 闪烁 | 关闭闪烁后无快速明暗变化；当前切片默认无闪烁。 |
@@ -176,10 +227,13 @@ $CaptureDir = Join-Path (Get-Location) 'outputs\classroom-3d-mvp\3d'
 
 | 请求/实际窗口 | 平均 FPS | 最低瞬时 FPS | 最大旋转帧时 | 第一室场景加载 |
 | --- | ---: | ---: | ---: | ---: |
-| 1280×720 / 1280×720 | 60.0 | 52.2 | 17.02 ms | 89.70 ms |
-| 1920×1080 / 1920×1061（桌面工作区限制） | 60.0 | 54.4 | 18.38 ms | 76.92 ms |
+| 1280×720 / 1280×720 窗口 | 60.0 | 59.1 | 16.92 ms | 354.67 ms |
+| 1600×900 / 1600×900 窗口 | 60.1 | 59.5 | 16.80 ms | 354.92 ms |
+| 1920×1080 / 1920×1080 无边框全屏 | 60.0 | 59.0 | 16.94 ms | 371.22 ms |
 
-该记录证明当前独显和内部 640×360 Viewport 下达到目标，不代表中低端集显、完整四室长时游玩或 2D/3D 换场已经验收。
+该记录对应精修 v2 全室、连续 Orbit 和 `canvas_items` 原生 3D 渲染，证明当前独显达到目标；PBR 资源加载仍低于 2 秒目标。不代表中低端集显、完整四室长时游玩或完整 2D/3D 门转场已经人工验收。
+
+同日完成 Windows 实机短程检查：1280×720 窗口下的显示设置在 100% 与 150% 字号均可完整滚动，F11 可切换到实际 1920×1080 无边框全屏，未发现选项裁切。2026-08-22 又实机验证了 Tab 打开/关闭背包、Esc 打开暂停、继续、退出确认取消与最终正常退出。由于自动桌面输入无法产生与真实设备等价的捕获态 raw mouse delta，物理鼠标环绕仍列为未验收；Xbox 和中低端集显也未验收。
 
 ## Dialogue Manager 验收
 

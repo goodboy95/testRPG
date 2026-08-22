@@ -22,7 +22,7 @@ public partial class DreamAreaController : Node2D, IDreamAreaRuntime
     private Node2D? _xiaoyuActor;
     private readonly Dictionary<string, Vector2> _markerPositions = new(StringComparer.Ordinal);
 
-    public bool SupportsQuarterTurnCamera => false;
+    public CameraControlMode CameraControlMode => CameraControlMode.None;
 
     public override void _Ready()
     {

@@ -4,7 +4,7 @@ using TownRpg.Core.Domain;
 
 namespace TownRpg.Presentation;
 
-public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime
+public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDreamAreaExitTransition
 {
     [Export] public string AreaId { get; set; } = DreamEscapeIds.AreaClassroom;
 
@@ -13,6 +13,8 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime
         new Rect2(-4.52f, -3.30f, 9.04f, 6.60f));
     private GameSession _session = null!;
     private DreamClassroomVisual3D _visual = null!;
+    private float _doorClosedYaw;
+    private bool _doorTransitionPlaying;
 
     protected override bool InputBlocked => _session.Modal.IsBlocked;
 
@@ -32,12 +34,14 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime
             _session.MoveDreamToArea(AreaId, resolvedStored.X, resolvedStored.Y);
         }
         Player.GlobalPosition = resolvedWorld;
+        CameraRig.SnapToTarget();
         Player.Moved += OnPlayerMoved;
         var protagonistTexture = ResourceLoader.Load<Texture2D>(
             "res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png");
         if (protagonistTexture is not null)
             Player.ConfigureCharacterFrames(DreamCharacterFrames.Create(protagonistTexture));
         _visual.ApplyState(dream);
+        _doorClosedYaw = _visual.DoorHinge.Rotation.Y;
         ApplySettings(_session.State.Settings);
     }
 
@@ -91,7 +95,49 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime
 
     public DreamClassroomVisual3D ClassroomVisual => _visual;
     public PlayerController3D PlayerActor => Player;
-    public QuarterTurnCameraRig CameraController => CameraRig;
+    public ThirdPersonCameraRig CameraController => CameraRig;
+
+    public async Task PlayExitTransitionAsync(string targetId, CancellationToken cancellationToken)
+    {
+        if (targetId != $"area:{DreamEscapeIds.AreaCorridor}" || _doorTransitionPlaying) return;
+        _doorTransitionPlaying = true;
+        SetRuntimeInputLocked(true);
+        const float duration = 0.35f;
+        var elapsed = 0f;
+        try
+        {
+            while (elapsed < duration)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                elapsed += (float)GetProcessDeltaTime();
+                var weight = Mathf.SmoothStep(0f, 1f, Mathf.Clamp(elapsed / duration, 0f, 1f));
+                _visual.DoorHinge.Rotation = new Vector3(
+                    _visual.DoorHinge.Rotation.X,
+                    Mathf.LerpAngle(_doorClosedYaw, _doorClosedYaw - Mathf.DegToRad(72f), weight),
+                    _visual.DoorHinge.Rotation.Z);
+            }
+        }
+        catch
+        {
+            ResetDoor();
+            throw;
+        }
+        finally
+        {
+            _doorTransitionPlaying = false;
+        }
+    }
+
+    public void ResetDoor()
+    {
+        if (_visual?.DoorHinge is null) return;
+        _visual.DoorHinge.Rotation = new Vector3(
+            _visual.DoorHinge.Rotation.X,
+            _doorClosedYaw,
+            _visual.DoorHinge.Rotation.Z);
+        SetRuntimeInputLocked(false);
+    }
 
     private void OnPlayerMoved(Vector3 worldPosition)
     {

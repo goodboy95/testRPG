@@ -16,6 +16,7 @@ public partial class DreamClassroomVisual3D : Node3D
         new("WallEastBack", new Vector3(4.8f, 1.6f, -0.98f), new Vector3(0.18f, 3.2f, 5.24f), false),
         new("WallEastFront", new Vector3(4.8f, 1.6f, 3.18f), new Vector3(0.18f, 3.2f, 0.84f), false),
         new("WallEastDoorTop", new Vector3(4.8f, 2.67f, 2.2f), new Vector3(0.18f, 1.06f, 1.12f), false),
+        new("DoorBarrier", new Vector3(4.68f, 1.10f, 2.2f), new Vector3(0.24f, 2.20f, 1.12f), false),
         new("MapCabinet", new Vector3(-3.83f, 1.05f, -2.8f), new Vector3(1.2f, 2.1f, 0.72f), true),
         new("TeacherDesk", new Vector3(0.4f, 0.48f, -2.12f), new Vector3(1.95f, 0.96f, 1.04f), true),
         new("StudentDesk01", new Vector3(-3.35f, 0.52f, -0.10f), new Vector3(1.02f, 1.04f, 1.38f), true),
@@ -50,16 +51,16 @@ public partial class DreamClassroomVisual3D : Node3D
     public int CollisionBodyCount => CollisionSpecs.Length;
     public int FurnitureCollisionCount => CollisionSpecs.Count(spec => spec.Furniture);
     public Rect2 WalkableBounds => new(-4.52f, -3.30f, 9.04f, 6.60f);
-    public WallCutawayController WallCutaway { get; private set; } = null!;
     public bool ChalkVisible => _chalk.Visible;
     public string BlackboardVariant => _blackboard.CurrentVariant;
     public string TeacherDeskVariant => _teacherDesk.CurrentVariant;
     public string MapCabinetVariant => _mapCabinet.CurrentVariant;
+    public Node3D DoorHinge { get; private set; } = null!;
 
     public override void _Ready()
     {
         _model = GetNode<Node3D>("../ClassroomModel");
-        WallCutaway = GetNode<WallCutawayController>("../WallCutawayController");
+        ApplyRuntimeTextureFiltering(_model);
         _chalk = RequiredNode("Chalk");
         _blackboard = new StatefulObjectVisual3D(new Dictionary<string, Node3D>(StringComparer.Ordinal)
         {
@@ -76,6 +77,7 @@ public partial class DreamClassroomVisual3D : Node3D
             ["closed"] = RequiredNode("MapCabinet_Closed"),
             ["open"] = RequiredNode("MapCabinet_Open")
         });
+        DoorHinge = RequiredNode("Door_East_Hinge");
         BuildCollisionBodies();
     }
 
@@ -87,12 +89,12 @@ public partial class DreamClassroomVisual3D : Node3D
         _mapCabinet.SetVariant(state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMapCabinet) ? "open" : "closed");
     }
 
-    public void ApplySettings(PlayerSettings settings) => WallCutaway.ApplySettings(settings);
+    public void ApplySettings(PlayerSettings settings) => _ = settings;
 
     public bool IsBlocked(Vector3 playerPosition)
     {
         if (!WalkableBounds.HasPoint(new Vector2(playerPosition.X, playerPosition.Z))) return true;
-        return CollisionSpecs.Where(spec => spec.Furniture).Any(spec =>
+        return CollisionSpecs.Where(spec => spec.Furniture || spec.Name == "DoorBarrier").Any(spec =>
         {
             var rect = new Rect2(
                 spec.Position.X - spec.Size.X / 2f,
@@ -153,6 +155,21 @@ public partial class DreamClassroomVisual3D : Node3D
             body.AddChild(new CollisionShape3D { Shape = new BoxShape3D { Size = spec.Size } });
             host.AddChild(body);
         }
+    }
+
+    private static void ApplyRuntimeTextureFiltering(Node node)
+    {
+        if (node is MeshInstance3D mesh && mesh.Mesh is not null)
+        {
+            for (var surface = 0; surface < mesh.Mesh.GetSurfaceCount(); surface++)
+            {
+                if (mesh.GetActiveMaterial(surface) is BaseMaterial3D material)
+                    material.TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic;
+            }
+        }
+
+        foreach (var child in node.GetChildren())
+            ApplyRuntimeTextureFiltering(child);
     }
 
     private Node3D RequiredNode(string name) =>

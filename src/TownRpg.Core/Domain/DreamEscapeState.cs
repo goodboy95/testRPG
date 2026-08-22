@@ -12,6 +12,9 @@ public enum DreamEscapeStatus
 
 public sealed class DreamEscapeState
 {
+    public const float NewGameClassroomPositionX = 448f;
+    public const float NewGameClassroomPositionY = 214f;
+
     public DreamEscapeStatus Status { get; set; } = DreamEscapeStatus.InProgress;
     public string CurrentAreaId { get; set; } = DreamEscapeIds.AreaClassroom;
     public float PositionX { get; set; } = 320f;

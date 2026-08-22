@@ -28,9 +28,15 @@ public partial class DreamEscapeController : Node
     private DreamPuzzlePanel _puzzle = null!;
     private DreamInventoryPanel _inventory = null!;
     private ConfirmationDialog _pinConfirmation = null!;
+    private ColorRect _transitionFade = null!;
     private string _selectedItemId = string.Empty;
     private bool _usingGamepad;
+    private bool _areaTransitionRunning;
+    private readonly CancellationTokenSource _lifetimeCancellation = new();
     private int _toastVersion;
+
+    public bool InventoryVisible => _inventory?.Visible == true;
+    public bool UsingGamepadPrompts => _usingGamepad;
 
     public override void _Ready()
     {
@@ -49,6 +55,10 @@ public partial class DreamEscapeController : Node
 
     public override void _ExitTree()
     {
+        _lifetimeCancellation.Cancel();
+        _lifetimeCancellation.Dispose();
+        _pinLease?.Dispose();
+        _pinLease = null;
         DisconnectArea();
     }
 
@@ -57,28 +67,24 @@ public partial class DreamEscapeController : Node
         var nextGamepad = inputEvent is InputEventJoypadButton button && button.Pressed ||
                           inputEvent is InputEventJoypadMotion motion && Math.Abs(motion.AxisValue) >= 0.35f;
         var nextKeyboard = inputEvent is InputEventKey key && key.Pressed ||
-                           inputEvent is InputEventMouseButton mouse && mouse.Pressed;
+                           inputEvent is InputEventMouseButton mouse && mouse.Pressed ||
+                           inputEvent is InputEventMouseMotion mouseMotion &&
+                           mouseMotion.ScreenRelative.LengthSquared() > 0.01f;
         if ((nextGamepad && !_usingGamepad) || (nextKeyboard && _usingGamepad))
         {
             _usingGamepad = nextGamepad;
             _area?.SetGamepadPrompts(_usingGamepad);
             RefreshHud();
         }
-    }
 
-    public override void _UnhandledInput(InputEvent inputEvent)
-    {
-        if (inputEvent.IsActionPressed("inventory") && !_puzzle.Visible && !_pinConfirmation.Visible)
+        if (inputEvent.IsActionPressed("inventory") &&
+            !_puzzle.Visible &&
+            !_pinConfirmation.Visible &&
+            (_inventory.Visible || (!_session.Modal.IsBlocked && !_areaTransitionRunning)))
         {
             GetViewport().SetInputAsHandled();
             if (_inventory.Visible) _inventory.ClosePanel();
             else _inventory.Open(_selectedItemId);
-            return;
-        }
-        if (inputEvent.IsActionPressed("pause_menu") && !_session.Modal.IsBlocked)
-        {
-            GetViewport().SetInputAsHandled();
-            ShowToast("此处没有可暂停的日程；进度会在每次有效操作后保存。", 3.2);
         }
     }
 
@@ -86,12 +92,17 @@ public partial class DreamEscapeController : Node
     {
         _interface = new CanvasLayer { Layer = 12 };
         AddChild(_interface);
-        _interfaceRoot = new Control { Theme = UiStyles.CreateTheme() };
+        _interfaceRoot = new Control
+        {
+            Theme = UiStyles.CreateTheme(),
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
         _interfaceRoot.Theme.DefaultFontSize = Mathf.RoundToInt(14 * _session.State.Settings.FontScale);
         _interfaceRoot.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _interface.AddChild(_interfaceRoot);
 
         var top = new PanelContainer { Position = new Vector2(10, 8), Size = new Vector2(620, 50) };
+        top.MouseBehaviorRecursive = Control.MouseBehaviorRecursiveEnum.Disabled;
         top.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("122431e8"), 6));
         _interfaceRoot.AddChild(top);
         var topRow = new HBoxContainer();
@@ -126,9 +137,10 @@ public partial class DreamEscapeController : Node
         topRow.AddChild(_selected);
         _cameraHint = new Label
         {
-            CustomMinimumSize = new Vector2(88, 28),
+            CustomMinimumSize = new Vector2(148, 28),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
+            TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis,
             Visible = false
         };
         _cameraHint.AddThemeColorOverride("font_color", new Color("f2c66d"));
@@ -149,6 +161,7 @@ public partial class DreamEscapeController : Node
             Size = new Vector2(460, 30),
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
+            MouseFilter = Control.MouseFilterEnum.Ignore,
             Visible = false
         };
         _prompt.AddThemeStyleboxOverride("normal", UiStyles.Panel(
@@ -162,6 +175,7 @@ public partial class DreamEscapeController : Node
             HorizontalAlignment = HorizontalAlignment.Center,
             VerticalAlignment = VerticalAlignment.Center,
             AutowrapMode = TextServer.AutowrapMode.WordSmart,
+            MouseFilter = Control.MouseFilterEnum.Ignore,
             Visible = false
         };
         _toast.AddThemeStyleboxOverride("normal", UiStyles.Panel(new Color("233846fa"), 6));
@@ -199,6 +213,16 @@ public partial class DreamEscapeController : Node
         _pinConfirmation.Confirmed += ConfirmPinUse;
         _pinConfirmation.Canceled += ReleasePinModal;
         _interfaceRoot.AddChild(_pinConfirmation);
+
+        _transitionFade = new ColorRect
+        {
+            Color = Colors.Black,
+            Modulate = new Color(1f, 1f, 1f, 0f),
+            MouseFilter = Control.MouseFilterEnum.Stop,
+            Visible = false
+        };
+        _transitionFade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        _interfaceRoot.AddChild(_transitionFade);
     }
 
     public void ApplySettings(PlayerSettings settings)
@@ -255,16 +279,7 @@ public partial class DreamEscapeController : Node
         if (_session.Modal.IsBlocked) return;
         if (targetId.StartsWith("area:", StringComparison.Ordinal))
         {
-            var nextArea = targetId["area:".Length..];
-            var spawn = nextArea switch
-            {
-                DreamEscapeIds.AreaCorridor => new Vector2(320, 270),
-                DreamEscapeIds.AreaClassroom => new Vector2(588, 232),
-                _ => new Vector2(320, 282)
-            };
-            var result = _session.MoveDreamToArea(nextArea, spawn.X, spawn.Y);
-            if (result.Changed) LoadArea(nextArea);
-            else ShowResult(result);
+            _ = TransitionToAreaAsync(targetId);
             return;
         }
         if (targetId.StartsWith("pickup:", StringComparison.Ordinal))
@@ -351,6 +366,75 @@ public partial class DreamEscapeController : Node
         }
         if (!_session.State.DreamEscape!.Items.Contains(_selectedItemId)) _selectedItemId = string.Empty;
         ApplyAndRefresh(result, special);
+    }
+
+    private async Task TransitionToAreaAsync(string targetId)
+    {
+        if (_areaTransitionRunning || !targetId.StartsWith("area:", StringComparison.Ordinal)) return;
+        _areaTransitionRunning = true;
+        using var lease = _session.Modal.Acquire("dream.area_transition");
+        try
+        {
+            var areaAtStart = _area;
+            if (areaAtStart is IDreamAreaExitTransition transition)
+                await transition.PlayExitTransitionAsync(targetId, _lifetimeCancellation.Token);
+
+            await FadeTransitionAsync(1f, 0.15f, _lifetimeCancellation.Token);
+            var nextArea = targetId["area:".Length..];
+            var spawn = nextArea switch
+            {
+                DreamEscapeIds.AreaCorridor => new Vector2(320, 270),
+                DreamEscapeIds.AreaClassroom => new Vector2(588, 232),
+                _ => new Vector2(320, 282)
+            };
+            var result = _session.MoveDreamToArea(nextArea, spawn.X, spawn.Y);
+            if (result.Changed)
+            {
+                LoadArea(nextArea);
+            }
+            else
+            {
+                if (areaAtStart is DreamAreaController3D classroom) classroom.ResetDoor();
+                ShowResult(result);
+            }
+            await FadeTransitionAsync(0f, 0.15f, _lifetimeCancellation.Token);
+        }
+        catch (OperationCanceledException)
+        {
+            // Scene shutdown cancels a presentation-only transition safely.
+        }
+        catch (Exception exception)
+        {
+            GD.PushError($"Dream area transition failed: {exception}");
+            if (_area is DreamAreaController3D classroom) classroom.ResetDoor();
+            ShowToast("门没有完全打开，请再试一次。");
+        }
+        finally
+        {
+            _areaTransitionRunning = false;
+            if (_transitionFade is not null)
+            {
+                _transitionFade.Modulate = new Color(1f, 1f, 1f, 0f);
+                _transitionFade.Visible = false;
+            }
+        }
+    }
+
+    private async Task FadeTransitionAsync(float targetAlpha, float duration, CancellationToken cancellationToken)
+    {
+        _transitionFade.Visible = true;
+        _transitionFade.MoveToFront();
+        var startAlpha = _transitionFade.Modulate.A;
+        var elapsed = 0f;
+        while (elapsed < duration)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            elapsed += (float)GetProcessDeltaTime();
+            var weight = Mathf.SmoothStep(0f, 1f, Mathf.Clamp(elapsed / duration, 0f, 1f));
+            _transitionFade.Modulate = new Color(1f, 1f, 1f, Mathf.Lerp(startAlpha, targetAlpha, weight));
+        }
+        _transitionFade.Modulate = new Color(1f, 1f, 1f, targetAlpha);
     }
 
     private void OpenPuzzle(string shortId)
@@ -478,8 +562,11 @@ public partial class DreamEscapeController : Node
             ? null
             : ResourceLoader.Load<Texture2D>(selectedDefinition.IconPath);
         _selectedIcon.Visible = _selectedIcon.Texture is not null;
-        _cameraHint.Visible = _area?.SupportsQuarterTurnCamera == true;
-        _cameraHint.Text = _usingGamepad ? "[LB/RB] 镜头" : "[Q/E] 镜头";
+        _cameraHint.Visible = _area?.CameraControlMode == CameraControlMode.Orbit;
+        _cameraHint.Text = _usingGamepad ? "[右摇杆] 镜头　[菜单] 暂停" : "[鼠标] 镜头　[Esc] 暂停";
+        _cameraHint.TooltipText = _usingGamepad
+            ? "移动右摇杆环绕镜头；按菜单键暂停并释放指针。"
+            : "移动鼠标环绕镜头；按 Esc 暂停并释放鼠标。";
         _selected.TooltipText = string.IsNullOrEmpty(_selectedItemId)
             ? "打开随身物品"
             : $"当前选用：{DreamInventoryPanel.ItemName(_selectedItemId)}";

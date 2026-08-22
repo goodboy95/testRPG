@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "generator": "Pillow 12.1.1 and NumPy 2.4.2 deterministic v3 texture preparation",
+  "outputs": {
+    "plaster-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "0051f05a8fe465765c97e6c99dfa889d1077fe450d60d8d47783f6889459e4cc"
+    },
+    "plaster-normal.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "8639a3f5be12cb508e7fa812e2e15f7d974017da4cde7e629eeb2b5ea9963088"
+    },
+    "plaster-orm.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "004e7750179c069d4d64673bdf32ea63579e4c1d2c66012ed09a4d90492989b8"
+    },
+    "teal-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "fb9af3848b9f65efea17b0135495c934bde62eb1788f20b5eb99943787fc3be1"
+    },
+    "teal-normal.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "1be12c43e4e56a1c0b97921bd40b5fa8d4f14136c5a20bde9300c085e93a49b9"
+    },
+    "teal-orm.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "f91a9fe88c8216d95449857633b32f6a53f993e8892f7fc10bffc2446855ffbc"
+    },
+    "floor-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "e2e52fa3974123c635596086af877aafd45d7cdea9aa8e215298566100d329ba"
+    },
+    "floor-normal.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "46a2c86a4f7a43367bf06be26bb5a5a3ed89faf91f28fcc101b0e2429d600c41"
+    },
+    "floor-orm.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "141cdbb39a421c788c849515123f7d688ce699617e5836ae73f19ad248a813cc"
+    },
+    "wood-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "731518e6b5bf75896e2efce304830f6c436a47463f49d7d93e67b2bda8da9639"
+    },
+    "wood-normal.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "185496bce23716c161f08e40796fef34b3f48ab62215022e9a8291cd900b327e"
+    },
+    "wood-orm.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "01728bac9da76f2acc8ff5e64c6568936546f36558a9227767513da8417c0ab6"
+    },
+    "darkwood-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "aade069d1e2f7342b9b549ac2c459c5360e650e525f63eaa0bff4495c4cc8987"
+    },
+    "darkwood-normal.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "8626b9d2323a94aba4c62022398f8ed9ff1b8b8e6a56d9b360e67bea25c4ffc7"
+    },
+    "darkwood-orm.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "19e7291d77f3c5ec94097512b6ea3a876e49837ddb240a106203d35b6a0bf114"
+    },
+    "blackboard-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "9ac5b59a0828b6216107aa3b4d2a61d814748cc242ffa94c685536de9576770a"
+    },
+    "blackboard-normal.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "5535d4e60c5a7a9b1095bf3fac50f84fc1d84d137afabbbd859074f474f25339"
+    },
+    "blackboard-orm.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB",
+      "sha256": "d5fc563deefe935539a68071f781ada1469784f5b7e8a66a591dc862e272b046"
+    },
+    "details.png": {
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "sha256": "a3b8cb9def197a49ea6f37811dcb4ab7a1c56a196491797a117958c17ef337d7"
+    },
+    "window-exterior.png": {
+      "size": [
+        1024,
+        512
+      ],
+      "mode": "RGB",
+      "sha256": "fa2fe1c7b39896d69836c0b31913f54987c8fd1cd13f836e7e7c0a4f4fe66024"
+    }
+  }
+}

@@ -41,7 +41,7 @@ Web、数据库、外部微服务、HTTP/gRPC、域名、监听端口、反向�
 - 当前命令行 SDK 由 `global.json` 固定为 .NET SDK 10.0.400。
 - 渲染器固定为 Compatibility / OpenGL。
 - 对话插件固定为 **Dialogue Manager v3.10.4**，这是 Godot 4.6 的匹配版本；插件尚未 vendored。
-- 目标平台仅为 Windows x64；内部分辨率 640×360，Viewport 整数缩放，默认窗口 1280×720。
+- 目标平台仅为 Windows x64；保留 640×360 逻辑坐标，使用 `canvas_items` + `keep` + fractional 缩放，3D 按实际窗口分辨率渲染。默认 1280×720 窗口，另支持 1600×900、1920×1080 和原生无边框全屏。
 - 首版仅简体中文、单人、离线，不做联网、云存档、Mod 或 Steam 接入。
 
 不得执行依赖安装、服务部署或容器编排。Godot 工程恢复只允许使用已经安装的 Godot 4.6.3 自带离线 NuGet 包源，不得为了构建临时升级引擎、SDK 或插件。
@@ -131,7 +131,7 @@ GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8
 
 ## 当前阻断项与提交前检查
 
-截至 2026-08-21：梦境第一室已迁移为 3D MVP，走廊、后三室与 Legacy 小镇仍为 2D；Dialogue Manager v3.10.4 尚未放入 `addons/dialogue_manager/`；Windows 导出模板缺失；梦境密室 30–45 分钟完整人工游玩、手柄、性能和导出尚未验收。旧两日切片仍保留给旧存档与回归，但新游戏不再进入。
+截至 2026-08-22：梦境第一室运行时仍使用精修 v2 GLB、自由水平环绕透视第三人称、跟随镜头、SpringArm 防穿模与受控开门转场；镜头正式采用方案 A（FOV 60°、21°俯角、3.4 米臂长），新游戏从不自动聚焦机关的安全点开始。真实 `I`/`Tab` 背包、捕获态鼠标环绕、Esc 暂停释放指针及正常退出路径已实现。教室 v3 仅为离线视觉候选，尚未替换运行时；官方 CC0 Human Base 派生的主角 v1 仍是明确未通过视觉门槛的技术样模，原画式 v2 静态 GLB/manifest 已通过技术检查，但仍未绑定、无动画、`runtimeReady=false` 并等待负责人视觉确认，当前游戏继续使用 2D billboard。走廊、后三室与 Legacy 小镇仍为 2D；Dialogue Manager v3.10.4 尚未放入 `addons/dialogue_manager/`；Windows 导出模板缺失；梦境密室 30–45 分钟完整人工游玩、真实物理鼠标 raw delta、Xbox、中低端集显和导出尚未验收。旧两日切片仍保留给旧存档与回归，但新游戏不再进入。
 
 提交或交付前必须确认：
 

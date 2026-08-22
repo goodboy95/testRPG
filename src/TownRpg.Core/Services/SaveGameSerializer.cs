@@ -20,6 +20,13 @@ public static class SaveGameSerializer
         DreamEscapeIds.Location
     };
 
+    private static readonly HashSet<(int Width, int Height)> ValidWindowSizes =
+    [
+        (1280, 720),
+        (1600, 900),
+        (1920, 1080)
+    ];
+
     private static readonly JsonSerializerOptions Options = new()
     {
         WriteIndented = true,
@@ -116,7 +123,9 @@ public static class SaveGameSerializer
             game.Progression.Level is < 1 or > 10 ||
             game.Progression.Experience < 0 ||
             game.Settings.TextSpeed is < 0.5f or > 3f ||
-            game.Settings.FontScale is < 0.75f or > 2f)
+            game.Settings.FontScale is < 0.75f or > 2f ||
+            game.Settings.CameraLookSensitivity is < 0.5f or > 1.5f ||
+            !ValidWindowSizes.Contains((game.Settings.WindowWidth, game.Settings.WindowHeight)))
         {
             throw new InvalidDataException("Save data contains an invalid journal, inventory, progression, or setting value.");
         }

@@ -78,10 +78,16 @@ public partial class DreamInventoryPanel : Control
         scroll.AddChild(_content);
     }
 
+    public override void _ExitTree()
+    {
+        _modalLease?.Dispose();
+        _modalLease = null;
+    }
+
     public override void _UnhandledInput(InputEvent inputEvent)
     {
         if (!Visible) return;
-        if (inputEvent.IsActionPressed("inventory") || inputEvent.IsActionPressed("ui_cancel"))
+        if (inputEvent.IsActionPressed("ui_cancel"))
         {
             GetViewport().SetInputAsHandled();
             ClosePanel();
@@ -103,6 +109,11 @@ public partial class DreamInventoryPanel : Control
 
     public void ClosePanel()
     {
+        var focusOwner = GetViewport().GuiGetFocusOwner();
+        if (focusOwner is not null && IsAncestorOf(focusOwner))
+        {
+            focusOwner.ReleaseFocus();
+        }
         Visible = false;
         _modalLease?.Dispose();
         _modalLease = null;
@@ -243,22 +254,26 @@ public partial class DreamInventoryPanel : Control
     private void RestoreFocus()
     {
         if (!Visible) return;
-        FindFirstButton(_content)?.GrabFocus();
-        if (GetViewport().GuiGetFocusOwner() is null)
+        var contentButton = FindFirstButton(_content);
+        if (contentButton is not null)
         {
-            (_page switch
-            {
-                DreamInventoryPage.Items => _itemsTab,
-                DreamInventoryPage.Clues => _cluesTab,
-                _ => _xiaoyuTab
-            }).GrabFocus();
+            contentButton.GrabFocus();
+            return;
         }
+
+        (_page switch
+        {
+            DreamInventoryPage.Items => _itemsTab,
+            DreamInventoryPage.Clues => _cluesTab,
+            _ => _xiaoyuTab
+        }).GrabFocus();
     }
 
     private static Button? FindFirstButton(Node node)
     {
         foreach (var child in node.GetChildren())
         {
+            if (child.IsQueuedForDeletion()) continue;
             if (child is Button button && !button.Disabled) return button;
             var nested = FindFirstButton(child);
             if (nested is not null) return nested;

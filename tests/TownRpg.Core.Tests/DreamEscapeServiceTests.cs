@@ -16,8 +16,8 @@ public sealed class DreamEscapeServiceTests
         Assert.NotNull(state.DreamEscape);
         Assert.Equal(DreamEscapeStatus.InProgress, state.DreamEscape.Status);
         Assert.Equal(DreamEscapeIds.AreaClassroom, state.DreamEscape.CurrentAreaId);
-        Assert.Equal(320f, state.DreamEscape.PositionX);
-        Assert.Equal(280f, state.DreamEscape.PositionY);
+        Assert.Equal(DreamEscapeState.NewGameClassroomPositionX, state.DreamEscape.PositionX);
+        Assert.Equal(DreamEscapeState.NewGameClassroomPositionY, state.DreamEscape.PositionY);
         Assert.Equal([DreamEscapeIds.ItemPin], state.DreamEscape.Items);
         Assert.Contains(DreamEscapeIds.AreaCorridor, state.DreamEscape.UnlockedAreas);
         Assert.Contains(DreamEscapeIds.AreaClassroom, state.DreamEscape.UnlockedAreas);
@@ -213,6 +213,33 @@ public sealed class DreamEscapeServiceTests
         var legacy = SaveGameSerializer.Deserialize(withoutDream);
         Assert.Null(legacy.DreamEscape);
         Assert.Equal("old_house", legacy.Player.LocationId);
+    }
+
+    [Fact]
+    public void Deserialize_LegacyDreamWithoutCoordinatesKeepsLegacyCoordinateDefaults()
+    {
+        var json = SaveGameSerializer.Serialize(GameState.CreateDreamPrologue());
+        using var document = JsonDocument.Parse(json);
+        var root = document.RootElement;
+        var game = root.GetProperty("game");
+        var dream = game.GetProperty("dreamEscape").EnumerateObject()
+            .Where(property => property.Name is not "positionX" and not "positionY")
+            .ToDictionary(property => property.Name, property => property.Value.Clone());
+        var gameProperties = game.EnumerateObject()
+            .Where(property => property.Name != "dreamEscape")
+            .ToDictionary(property => property.Name, property => property.Value.Clone());
+        gameProperties["dreamEscape"] = JsonSerializer.SerializeToElement(dream);
+        var legacyJson = JsonSerializer.Serialize(new
+        {
+            formatVersion = 1,
+            game = gameProperties
+        });
+
+        var restored = SaveGameSerializer.Deserialize(legacyJson);
+
+        Assert.NotNull(restored.DreamEscape);
+        Assert.Equal(320f, restored.DreamEscape.PositionX);
+        Assert.Equal(280f, restored.DreamEscape.PositionY);
     }
 
     [Fact]

@@ -1,0 +1,58 @@
+{
+  "blenderVersion": "5.2.0 LTS",
+  "assetStage": "technical-modeling-sample",
+  "visualCandidate": false,
+  "knownVisualLimitations": [
+    "procedural garment silhouette requires an artist-authored retopology pass",
+    "generic CC0 face has not received a final likeness sculpt or skin texture pass",
+    "hair and canvas shoes are topology and material studies, not final assets"
+  ],
+  "bound": false,
+  "animated": false,
+  "sourceCollection": "Body Male - Realistic",
+  "referenceImage": "art/concepts/characters/protagonist-3d-turnaround-v1.png",
+  "referenceSha256": "59a3191da3c7d7dcbabb8c7cc6bb38c6fdf394025123c16ab7266bf3ac010abc",
+  "pixelIdentityReference": "assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png",
+  "pixelIdentitySha256": "cf6942f1d6b64a1c7b97d657b9b57b935d434b60a180f4175d71eca89d624bb8",
+  "meshObjectCount": 38,
+  "triangleCount": 26142,
+  "materialCount": 8,
+  "heightMeters": 1.694,
+  "requiredExportObjects": [
+    "Protagonist_Body_Natural",
+    "Protagonist_HairCap_Natural",
+    "Protagonist_PantsWaist_Natural",
+    "Protagonist_ShirtTorso_Natural",
+    "Protagonist_Shoe_L_Natural",
+    "Protagonist_Shoe_R_Natural"
+  ],
+  "textureFiles": {
+    "protagonist-static-v1-albedo.png": "77889adff57f81d3173579e1b82d56f7ed42c1a3f2ededc56077e171dceaef20",
+    "protagonist-static-v1-normal.png": "fb16a4771445d099ea75b611b8c0b3f8fe2bcc87c8b83b319b5a90c8f874fcf2",
+    "protagonist-static-v1-orm.png": "a47a0cb74f7c4e490b7d0f9ab1f60ec24132d60ab37e4582386f6a70be894fc2"
+  },
+  "schemaVersion": 1,
+  "sourceAuthority": "blend",
+  "sourceFile": "art/blender/characters/protagonist-static-v1.blend",
+  "runtimeCandidateFile": "art/blender/characters/exports/protagonist-static-v1.glb",
+  "sourceSha256": "30cb3a4aa5710a7da424e75f840647bcdb47d8b737fcbb61acdfe947c874aa08",
+  "glbSha256": "ccc95c7550cb24bcadc728b8046c91c43c29dd81028e556af2c875e0cef4ca4d",
+  "officialSource": {
+    "url": "https://download.blender.org/demo/asset-bundles/human-base-meshes/human-base-meshes-bundle-v1.4.1.zip",
+    "version": "1.4.1",
+    "license": "CC0 1.0 / Public Domain",
+    "downloadSha256": "811f43accbb31a88266d932f8f5563b2d13586fca0ba2693aad1f5fe582b3515",
+    "adoptedCollectionOnly": "Body Male - Realistic",
+    "adoptedSourceFile": "art/blender/characters/source-v1/blender-human-base-male-realistic-v1.4.1.blend",
+    "adoptedSourceSha256": "ba9a85de85ebc40d92d516248a8c072d7c8862557879f04459359516ffd5c8f1",
+    "bundleTracked": false
+  },
+  "exportProfile": {
+    "format": "GLB",
+    "animations": false,
+    "armature": false,
+    "cameras": false,
+    "lights": false,
+    "materials": "PBR texture atlas"
+  }
+}

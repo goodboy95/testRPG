@@ -8,10 +8,10 @@ public partial class WorldArea3D : Node3D
     public event Action<string>? InteractionRequested;
     public event Action<string>? PromptChanged;
 
-    public bool SupportsQuarterTurnCamera => true;
+    public CameraControlMode CameraControlMode => CameraControlMode.Orbit;
 
     protected PlayerController3D Player { get; private set; } = null!;
-    protected QuarterTurnCameraRig CameraRig { get; private set; } = null!;
+    protected ThirdPersonCameraRig CameraRig { get; private set; } = null!;
     protected bool UseGamepadPrompts { get; private set; }
     protected string SelectedItemId { get; private set; } = string.Empty;
 
@@ -19,6 +19,7 @@ public partial class WorldArea3D : Node3D
     private InteractionMarker3D? _focused;
     private string _lastPrompt = "\0";
     private bool _highContrast;
+    private bool _runtimeInputLocked;
 
     protected virtual bool InputBlocked => false;
     protected virtual bool IsMarkerActive(InteractionMarker3D marker) => true;
@@ -26,10 +27,9 @@ public partial class WorldArea3D : Node3D
     public override void _Ready()
     {
         Player = GetNode<PlayerController3D>("Player");
-        CameraRig = GetNode<QuarterTurnCameraRig>("QuarterTurnCameraRig");
+        CameraRig = GetNode<ThirdPersonCameraRig>("ThirdPersonCameraRig");
         Player.MovementCamera = CameraRig.Camera;
-        CameraRig.RotationStarted += OnCameraRotationStarted;
-        CameraRig.RotationCompleted += OnCameraRotationCompleted;
+        CameraRig.SetFollowTarget(Player, Player.GetRid());
         var markerHost = GetNode<Node3D>("InteractionMarkers");
         foreach (var marker in markerHost.GetChildren().OfType<InteractionMarker3D>())
         {
@@ -43,16 +43,15 @@ public partial class WorldArea3D : Node3D
 
     public override void _ExitTree()
     {
-        if (CameraRig is null) return;
-        CameraRig.RotationStarted -= OnCameraRotationStarted;
-        CameraRig.RotationCompleted -= OnCameraRotationCompleted;
+        CameraRig?.SetInputActive(false);
     }
 
     public override void _Process(double delta)
     {
         _ = delta;
-        var blocked = InputBlocked || CameraRig.IsRotating;
+        var blocked = InputBlocked || _runtimeInputLocked;
         Player.InputEnabled = !blocked;
+        CameraRig.SetInputActive(!blocked);
         if (blocked)
         {
             Focus(null);
@@ -66,18 +65,8 @@ public partial class WorldArea3D : Node3D
 
     public override void _UnhandledInput(InputEvent inputEvent)
     {
-        if (InputBlocked) return;
-        if (inputEvent.IsActionPressed("camera_rotate_left"))
-        {
-            if (CameraRig.TryRotate(-1)) GetViewport().SetInputAsHandled();
-            return;
-        }
-        if (inputEvent.IsActionPressed("camera_rotate_right"))
-        {
-            if (CameraRig.TryRotate(1)) GetViewport().SetInputAsHandled();
-            return;
-        }
-        if (!CameraRig.IsRotating && _focused is not null && inputEvent.IsActionPressed("interact"))
+        if (InputBlocked || _runtimeInputLocked) return;
+        if (_focused is not null && inputEvent.IsActionPressed("interact"))
         {
             GetViewport().SetInputAsHandled();
             InteractionRequested?.Invoke(_focused.TargetId);
@@ -99,7 +88,20 @@ public partial class WorldArea3D : Node3D
     public virtual void ApplySettings(PlayerSettings settings)
     {
         _highContrast = settings.HighContrastPrompts;
+        CameraRig?.SetLookSensitivity(settings.CameraLookSensitivity);
         if (_focused is not null) _focused.SetFocused(true, _highContrast);
+    }
+
+    protected void SetRuntimeInputLocked(bool locked)
+    {
+        _runtimeInputLocked = locked;
+        if (locked)
+        {
+            Player.InputEnabled = false;
+            CameraRig.SetInputActive(false);
+            Focus(null);
+            SetPrompt(string.Empty);
+        }
     }
 
     protected virtual string BuildPrompt(InteractionMarker3D marker) =>
@@ -147,18 +149,4 @@ public partial class WorldArea3D : Node3D
         return direction.LengthSquared() <= 0.0001f ? Vector3.Zero : direction.Normalized();
     }
 
-    private void OnCameraRotationStarted(int from, int to)
-    {
-        _ = from;
-        _ = to;
-        Player.InputEnabled = false;
-        Focus(null);
-        SetPrompt(string.Empty);
-    }
-
-    private void OnCameraRotationCompleted(int viewIndex)
-    {
-        _ = viewIndex;
-        Player.InputEnabled = !InputBlocked;
-    }
 }

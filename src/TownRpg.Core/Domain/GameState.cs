@@ -19,7 +19,11 @@ public sealed class GameState
     {
         var state = new GameState
         {
-            DreamEscape = new DreamEscapeState()
+            DreamEscape = new DreamEscapeState
+            {
+                PositionX = DreamEscapeState.NewGameClassroomPositionX,
+                PositionY = DreamEscapeState.NewGameClassroomPositionY
+            }
         };
         state.Player.LocationId = DreamEscapeIds.Location;
         return state;

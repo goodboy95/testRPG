@@ -1,0 +1,73 @@
+{
+  "blenderVersion": "5.2.0 LTS",
+  "roomSizeMeters": [
+    9.6,
+    7.2,
+    3.2
+  ],
+  "requiredObjects": [
+    "Blackboard_Blank",
+    "Blackboard_Revealed",
+    "Chalk",
+    "Clock_Seven",
+    "DoorV3_Leaf",
+    "Door_East",
+    "Door_East_Hinge",
+    "DutyRoster_Second",
+    "MapCabinet_Closed",
+    "MapCabinet_Open",
+    "Room_Floor",
+    "StudentDeskArt_01",
+    "TeacherDesk_Closed",
+    "TeacherDesk_Open",
+    "ThirdPerson_WallCap_North",
+    "Wall_East",
+    "Wall_North",
+    "Wall_South",
+    "Wall_West",
+    "Window_Exterior",
+    "Window_West"
+  ],
+  "studentDeskGroups": [
+    "StudentDeskGroup_01",
+    "StudentDeskGroup_02",
+    "StudentDeskGroup_03",
+    "StudentDeskGroup_04",
+    "StudentDeskGroup_05",
+    "StudentDeskGroup_06",
+    "StudentDeskGroup_07",
+    "StudentDeskGroup_08",
+    "StudentDeskGroup_09",
+    "StudentDeskGroup_10"
+  ],
+  "meshObjectCount": 133,
+  "uniqueMeshCount": 124,
+  "triangleCount": 19082,
+  "materialCount": 18,
+  "imageCount": 9,
+  "textureFiles": {
+    "classroom-shell-albedo.png": "73d3f48ff9433d9517328bded5e86aa9930f8c8ce777cbb26ef4b2482ff7db4d",
+    "classroom-shell-normal.png": "714e42a0fb09471cf35abce1c8d4484956c27e2fb03dfd1a0611b57c237ef8e2",
+    "classroom-shell-orm.png": "4fe081f0caddbcfc6daa81043152867d6f669fc7202bbf50f37a781a7d9fcada",
+    "classroom-furniture-albedo.png": "b258c07e4edbb54cf3ecc51f8a62abe0059391423b1e4a8c1a4ccc151cd1e3ff",
+    "classroom-furniture-normal.png": "2dcdd2f6ac0b1649e81d4aaa1b08032bb95af03dde135e19eb5363dfcc5f060d",
+    "classroom-furniture-orm.png": "30249511f0121edee73577cb9ca2965368aff71e5d4ec2298bb601fa4b7b1a13",
+    "classroom-details.png": "b72e6f696b337016ecae1edc3341e61d7bc9fe4a85f4ebcde5d4b870aafffa2c",
+    "window-exterior.png": "fa2fe1c7b39896d69836c0b31913f54987c8fd1cd13f836e7e7c0a4f4fe66024"
+  },
+  "schemaVersion": 2,
+  "sourceAuthority": "blend",
+  "sourceFile": "art/blender/dream_classroom/classroom-art-pass-v2.blend",
+  "runtimeFile": "assets/generated/dream_escape/3d/classroom-art-pass-v2.glb",
+  "textureManifest": "art/blender/dream_classroom/textures-v2/classroom-art-textures-v2-manifest.json",
+  "sourceSha256": "f75de4ddeca31d2abc1eebcdbd69c096a1ee5a4df533ba15d3e3de2bb2db9956",
+  "runtimeSha256": "bf995231484c055da2037926553410184c2768dbc3580754d5a78c1cf5977ee9",
+  "exportProfile": {
+    "format": "GLB",
+    "cameras": false,
+    "lights": false,
+    "animations": false,
+    "appliedModifiers": true,
+    "tangents": "generated-by-godot-import"
+  }
+}

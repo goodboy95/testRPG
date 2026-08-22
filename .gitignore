@@ -3,6 +3,8 @@
 .mono/
 bin/
 obj/
+__pycache__/
+*.pyc
 
 # IDEs
 .idea/

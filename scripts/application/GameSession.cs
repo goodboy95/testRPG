@@ -33,6 +33,8 @@ public partial class GameSession : Node
 
     public event Action? StateChanged;
 
+    private int _persistenceSuppressionCount;
+
     public override void _Ready()
     {
         try
@@ -89,6 +91,12 @@ public partial class GameSession : Node
 
     public void SaveCheckpoint() => WriteSave();
 
+    internal IDisposable SuppressPersistence()
+    {
+        _persistenceSuppressionCount++;
+        return new PersistenceSuppressionLease(this);
+    }
+
     public DreamActionResult MoveDreamToArea(string areaId, float x, float y) =>
         ApplyDreamAction(() => DreamEscape.MoveToArea(areaId, x, y));
 
@@ -118,6 +126,11 @@ public partial class GameSession : Node
 
     private void WriteSave()
     {
+        if (_persistenceSuppressionCount > 0)
+        {
+            return;
+        }
+
         var json = SaveGameSerializer.Serialize(State);
         var temporaryPath = SavePath + ".tmp";
         using (var file = GodotFileAccess.Open(temporaryPath, GodotFileAccess.ModeFlags.Write))
@@ -238,5 +251,23 @@ public partial class GameSession : Node
             SaveCheckpoint();
         }
         return result;
+    }
+
+    private sealed class PersistenceSuppressionLease(GameSession session) : IDisposable
+    {
+        private bool _disposed;
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+            session._persistenceSuppressionCount = Math.Max(
+                0,
+                session._persistenceSuppressionCount - 1);
+        }
     }
 }

@@ -14,6 +14,7 @@ public partial class PlayerController3D : CharacterBody3D
     public AnimatedSprite3D? CharacterSprite { get; private set; }
 
     private string _facingAnimation = "down";
+    private MeshInstance3D? _contactShadow;
 
     public override void _PhysicsProcess(double delta)
     {
@@ -43,6 +44,7 @@ public partial class PlayerController3D : CharacterBody3D
     {
         ArgumentNullException.ThrowIfNull(frames);
         CharacterSprite?.QueueFree();
+        EnsureContactShadow();
         CharacterSprite = new AnimatedSprite3D
         {
             Name = "CharacterSprite",
@@ -59,6 +61,32 @@ public partial class PlayerController3D : CharacterBody3D
             RenderPriority = 2
         };
         AddChild(CharacterSprite);
+    }
+
+    private void EnsureContactShadow()
+    {
+        if (_contactShadow is not null) return;
+        var material = new StandardMaterial3D
+        {
+            Transparency = BaseMaterial3D.TransparencyEnum.Alpha,
+            ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
+            AlbedoColor = new Color(0.015f, 0.025f, 0.03f, 0.24f)
+        };
+        _contactShadow = new MeshInstance3D
+        {
+            Name = "ContactShadow",
+            Position = new Vector3(0f, 0.008f, 0.04f),
+            Mesh = new CylinderMesh
+            {
+                TopRadius = 0.28f,
+                BottomRadius = 0.28f,
+                Height = 0.012f,
+                RadialSegments = 24,
+                Material = material
+            },
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off
+        };
+        AddChild(_contactShadow);
     }
 
     private void UpdateAnimation(Vector3 actualMotion, bool hasInput)
