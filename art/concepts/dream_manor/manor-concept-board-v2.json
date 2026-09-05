@@ -1,0 +1,60 @@
+{
+  "status": "adopted-modeling-reference",
+  "version": "v2",
+  "board": {
+    "path": "manor-concept-board-v2.png",
+    "size": [
+      3840,
+      2160
+    ],
+    "sha256": "a83615dc33e27cc49819ac28ea25b5191c2326c71309a71e7950ed820e828ad7"
+  },
+  "floorPlan": {
+    "path": "manor-floor-plan-v1.png",
+    "size": [
+      3600,
+      720
+    ],
+    "sha256": "db347ea50d11190a6bb42a6a83dbe281b0b51cfb47864c5132dfead37472d9fe"
+  },
+  "sources": [
+    {
+      "path": "manor-exterior-v1.png",
+      "sha256": "e54ce1fb049f2fc008a74957cdfe091498b25a1d74ea675b8048e685e7a015e4",
+      "role": "generated exterior"
+    },
+    {
+      "path": "manor-interior-v2.png",
+      "sha256": "dd2049295ca01507047f1e8524eac18b73903218134489306aa4ade68ac3bd3a",
+      "role": "generated residential interior edit"
+    }
+  ],
+  "prompts": {
+    "path": "manor-concept-prompts-v2.md",
+    "sha256": "4b09ac569b1a358362c9e3dc124caf172b6a5a34f2e90943f4189fd90bd7af35"
+  },
+  "conceptLayoutMeters": {
+    "foyer": [
+      6.4,
+      6.0
+    ],
+    "hallClearWidth": 5.6,
+    "hallLength": 18.0,
+    "clearHeight": 4.2,
+    "currentRoomEntrances": 4,
+    "lockedExteriorEntrances": 1,
+    "reservedFutureDoorModules": 2
+  },
+  "constraints": [
+    "The two future modules are solid wall panels or display alcoves in the current version.",
+    "The front double door is visible and permanently locked in the current dream stage.",
+    "The adopted implementation widens the foyer and hall while preserving this topology and door order."
+  ],
+  "implementationLayoutMeters": {
+    "foyer": [7.6, 6.8],
+    "hallClearWidth": 6.8,
+    "hallLength": 18.0,
+    "clearHeight": 4.2,
+    "authority": "assets/generated/dream_escape/3d/dream-manor-v1-manifest.json"
+  }
+}

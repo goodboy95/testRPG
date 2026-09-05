@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "provider": "Poly Haven",
+  "license": "CC0 1.0 / Public Domain",
+  "licenseUrl": "https://polyhaven.com/license",
+  "retrievedAt": "2026-08-29",
+  "redistribution": "Raw source files may be redistributed under CC0; attribution retained for provenance.",
+  "assets": [
+    {
+      "id": "painted_plaster_wall",
+      "name": "风化涂层灰泥",
+      "usage": "教室上墙、青绿墙裙",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall-thumbnail.png",
+      "thumbnailSha256": "538c3f7728d4be3a15a506c987b71d858ba9ec8c5dfcdeb8069cca91c7a89c0f",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall_diff_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_diff_2k.jpg",
+          "md5": "32f4f4e5ded7d20e55e337004d0d9691",
+          "sha256": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_nor_gl_2k.jpg",
+          "md5": "18faf9f7949aefdb3ae7cef7195cba04",
+          "sha256": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/painted_plaster_wall/painted_plaster_wall_arm_2k.jpg",
+          "md5": "b66f912016257faa7e71a1530e387545",
+          "sha256": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5",
+          "colorSpace": "Non-Color"
+        }
+      }
+    },
+    {
+      "id": "old_mosaic_floor",
+      "name": "旧马赛克地面",
+      "usage": "教室旧水磨石基底",
+      "assetUrl": "https://polyhaven.com/a/old_mosaic_floor",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/old_mosaic_floor/old_mosaic_floor-thumbnail.png",
+      "thumbnailSha256": "15f9c1004fd230eca872422cdc75a0794332f0b8d28fc7dcb31cb42be3f186ad",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/old_mosaic_floor/old_mosaic_floor_diff_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_mosaic_floor/old_mosaic_floor_diff_2k.jpg",
+          "md5": "ebbcab3e98b336711d1b44a3611fdcf5",
+          "sha256": "902e128679cb1fa2edcc33683e128350f668abca7d950970ae474c03b451edbf",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/old_mosaic_floor/old_mosaic_floor_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_mosaic_floor/old_mosaic_floor_nor_gl_2k.jpg",
+          "md5": "faa410e99a1cb2a4ae32918b454a90da",
+          "sha256": "2c0bc58bfda87fd56cfeba8c99fed396571be5bb52c7fdf2d50ec742fc1f4d80",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/old_mosaic_floor/old_mosaic_floor_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/old_mosaic_floor/old_mosaic_floor_arm_2k.jpg",
+          "md5": "121b7ed2031b0726a08e4f772617b04c",
+          "sha256": "14a5b62fbc76cfd30a1e5f514ff618c936be29a3efa9e4775564adad479ebd64",
+          "colorSpace": "Non-Color"
+        }
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "name": "橡木木皮",
+      "usage": "教室课桌、黑板框",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/oak_veneer_01/oak_veneer_01-thumbnail.png",
+      "thumbnailSha256": "2e8894be8b6b1380b8f962bb7b26732baf1c44f6ec48a3a70b5e2311ea5413d6",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
+          "md5": "0ad13b8daf8dc00318a437f56e54c484",
+          "sha256": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
+          "md5": "a6b8dd99a4407aa5dd24d5eee25492d3",
+          "sha256": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/oak_veneer_01/oak_veneer_01_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_veneer_01/oak_veneer_01_arm_2k.jpg",
+          "md5": "e7f6ef48ffdc1b41aeff9bc6cb170532",
+          "sha256": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce",
+          "colorSpace": "Non-Color"
+        }
+      }
+    },
+    {
+      "id": "rust_coarse_01",
+      "name": "粗糙锈蚀金属",
+      "usage": "桌椅钢管、旧五金",
+      "assetUrl": "https://polyhaven.com/a/rust_coarse_01",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/rust_coarse_01/rust_coarse_01-thumbnail.png",
+      "thumbnailSha256": "9bd8002c7bd6e9b0d719d1a16623d61ce83ab09e00acc2e3fd329141dd4985ab",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/rust_coarse_01/rust_coarse_01_diff_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rust_coarse_01/rust_coarse_01_diff_2k.jpg",
+          "md5": "c1f3d0f3e8ea08bfed17bd27a5bb4a45",
+          "sha256": "5b8801674fa53ff1b6f7853300f50aa7a1b31e69278554803bd957fe9fa7e392",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/rust_coarse_01/rust_coarse_01_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rust_coarse_01/rust_coarse_01_nor_gl_2k.jpg",
+          "md5": "70e8ba5a8244cffb052b9ba194610867",
+          "sha256": "495d3c87da059827ffaf49dae59f967cb3e0b187f4426ab0a47088c3fa83e50b",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/rust_coarse_01/rust_coarse_01_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/rust_coarse_01/rust_coarse_01_arm_2k.jpg",
+          "md5": "85be306b28a377c9a60217d107c3dcdf",
+          "sha256": "22f10597662e8d5268f79960d23c4a03790a2083f9f05d0680c3535152b26843",
+          "colorSpace": "Non-Color"
+        }
+      }
+    },
+    {
+      "id": "beige_wall_001",
+      "name": "暖灰旧灰泥",
+      "usage": "洋房门厅上墙",
+      "assetUrl": "https://polyhaven.com/a/beige_wall_001",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/beige_wall_001/beige_wall_001-thumbnail.png",
+      "thumbnailSha256": "8970aeb197e88e4aa4ac91efa910504bfc22d0e1f94f369f5fac2a27611568be",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/beige_wall_001/beige_wall_001_diff_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_diff_2k.jpg",
+          "md5": "c927ac1136767f1df758ae064f50a2d1",
+          "sha256": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/beige_wall_001/beige_wall_001_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_nor_gl_2k.jpg",
+          "md5": "127b2f5f2f8c2e57b1f08b263c0690bd",
+          "sha256": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/beige_wall_001/beige_wall_001_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_arm_2k.jpg",
+          "md5": "4b2733ac3dba7944316915e180a70a24",
+          "sha256": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431",
+          "colorSpace": "Non-Color"
+        }
+      }
+    },
+    {
+      "id": "black_oak_veneer",
+      "name": "深色橡木木皮",
+      "usage": "洋房门、护墙板",
+      "assetUrl": "https://polyhaven.com/a/black_oak_veneer",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/black_oak_veneer/black_oak_veneer-thumbnail.png",
+      "thumbnailSha256": "057b6a695681dbd85d2346a53e9ebeb252e2e0ef815d249ca1c9732c8e2b3c08",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/black_oak_veneer/black_oak_veneer_diff_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/black_oak_veneer/black_oak_veneer_diff_2k.jpg",
+          "md5": "41e682d7c8e5b5598e39d5b7d100817f",
+          "sha256": "d2653c9cf8e05171ba2256c92315cf39fe230482b433a6a9c02cf26ef566624c",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/black_oak_veneer/black_oak_veneer_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/black_oak_veneer/black_oak_veneer_nor_gl_2k.jpg",
+          "md5": "c49d68106d8ebca578983744c49bda60",
+          "sha256": "1d4c099204ad713b47a9e10799de7e31623f0ce7c5fab18712b339ba9760a80a",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/black_oak_veneer/black_oak_veneer_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/black_oak_veneer/black_oak_veneer_arm_2k.jpg",
+          "md5": "a40ed5cad30616dfc55f8aab1386fd65",
+          "sha256": "9084ea54de3a19368868501ec1e0c7b633ded32bb8e824301e9999f4374adb2c",
+          "colorSpace": "Non-Color"
+        }
+      }
+    },
+    {
+      "id": "fabric_pattern_07",
+      "name": "传统织物",
+      "usage": "洋房长地毯",
+      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/fabric_pattern_07/fabric_pattern_07-thumbnail.png",
+      "thumbnailSha256": "830d637700d6c34717ab8233feef21cf84c323a3f696bbf654b0bb50a171baf9",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/fabric_pattern_07/fabric_pattern_07_col_1_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fabric_pattern_07/fabric_pattern_07_col_1_2k.jpg",
+          "md5": "ad5b3f69e889a6890d6413ea1568ff25",
+          "sha256": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/fabric_pattern_07/fabric_pattern_07_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fabric_pattern_07/fabric_pattern_07_nor_gl_2k.jpg",
+          "md5": "bf1eb2488da43265bd49e42778b6ae51",
+          "sha256": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/fabric_pattern_07/fabric_pattern_07_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/fabric_pattern_07/fabric_pattern_07_arm_2k.jpg",
+          "md5": "61384156e3e50ee66815a885c9d40c81",
+          "sha256": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f",
+          "colorSpace": "Non-Color"
+        }
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "name": "水磨石方砖",
+      "usage": "洋房门厅地面",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "thumbnail": "art/sources/cc0/polyhaven/environment-cinematic-v1/terrazzo_tiles/terrazzo_tiles-thumbnail.png",
+      "thumbnailSha256": "34da797f9d37dc34cfde4298a8a5cac1eeaf86c7d873a00b63c7b6c2ccea0a46",
+      "maps": {
+        "diff": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/terrazzo_tiles/terrazzo_tiles_diff_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/terrazzo_tiles/terrazzo_tiles_diff_2k.jpg",
+          "md5": "b4bfb01525c22e611d9a0651f372ae91",
+          "sha256": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+          "colorSpace": "sRGB"
+        },
+        "normal": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/terrazzo_tiles/terrazzo_tiles_nor_gl_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/terrazzo_tiles/terrazzo_tiles_nor_gl_2k.jpg",
+          "md5": "6fdd6cc116b9018108b91f3d5ddf1cff",
+          "sha256": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+          "colorSpace": "Non-Color"
+        },
+        "arm": {
+          "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/terrazzo_tiles/terrazzo_tiles_arm_2k.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/terrazzo_tiles/terrazzo_tiles_arm_2k.jpg",
+          "md5": "0fb422cdf520645d1f842fb455915130",
+          "sha256": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e",
+          "colorSpace": "Non-Color"
+        }
+      }
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -48,7 +49,7 @@ public sealed class ContentIntegrityTests
         Assert.NotEmpty(characters.Characters);
         Assert.NotEmpty(schedules.Entries);
         Assert.NotEmpty(events.Events);
-        Assert.Equal(8, items.Items.Count);
+        Assert.Equal(34, items.Items.Count);
 
         AssertUnique(characters.Characters.Select(character => character.Id), "character ID");
         AssertUnique(events.Events.Select(definition => definition.Id), "event ID");
@@ -380,6 +381,14 @@ public sealed class ContentIntegrityTests
             "scripts/presentation/DreamEscapeController.cs",
             "scripts/presentation/DreamInventoryPanel.cs",
             "scripts/presentation/DreamPuzzlePanel.cs",
+            "scripts/presentation/DreamMansionController3D.cs",
+            "scripts/presentation/DreamMansionVisual3D.cs",
+            "scripts/presentation/DreamMansionCoordinateMapper3D.cs",
+            "scripts/presentation/DreamAreaSpawnCatalog.cs",
+            "scripts/tools/build_dream_manor_3d.py",
+            "scripts/tools/build_dream_manor_textures.py",
+            "scripts/tools/expand_environment_cinematic_full.py",
+            "scripts/tools/export_environment_cinematic_samples.py",
             "data/items.json",
             "assets/generated/dream_escape/item-pin.png",
             "assets/generated/dream_escape/item-chalk.png",
@@ -394,6 +403,23 @@ public sealed class ContentIntegrityTests
             "assets/generated/dream_escape/class-photo-filter-closeup.png",
             "assets/generated/dream_escape/recorder-closeup.png",
             "assets/generated/dream_escape/auditorium-control-board.png",
+            "assets/generated/dream_escape/3d/dream-manor-hall-v1.glb",
+            "assets/generated/dream_escape/3d/dream-manor-hall-v2.glb",
+            "assets/generated/dream_escape/3d/dream-manor-exterior-v1.glb",
+            "assets/generated/dream_escape/3d/dream-manor-v1-manifest.json",
+            "assets/generated/dream_escape/3d/dream-manor-hall-v2-manifest.json",
+            "assets/generated/dream_escape/3d/classroom-art-pass-v5.glb",
+            "assets/generated/dream_escape/3d/classroom-art-pass-v5-manifest.json",
+            "assets/generated/dream_escape/3d/dream-archive-room-v1.glb",
+            "assets/generated/dream_escape/3d/dream-archive-room-v1-manifest.json",
+            "assets/generated/dream_escape/3d/dream-auditorium-v1.glb",
+            "assets/generated/dream_escape/3d/dream-auditorium-v1-manifest.json",
+            "art/blender/dream_late_rooms/dream-archive-room-v1.blend",
+            "art/blender/dream_late_rooms/dream-auditorium-v1.blend",
+            "art/blender/dream_manor/dream-manor-v1.blend",
+            "art/blender/dream_manor/textures-v1/dream-manor-textures-v1-manifest.json",
+            "art/concepts/dream_manor/manor-floor-plan-v1.png",
+            "art/concepts/dream_manor/manor-concept-board-v2.png",
             "assets/generated/title-town-dusk.png",
             "assets/generated/provenance.json",
             "localization/zh_CN.csv",
@@ -402,6 +428,135 @@ public sealed class ContentIntegrityTests
         foreach (var resource in requiredResources.Where(resource => !File.Exists(ProjectPath(resource))))
         {
             errors.Add($"Required Godot resource '{resource}' is missing.");
+        }
+
+        var manorManifestPath = ProjectPath(
+            "assets/generated/dream_escape/3d/dream-manor-v1-manifest.json");
+        if (File.Exists(manorManifestPath))
+        {
+            try
+            {
+                using var manorManifest = JsonDocument.Parse(File.ReadAllText(manorManifestPath));
+                var root = manorManifest.RootElement;
+                if (root.GetProperty("schemaVersion").GetInt32() != 1 ||
+                    root.GetProperty("currentRoomDoors").GetArrayLength() != 4 ||
+                    root.GetProperty("reservedExpansionModules").GetArrayLength() != 2 ||
+                    root.GetProperty("exportProfile").GetProperty("runtimeLoadsExterior").GetBoolean())
+                {
+                    errors.Add(
+                        "Dream manor manifest must declare schema v1, four current room doors, " +
+                        "two reserved modules and a runtime-excluded exterior.");
+                }
+
+                ValidateManorBinary(
+                    root,
+                    "hallRuntimeFile",
+                    "hallRuntimeBytes",
+                    "hallRuntimeSha256",
+                    maximumBytes: 55L * 1024L * 1024L,
+                    errors);
+                ValidateManorBinary(
+                    root,
+                    "exteriorReviewFile",
+                    "exteriorReviewBytes",
+                    "exteriorReviewSha256",
+                    maximumBytes: 35L * 1024L * 1024L,
+                    errors);
+                if (root.GetProperty("hall").GetProperty("triangleCount").GetInt32() > 120_000 ||
+                    root.GetProperty("hall").GetProperty("meshObjectCount").GetInt32() > 160 ||
+                    root.GetProperty("hall").GetProperty("materialCount").GetInt32() > 18 ||
+                    root.GetProperty("exterior").GetProperty("triangleCount").GetInt32() > 80_000)
+                {
+                    errors.Add("Dream manor manifest exceeds an adopted mesh, material or triangle budget.");
+                }
+
+                foreach (var texture in root.GetProperty("textureFiles").EnumerateObject())
+                {
+                    var texturePath = ProjectPath($"art/blender/dream_manor/textures-v1/{texture.Name}");
+                    if (!File.Exists(texturePath))
+                    {
+                        errors.Add($"Dream manor source texture '{texture.Name}' is missing.");
+                    }
+                    else if (!Sha256File(texturePath).Equals(
+                                 texture.Value.GetString(),
+                                 StringComparison.OrdinalIgnoreCase))
+                    {
+                        errors.Add($"Dream manor source texture '{texture.Name}' does not match its manifest hash.");
+                    }
+                }
+
+                ValidateManorImportArtifacts(root, errors);
+            }
+            catch (Exception exception) when (exception is JsonException or InvalidOperationException or KeyNotFoundException)
+            {
+                errors.Add($"Dream manor manifest is malformed: {exception.Message}");
+            }
+        }
+
+        ValidateCinematicRuntimeManifest(
+            "assets/generated/dream_escape/3d/classroom-art-pass-v5-manifest.json",
+            expectedRuntimeFile: "assets/generated/dream_escape/3d/classroom-art-pass-v5.glb",
+            maximumTriangles: 150_000,
+            maximumVisibleMeshes: 200,
+            maximumMaterials: 24,
+            maximumBytes: 60L * 1024L * 1024L,
+            errors);
+        ValidateLateRoomRuntimeManifest(
+            "assets/generated/dream_escape/3d/dream-archive-room-v1-manifest.json",
+            expectedRuntimeFile: "assets/generated/dream_escape/3d/dream-archive-room-v1.glb",
+            maximumMeshes: 130,
+            maximumTriangles: 20_000,
+            maximumBytes: 60L * 1024L * 1024L,
+            errors);
+        ValidateLateRoomRuntimeManifest(
+            "assets/generated/dream_escape/3d/dream-auditorium-v1-manifest.json",
+            expectedRuntimeFile: "assets/generated/dream_escape/3d/dream-auditorium-v1.glb",
+            maximumMeshes: 170,
+            maximumTriangles: 24_000,
+            maximumBytes: 60L * 1024L * 1024L,
+            errors);
+        ValidateCinematicRuntimeManifest(
+            "assets/generated/dream_escape/3d/dream-manor-hall-v2-manifest.json",
+            expectedRuntimeFile: "assets/generated/dream_escape/3d/dream-manor-hall-v2.glb",
+            maximumTriangles: 180_000,
+            maximumVisibleMeshes: 220,
+            maximumMaterials: 24,
+            maximumBytes: 60L * 1024L * 1024L,
+            errors);
+
+        var provenancePath = ProjectPath("assets/generated/provenance.json");
+        if (File.Exists(provenancePath))
+        {
+            try
+            {
+                using var provenance = JsonDocument.Parse(File.ReadAllText(provenancePath));
+                var ids = provenance.RootElement.GetProperty("assets").EnumerateArray()
+                    .Select(asset => asset.GetProperty("id").GetString())
+                    .Where(id => id is not null)
+                    .Cast<string>()
+                    .ToHashSet(StringComparer.Ordinal);
+                var missingProvenance = new[]
+                {
+                    "dream_manor_concept_direction_v1",
+                    "dream_manor_pbr_textures_v1",
+                    "dream_manor_3d_source_v1",
+                    "dream_manor_hall_runtime_v1",
+                    "dream_manor_exterior_review_v1",
+                    "dream_classroom_cinematic_runtime_v5",
+                    "dream_manor_hall_cinematic_runtime_v2",
+                    "dream_archive_room_3d_runtime_v1",
+                    "dream_auditorium_3d_runtime_v1"
+                }.Where(id => !ids.Contains(id)).ToArray();
+                if (missingProvenance.Length > 0)
+                {
+                    errors.Add(
+                        $"Dream manor provenance entries are missing: {string.Join(", ", missingProvenance)}.");
+                }
+            }
+            catch (Exception exception) when (exception is JsonException or InvalidOperationException)
+            {
+                errors.Add($"Dream manor provenance is malformed: {exception.Message}");
+            }
         }
 
         var project = File.ReadAllText(ProjectPath("project.godot"));
@@ -611,6 +766,279 @@ public sealed class ContentIntegrityTests
 
     private static string RelativePath(string path) =>
         Path.GetRelativePath(ProjectRoot.Value, path).Replace(Path.DirectorySeparatorChar, '/');
+
+    private static void ValidateManorBinary(
+        JsonElement manifest,
+        string pathProperty,
+        string bytesProperty,
+        string hashProperty,
+        long maximumBytes,
+        ICollection<string> errors)
+    {
+        var relativePath = manifest.GetProperty(pathProperty).GetString();
+        if (string.IsNullOrWhiteSpace(relativePath))
+        {
+            errors.Add($"Dream manor manifest property '{pathProperty}' is empty.");
+            return;
+        }
+
+        var path = ProjectPath(relativePath);
+        if (!File.Exists(path))
+        {
+            errors.Add($"Dream manor binary '{relativePath}' is missing.");
+            return;
+        }
+
+        var expectedBytes = manifest.GetProperty(bytesProperty).GetInt64();
+        var actualBytes = new FileInfo(path).Length;
+        if (actualBytes != expectedBytes || actualBytes > maximumBytes)
+        {
+            errors.Add(
+                $"Dream manor binary '{relativePath}' has {actualBytes} bytes; " +
+                $"manifest={expectedBytes}, budget={maximumBytes}.");
+        }
+
+        var expectedHash = manifest.GetProperty(hashProperty).GetString();
+        var actualHash = Sha256File(path);
+        if (!actualHash.Equals(expectedHash, StringComparison.OrdinalIgnoreCase))
+        {
+            errors.Add(
+                $"Dream manor binary '{relativePath}' SHA-256 is {actualHash}; expected {expectedHash}.");
+        }
+    }
+
+    private static string Sha256File(string path)
+    {
+        using var stream = File.OpenRead(path);
+        return Convert.ToHexString(SHA256.HashData(stream)).ToLowerInvariant();
+    }
+
+    private static void ValidateCinematicRuntimeManifest(
+        string manifestRelativePath,
+        string expectedRuntimeFile,
+        int maximumTriangles,
+        int maximumVisibleMeshes,
+        int maximumMaterials,
+        long maximumBytes,
+        ICollection<string> errors)
+    {
+        var manifestPath = ProjectPath(manifestRelativePath);
+        if (!File.Exists(manifestPath))
+        {
+            return;
+        }
+
+        try
+        {
+            using var manifest = JsonDocument.Parse(File.ReadAllText(manifestPath));
+            var root = manifest.RootElement;
+            var runtimeFile = root.GetProperty("runtimeGlbFile").GetString();
+            if (root.GetProperty("schemaVersion").GetInt32() != 2 ||
+                root.GetProperty("status").GetString() != "cinematic-full-runtime" ||
+                root.GetProperty("sampleOnly").GetBoolean() ||
+                !root.GetProperty("runtimeDefault").GetBoolean() ||
+                runtimeFile != expectedRuntimeFile)
+            {
+                errors.Add(
+                    $"Cinematic manifest '{manifestRelativePath}' must declare schema v2, " +
+                    "cinematic-full-runtime, sampleOnly=false, runtimeDefault=true and the adopted GLB path.");
+                return;
+            }
+
+            var runtimePath = ProjectPath(runtimeFile);
+            if (!File.Exists(runtimePath))
+            {
+                errors.Add($"Cinematic runtime GLB '{runtimeFile}' is missing.");
+                return;
+            }
+
+            var expectedBytes = root.GetProperty("runtimeGlbBytes").GetInt64();
+            var actualBytes = new FileInfo(runtimePath).Length;
+            if (actualBytes != expectedBytes || actualBytes > maximumBytes)
+            {
+                errors.Add(
+                    $"Cinematic runtime GLB '{runtimeFile}' has {actualBytes} bytes; " +
+                    $"manifest={expectedBytes}, budget={maximumBytes}.");
+            }
+
+            var expectedHash = root.GetProperty("runtimeGlbSha256").GetString();
+            var actualHash = Sha256File(runtimePath);
+            if (!actualHash.Equals(expectedHash, StringComparison.OrdinalIgnoreCase))
+            {
+                errors.Add(
+                    $"Cinematic runtime GLB '{runtimeFile}' SHA-256 is {actualHash}; expected {expectedHash}.");
+            }
+
+            var geometry = root.GetProperty("geometry");
+            if (geometry.GetProperty("triangleCount").GetInt32() > maximumTriangles ||
+                geometry.GetProperty("maximumVisibleMeshCount").GetInt32() > maximumVisibleMeshes ||
+                geometry.GetProperty("materialCount").GetInt32() > maximumMaterials)
+            {
+                errors.Add($"Cinematic manifest '{manifestRelativePath}' exceeds an adopted geometry budget.");
+            }
+
+            var limits = root.GetProperty("limits");
+            if (limits.GetProperty("triangles").GetInt32() != maximumTriangles ||
+                limits.GetProperty("visibleMeshes").GetInt32() != maximumVisibleMeshes ||
+                limits.GetProperty("materials").GetInt32() != maximumMaterials ||
+                limits.GetProperty("glbBytes").GetInt64() != maximumBytes)
+            {
+                errors.Add($"Cinematic manifest '{manifestRelativePath}' does not record the adopted budgets.");
+            }
+        }
+        catch (Exception exception) when (exception is JsonException or InvalidOperationException or KeyNotFoundException)
+        {
+            errors.Add($"Cinematic manifest '{manifestRelativePath}' is malformed: {exception.Message}");
+        }
+    }
+
+    private static void ValidateLateRoomRuntimeManifest(
+        string manifestRelativePath,
+        string expectedRuntimeFile,
+        int maximumMeshes,
+        int maximumTriangles,
+        long maximumBytes,
+        ICollection<string> errors)
+    {
+        var manifestPath = ProjectPath(manifestRelativePath);
+        if (!File.Exists(manifestPath)) return;
+
+        try
+        {
+            using var manifest = JsonDocument.Parse(File.ReadAllText(manifestPath));
+            var root = manifest.RootElement;
+            var runtimeFile = root.GetProperty("gameFile").GetString();
+            if (root.GetProperty("schemaVersion").GetInt32() != 1 ||
+                root.GetProperty("status").GetString() != "adopted-runtime-default" ||
+                root.GetProperty("sampleOnly").GetBoolean() ||
+                !root.GetProperty("runtimeDefault").GetBoolean() ||
+                root.GetProperty("missingExternalFiles").GetInt32() != 0 ||
+                runtimeFile != expectedRuntimeFile)
+            {
+                errors.Add(
+                    $"Late-room manifest '{manifestRelativePath}' must declare schema v1, " +
+                    "adopted-runtime-default, sampleOnly=false, runtimeDefault=true, no external files " +
+                    "and the adopted GLB path.");
+                return;
+            }
+
+            var runtimePath = ProjectPath(runtimeFile);
+            if (!File.Exists(runtimePath))
+            {
+                errors.Add($"Late-room runtime GLB '{runtimeFile}' is missing.");
+                return;
+            }
+
+            var expectedBytes = root.GetProperty("bytes").GetInt64();
+            var actualBytes = new FileInfo(runtimePath).Length;
+            if (actualBytes != expectedBytes || actualBytes > maximumBytes)
+                errors.Add(
+                    $"Late-room runtime GLB '{runtimeFile}' has {actualBytes} bytes; " +
+                    $"manifest={expectedBytes}, budget={maximumBytes}.");
+
+            var expectedHash = root.GetProperty("sha256").GetString();
+            var actualHash = Sha256File(runtimePath);
+            if (!actualHash.Equals(expectedHash, StringComparison.OrdinalIgnoreCase))
+                errors.Add(
+                    $"Late-room runtime GLB '{runtimeFile}' SHA-256 is {actualHash}; expected {expectedHash}.");
+
+            if (root.GetProperty("meshObjects").GetInt32() > maximumMeshes ||
+                root.GetProperty("trianglesUpperBound").GetInt32() > maximumTriangles)
+                errors.Add($"Late-room manifest '{manifestRelativePath}' exceeds an adopted geometry budget.");
+        }
+        catch (Exception exception) when (exception is JsonException or InvalidOperationException or KeyNotFoundException)
+        {
+            errors.Add($"Late-room manifest '{manifestRelativePath}' is malformed: {exception.Message}");
+        }
+    }
+
+    private static void ValidateManorImportArtifacts(
+        JsonElement manifest,
+        ICollection<string> errors)
+    {
+        var textureHashes = manifest.GetProperty("textureFiles").EnumerateObject()
+            .ToDictionary(
+                texture => texture.Name,
+                texture => texture.Value.GetString() ?? string.Empty,
+                StringComparer.Ordinal);
+        var imports = new[]
+        {
+            (
+                ManifestPath: manifest.GetProperty("hallRuntimeFile").GetString(),
+                Textures: new[]
+                {
+                    "manor-building-albedo.png",
+                    "manor-building-normal.png",
+                    "manor-building-orm.png",
+                    "manor-furnishings-albedo.png",
+                    "manor-furnishings-normal.png",
+                    "manor-furnishings-orm.png",
+                    "manor-rug-albedo.png",
+                    "manor-rug-normal.png",
+                    "manor-rug-orm.png"
+                }),
+            (
+                ManifestPath: manifest.GetProperty("exteriorReviewFile").GetString(),
+                Textures: new[]
+                {
+                    "manor-building-albedo.png",
+                    "manor-building-normal.png",
+                    "manor-building-orm.png",
+                    "manor-furnishings-albedo.png",
+                    "manor-furnishings-normal.png",
+                    "manor-furnishings-orm.png"
+                })
+        };
+
+        foreach (var (manifestPath, textures) in imports)
+        {
+            if (string.IsNullOrWhiteSpace(manifestPath))
+            {
+                errors.Add("Dream manor import path is missing from the manifest.");
+                continue;
+            }
+
+            var glbImportPath = ProjectPath($"{manifestPath}.import");
+            if (!File.Exists(glbImportPath))
+            {
+                errors.Add($"Dream manor Godot import configuration '{manifestPath}.import' is missing.");
+                continue;
+            }
+
+            var importText = File.ReadAllText(glbImportPath);
+            var expectedSource = $"source_file=\"res://{manifestPath}\"";
+            if (!importText.Contains(expectedSource, StringComparison.Ordinal) ||
+                !importText.Contains("gltf/embedded_image_handling=1", StringComparison.Ordinal))
+            {
+                errors.Add(
+                    $"Dream manor Godot import '{manifestPath}.import' must extract embedded PBR images " +
+                    "with its exact source path.");
+            }
+
+            var directory = Path.GetDirectoryName(manifestPath)?.Replace('\\', '/') ?? string.Empty;
+            var stem = Path.GetFileNameWithoutExtension(manifestPath);
+            foreach (var texture in textures)
+            {
+                var extractedRelative = $"{directory}/{stem}_{texture}";
+                var extractedPath = ProjectPath(extractedRelative);
+                var extractedImportPath = $"{extractedPath}.import";
+                if (!File.Exists(extractedPath) || !File.Exists(extractedImportPath))
+                {
+                    errors.Add(
+                        $"Dream manor extracted texture or import metadata is missing: '{extractedRelative}'.");
+                    continue;
+                }
+
+                if (!Sha256File(extractedPath).Equals(
+                        textureHashes[texture],
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    errors.Add(
+                        $"Dream manor extracted texture '{extractedRelative}' differs from its source texture.");
+                }
+            }
+        }
+    }
 
     private static string FindProjectRoot()
     {

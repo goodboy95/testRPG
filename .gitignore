@@ -3,6 +3,8 @@
 .mono/
 bin/
 obj/
+__pycache__/
+*.pyc
 
 # IDEs
 .idea/
@@ -20,3 +22,6 @@ exports/
 # Local packaging, validation and delivery artifacts
 /outputs/
 /work/
+
+# Blender rotating backups are local authoring artifacts.
+*.blend1

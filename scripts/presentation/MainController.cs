@@ -9,7 +9,7 @@ namespace TownRpg.Presentation;
 public partial class MainController : Node
 {
     private GameSession _session = null!;
-    private Node2D _worldHost = null!;
+    private Node _worldHost = null!;
     private CanvasLayer _uiLayer = null!;
     private Control _uiRoot = null!;
     private WorldSceneController? _world;
@@ -33,22 +33,32 @@ public partial class MainController : Node
     private DialoguePanel _dialogue = null!;
     private JournalPanel _journal = null!;
     private BattlePanel _battle = null!;
+    private ConfirmationDialog _quitConfirmation = null!;
     private bool _flowRunning;
     private bool _battleEnding;
     private bool _usingGamepad;
+    private bool _settingsReturnToTitle;
     private int _toastVersion;
+
+    public bool PauseVisible => _pauseScreen?.Visible == true;
+    public bool QuitConfirmationVisible => _quitConfirmation?.Visible == true;
+    public bool UsingGamepadPrompts => _usingGamepad;
 
     public override void _Ready()
     {
         _session = GetNode<GameSession>("/root/GameSession");
         _session.StateChanged += RefreshHud;
 
-        _worldHost = new Node2D { Name = "WorldHost" };
+        _worldHost = new Node { Name = "WorldHost" };
         AddChild(_worldHost);
 
         _uiLayer = new CanvasLayer { Name = "Interface", Layer = 10 };
         AddChild(_uiLayer);
-        _uiRoot = new Control { Theme = UiStyles.CreateTheme() };
+        _uiRoot = new Control
+        {
+            Theme = UiStyles.CreateTheme(),
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
         _uiRoot.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _uiLayer.AddChild(_uiRoot);
 
@@ -76,10 +86,20 @@ public partial class MainController : Node
 
     public override void _Input(InputEvent inputEvent)
     {
+        if (inputEvent is InputEventKey { Pressed: true, Echo: false, Keycode: Key.F11 })
+        {
+            DisplaySettingsController.ToggleFullscreen(_session.State.Settings);
+            _session.NotifyChanged();
+            GetViewport().SetInputAsHandled();
+            return;
+        }
+
         var nextGamepad = inputEvent is InputEventJoypadButton button && button.Pressed ||
                           inputEvent is InputEventJoypadMotion motion && Math.Abs(motion.AxisValue) >= 0.35f;
         var nextKeyboard = inputEvent is InputEventKey key && key.Pressed ||
-                           inputEvent is InputEventMouseButton mouseButton && mouseButton.Pressed;
+                           inputEvent is InputEventMouseButton mouseButton && mouseButton.Pressed ||
+                           inputEvent is InputEventMouseMotion mouseMotion &&
+                           mouseMotion.ScreenRelative.LengthSquared() > 0.01f;
         if ((nextGamepad && !_usingGamepad) || (nextKeyboard && _usingGamepad))
         {
             _usingGamepad = nextGamepad;
@@ -89,7 +109,7 @@ public partial class MainController : Node
 
     public override void _UnhandledInput(InputEvent inputEvent)
     {
-        if (_titleScreen is not null)
+        if (_titleScreen is { Visible: true })
         {
             return;
         }
@@ -102,13 +122,12 @@ public partial class MainController : Node
             return;
         }
 
-        if (_dream is not null)
-        {
-            return;
-        }
-
         if (inputEvent.IsActionPressed("journal"))
         {
+            if (_dream is not null)
+            {
+                return;
+            }
             if (_journal.Visible)
             {
                 CloseJournal();
@@ -124,20 +143,35 @@ public partial class MainController : Node
 
         if (inputEvent.IsActionPressed("pause_menu"))
         {
+            var handled = false;
             if (_journal.Visible)
             {
                 CloseJournal();
+                handled = true;
             }
             else if (_pauseScreen is not null)
             {
-                ClosePause();
+                ClosePauseOrSettings();
+                handled = true;
             }
-            else if (!_flowRunning && !_battle.Visible && _completionScreen is null)
+            else if (!_flowRunning &&
+                     !_battle.Visible &&
+                     _completionScreen is null &&
+                     !_session.Modal.IsBlocked)
             {
                 OpenPause();
+                handled = true;
             }
 
-            GetViewport().SetInputAsHandled();
+            // Let the active dream inventory, puzzle or confirmation consume Esc first.
+            // Consuming it here while a different modal owns the gate would strand that UI.
+            if (handled) GetViewport().SetInputAsHandled();
+            return;
+        }
+
+        if (_dream is not null)
+        {
+            return;
         }
     }
 
@@ -146,6 +180,7 @@ public partial class MainController : Node
         _hud = new Control();
         _hud.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _hud.MouseFilter = Control.MouseFilterEnum.Ignore;
+        _hud.MouseBehaviorRecursive = Control.MouseBehaviorRecursiveEnum.Disabled;
         _uiRoot.AddChild(_hud);
 
         var top = new PanelContainer
@@ -225,10 +260,23 @@ public partial class MainController : Node
         _battle.ActionSelected += OnBattleAction;
         _battle.RetrySelected += RetryBattle;
         _uiRoot.AddChild(_battle);
+
+        _quitConfirmation = new ConfirmationDialog
+        {
+            Name = "QuitConfirmation",
+            Title = "退出游戏",
+            DialogText = "确定要退出游戏吗？尚未触发有效操作的当前位置变化不会保存。",
+            OkButtonText = "退出游戏",
+            CancelButtonText = "继续游玩",
+            Exclusive = true
+        };
+        _quitConfirmation.Confirmed += () => GetTree().Quit();
+        _uiRoot.AddChild(_quitConfirmation);
     }
 
     private void ShowTitle()
     {
+        Input.MouseMode = Input.MouseModeEnum.Visible;
         CloseCompletion();
         DisconnectWorld();
         DisconnectDream();
@@ -263,7 +311,7 @@ public partial class MainController : Node
         var panel = new PanelContainer
         {
             Position = new Vector2(38, 53),
-            Size = new Vector2(292, 260)
+            Size = new Vector2(292, 290)
         };
         panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("182536e9"), 10));
         _titleScreen.AddChild(panel);
@@ -290,6 +338,22 @@ public partial class MainController : Node
                                 !_session.HasRecoverableSave;
         continueGame.Pressed += ContinueGame;
         column.AddChild(continueGame);
+        var titleActions = new HBoxContainer();
+        titleActions.AddThemeConstantOverride("separation", 6);
+        column.AddChild(titleActions);
+        var settings = UiStyles.Button("显示设置");
+        settings.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        settings.Pressed += () =>
+        {
+            if (_titleScreen is not null) _titleScreen.Visible = false;
+            OpenSettings(true);
+        };
+        titleActions.AddChild(settings);
+        var quit = UiStyles.Button("退出游戏");
+        quit.Name = "TitleQuit";
+        quit.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        quit.Pressed += AskQuit;
+        titleActions.AddChild(quit);
         var note = new Label
         {
             Text = "当前构建：四室旧校舍序章机制版",
@@ -379,7 +443,7 @@ public partial class MainController : Node
         _session.NewGame(playerName, playerTitle);
         ApplySettingsVisuals();
         CloseTitle();
-        LoadDream();
+        LoadDream(showEntryControlReminder: true);
         _session.SaveCheckpoint();
         await Task.CompletedTask;
     }
@@ -490,7 +554,7 @@ public partial class MainController : Node
         RefreshHud();
     }
 
-    private void LoadDream()
+    private void LoadDream(bool showEntryControlReminder = false)
     {
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new FileNotFoundException("Dream escape root scene is missing.");
@@ -503,6 +567,8 @@ public partial class MainController : Node
         _dream = next;
         _dream.PinWakeRequested += OnDreamPinWakeRequested;
         _dream.ExitOpened += OnDreamExitOpened;
+        if (showEntryControlReminder)
+            _dream.ShowEntryControlReminder();
         previousWorld?.QueueFree();
         previousDream?.QueueFree();
         _hud.Visible = false;
@@ -1176,7 +1242,9 @@ public partial class MainController : Node
 
     private void OpenPause()
     {
-        _pauseLease = _session.Modal.Acquire("pause");
+        if (_pauseScreen is not null) return;
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+        _pauseLease ??= _session.Modal.Acquire("pause");
         _pauseScreen = NewScreen("PauseMenu");
         var shade = new ColorRect { Color = new Color("000000a8") };
         shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
@@ -1192,114 +1260,199 @@ public partial class MainController : Node
         title.AddThemeColorOverride("font_color", new Color("f2c66d"));
         column.AddChild(title);
         var resume = UiStyles.Button("继续");
+        resume.Name = "PauseResume";
         resume.Pressed += ClosePause;
         column.AddChild(resume);
-        var save = UiStyles.Button("保存");
-        save.Pressed += () =>
+        if (_dream is not null)
         {
-            ClosePause();
-            try
+            var autosaveNote = new Label
             {
-                _session.Save();
-                ShowToast("已保存。对话和战斗中不能手动保存。");
-            }
-            catch (Exception exception)
-            {
-                ShowToast($"保存失败：{exception.Message}");
-            }
-        };
-        column.AddChild(save);
-        var load = UiStyles.Button("载入");
-        load.Pressed += () =>
+                Text = "梦境会在每次有效操作后保存。",
+                AutowrapMode = TextServer.AutowrapMode.WordSmart
+            };
+            autosaveNote.AddThemeFontSizeOverride("font_size", 10);
+            autosaveNote.AddThemeColorOverride("font_color", new Color("b9d1c5"));
+            column.AddChild(autosaveNote);
+        }
+        else
         {
-            ClosePause();
-            if (_session.TryLoad(out var error))
+            var save = UiStyles.Button("保存");
+            save.Pressed += () =>
             {
-                ApplySettingsVisuals();
-                LoadWorld(_session.State.Player.LocationId);
-                ShowToast("存档已载入。");
-            }
-            else
+                ClosePause();
+                try
+                {
+                    _session.Save();
+                    ShowToast("已保存。对话和战斗中不能手动保存。");
+                }
+                catch (Exception exception)
+                {
+                    ShowToast($"保存失败：{exception.Message}");
+                }
+            };
+            column.AddChild(save);
+            var load = UiStyles.Button("载入");
+            load.Pressed += () =>
             {
-                ShowToast(error);
-            }
-        };
-        column.AddChild(load);
+                ClosePause();
+                if (_session.TryLoad(out var error))
+                {
+                    ApplySettingsVisuals();
+                    LoadWorld(_session.State.Player.LocationId);
+                    ShowToast("存档已载入。");
+                }
+                else
+                {
+                    ShowToast(error);
+                }
+            };
+            column.AddChild(load);
+            var unstick = UiStyles.Button("脱离卡住：回安全点");
+            unstick.Pressed += () =>
+            {
+                ClosePause();
+                _world?.MovePlayerToSafePoint();
+                ShowToast("已回到当前区域的安全点。");
+            };
+            column.AddChild(unstick);
+        }
         var settings = UiStyles.Button("显示与辅助设置");
-        settings.Pressed += OpenSettings;
+        settings.Name = "PauseSettings";
+        settings.Pressed += () => OpenSettings();
         column.AddChild(settings);
-        var unstick = UiStyles.Button("脱离卡住：回安全点");
-        unstick.Pressed += () =>
-        {
-            ClosePause();
-            _world?.MovePlayerToSafePoint();
-            ShowToast("已回到当前区域的安全点。");
-        };
-        column.AddChild(unstick);
+
+        var exitRow = new HBoxContainer();
+        exitRow.AddThemeConstantOverride("separation", 6);
+        column.AddChild(exitRow);
         var titleButton = UiStyles.Button("返回标题");
+        titleButton.Name = "PauseReturnTitle";
+        titleButton.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         titleButton.Pressed += () =>
         {
             ClosePause();
             ShowTitle();
         };
-        column.AddChild(titleButton);
+        exitRow.AddChild(titleButton);
+        var quit = UiStyles.Button("退出游戏");
+        quit.Name = "PauseQuit";
+        quit.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        quit.Pressed += AskQuit;
+        exitRow.AddChild(quit);
         resume.GrabFocus();
     }
 
-    private void OpenSettings()
+    private void OpenSettings(bool returnToTitle = false)
     {
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+        _settingsReturnToTitle = returnToTitle;
         _pauseScreen?.QueueFree();
         _pauseScreen = NewScreen("SettingsMenu");
         var shade = new ColorRect { Color = new Color("000000b8") };
         shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
         _pauseScreen.AddChild(shade);
-        var panel = new PanelContainer { Position = new Vector2(90, 8), Size = new Vector2(460, 344) };
+        var panel = new PanelContainer { Position = new Vector2(60, 12), Size = new Vector2(520, 336) };
         panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("1c2b3af2"), 10));
         _pauseScreen.AddChild(panel);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 2);
-        panel.AddChild(column);
+        var rootColumn = new VBoxContainer();
+        rootColumn.AddThemeConstantOverride("separation", 5);
+        panel.AddChild(rootColumn);
         var title = new Label { Text = "显示与辅助设置" };
         title.AddThemeFontSizeOverride("font_size", 21);
         title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(title);
+        rootColumn.AddChild(title);
+        var scroll = new ScrollContainer
+        {
+            SizeFlagsVertical = Control.SizeFlags.ExpandFill,
+            HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled
+        };
+        rootColumn.AddChild(scroll);
+        var column = new VBoxContainer
+        {
+            CustomMinimumSize = new Vector2(478, 0),
+            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
+        };
+        column.AddThemeConstantOverride("separation", 3);
+        scroll.AddChild(column);
 
         var fontScale = AddOptionRow(column, "字号", ["100%", "125%", "150%"]);
         fontScale.Selected = _session.State.Settings.FontScale switch { >= 1.5f => 2, >= 1.25f => 1, _ => 0 };
         fontScale.ItemSelected += index =>
         {
             _session.State.Settings.FontScale = index switch { 2 => 1.5f, 1 => 1.25f, _ => 1f };
+            _session.NotifyChanged();
             ApplySettingsVisuals();
         };
 
         var textSpeed = AddOptionRow(column, "自动播放速度", ["舒缓", "标准", "快速"]);
         textSpeed.Selected = _session.State.Settings.TextSpeed switch { >= 1.5f => 2, <= 0.75f => 0, _ => 1 };
         textSpeed.ItemSelected += index =>
+        {
             _session.State.Settings.TextSpeed = index switch { 2 => 1.5f, 0 => 0.75f, _ => 1f };
+            _session.NotifyChanged();
+        };
+
+        var resolution = AddOptionRow(column, "窗口分辨率", ["1280×720", "1600×900", "1920×1080"]);
+        resolution.Selected = DisplaySettingsController.PresetIndex(
+            _session.State.Settings.WindowWidth,
+            _session.State.Settings.WindowHeight);
+        resolution.Disabled = _session.State.Settings.BorderlessFullscreen;
+        resolution.ItemSelected += index =>
+        {
+            var size = DisplaySettingsController.WindowedPresets[(int)index];
+            _session.State.Settings.WindowWidth = size.X;
+            _session.State.Settings.WindowHeight = size.Y;
+            _session.NotifyChanged();
+            if (!_session.State.Settings.BorderlessFullscreen)
+                DisplaySettingsController.Apply(_session.State.Settings);
+        };
+
+        var cameraSpeed = AddOptionRow(column, "镜头速度", ["慢", "标准", "快"]);
+        cameraSpeed.Selected = _session.State.Settings.CameraLookSensitivity switch
+        {
+            >= 1.2f => 2,
+            <= 0.8f => 0,
+            _ => 1
+        };
+        cameraSpeed.ItemSelected += index =>
+        {
+            _session.State.Settings.CameraLookSensitivity = index switch { 2 => 1.35f, 0 => 0.65f, _ => 1f };
+            _session.NotifyChanged();
+            ApplySettingsVisuals();
+        };
 
         var story = AddToggle(column, "故事模式（战斗不损失意志）", _session.State.Settings.StoryMode);
-        story.Toggled += enabled => _session.State.Settings.StoryMode = enabled;
+        story.Toggled += enabled =>
+        {
+            _session.State.Settings.StoryMode = enabled;
+            _session.NotifyChanged();
+        };
         var contrast = AddToggle(column, "高对比交互提示", _session.State.Settings.HighContrastPrompts);
         contrast.Toggled += enabled =>
         {
             _session.State.Settings.HighContrastPrompts = enabled;
+            _session.NotifyChanged();
             ApplySettingsVisuals();
         };
         var flashing = AddToggle(column, "减少闪烁（本切片默认无闪烁）", _session.State.Settings.ReduceFlashing);
         flashing.Toggled += enabled =>
         {
             _session.State.Settings.ReduceFlashing = enabled;
+            _session.NotifyChanged();
             ApplySettingsVisuals();
         };
         var vibration = AddToggle(column, "手柄震动", _session.State.Settings.VibrationEnabled);
-        vibration.Toggled += enabled => _session.State.Settings.VibrationEnabled = enabled;
+        vibration.Toggled += enabled =>
+        {
+            _session.State.Settings.VibrationEnabled = enabled;
+            _session.NotifyChanged();
+        };
         var fullscreen = AddToggle(column, "无边框全屏", _session.State.Settings.BorderlessFullscreen);
         fullscreen.Toggled += enabled =>
         {
             _session.State.Settings.BorderlessFullscreen = enabled;
-            DisplayServer.WindowSetMode(enabled
-                ? DisplayServer.WindowMode.Fullscreen
-                : DisplayServer.WindowMode.Windowed);
+            resolution.Disabled = enabled;
+            _session.NotifyChanged();
+            DisplaySettingsController.Apply(_session.State.Settings);
         };
         var note = new Label
         {
@@ -1309,13 +1462,10 @@ public partial class MainController : Node
         note.AddThemeFontSizeOverride("font_size", 10);
         note.AddThemeColorOverride("font_color", new Color("b9d1c5"));
         column.AddChild(note);
-        var back = UiStyles.Button("返回暂停菜单");
-        back.Pressed += () =>
-        {
-            ClosePause();
-            OpenPause();
-        };
-        column.AddChild(back);
+        var back = UiStyles.Button(returnToTitle ? "返回标题" : "返回暂停菜单");
+        back.Name = "SettingsBack";
+        back.Pressed += ReturnFromSettings;
+        rootColumn.AddChild(back);
         fontScale.GrabFocus();
     }
 
@@ -1352,9 +1502,7 @@ public partial class MainController : Node
         _promptLabel?.AddThemeStyleboxOverride("normal", UiStyles.Panel(
             _session.State.Settings.HighContrastPrompts ? new Color("000000ff") : new Color("1a2638e5"), 5));
         _dream?.ApplySettings(_session.State.Settings);
-        DisplayServer.WindowSetMode(_session.State.Settings.BorderlessFullscreen
-            ? DisplayServer.WindowMode.Fullscreen
-            : DisplayServer.WindowMode.Windowed);
+        DisplaySettingsController.Apply(_session.State.Settings);
     }
 
     private void ClosePause()
@@ -1363,6 +1511,36 @@ public partial class MainController : Node
         _pauseScreen = null;
         _pauseLease?.Dispose();
         _pauseLease = null;
+    }
+
+    private void ClosePauseOrSettings()
+    {
+        if (_pauseScreen?.Name == "SettingsMenu")
+        {
+            ReturnFromSettings();
+            return;
+        }
+        ClosePause();
+    }
+
+    private void ReturnFromSettings()
+    {
+        var returnToTitle = _settingsReturnToTitle;
+        _settingsReturnToTitle = false;
+        ClosePause();
+        if (returnToTitle)
+        {
+            if (_titleScreen is not null) _titleScreen.Visible = true;
+            Input.MouseMode = Input.MouseModeEnum.Visible;
+            return;
+        }
+        OpenPause();
+    }
+
+    private void AskQuit()
+    {
+        Input.MouseMode = Input.MouseModeEnum.Visible;
+        _quitConfirmation.PopupCentered(new Vector2I(430, 190));
     }
 
     private async Task RunDialogueFlowAsync(Func<Task> body)
@@ -1480,7 +1658,7 @@ public partial class MainController : Node
 
         _inputHint.Text = _usingGamepad
             ? "左摇杆 移动　A 互动　Y 手册　Menu 暂停"
-            : "WASD / 方向键 移动　E / 空格 互动　J 手册　Esc 暂停";
+            : "WASD / 方向键 移动　F / 空格 互动　J 手册　Esc 暂停";
         _world?.SetGamepadPrompts(_usingGamepad);
         _journal?.SetGamepadPrompts(_usingGamepad);
     }

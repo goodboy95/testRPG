@@ -1,0 +1,45 @@
+{
+  "blenderVersion": "5.2.0 LTS",
+  "roomSizeMeters": [
+    9.6,
+    7.2,
+    3.2
+  ],
+  "requiredObjects": [
+    "Blackboard_Blank",
+    "Blackboard_Revealed",
+    "Chalk",
+    "Clock_Seven",
+    "Door_East",
+    "DutyRoster_Second",
+    "MapCabinet_Closed",
+    "MapCabinet_Open",
+    "Room_Floor",
+    "TeacherDesk_Closed",
+    "TeacherDesk_Open",
+    "Wall_East",
+    "Wall_North",
+    "Wall_South",
+    "Wall_West",
+    "Window_West"
+  ],
+  "studentDeskGroups": [
+    "StudentDeskGroup_01",
+    "StudentDeskGroup_02",
+    "StudentDeskGroup_03",
+    "StudentDeskGroup_04",
+    "StudentDeskGroup_05",
+    "StudentDeskGroup_06",
+    "StudentDeskGroup_07",
+    "StudentDeskGroup_08",
+    "StudentDeskGroup_09",
+    "StudentDeskGroup_10"
+  ],
+  "meshObjectCount": 130,
+  "materialCount": 12,
+  "schemaVersion": 1,
+  "sourceFile": "art/blender/dream_classroom/classroom-mvp.blend",
+  "runtimeFile": "assets/generated/dream_escape/3d/classroom-mvp.glb",
+  "sourceSha256": "4e29c388a0fe78b261fd7f4e63d07db74d38169028fa84fdbda8e52981784750",
+  "runtimeSha256": "f906e09bb0e3a6c1b51fa62efc1f8c6a0dc273b2b6495658596530fa74e41770"
+}

@@ -1,0 +1,408 @@
+using Godot;
+using TownRpg.Core.Domain;
+
+namespace TownRpg.Presentation;
+
+public partial class DreamMusicVisual3D : Node3D
+{
+    private sealed record CollisionSpec(string Name, Vector3 Position, Vector3 Size, bool Furniture);
+
+    private static readonly CollisionSpec[] CollisionSpecs =
+    [
+        new("Floor", new Vector3(0f, -0.09f, 0f), new Vector3(11f, 0.18f, 8f), false),
+        new("Ceiling", new Vector3(0f, 4.05f, 0f), new Vector3(11f, 0.18f, 8f), false),
+        new("WallNorth", new Vector3(0f, 2f, -4f), new Vector3(11.2f, 4f, 0.20f), false),
+        new("WallSouth", new Vector3(0f, 2f, 4f), new Vector3(11.2f, 4f, 0.20f), false),
+        new("WallEast", new Vector3(5.5f, 2f, 0f), new Vector3(0.20f, 4f, 8f), false),
+        new("WallWestNorth", new Vector3(-5.5f, 2f, -0.63f), new Vector3(0.20f, 4f, 6.75f), false),
+        new("WallWestSouth", new Vector3(-5.5f, 2f, 3.68f), new Vector3(0.20f, 4f, 0.65f), false),
+        new("DoorTop", new Vector3(-5.5f, 3.28f, 2.73f), new Vector3(0.20f, 1.44f, 1.35f), false),
+        new("DoorBarrier", new Vector3(-5.36f, 1.18f, 2.73f), new Vector3(0.24f, 2.36f, 1.35f), false),
+        new("Piano", new Vector3(0.8f, 0.72f, 3.32f), new Vector3(3.25f, 1.44f, 0.95f), true),
+        new("PianoBench", new Vector3(0.8f, 0.42f, 2.35f), new Vector3(1.28f, 0.84f, 0.62f), true),
+        new("TuningBench", new Vector3(-0.2f, 0.70f, -2.95f), new Vector3(3.05f, 1.40f, 0.88f), true),
+        new("ScoreDesk", new Vector3(-4.15f, 0.72f, -2.75f), new Vector3(1.25f, 1.44f, 0.85f), true),
+        new("AttendanceReader", new Vector3(-4.85f, 1.05f, 0.10f), new Vector3(0.82f, 2.10f, 1.55f), true),
+        new("AcousticWall", new Vector3(5.08f, 1.25f, 0f), new Vector3(0.75f, 2.50f, 3.25f), true),
+        new("EquipmentCage", new Vector3(3.80f, 1.25f, -3.20f), new Vector3(2.50f, 2.50f, 1.30f), true)
+    ];
+
+    private static readonly Vector3[] SafeWaypoints =
+    [
+        new(-4.65f, 0f, 2.72f), new(-3.5f, 0f, 1.65f), new(-2.0f, 0f, 1.2f),
+        new(0f, 0f, 0.9f), new(2.0f, 0f, 1.2f), new(3.7f, 0f, 1.5f),
+        new(-3.3f, 0f, -1.35f), new(-1.8f, 0f, -1.45f), new(1.8f, 0f, -1.45f),
+        new(3.6f, 0f, -1.25f), new(4.25f, 0f, 0f)
+    ];
+
+    private const float PlayerRadius = 0.30f;
+    private readonly Dictionary<string, StandardMaterial3D> _materials = new(StringComparer.Ordinal);
+    private Node3D _geometry = null!;
+    private Node3D _cageDoor = null!;
+    private Node3D _scoreRevealed = null!;
+    private Node3D _metronomeWeight = null!;
+    private Node3D _metronomeSolved = null!;
+    private Node3D _forksSolved = null!;
+    private Node3D _pianoRollInstalled = null!;
+    private Node3D _pitchInstrumentLabel = null!;
+    private Node3D _acousticSolved = null!;
+    private Node3D _attendanceOpen = null!;
+    private Node3D _benchOpen = null!;
+    private readonly Dictionary<string, Node3D> _pickups = new(StringComparer.Ordinal);
+    private Node3D? _debugHost;
+
+    public Rect2 WalkableBounds => new(-5.25f, -3.75f, 10.5f, 7.5f);
+    public int CollisionBodyCount => CollisionSpecs.Length;
+    public int FurnitureCollisionCount => CollisionSpecs.Count(spec => spec.Furniture);
+    public Node3D DoorHinge { get; private set; } = null!;
+    public bool ScoreRevealed => _scoreRevealed.Visible;
+    public bool CageOpen => Mathf.Abs(_cageDoor.Rotation.Y) > 0.1f;
+    public bool MetronomeWeightInstalled => _metronomeWeight.Visible;
+    public bool MetronomeSolved => _metronomeSolved.Visible;
+    public bool TuningForksSolved => _forksSolved.Visible;
+    public bool PianoRollInstalled => _pianoRollInstalled.Visible;
+    public bool AcousticWallSolved => _acousticSolved.Visible;
+    public bool AttendanceReaderOpen => _attendanceOpen.Visible;
+    public bool PianoBenchOpen => _benchOpen.Visible;
+    public int VisiblePickupCount => _pickups.Values.Count(node => node.Visible);
+
+    public override void _Ready()
+    {
+        BuildMaterials();
+        _geometry = new Node3D { Name = "MusicRoomGeometry" };
+        AddChild(_geometry);
+        BuildArchitecture();
+        BuildMusicFurniture();
+        BuildMechanisms();
+        BuildCollisionBodies();
+    }
+
+    public void ApplyState(DreamEscapeState state)
+    {
+        _scoreRevealed.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicScore);
+        _cageDoor.Rotation = new Vector3(0f,
+            state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicCage) ? Mathf.DegToRad(-72f) : 0f, 0f);
+
+        SetPickup(state, DreamEscapeIds.ItemRubberMallet, DreamEscapeIds.PickupRubberMallet);
+        SetPickup(state, DreamEscapeIds.ItemListeningCone, DreamEscapeIds.PickupListeningCone);
+        SetPickup(state, DreamEscapeIds.ItemMetronomeWeight, DreamEscapeIds.PickupMetronomeWeight);
+        SetPickup(state, DreamEscapeIds.ItemTornPianoRoll, DreamEscapeIds.PickupTornPianoRoll);
+        SetPickup(state, DreamEscapeIds.ItemWaxPatch, DreamEscapeIds.PickupWaxPatch);
+
+        _metronomeWeight.Visible = state.InstalledParts.Contains(DreamEscapeIds.SlotMusicMetronomeWeight) ||
+                                   state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicMetronome);
+        _metronomeSolved.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicMetronome);
+        _forksSolved.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicTuningForks);
+        _pianoRollInstalled.Visible = state.InstalledParts.Contains(DreamEscapeIds.SlotMusicPianoRoll) ||
+                                      state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicPianoRoll);
+        _pitchInstrumentLabel.Visible = _pianoRollInstalled.Visible;
+        _acousticSolved.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicAcousticWall);
+        _attendanceOpen.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicAttendanceReader);
+        _benchOpen.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicPianoBenchCache);
+    }
+
+    public void ApplySettings(PlayerSettings settings)
+    {
+        if (_materials.TryGetValue("amber_glow", out var glow))
+            glow.EmissionEnergyMultiplier = settings.HighContrastPrompts ? 4.5f : 2.8f;
+    }
+
+    public bool IsBlocked(Vector3 position)
+    {
+        if (!WalkableBounds.HasPoint(new Vector2(position.X, position.Z))) return true;
+        return CollisionSpecs.Where(spec => spec.Furniture || spec.Name == "DoorBarrier").Any(spec =>
+        {
+            var rect = new Rect2(spec.Position.X - spec.Size.X / 2f,
+                spec.Position.Z - spec.Size.Z / 2f, spec.Size.X, spec.Size.Z).Grow(PlayerRadius);
+            return rect.HasPoint(new Vector2(position.X, position.Z));
+        });
+    }
+
+    public Vector3 ResolveSpawn(Vector3 requested)
+    {
+        requested.Y = 0f;
+        if (!IsBlocked(requested)) return requested;
+        return SafeWaypoints.Where(point => !IsBlocked(point))
+            .OrderBy(point => point.DistanceSquaredTo(requested))
+            .FirstOrDefault(new Vector3(-4.65f, 0f, 2.72f));
+    }
+
+    public void SetCollisionDebug(bool visible)
+    {
+        if (!visible)
+        {
+            _debugHost?.QueueFree();
+            _debugHost = null;
+            return;
+        }
+        if (_debugHost is not null) return;
+        _debugHost = new Node3D { Name = "CollisionDebug" };
+        AddChild(_debugHost);
+        foreach (var spec in CollisionSpecs)
+            AddBox(_debugHost, spec.Name, spec.Position, spec.Size,
+                spec.Furniture ? "debug_furniture" : "debug_structure");
+    }
+
+    private void SetPickup(DreamEscapeState state, string itemId, string progressId)
+    {
+        _pickups[itemId].Visible = state.XiaoyuJoined && !state.SolvedPuzzles.Contains(progressId);
+    }
+
+    private void BuildMaterials()
+    {
+        const string textureRoot = "res://assets/generated/dream_escape/3d/classroom-art-pass-v4_";
+        Material("plaster", new Color("b8c0bd"), 0.92f, texturePrefix: textureRoot + "plaster");
+        Material("ceiling", new Color("7f8b8d"), 0.96f, texturePrefix: textureRoot + "plaster");
+        Material("floor", new Color("8a8072"), 0.74f, texturePrefix: textureRoot + "floor");
+        Material("oak", new Color("8a6955"), 0.66f, texturePrefix: textureRoot + "darkwood");
+        Material("oak_light", new Color("a27a5b"), 0.62f, texturePrefix: textureRoot + "wood");
+        Material("teal", new Color("6f9291"), 0.72f, texturePrefix: textureRoot + "teal");
+        Material("metal", new Color("596467"), 0.38f, 0.76f);
+        Material("brass", new Color("a87934"), 0.32f, 0.82f);
+        Material("paper", new Color("c9b98f"), 0.88f);
+        Material("glass", new Color(0.35f, 0.50f, 0.52f, 0.28f), 0.18f, 0.10f, true);
+        Material("amber_glow", new Color("ffba55"), 0.28f, 0.35f, false, new Color("ff9d32"));
+        Material("green_glow", new Color("8dd6bb"), 0.30f, 0.25f, false, new Color("52c7a5"));
+        Material("debug_furniture", new Color("ffad3b55"), 0f, 0f, true);
+        Material("debug_structure", new Color("ff4c4c3c"), 0f, 0f, true);
+    }
+
+    private void BuildArchitecture()
+    {
+        AddBox(_geometry, "Floor", new Vector3(0f, -0.08f, 0f), new Vector3(11f, 0.16f, 8f), "floor");
+        AddBox(_geometry, "Ceiling", new Vector3(0f, 4.04f, 0f), new Vector3(11f, 0.16f, 8f), "ceiling");
+        AddBox(_geometry, "WallNorth", new Vector3(0f, 2f, -4f), new Vector3(11f, 4f, 0.14f), "plaster");
+        AddBox(_geometry, "WallSouth", new Vector3(0f, 2f, 4f), new Vector3(11f, 4f, 0.14f), "plaster");
+        AddBox(_geometry, "WallEast", new Vector3(5.5f, 2f, 0f), new Vector3(0.14f, 4f, 8f), "plaster");
+        AddBox(_geometry, "WallWestNorth", new Vector3(-5.5f, 2f, -0.63f), new Vector3(0.14f, 4f, 6.75f), "plaster");
+        AddBox(_geometry, "WallWestSouth", new Vector3(-5.5f, 2f, 3.68f), new Vector3(0.14f, 4f, 0.65f), "plaster");
+        AddBox(_geometry, "DoorTop", new Vector3(-5.5f, 3.28f, 2.73f), new Vector3(0.14f, 1.44f, 1.35f), "plaster");
+        for (var z = -3.4f; z <= 3.4f; z += 0.85f)
+        {
+            AddBox(_geometry, $"AcousticSlat{z:0.00}", new Vector3(5.39f, 1.35f, z),
+                new Vector3(0.10f, 2.6f, 0.06f), "oak_light");
+        }
+        for (var x = -4.5f; x <= 4.5f; x += 1.5f)
+            AddBox(_geometry, $"CeilingBeam{x:0.0}", new Vector3(x, 3.82f, 0f),
+                new Vector3(0.12f, 0.22f, 8f), "oak");
+
+        DoorHinge = new Node3D { Name = "Door_West_Hinge", Position = new Vector3(-5.39f, 0f, 2.08f) };
+        _geometry.AddChild(DoorHinge);
+        AddBox(DoorHinge, "DoorLeaf", new Vector3(0f, 1.18f, 0.65f),
+            new Vector3(0.12f, 2.36f, 1.30f), "oak");
+
+        for (var x = -3.8f; x <= 3.8f; x += 2.55f)
+        {
+            AddBox(_geometry, $"WindowFrame{x:0.0}", new Vector3(x, 2.25f, 3.90f),
+                new Vector3(1.65f, 1.55f, 0.12f), "teal");
+            AddBox(_geometry, $"WindowGlass{x:0.0}", new Vector3(x, 2.25f, 3.82f),
+                new Vector3(1.42f, 1.30f, 0.04f), "glass");
+        }
+    }
+
+    private void BuildMusicFurniture()
+    {
+        var piano = new Node3D { Name = "PlayerPiano", Position = new Vector3(0.8f, 0f, 3.38f) };
+        _geometry.AddChild(piano);
+        AddBox(piano, "PianoBody", new Vector3(0f, 0.92f, 0f), new Vector3(3.15f, 1.80f, 0.72f), "oak");
+        AddBox(piano, "Keyboard", new Vector3(0f, 0.92f, -0.53f), new Vector3(2.80f, 0.16f, 0.54f), "paper");
+        for (var x = -1.25f; x <= 1.25f; x += 0.25f)
+            AddBox(piano, $"Key{x:0.00}", new Vector3(x, 1.02f, -0.56f), new Vector3(0.04f, 0.04f, 0.48f), "metal");
+
+        AddBox(_geometry, "PianoBenchClosed", new Vector3(0.8f, 0.42f, 2.36f),
+            new Vector3(1.28f, 0.25f, 0.62f), "oak_light");
+        _benchOpen = AddBox(_geometry, "PianoBenchOpen", new Vector3(0.8f, 0.80f, 2.58f),
+            new Vector3(1.28f, 0.18f, 0.62f), "oak_light", -18f);
+
+        AddBox(_geometry, "TuningBench", new Vector3(-0.2f, 0.68f, -2.95f),
+            new Vector3(3.05f, 0.18f, 0.88f), "oak_light");
+        for (var x = -1.2f; x <= 1.2f; x += 0.8f)
+        {
+            AddCylinder(_geometry, $"ForkStem{x:0.0}", new Vector3(x - 0.2f, 1.18f, -2.95f),
+                0.035f, 0.72f, "metal");
+            AddBox(_geometry, $"ForkTines{x:0.0}", new Vector3(x - 0.2f, 1.58f, -2.95f),
+                new Vector3(0.22f, 0.38f, 0.04f), "metal");
+        }
+        _forksSolved = Label("ForkMap", "○ A3    ◇ C4    □ E4    △ A4",
+            new Vector3(-0.2f, 1.92f, -3.86f), Vector3.Zero, 34, new Color("8de2c4"));
+
+        AddBox(_geometry, "ScoreDesk", new Vector3(-4.15f, 0.72f, -2.75f),
+            new Vector3(1.25f, 1.35f, 0.72f), "oak");
+        AddBox(_geometry, "ScoreSheet", new Vector3(-4.15f, 1.43f, -2.36f),
+            new Vector3(0.92f, 0.58f, 0.04f), "paper", -8f);
+        _scoreRevealed = Label("ScoreSequence", "1  —  4  —  2  —  3",
+            new Vector3(-4.15f, 1.45f, -2.32f), new Vector3(0f, 180f, 0f), 44, new Color("50351f"));
+
+        AddBox(_geometry, "AttendanceReader", new Vector3(-5.05f, 1.05f, 0.10f),
+            new Vector3(0.58f, 2.10f, 1.55f), "teal");
+        AddBox(_geometry, "AttendanceGlass", new Vector3(-4.73f, 1.30f, 0.10f),
+            new Vector3(0.05f, 0.95f, 1.15f), "glass");
+        _attendanceOpen = AddBox(_geometry, "AttendanceOpenLight", new Vector3(-4.67f, 1.30f, 0.10f),
+            new Vector3(0.04f, 0.82f, 1.02f), "green_glow");
+    }
+
+    private void BuildMechanisms()
+    {
+        AddBox(_geometry, "TempoNoticeBoard", new Vector3(-5.28f, 1.55f, 2.0f),
+            new Vector3(0.08f, 1.25f, 1.45f), "paper");
+        Label("TempoNotice", "排练通知\n72 BPM", new Vector3(-5.22f, 1.55f, 2.0f),
+            new Vector3(0f, -90f, 0f), 34, new Color("593b2c"));
+        AddBox(_geometry, "RollTemplateBoard", new Vector3(-5.28f, 1.2f, -0.4f),
+            new Vector3(0.08f, 0.82f, 1.35f), "paper");
+        Label("RollTemplate", "裂口模板\n2—4—1—3", new Vector3(-5.22f, 1.2f, -0.4f),
+            new Vector3(0f, -90f, 0f), 30, new Color("593b2c"));
+        var metronome = new Node3D { Name = "Metronome", Position = new Vector3(-0.4f, 1.95f, 3.02f) };
+        _geometry.AddChild(metronome);
+        AddBox(metronome, "Body", Vector3.Zero, new Vector3(0.48f, 0.72f, 0.32f), "oak_light");
+        AddBox(metronome, "Pendulum", new Vector3(0f, 0.18f, -0.20f), new Vector3(0.05f, 0.62f, 0.05f), "brass", -12f);
+        _metronomeWeight = AddBox(metronome, "Weight", new Vector3(-0.06f, 0.22f, -0.24f),
+            new Vector3(0.18f, 0.18f, 0.10f), "brass");
+        _metronomeSolved = Label("BeatGlyphs", "○   ◇   □   △",
+            new Vector3(-0.4f, 2.45f, 3.00f), new Vector3(0f, 180f, 0f), 52, new Color("ffc363"));
+
+        _pianoRollInstalled = AddBox(_geometry, "InstalledPianoRoll", new Vector3(1.65f, 1.67f, 3.00f),
+            new Vector3(1.35f, 0.42f, 0.06f), "paper", -5f);
+        _pitchInstrumentLabel = Label("PitchInstrumentMap", "A3 木鱼   C4 钢琴   E4 三角铁   A4 手铃",
+            new Vector3(1.65f, 1.68f, 2.94f), new Vector3(0f, 180f, 0f), 28, new Color("4c3222"));
+
+        AddBox(_geometry, "AcousticCabinet", new Vector3(5.12f, 1.30f, 0f),
+            new Vector3(0.62f, 2.60f, 3.30f), "oak");
+        var glyphs = new[] { "○", "◇", "□", "△" };
+        for (var index = 0; index < glyphs.Length; index++)
+        {
+            var z = -1.18f + index * 0.78f;
+            AddCylinder(_geometry, $"Resonator{index}", new Vector3(4.72f, 1.25f, z),
+                0.26f, 0.20f, "brass", 90f);
+            Label($"ResonatorGlyph{index}", glyphs[index], new Vector3(4.58f, 1.25f, z),
+                new Vector3(0f, -90f, 0f), 48, new Color("ffe0a0"));
+        }
+        _acousticSolved = AddBox(_geometry, "AcousticSolvedLight", new Vector3(4.76f, 2.55f, 0f),
+            new Vector3(0.08f, 0.12f, 3.0f), "green_glow");
+
+        var cage = new Node3D { Name = "EquipmentCage", Position = new Vector3(3.8f, 0f, -3.35f) };
+        _geometry.AddChild(cage);
+        AddBox(cage, "Back", new Vector3(0f, 1.25f, -0.52f), new Vector3(2.5f, 2.5f, 0.12f), "teal");
+        AddBox(cage, "Top", new Vector3(0f, 2.46f, 0f), new Vector3(2.5f, 0.12f, 1.2f), "metal");
+        for (var x = -1.15f; x <= 1.15f; x += 0.38f)
+            AddBox(cage, $"Bar{x:0.00}", new Vector3(x, 1.25f, 0.56f),
+                new Vector3(0.05f, 2.5f, 0.06f), "metal");
+        _cageDoor = new Node3D { Name = "CageDoorHinge", Position = new Vector3(-1.20f, 0f, 0.58f) };
+        cage.AddChild(_cageDoor);
+        AddBox(_cageDoor, "CageDoor", new Vector3(1.18f, 1.25f, 0f),
+            new Vector3(2.36f, 2.50f, 0.08f), "glass");
+        AddBox(cage, "ForkReferenceBoard", new Vector3(0f, 1.35f, -0.43f),
+            new Vector3(1.75f, 1.25f, 0.05f), "paper");
+        Label("ForkReference", "衰减 / 波形\nA3  C4  E4  A4",
+            new Vector3(3.8f, 1.35f, -3.76f), Vector3.Zero, 27, new Color("593b2c"));
+
+        _pickups[DreamEscapeIds.ItemRubberMallet] = AddBox(_geometry, "RubberMalletPickup",
+            new Vector3(-1.30f, 0.93f, -2.76f), new Vector3(0.65f, 0.12f, 0.16f), "amber_glow", 18f);
+        _pickups[DreamEscapeIds.ItemListeningCone] = AddCylinder(_geometry, "ListeningConePickup",
+            new Vector3(0.55f, 0.96f, -2.78f), 0.16f, 0.48f, "amber_glow", 90f);
+        _pickups[DreamEscapeIds.ItemMetronomeWeight] = AddBox(_geometry, "MetronomeWeightPickup",
+            new Vector3(-1.18f, 0.18f, 2.88f), new Vector3(0.24f, 0.24f, 0.16f), "amber_glow");
+        _pickups[DreamEscapeIds.ItemTornPianoRoll] = AddBox(_geometry, "PianoRollPickup",
+            new Vector3(2.50f, 0.26f, 3.15f), new Vector3(0.92f, 0.12f, 0.42f), "paper", -12f);
+        _pickups[DreamEscapeIds.ItemWaxPatch] = AddBox(_geometry, "WaxPatchPickup",
+            new Vector3(3.65f, 0.68f, -2.72f), new Vector3(0.46f, 0.10f, 0.34f), "amber_glow");
+    }
+
+    private void BuildCollisionBodies()
+    {
+        var host = new Node3D { Name = "CollisionBodies" };
+        AddChild(host);
+        foreach (var spec in CollisionSpecs)
+        {
+            var body = new StaticBody3D { Name = spec.Name, Position = spec.Position };
+            body.AddChild(new CollisionShape3D { Shape = new BoxShape3D { Size = spec.Size } });
+            host.AddChild(body);
+        }
+    }
+
+    private StandardMaterial3D Material(string name, Color color, float roughness, float metallic = 0f,
+        bool transparent = false, Color? emission = null, string? texturePrefix = null)
+    {
+        var material = new StandardMaterial3D
+        {
+            AlbedoColor = color,
+            Roughness = roughness,
+            Metallic = metallic,
+            TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic
+        };
+        if (!string.IsNullOrEmpty(texturePrefix))
+        {
+            material.AlbedoTexture = ResourceLoader.Load<Texture2D>($"{texturePrefix}-albedo.png")
+                ?? throw new InvalidOperationException($"Missing music-room PBR albedo '{texturePrefix}'.");
+            material.NormalTexture = ResourceLoader.Load<Texture2D>($"{texturePrefix}-normal.png")
+                ?? throw new InvalidOperationException($"Missing music-room PBR normal '{texturePrefix}'.");
+            material.NormalEnabled = true;
+            material.OrmTexture = ResourceLoader.Load<Texture2D>($"{texturePrefix}-orm.png")
+                ?? throw new InvalidOperationException($"Missing music-room PBR ORM '{texturePrefix}'.");
+            material.Uv1Triplanar = true;
+            material.Uv1WorldTriplanar = true;
+            material.Uv1Scale = new Vector3(0.55f, 0.55f, 0.55f);
+        }
+        if (transparent)
+        {
+            material.Transparency = BaseMaterial3D.TransparencyEnum.Alpha;
+            material.CullMode = BaseMaterial3D.CullModeEnum.Disabled;
+        }
+        if (emission is { } glow)
+        {
+            material.EmissionEnabled = true;
+            material.Emission = glow;
+            material.EmissionEnergyMultiplier = 2.8f;
+        }
+        _materials[name] = material;
+        return material;
+    }
+
+    private MeshInstance3D AddBox(Node parent, string name, Vector3 position, Vector3 size,
+        string material, float rotationY = 0f)
+    {
+        var mesh = new MeshInstance3D
+        {
+            Name = name,
+            Position = position,
+            RotationDegrees = new Vector3(0f, rotationY, 0f),
+            Mesh = new BoxMesh { Size = size },
+            MaterialOverride = _materials[material]
+        };
+        parent.AddChild(mesh);
+        return mesh;
+    }
+
+    private MeshInstance3D AddCylinder(Node parent, string name, Vector3 position, float radius, float height,
+        string material, float rotationZ = 0f)
+    {
+        var mesh = new MeshInstance3D
+        {
+            Name = name,
+            Position = position,
+            RotationDegrees = new Vector3(0f, 0f, rotationZ),
+            Mesh = new CylinderMesh { TopRadius = radius, BottomRadius = radius, Height = height, RadialSegments = 20 },
+            MaterialOverride = _materials[material]
+        };
+        parent.AddChild(mesh);
+        return mesh;
+    }
+
+    private Label3D Label(string name, string text, Vector3 position, Vector3 rotationDegrees,
+        int fontSize, Color color)
+    {
+        var label = new Label3D
+        {
+            Name = name,
+            Text = text,
+            Position = position,
+            RotationDegrees = rotationDegrees,
+            FontSize = fontSize,
+            PixelSize = 0.0025f,
+            Modulate = color,
+            OutlineSize = 5,
+            OutlineModulate = new Color("16232b")
+        };
+        _geometry.AddChild(label);
+        return label;
+    }
+}

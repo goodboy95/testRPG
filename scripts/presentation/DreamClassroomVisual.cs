@@ -4,7 +4,7 @@ using TownRpg.Core.Domain;
 
 namespace TownRpg.Presentation;
 
-public partial class DreamClassroomVisual : Node2D
+public partial class DreamClassroomVisual : Node2D, IDreamAreaVisual
 {
     private const string TilePath =
         "res://assets/generated/dream_escape/pixel/school-interior-tiles-v1.png";

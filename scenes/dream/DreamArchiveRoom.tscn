@@ -1,15 +1,194 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=11 format=3]
 
-[ext_resource type="Script" path="res://scripts/presentation/DreamAreaController.cs" id="1"]
-[ext_resource type="Script" path="res://scripts/presentation/DreamAreaPainter.cs" id="2"]
-[ext_resource type="Script" path="res://scripts/presentation/PlayerController.cs" id="3"]
+[ext_resource type="Script" path="res://scripts/presentation/DreamArchiveRoomController3D.cs" id="1_controller"]
+[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/dream-archive-room-v1.glb" id="2_model"]
+[ext_resource type="Script" path="res://scripts/presentation/DreamArchiveVisual3D.cs" id="3_visual"]
+[ext_resource type="Script" path="res://scripts/presentation/ThirdPersonCameraRig.cs" id="4_camera"]
+[ext_resource type="Script" path="res://scripts/presentation/InteractionMarker3D.cs" id="5_marker"]
+[ext_resource type="Script" path="res://scripts/presentation/PlayerController3D.cs" id="6_player"]
+[ext_resource type="Script" path="res://scripts/presentation/DreamCompanion3D.cs" id="7_companion"]
 
-[node name="DreamArchiveRoom" type="Node2D"]
-script = ExtResource("1")
-AreaId = "dream.archive"
-[node name="Painter" type="Node2D" parent="."]
-script = ExtResource("2")
-[node name="Player" type="CharacterBody2D" parent="."]
-z_index = 5
-position = Vector2(320, 280)
-script = ExtResource("3")
+[sub_resource type="Environment" id="Environment_archive"]
+background_mode = 1
+background_color = Color(0.014, 0.024, 0.029, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.17, 0.25, 0.28, 1)
+ambient_light_energy = 1.08
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_exposure = 2.05
+ssao_enabled = true
+ssao_radius = 1.25
+ssao_intensity = 1.3
+ssao_power = 1.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_camera"]
+radius = 0.16
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
+radius = 0.28
+height = 1.6
+
+[node name="DreamArchiveRoom3D" type="Node3D"]
+script = ExtResource("1_controller")
+
+[node name="ArchiveModel" parent="." instance=ExtResource("2_model")]
+
+[node name="ArchiveVisual" type="Node3D" parent="."]
+script = ExtResource("3_visual")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_archive")
+
+[node name="WindowLight" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-52, -24, 0)
+light_color = Color(0.48, 0.62, 0.67, 1)
+light_energy = 1.05
+shadow_enabled = true
+directional_shadow_max_distance = 22.0
+
+[node name="RegistryLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 2.6, -0.2)
+light_color = Color(1, 0.62, 0.30, 1)
+light_energy = 1.05
+omni_range = 5.2
+shadow_enabled = true
+
+[node name="BoothLight" type="OmniLight3D" parent="."]
+position = Vector3(3.3, 2.3, 2.2)
+light_color = Color(0.25, 0.52, 0.58, 1)
+light_energy = 1.15
+omni_range = 4.0
+
+[node name="ArchiveReflectionProbe" type="ReflectionProbe" parent="."]
+position = Vector3(-2.4, 1.8, -0.8)
+size = Vector3(7.0, 3.6, 8.0)
+box_projection = true
+
+[node name="BroadcastReflectionProbe" type="ReflectionProbe" parent="."]
+position = Vector3(3.4, 1.8, 1.0)
+size = Vector3(5.0, 3.6, 7.0)
+box_projection = true
+
+[node name="ThirdPersonCameraRig" type="Node3D" parent="."]
+script = ExtResource("4_camera")
+FixedPitchDegrees = -21.0
+FollowTargetHeight = 1.3
+
+[node name="SpringArm3D" type="SpringArm3D" parent="ThirdPersonCameraRig"]
+spring_length = 3.4
+margin = 0.08
+collision_mask = 1
+shape = SubResource("SphereShape3D_camera")
+
+[node name="CameraSocket" type="Node3D" parent="ThirdPersonCameraRig/SpringArm3D"]
+
+[node name="Camera3D" type="Camera3D" parent="ThirdPersonCameraRig/SpringArm3D/CameraSocket"]
+position = Vector3(0.22, 0, 0)
+fov = 60.0
+near = 0.08
+far = 55.0
+current = true
+
+[node name="InteractionMarkers" type="Node3D" parent="."]
+
+[node name="ExitToCorridor" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(5.25, 0, 3)
+script = ExtResource("5_marker")
+TargetId = "area:dream.corridor"
+Prompt = "返回洋房内廊"
+
+[node name="RegistryRule" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-5.35, 0, -2.8)
+script = ExtResource("5_marker")
+TargetId = "observe:target.archive.registry_rule"
+Prompt = "阅读广播档案登记规则"
+
+[node name="RegistryChoir" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-3.75, 0, -3.65)
+script = ExtResource("5_marker")
+TargetId = "observe:target.archive.registry_choir"
+Prompt = "查看合唱档案印章"
+
+[node name="RegistryBroadcast" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(3.55, 0, 2.55)
+script = ExtResource("5_marker")
+TargetId = "observe:target.archive.registry_broadcast"
+Prompt = "查看广播档案印章"
+
+[node name="RegistryArt" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-4.65, 0, 0.25)
+script = ExtResource("5_marker")
+TargetId = "observe:target.archive.registry_art"
+Prompt = "查看美术档案印章"
+
+[node name="RegistryTrack" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(4.2, 0, -3.15)
+script = ExtResource("5_marker")
+TargetId = "observe:target.archive.registry_track"
+Prompt = "查看田径档案印章"
+
+[node name="SignalRegistry" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(0, 0, -1.15)
+script = ExtResource("5_marker")
+TargetId = "puzzle:archive_signal_registry"
+Prompt = "操作广播档案登记台"
+
+[node name="IndexStrip" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-1.8, 0, 2.8)
+script = ExtResource("5_marker")
+TargetId = "pickup:dream.archive_index_strip"
+Prompt = "拾取档案索引条"
+
+[node name="DrawerRoute" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-3.0, 0, 1.0)
+script = ExtResource("5_marker")
+TargetId = "puzzle:archive_drawer_route"
+Prompt = "连接抽屉矩阵"
+
+[node name="FuseRoute" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(1.6, 0, -3.75)
+script = ExtResource("5_marker")
+TargetId = "observe:target.archive.fuse_route"
+Prompt = "查看保险丝线路图"
+
+[node name="FuseBench" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(4.25, 0, -1.15)
+script = ExtResource("5_marker")
+TargetId = "puzzle:archive_fuse_repair"
+Prompt = "修复陶瓷保险丝"
+
+[node name="Recorder" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(2.35, 0, 1.55)
+script = ExtResource("5_marker")
+TargetId = "target.archive.recorder"
+Prompt = "检查并重建旧录音机"
+
+[node name="EditingCounter" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(0, 0, 3.0)
+script = ExtResource("5_marker")
+TargetId = "puzzle:archive_editing_counter"
+Prompt = "操作剪辑计数器"
+
+[node name="UpperVault" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(-4.1, 0, 3.0)
+script = ExtResource("5_marker")
+TargetId = "target.archive.upper_vault"
+Prompt = "检查高柜背锁"
+
+[node name="XiaoyuHint" type="Marker3D" parent="InteractionMarkers"]
+position = Vector3(0.8, 0, 1.45)
+script = ExtResource("5_marker")
+TargetId = "hint:xiaoyu"
+Prompt = "和林晓雨一起想想"
+
+[node name="Player" type="CharacterBody3D" parent="."]
+motion_mode = 1
+script = ExtResource("6_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+position = Vector3(0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_player")
+
+[node name="XiaoyuCompanion" type="Node3D" parent="."]
+script = ExtResource("7_companion")

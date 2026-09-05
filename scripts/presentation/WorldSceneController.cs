@@ -64,7 +64,7 @@ public partial class WorldSceneController : Node2D
         _currentTargetId = target?.Id ?? string.Empty;
         SetPrompt(target is null
             ? string.Empty
-            : $"[{(_useGamepadPrompts ? "A" : "E")}] {target.Prompt}");
+            : $"[{(_useGamepadPrompts ? "A" : "F")}] {target.Prompt}");
 
     }
 

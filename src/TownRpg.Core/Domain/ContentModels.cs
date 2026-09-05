@@ -76,13 +76,19 @@ public sealed class ProgressionState
 
 public sealed class PlayerSettings
 {
+    public const int DefaultWindowWidth = 1280;
+    public const int DefaultWindowHeight = 720;
+
     public float TextSpeed { get; set; } = 1f;
     public float FontScale { get; set; } = 1f;
+    public float CameraLookSensitivity { get; set; } = 1f;
     public bool ReduceFlashing { get; set; } = true;
     public bool VibrationEnabled { get; set; } = true;
     public bool HighContrastPrompts { get; set; }
     public bool StoryMode { get; set; }
     public bool BorderlessFullscreen { get; set; }
+    public int WindowWidth { get; set; } = DefaultWindowWidth;
+    public int WindowHeight { get; set; } = DefaultWindowHeight;
 }
 
 public sealed class PlayerState

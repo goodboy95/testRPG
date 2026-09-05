@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "status": "lookdev-sample-only",
+  "runtimeDependency": false,
+  "sourceManifest": "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json",
+  "texelDensity": {
+    "heroPixelsPerMeter": 512,
+    "shellPixelsPerMeter": 256
+  },
+  "files": {
+    "classroom-plaster-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "0e42d9248dfefce98db121393a6c03762df347b21068a45fc31dbb4c27c423d4",
+      "source": "painted_plaster_wall"
+    },
+    "classroom-teal-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "2d464d690d75be7b22e5c5d83e12be75c0a0e175d567e2bdd123dc7515660201",
+      "source": "painted_plaster_wall"
+    },
+    "classroom-floor-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "7ca2c738ddf6e46e41dc870a72f1ee29eeab63bf0c00f9e5336c6ae86a2afc86",
+      "source": "old_mosaic_floor"
+    },
+    "classroom-wood-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "7e43e0dbd5d49c34d6cb1b539058db7a6588c0d87785878f88ea9b6644ab886a",
+      "source": "oak_veneer_01"
+    },
+    "classroom-darkwood-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "473ced6fa6e64bb807403f11f8468a487e0d4866dca0e34d0245ea158800847d",
+      "source": "oak_veneer_01"
+    },
+    "classroom-metal-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "87d4cc329148aa89aca7a1a5f9fb4b0cd6a47bd11404078f1ac53568c519b188",
+      "source": "rust_coarse_01"
+    },
+    "manor-plaster-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "df128987a1c9b69d30a197949f6a8070781c9b41e21e63a5f910d61c31c46f11",
+      "source": "beige_wall_001"
+    },
+    "manor-wood-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "5ace7f468f62844c4ab228af4d41c990c6ebbe2f947570373e12b51d08edef00",
+      "source": "black_oak_veneer"
+    },
+    "manor-floor-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "612ce4c1e4616e369e04c5c5a1e3eb384f9d3a00ac0d2dd7c0eaf4b5ad1b2aed",
+      "source": "terrazzo_tiles"
+    },
+    "manor-rug-albedo.png": {
+      "size": [
+        2048,
+        2048
+      ],
+      "mode": "RGB",
+      "sha256": "9f66e1b4ae5c43d568712c73a4696e4f60d798870ad7e1d795332a9092c996b8",
+      "source": "fabric_pattern_07"
+    }
+  },
+  "board": {
+    "path": "art/concepts/environment-cinematic/environment-source-board-v1.png",
+    "sha256": "8f157183d3888a25d840711bb424020ab8c1e21d3f571e4ee7a2e7e1b2252fe6"
+  }
+}

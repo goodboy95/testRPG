@@ -1,0 +1,59 @@
+using Godot;
+using TownRpg.Core.Domain;
+
+namespace TownRpg.Presentation;
+
+public enum CameraControlMode
+{
+    None,
+    Orbit
+}
+
+public interface IDreamAreaRuntime
+{
+    event Action<string>? InteractionRequested;
+    event Action<string>? PromptChanged;
+
+    CameraControlMode CameraControlMode { get; }
+    void SetGamepadPrompts(bool value);
+    void ApplySettings(PlayerSettings settings);
+    void RefreshState();
+}
+
+public interface IDreamAreaExitTransition
+{
+    Task PlayExitTransitionAsync(string targetId, CancellationToken cancellationToken);
+    void ResetExitTransition();
+}
+
+public interface IDreamAreaTransitionPose3D
+{
+    float CaptureCameraDoorOffsetDegrees(Vector3 exitForward);
+    void ApplyEntryPose(Vector3 playerFacing, float? cameraDoorOffsetDegrees);
+}
+
+public sealed record DreamAreaTransientState(
+    bool XiaoyuHoldingExitLever,
+    string? PreviewPuzzleId = null,
+    IReadOnlyList<string>? PreviewValues = null);
+
+public interface IDreamAreaTransientPresentation
+{
+    void ApplyTransientState(DreamAreaTransientState state);
+}
+
+public interface IDreamAreaVisual
+{
+    void ApplyState(DreamEscapeState state);
+    void ApplySettings(PlayerSettings settings);
+    void SetFocusedTarget(string? targetId, bool highContrast);
+}
+
+public interface IDreamCollisionLayout
+{
+    Rect2 MovementBounds { get; }
+    int CollisionBodyCount { get; }
+    int FurnitureCollisionCount { get; }
+    bool IsBlocked(Vector2 playerPosition);
+    Vector2 ResolveSpawn(Vector2 requestedPosition);
+}

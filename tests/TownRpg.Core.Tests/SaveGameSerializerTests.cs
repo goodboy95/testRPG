@@ -23,6 +23,9 @@ public sealed class SaveGameSerializerTests
         state.CompletedEvents.Add("event.first_anomaly");
         state.ReadDialogueLines.Add("line.001");
         state.Settings.StoryMode = true;
+        state.Settings.WindowWidth = 1920;
+        state.Settings.WindowHeight = 1080;
+        state.Settings.CameraLookSensitivity = 1.35f;
         new PromiseService(state).Create("keep_secret", CharacterIds.Protagonist, CharacterIds.AbilityHolder, "保守秘密");
 
         var json = SaveGameSerializer.Serialize(state);
@@ -42,6 +45,9 @@ public sealed class SaveGameSerializerTests
         Assert.Contains("event.first_anomaly", restored.CompletedEvents);
         Assert.Contains("line.001", restored.ReadDialogueLines);
         Assert.True(restored.Settings.StoryMode);
+        Assert.Equal(1920, restored.Settings.WindowWidth);
+        Assert.Equal(1080, restored.Settings.WindowHeight);
+        Assert.Equal(1.35f, restored.Settings.CameraLookSensitivity);
         Assert.Contains(restored.Promises, promise => promise.Id == "keep_secret" && promise.Status == PromiseStatus.Pending);
         Assert.Contains(restored.Relationships, relationship =>
             relationship.SourceId == CharacterIds.AbilityHolder &&
@@ -111,5 +117,43 @@ public sealed class SaveGameSerializerTests
         var exception = Assert.Throws<InvalidDataException>(() => SaveGameSerializer.Deserialize(json));
 
         Assert.Contains("location", exception.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Deserialize_OldV1SettingsUseNewDisplayDefaults()
+    {
+        var json = SaveGameSerializer.Serialize(GameState.CreateVerticalSlice());
+        using var document = JsonDocument.Parse(json);
+        var game = document.RootElement.GetProperty("game");
+        var settings = game.GetProperty("settings").EnumerateObject()
+            .Where(property => property.Name is not "windowWidth" and not "windowHeight" and
+                               not "cameraLookSensitivity")
+            .ToDictionary(property => property.Name, property => property.Value.Clone());
+        var gameProperties = game.EnumerateObject()
+            .Where(property => property.Name != "settings")
+            .ToDictionary(property => property.Name, property => property.Value.Clone());
+        gameProperties["settings"] = JsonSerializer.SerializeToElement(settings);
+        var legacyJson = JsonSerializer.Serialize(new { formatVersion = 1, game = gameProperties });
+
+        var restored = SaveGameSerializer.Deserialize(legacyJson);
+
+        Assert.Equal(PlayerSettings.DefaultWindowWidth, restored.Settings.WindowWidth);
+        Assert.Equal(PlayerSettings.DefaultWindowHeight, restored.Settings.WindowHeight);
+        Assert.Equal(1f, restored.Settings.CameraLookSensitivity);
+    }
+
+    [Theory]
+    [InlineData(1366, 768, 1f)]
+    [InlineData(1280, 720, 0.49f)]
+    [InlineData(1280, 720, 1.51f)]
+    public void Deserialize_RejectsInvalidDisplaySettings(int width, int height, float sensitivity)
+    {
+        var state = GameState.CreateVerticalSlice();
+        state.Settings.WindowWidth = width;
+        state.Settings.WindowHeight = height;
+        state.Settings.CameraLookSensitivity = sensitivity;
+
+        Assert.Throws<InvalidDataException>(() =>
+            SaveGameSerializer.Deserialize(SaveGameSerializer.Serialize(state)));
     }
 }

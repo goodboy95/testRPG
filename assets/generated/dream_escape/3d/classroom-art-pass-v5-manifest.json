@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 2,
+  "status": "cinematic-full-runtime",
+  "sampleOnly": false,
+  "runtimeDefault": true,
+  "previousRuntimeAsset": "assets/generated/dream_escape/3d/classroom-art-pass-v4.glb",
+  "blenderVersion": "5.2.0 LTS",
+  "sourceFile": "art/blender/dream_classroom/classroom-art-pass-v5.blend",
+  "runtimeGlbFile": "assets/generated/dream_escape/3d/classroom-art-pass-v5.glb",
+  "sourceSha256": "56b6742485bf0f4a83476c407de8741b63b4f5b9fa250401d78978a89713eda7",
+  "runtimeGlbSha256": "7a315caa6cc56e8b5bf1a2bc503f6f1865901d82478a2eec5f3e0bf53fd5b6d0",
+  "runtimeGlbBytes": 56502720,
+  "geometry": {
+    "objectCount": 292,
+    "meshObjectCount": 244,
+    "maximumVisibleMeshCount": 178,
+    "uniqueMeshCount": 227,
+    "triangleCount": 114452,
+    "materialCount": 14,
+    "materials": [
+      "M_AgedPaper",
+      "M_Amber",
+      "M_Cinematic_AgedBrass",
+      "M_Cinematic_AgedPaper",
+      "M_Cinematic_Blackboard",
+      "M_Cinematic_Chalk",
+      "M_Cinematic_Classroom_Darkwood",
+      "M_Cinematic_Classroom_Floor",
+      "M_Cinematic_Classroom_Metal",
+      "M_Cinematic_Classroom_Plaster",
+      "M_Cinematic_Classroom_Teal",
+      "M_Cinematic_Classroom_Wood",
+      "M_DirtyGlass",
+      "M_FadedRed"
+    ],
+    "packedOrReferencedImages": [
+      "classroom-darkwood-albedo.png",
+      "classroom-floor-albedo.png",
+      "classroom-metal-albedo.png",
+      "classroom-plaster-albedo.png",
+      "classroom-teal-albedo.png",
+      "classroom-wood-albedo.png",
+      "oak_veneer_01_arm_2k.jpg",
+      "oak_veneer_01_nor_gl_2k.jpg",
+      "old_mosaic_floor_arm_2k.jpg",
+      "old_mosaic_floor_nor_gl_2k.jpg",
+      "painted_plaster_wall_arm_2k.jpg",
+      "painted_plaster_wall_nor_gl_2k.jpg",
+      "protagonist-art-pass-v2-albedo",
+      "protagonist-art-pass-v2-normal",
+      "protagonist-art-pass-v2-orm",
+      "rust_coarse_01_arm_2k.jpg",
+      "rust_coarse_01_nor_gl_2k.jpg"
+    ],
+    "missingExternalFiles": []
+  },
+  "textureMemoryEstimateMiB": 74.7,
+  "lightingDecision": "AO/cavity plus shadowed realtime lights and ReflectionProbe; LightmapGI remains a post-approval feasibility gate",
+  "exportProfile": {
+    "format": "GLB",
+    "animations": false,
+    "cameras": false,
+    "lights": false,
+    "lookdevCollectionExcluded": true,
+    "runtimeDependsOnBlender": false
+  },
+  "limits": {
+    "triangles": 150000,
+    "visibleMeshes": 200,
+    "materials": 24,
+    "glbBytes": 62914560
+  },
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "old_mosaic_floor",
+      "assetUrl": "https://polyhaven.com/a/old_mosaic_floor",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "902e128679cb1fa2edcc33683e128350f668abca7d950970ae474c03b451edbf",
+        "normal": "2c0bc58bfda87fd56cfeba8c99fed396571be5bb52c7fdf2d50ec742fc1f4d80",
+        "arm": "14a5b62fbc76cfd30a1e5f514ff618c936be29a3efa9e4775564adad479ebd64"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "rust_coarse_01",
+      "assetUrl": "https://polyhaven.com/a/rust_coarse_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "5b8801674fa53ff1b6f7853300f50aa7a1b31e69278554803bd957fe9fa7e392",
+        "normal": "495d3c87da059827ffaf49dae59f967cb3e0b187f4426ab0a47088c3fa83e50b",
+        "arm": "22f10597662e8d5268f79960d23c4a03790a2083f9f05d0680c3535152b26843"
+      }
+    },
+    {
+      "id": "beige_wall_001",
+      "assetUrl": "https://polyhaven.com/a/beige_wall_001",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e",
+        "normal": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
+        "arm": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431"
+      }
+    },
+    {
+      "id": "black_oak_veneer",
+      "assetUrl": "https://polyhaven.com/a/black_oak_veneer",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "d2653c9cf8e05171ba2256c92315cf39fe230482b433a6a9c02cf26ef566624c",
+        "normal": "1d4c099204ad713b47a9e10799de7e31623f0ce7c5fab18712b339ba9760a80a",
+        "arm": "9084ea54de3a19368868501ec1e0c7b633ded32bb8e824301e9999f4374adb2c"
+      }
+    },
+    {
+      "id": "fabric_pattern_07",
+      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+        "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+        "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ]
+}

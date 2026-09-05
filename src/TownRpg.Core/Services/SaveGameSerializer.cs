@@ -20,6 +20,13 @@ public static class SaveGameSerializer
         DreamEscapeIds.Location
     };
 
+    private static readonly HashSet<(int Width, int Height)> ValidWindowSizes =
+    [
+        (1280, 720),
+        (1600, 900),
+        (1920, 1080)
+    ];
+
     private static readonly JsonSerializerOptions Options = new()
     {
         WriteIndented = true,
@@ -116,7 +123,9 @@ public static class SaveGameSerializer
             game.Progression.Level is < 1 or > 10 ||
             game.Progression.Experience < 0 ||
             game.Settings.TextSpeed is < 0.5f or > 3f ||
-            game.Settings.FontScale is < 0.75f or > 2f)
+            game.Settings.FontScale is < 0.75f or > 2f ||
+            game.Settings.CameraLookSensitivity is < 0.5f or > 1.5f ||
+            !ValidWindowSizes.Contains((game.Settings.WindowWidth, game.Settings.WindowHeight)))
         {
             throw new InvalidDataException("Save data contains an invalid journal, inventory, progression, or setting value.");
         }
@@ -131,6 +140,21 @@ public static class SaveGameSerializer
             return;
         }
 
+        if (dream.ContentVersion < DreamEscapeState.CurrentContentVersion)
+        {
+            if (dream.Status is DreamEscapeStatus.CompletedEscape or DreamEscapeStatus.CompletedPin &&
+                dream.Items is { Count: 0 })
+            {
+                return;
+            }
+            throw new NotSupportedException("序章内容已更新，需要重新开始梦境序章。");
+        }
+        if (dream.ContentVersion > DreamEscapeState.CurrentContentVersion)
+        {
+            throw new NotSupportedException(
+                $"Dream content {dream.ContentVersion} is not supported; expected {DreamEscapeState.CurrentContentVersion}.");
+        }
+
         if (!Enum.IsDefined(dream.Status) ||
             !DreamEscapeIds.Areas.Contains(dream.CurrentAreaId) ||
             !float.IsFinite(dream.PositionX) ||
@@ -141,12 +165,16 @@ public static class SaveGameSerializer
             dream.SolvedPuzzles is null ||
             dream.UnlockedAreas is null ||
             dream.DiscoveredClues is null ||
+            dream.DiscoveredPuzzles is null ||
+            dream.InstalledParts is null ||
             dream.HintLevels is null ||
             dream.Items.Any(item => !DreamEscapeIds.Items.Contains(item)) ||
             dream.SolvedPuzzles.Any(puzzle =>
-                puzzle != "dream.pickup.chalk" && !DreamEscapeIds.Puzzles.Contains(puzzle)) ||
+                !DreamEscapeIds.PickupProgress.Contains(puzzle) && !DreamEscapeIds.Puzzles.Contains(puzzle)) ||
             dream.UnlockedAreas.Any(area => !DreamEscapeIds.Areas.Contains(area)) ||
             dream.DiscoveredClues.Any(clue => !DreamEscapeIds.Clues.Contains(clue)) ||
+            dream.DiscoveredPuzzles.Any(puzzle => !DreamEscapeIds.Puzzles.Contains(puzzle)) ||
+            dream.InstalledParts.Any(slot => !DreamEscapeIds.InstalledPartSlots.Contains(slot)) ||
             dream.HintLevels.Any(entry =>
                 !DreamEscapeIds.Puzzles.Contains(entry.Key) || entry.Value is < 0 or > 3) ||
             !dream.UnlockedAreas.Contains(DreamEscapeIds.AreaCorridor) ||
