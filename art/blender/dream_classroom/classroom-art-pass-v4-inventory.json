@@ -1,0 +1,4913 @@
+{
+  "source": "D:\\project\\AIProjects\\testRPG\\art\\blender\\dream_classroom\\classroom-art-pass-v4.blend",
+  "objects": [
+    {
+      "name": "Baseboard_-4.35",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.35,
+        0.1
+      ],
+      "dimensions": [
+        11.7,
+        0.1,
+        0.2
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Baseboard_-5.85",
+      "type": "MESH",
+      "location": [
+        -5.85,
+        0.0,
+        0.1
+      ],
+      "dimensions": [
+        0.1,
+        8.7,
+        0.2
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Baseboard_4.35",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -4.35,
+        0.1
+      ],
+      "dimensions": [
+        11.7,
+        0.1,
+        0.2
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Baseboard_5.85",
+      "type": "MESH",
+      "location": [
+        5.85,
+        0.0,
+        0.1
+      ],
+      "dimensions": [
+        0.1,
+        8.7,
+        0.2
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Blackboard_Blank",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Blank_Bottom",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.3,
+        1.27
+      ],
+      "dimensions": [
+        5.82,
+        0.14,
+        0.11
+      ],
+      "parent": "Blackboard_Blank",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Blank_Left",
+      "type": "MESH",
+      "location": [
+        -2.85,
+        4.3,
+        2.12
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        1.82
+      ],
+      "parent": "Blackboard_Blank",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Blank_Right",
+      "type": "MESH",
+      "location": [
+        2.85,
+        4.3,
+        2.12
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        1.82
+      ],
+      "parent": "Blackboard_Blank",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Blank_Surface",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.36,
+        2.12
+      ],
+      "dimensions": [
+        5.6,
+        0.08,
+        1.62
+      ],
+      "parent": "Blackboard_Blank",
+      "materials": [
+        "M_Blackboard"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Blank_Top",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.3,
+        2.98
+      ],
+      "dimensions": [
+        5.82,
+        0.12,
+        0.1
+      ],
+      "parent": "Blackboard_Blank",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Blank_Tray",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.18,
+        1.2
+      ],
+      "dimensions": [
+        5.6,
+        0.24,
+        0.07
+      ],
+      "parent": "Blackboard_Blank",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Revealed",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Revealed_Bottom",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.3,
+        1.27
+      ],
+      "dimensions": [
+        5.82,
+        0.14,
+        0.11
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Revealed_Left",
+      "type": "MESH",
+      "location": [
+        -2.85,
+        4.3,
+        2.12
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        1.82
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Revealed_Right",
+      "type": "MESH",
+      "location": [
+        2.85,
+        4.3,
+        2.12
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        1.82
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Revealed_Surface",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.36,
+        2.12
+      ],
+      "dimensions": [
+        5.6,
+        0.08,
+        1.62
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_Blackboard"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Revealed_Top",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.3,
+        2.98
+      ],
+      "dimensions": [
+        5.82,
+        0.12,
+        0.1
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Blackboard_Revealed_Tray",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.18,
+        1.2
+      ],
+      "dimensions": [
+        5.6,
+        0.24,
+        0.07
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "BlackboardSymbol0",
+      "type": "MESH",
+      "location": [
+        -1.25,
+        4.13,
+        2.12
+      ],
+      "dimensions": [
+        0.62,
+        0.035,
+        0.09
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "BlackboardSymbol1",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.13,
+        2.12
+      ],
+      "dimensions": [
+        0.62,
+        0.035,
+        0.09
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "BlackboardSymbol2",
+      "type": "MESH",
+      "location": [
+        1.25,
+        4.13,
+        2.12
+      ],
+      "dimensions": [
+        0.62,
+        0.035,
+        0.09
+      ],
+      "parent": "Blackboard_Revealed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "BroomHandle",
+      "type": "MESH",
+      "location": [
+        -5.55,
+        -3.65,
+        0.82
+      ],
+      "dimensions": [
+        0.035,
+        0.035,
+        1.64
+      ],
+      "parent": null,
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "CeilingFanBlade_1",
+      "type": "MESH",
+      "location": [
+        -2.0,
+        -0.6,
+        3.58
+      ],
+      "dimensions": [
+        1.62,
+        0.16,
+        0.035
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "CeilingFanBlade_1.001",
+      "type": "MESH",
+      "location": [
+        -2.0,
+        -0.6,
+        3.58
+      ],
+      "dimensions": [
+        1.62,
+        0.16,
+        0.035
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "CeilingFanBlade_2",
+      "type": "MESH",
+      "location": [
+        2.0,
+        -0.6,
+        3.58
+      ],
+      "dimensions": [
+        1.62,
+        0.16,
+        0.035
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "CeilingFanBlade_2.001",
+      "type": "MESH",
+      "location": [
+        2.0,
+        -0.6,
+        3.58
+      ],
+      "dimensions": [
+        1.62,
+        0.16,
+        0.035
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "CeilingFanHub_1",
+      "type": "MESH",
+      "location": [
+        -2.0,
+        -0.6,
+        3.7
+      ],
+      "dimensions": [
+        0.3,
+        0.3,
+        0.22
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "CeilingFanHub_2",
+      "type": "MESH",
+      "location": [
+        2.0,
+        -0.6,
+        3.7
+      ],
+      "dimensions": [
+        0.3,
+        0.3,
+        0.22
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Chalk",
+      "type": "MESH",
+      "location": [
+        -5.18,
+        1.15,
+        0.67
+      ],
+      "dimensions": [
+        0.22,
+        0.04,
+        0.06
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_HandOnly",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_HandOnly_Face",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.22,
+        2.66
+      ],
+      "dimensions": [
+        0.74,
+        0.025,
+        0.74
+      ],
+      "parent": "Clock_HandOnly",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_HandOnly_Hour",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.17,
+        2.66
+      ],
+      "dimensions": [
+        0.035,
+        0.025,
+        0.24
+      ],
+      "parent": "Clock_HandOnly",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_HandOnly_Minute",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.165,
+        2.8
+      ],
+      "dimensions": [
+        0.03,
+        0.025,
+        0.27
+      ],
+      "parent": "Clock_HandOnly",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_HandOnly_Rim",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.3,
+        2.66
+      ],
+      "dimensions": [
+        0.88,
+        0.12,
+        0.88
+      ],
+      "parent": "Clock_HandOnly",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_KeyOnly",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_KeyOnly_Face",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.22,
+        2.66
+      ],
+      "dimensions": [
+        0.74,
+        0.025,
+        0.74
+      ],
+      "parent": "Clock_KeyOnly",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_KeyOnly_Key",
+      "type": "MESH",
+      "location": [
+        3.99,
+        4.28,
+        2.56
+      ],
+      "dimensions": [
+        0.11,
+        0.11,
+        0.18
+      ],
+      "parent": "Clock_KeyOnly",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_KeyOnly_Minute",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.165,
+        2.8
+      ],
+      "dimensions": [
+        0.03,
+        0.025,
+        0.27
+      ],
+      "parent": "Clock_KeyOnly",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_KeyOnly_Rim",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.3,
+        2.66
+      ],
+      "dimensions": [
+        0.88,
+        0.12,
+        0.88
+      ],
+      "parent": "Clock_KeyOnly",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Missing",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Missing_Face",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.22,
+        2.66
+      ],
+      "dimensions": [
+        0.74,
+        0.025,
+        0.74
+      ],
+      "parent": "Clock_Missing",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Missing_Minute",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.165,
+        2.8
+      ],
+      "dimensions": [
+        0.03,
+        0.025,
+        0.27
+      ],
+      "parent": "Clock_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Missing_Rim",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.3,
+        2.66
+      ],
+      "dimensions": [
+        0.88,
+        0.12,
+        0.88
+      ],
+      "parent": "Clock_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Ready",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Ready_Face",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.22,
+        2.66
+      ],
+      "dimensions": [
+        0.74,
+        0.025,
+        0.74
+      ],
+      "parent": "Clock_Ready",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Ready_Hour",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.17,
+        2.66
+      ],
+      "dimensions": [
+        0.035,
+        0.025,
+        0.24
+      ],
+      "parent": "Clock_Ready",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Ready_Key",
+      "type": "MESH",
+      "location": [
+        3.99,
+        4.28,
+        2.56
+      ],
+      "dimensions": [
+        0.11,
+        0.11,
+        0.18
+      ],
+      "parent": "Clock_Ready",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Ready_Minute",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.165,
+        2.8
+      ],
+      "dimensions": [
+        0.03,
+        0.025,
+        0.27
+      ],
+      "parent": "Clock_Ready",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Ready_Rim",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.3,
+        2.66
+      ],
+      "dimensions": [
+        0.88,
+        0.12,
+        0.88
+      ],
+      "parent": "Clock_Ready",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Restored",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Restored_Face",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.22,
+        2.66
+      ],
+      "dimensions": [
+        0.74,
+        0.025,
+        0.74
+      ],
+      "parent": "Clock_Restored",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Restored_Hour",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.17,
+        2.66
+      ],
+      "dimensions": [
+        0.035,
+        0.025,
+        0.24
+      ],
+      "parent": "Clock_Restored",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Restored_Key",
+      "type": "MESH",
+      "location": [
+        3.99,
+        4.28,
+        2.56
+      ],
+      "dimensions": [
+        0.11,
+        0.11,
+        0.18
+      ],
+      "parent": "Clock_Restored",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Restored_Minute",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.165,
+        2.8
+      ],
+      "dimensions": [
+        0.03,
+        0.025,
+        0.27
+      ],
+      "parent": "Clock_Restored",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Clock_Restored_Rim",
+      "type": "MESH",
+      "location": [
+        3.55,
+        4.3,
+        2.66
+      ],
+      "dimensions": [
+        0.88,
+        0.12,
+        0.88
+      ],
+      "parent": "Clock_Restored",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "ClockHand_Pickup",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "ClockHand_Pickup_Hub",
+      "type": "MESH",
+      "location": [
+        3.65,
+        3.25,
+        0.07
+      ],
+      "dimensions": [
+        0.14,
+        0.14,
+        0.025
+      ],
+      "parent": "ClockHand_Pickup",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "ClockHand_Pickup_Needle",
+      "type": "MESH",
+      "location": [
+        3.65,
+        3.1,
+        0.09
+      ],
+      "dimensions": [
+        0.035,
+        0.32,
+        0.025
+      ],
+      "parent": "ClockHand_Pickup",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Conduit_East",
+      "type": "MESH",
+      "location": [
+        5.86,
+        0.0,
+        3.36
+      ],
+      "dimensions": [
+        0.06,
+        6.6,
+        0.06
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Curtain_-3.55",
+      "type": "MESH",
+      "location": [
+        -5.69,
+        3.55,
+        1.78
+      ],
+      "dimensions": [
+        0.06,
+        0.34,
+        1.88
+      ],
+      "parent": "Window_West",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Curtain_1.75",
+      "type": "MESH",
+      "location": [
+        -5.69,
+        -1.75,
+        1.78
+      ],
+      "dimensions": [
+        0.06,
+        0.34,
+        1.88
+      ],
+      "parent": "Window_West",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "DeskBook_02",
+      "type": "MESH",
+      "location": [
+        0.15,
+        0.0,
+        0.86
+      ],
+      "dimensions": [
+        0.36,
+        0.24,
+        0.035
+      ],
+      "parent": "StudentDeskGroup_02",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "DeskBook_07",
+      "type": "MESH",
+      "location": [
+        0.15,
+        0.0,
+        0.86
+      ],
+      "dimensions": [
+        0.36,
+        0.24,
+        0.035
+      ],
+      "parent": "StudentDeskGroup_07",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "DeskBook_12",
+      "type": "MESH",
+      "location": [
+        0.15,
+        0.0,
+        0.86
+      ],
+      "dimensions": [
+        0.36,
+        0.24,
+        0.035
+      ],
+      "parent": "StudentDeskGroup_12",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "DeskBook_17",
+      "type": "MESH",
+      "location": [
+        0.15,
+        0.0,
+        0.86
+      ],
+      "dimensions": [
+        0.36,
+        0.24,
+        0.035
+      ],
+      "parent": "StudentDeskGroup_17",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "Door_East",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Door_East_Hinge",
+      "type": "EMPTY",
+      "location": [
+        5.86,
+        -3.86,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": "Door_East",
+      "materials": [],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "DoorV4_Glass",
+      "type": "MESH",
+      "location": [
+        -0.1,
+        0.51,
+        1.72
+      ],
+      "dimensions": [
+        0.025,
+        0.52,
+        0.58
+      ],
+      "parent": "Door_East_Hinge",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "DoorV4_Handle",
+      "type": "MESH",
+      "location": [
+        -0.18,
+        0.84,
+        1.03
+      ],
+      "dimensions": [
+        0.11,
+        0.11,
+        0.16
+      ],
+      "parent": "Door_East_Hinge",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "DoorV4_Leaf",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.51,
+        1.18
+      ],
+      "dimensions": [
+        0.16,
+        1.02,
+        2.36
+      ],
+      "parent": "Door_East_Hinge",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Dustpan",
+      "type": "MESH",
+      "location": [
+        -5.5,
+        -3.38,
+        0.15
+      ],
+      "dimensions": [
+        0.34,
+        0.42,
+        0.25
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Fluorescent_1",
+      "type": "MESH",
+      "location": [
+        -3.7,
+        2.4,
+        3.82
+      ],
+      "dimensions": [
+        1.55,
+        0.16,
+        0.09
+      ],
+      "parent": null,
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Fluorescent_2",
+      "type": "MESH",
+      "location": [
+        -1.25,
+        2.4,
+        3.82
+      ],
+      "dimensions": [
+        1.55,
+        0.16,
+        0.09
+      ],
+      "parent": null,
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Fluorescent_3",
+      "type": "MESH",
+      "location": [
+        1.25,
+        2.4,
+        3.82
+      ],
+      "dimensions": [
+        1.55,
+        0.16,
+        0.09
+      ],
+      "parent": null,
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Fluorescent_4",
+      "type": "MESH",
+      "location": [
+        3.7,
+        2.4,
+        3.82
+      ],
+      "dimensions": [
+        1.55,
+        0.16,
+        0.09
+      ],
+      "parent": null,
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "FluorescentWire_1",
+      "type": "MESH",
+      "location": [
+        -3.7,
+        2.4,
+        3.93
+      ],
+      "dimensions": [
+        0.035,
+        0.035,
+        0.22
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "FluorescentWire_2",
+      "type": "MESH",
+      "location": [
+        -1.25,
+        2.4,
+        3.93
+      ],
+      "dimensions": [
+        0.035,
+        0.035,
+        0.22
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "FluorescentWire_3",
+      "type": "MESH",
+      "location": [
+        1.25,
+        2.4,
+        3.93
+      ],
+      "dimensions": [
+        0.035,
+        0.035,
+        0.22
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "FluorescentWire_4",
+      "type": "MESH",
+      "location": [
+        3.7,
+        2.4,
+        3.93
+      ],
+      "dimensions": [
+        0.035,
+        0.035,
+        0.22
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Body",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.78,
+        1.15
+      ],
+      "dimensions": [
+        1.32,
+        0.68,
+        2.3
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Drawer0.25",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.4,
+        0.25
+      ],
+      "dimensions": [
+        1.16,
+        0.08,
+        0.21
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Drawer0.51",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.4,
+        0.51
+      ],
+      "dimensions": [
+        1.16,
+        0.08,
+        0.21
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Drawer0.77",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.4,
+        0.77
+      ],
+      "dimensions": [
+        1.16,
+        0.08,
+        0.21
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Handle0.25",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.34,
+        0.25
+      ],
+      "dimensions": [
+        0.28,
+        0.04,
+        0.04
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Handle0.51",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.34,
+        0.51
+      ],
+      "dimensions": [
+        0.28,
+        0.04,
+        0.04
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Handle0.77",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.34,
+        0.77
+      ],
+      "dimensions": [
+        0.28,
+        0.04,
+        0.04
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Closed_Map",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.39,
+        1.62
+      ],
+      "dimensions": [
+        0.95,
+        0.025,
+        1.02
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Glass",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.34,
+        1.62
+      ],
+      "dimensions": [
+        1.08,
+        0.025,
+        1.18
+      ],
+      "parent": "MapCabinet_Closed",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Negative",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.32,
+        1.25
+      ],
+      "dimensions": [
+        0.58,
+        0.42,
+        0.03
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Body",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.78,
+        1.15
+      ],
+      "dimensions": [
+        1.32,
+        0.68,
+        2.3
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Drawer0.25",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.4,
+        0.25
+      ],
+      "dimensions": [
+        1.16,
+        0.08,
+        0.21
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Drawer0.51",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.4,
+        0.51
+      ],
+      "dimensions": [
+        1.16,
+        0.08,
+        0.21
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Drawer0.77",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.4,
+        0.77
+      ],
+      "dimensions": [
+        1.16,
+        0.08,
+        0.21
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Handle0.25",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.34,
+        0.25
+      ],
+      "dimensions": [
+        0.28,
+        0.04,
+        0.04
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Handle0.51",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.34,
+        0.51
+      ],
+      "dimensions": [
+        0.28,
+        0.04,
+        0.04
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Handle0.77",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.34,
+        0.77
+      ],
+      "dimensions": [
+        0.28,
+        0.04,
+        0.04
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Open_Map",
+      "type": "MESH",
+      "location": [
+        -5.05,
+        3.39,
+        1.62
+      ],
+      "dimensions": [
+        0.95,
+        0.025,
+        1.02
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "MapCabinet_Overlay",
+      "type": "MESH",
+      "location": [
+        -4.85,
+        3.3,
+        1.29
+      ],
+      "dimensions": [
+        0.5,
+        0.36,
+        0.025
+      ],
+      "parent": "MapCabinet_Open",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "NoticeBoard",
+      "type": "MESH",
+      "location": [
+        3.55,
+        -4.36,
+        1.62
+      ],
+      "dimensions": [
+        2.4,
+        0.08,
+        1.28
+      ],
+      "parent": null,
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Room_Ceiling",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Room_Floor",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Roster_Aligned",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Overlay",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.235,
+        2.2
+      ],
+      "dimensions": [
+        0.58,
+        0.018,
+        0.92
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Paper",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.31,
+        2.2
+      ],
+      "dimensions": [
+        0.92,
+        0.04,
+        1.25
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Row0",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.55
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Row1",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.4
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Row2",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.25
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Row3",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.1
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Row4",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.95
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Row5",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.8
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Aligned_Row6",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.65
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Overlay",
+      "type": "MESH",
+      "location": [
+        4.52,
+        4.235,
+        2.2
+      ],
+      "dimensions": [
+        0.58,
+        0.018,
+        0.92
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Paper",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.31,
+        2.2
+      ],
+      "dimensions": [
+        0.92,
+        0.04,
+        1.25
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Row0",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.55
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Row1",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.4
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Row2",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.25
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Row3",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.1
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Row4",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.95
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Row5",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.8
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Inserted_Row6",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.65
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Inserted",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Paper",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.31,
+        2.2
+      ],
+      "dimensions": [
+        0.92,
+        0.04,
+        1.25
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Row0",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.55
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Row1",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.4
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Row2",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.25
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Row3",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        2.1
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Row4",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.95
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Row5",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.8
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Missing_Row6",
+      "type": "MESH",
+      "location": [
+        4.75,
+        4.275,
+        1.65
+      ],
+      "dimensions": [
+        0.66,
+        0.012,
+        0.012
+      ],
+      "parent": "Roster_Missing",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "Roster_Second_Circle",
+      "type": "MESH",
+      "location": [
+        4.48,
+        4.19,
+        2.39
+      ],
+      "dimensions": [
+        0.14,
+        0.018,
+        0.14
+      ],
+      "parent": "Roster_Aligned",
+      "materials": [
+        "M_FadedRed"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_01",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_01",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_02",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_02",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_03",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_03",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_04",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_04",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_05",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_05",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_06",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_06",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_07",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_07",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_08",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_08",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_09",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_09",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_10",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_10",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_11",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_11",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_12",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_12",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_13",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_13",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_14",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_14",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_15",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_15",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_16",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_16",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_17",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_17",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskArt_18",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        1.02,
+        1.1325,
+        0.965
+      ],
+      "parent": "StudentDeskGroup_18",
+      "materials": [
+        "M_WornWood",
+        "M_DarkWood",
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_01",
+      "type": "EMPTY",
+      "location": [
+        -4.25,
+        0.4,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_02",
+      "type": "EMPTY",
+      "location": [
+        -2.55,
+        0.4,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_03",
+      "type": "EMPTY",
+      "location": [
+        -0.85,
+        0.4,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_04",
+      "type": "EMPTY",
+      "location": [
+        0.85,
+        0.4,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_05",
+      "type": "EMPTY",
+      "location": [
+        2.55,
+        0.4,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_06",
+      "type": "EMPTY",
+      "location": [
+        4.25,
+        0.4,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_07",
+      "type": "EMPTY",
+      "location": [
+        -4.25,
+        -1.45,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_08",
+      "type": "EMPTY",
+      "location": [
+        -2.55,
+        -1.45,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_09",
+      "type": "EMPTY",
+      "location": [
+        -0.85,
+        -1.45,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_10",
+      "type": "EMPTY",
+      "location": [
+        0.85,
+        -1.45,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_11",
+      "type": "EMPTY",
+      "location": [
+        2.55,
+        -1.45,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_12",
+      "type": "EMPTY",
+      "location": [
+        4.25,
+        -1.45,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_13",
+      "type": "EMPTY",
+      "location": [
+        -4.25,
+        -3.05,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_14",
+      "type": "EMPTY",
+      "location": [
+        -2.55,
+        -3.05,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_15",
+      "type": "EMPTY",
+      "location": [
+        -0.85,
+        -3.05,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_16",
+      "type": "EMPTY",
+      "location": [
+        0.85,
+        -3.05,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_17",
+      "type": "EMPTY",
+      "location": [
+        2.55,
+        -3.05,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "StudentDeskGroup_18",
+      "type": "EMPTY",
+      "location": [
+        4.25,
+        -3.05,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Furniture"
+      ]
+    },
+    {
+      "name": "SwitchBox",
+      "type": "MESH",
+      "location": [
+        5.75,
+        -0.65,
+        1.42
+      ],
+      "dimensions": [
+        0.18,
+        0.22,
+        0.32
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Closed",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Closed_Body",
+      "type": "MESH",
+      "location": [
+        0.55,
+        3.28,
+        0.43
+      ],
+      "dimensions": [
+        1.88,
+        0.72,
+        0.78
+      ],
+      "parent": "TeacherDesk_Closed",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Closed_Drawer",
+      "type": "MESH",
+      "location": [
+        0.55,
+        2.88,
+        0.62
+      ],
+      "dimensions": [
+        0.72,
+        0.1,
+        0.25
+      ],
+      "parent": "TeacherDesk_Closed",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Closed_Lock",
+      "type": "MESH",
+      "location": [
+        0.55,
+        2.8,
+        0.62
+      ],
+      "dimensions": [
+        0.38,
+        0.04,
+        0.17
+      ],
+      "parent": "TeacherDesk_Closed",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Closed_Paper",
+      "type": "MESH",
+      "location": [
+        0.2,
+        3.25,
+        0.94
+      ],
+      "dimensions": [
+        0.48,
+        0.34,
+        0.015
+      ],
+      "parent": "TeacherDesk_Closed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Closed_Top",
+      "type": "MESH",
+      "location": [
+        0.55,
+        3.25,
+        0.86
+      ],
+      "dimensions": [
+        2.0,
+        0.92,
+        0.11
+      ],
+      "parent": "TeacherDesk_Closed",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Open",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Open_Body",
+      "type": "MESH",
+      "location": [
+        0.55,
+        3.28,
+        0.43
+      ],
+      "dimensions": [
+        1.88,
+        0.72,
+        0.78
+      ],
+      "parent": "TeacherDesk_Open",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Open_Drawer",
+      "type": "MESH",
+      "location": [
+        0.55,
+        2.72,
+        0.62
+      ],
+      "dimensions": [
+        0.72,
+        0.42,
+        0.25
+      ],
+      "parent": "TeacherDesk_Open",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Open_Lock",
+      "type": "MESH",
+      "location": [
+        0.55,
+        2.48,
+        0.62
+      ],
+      "dimensions": [
+        0.38,
+        0.04,
+        0.17
+      ],
+      "parent": "TeacherDesk_Open",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Open_Paper",
+      "type": "MESH",
+      "location": [
+        0.2,
+        3.25,
+        0.94
+      ],
+      "dimensions": [
+        0.48,
+        0.34,
+        0.015
+      ],
+      "parent": "TeacherDesk_Open",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TeacherDesk_Open_Top",
+      "type": "MESH",
+      "location": [
+        0.55,
+        3.25,
+        0.86
+      ],
+      "dimensions": [
+        2.0,
+        0.92,
+        0.11
+      ],
+      "parent": "TeacherDesk_Open",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TransomCache_Closed",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TransomCache_Closed_Box",
+      "type": "MESH",
+      "location": [
+        5.7,
+        -3.35,
+        3.02
+      ],
+      "dimensions": [
+        0.18,
+        0.9,
+        0.42
+      ],
+      "parent": "TransomCache_Closed",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TransomCache_Closed_Ring",
+      "type": "MESH",
+      "location": [
+        5.45,
+        -3.35,
+        2.84
+      ],
+      "dimensions": [
+        0.1773,
+        0.18,
+        0.03
+      ],
+      "parent": "TransomCache_Closed",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TransomCache_Open",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TransomCache_Open_Box",
+      "type": "MESH",
+      "location": [
+        5.48,
+        -3.35,
+        3.02
+      ],
+      "dimensions": [
+        0.3,
+        0.9,
+        0.42
+      ],
+      "parent": "TransomCache_Open",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TransomCache_Open_Ring",
+      "type": "MESH",
+      "location": [
+        5.45,
+        -3.35,
+        2.84
+      ],
+      "dimensions": [
+        0.1773,
+        0.18,
+        0.03
+      ],
+      "parent": "TransomCache_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "TransomCache_Tape",
+      "type": "MESH",
+      "location": [
+        5.3,
+        -3.35,
+        2.9
+      ],
+      "dimensions": [
+        0.06,
+        0.48,
+        0.14
+      ],
+      "parent": "TransomCache_Open",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "V4_Ceiling",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        4.04
+      ],
+      "dimensions": [
+        12.0,
+        9.0,
+        0.16
+      ],
+      "parent": "Room_Ceiling",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "V4_Floor",
+      "type": "MESH",
+      "location": [
+        0.0,
+        0.0,
+        -0.09
+      ],
+      "dimensions": [
+        12.0,
+        9.0,
+        0.18
+      ],
+      "parent": "Room_Floor",
+      "materials": [
+        "M_WornFloor"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_East",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_East_Lintel",
+      "type": "MESH",
+      "location": [
+        6.0,
+        -3.35,
+        3.32
+      ],
+      "dimensions": [
+        0.2,
+        1.06,
+        1.36
+      ],
+      "parent": "Wall_East",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_East_North_Lower",
+      "type": "MESH",
+      "location": [
+        6.0,
+        0.575,
+        0.7
+      ],
+      "dimensions": [
+        0.2,
+        7.85,
+        1.4
+      ],
+      "parent": "Wall_East",
+      "materials": [
+        "M_FadedTeal"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_East_North_Upper",
+      "type": "MESH",
+      "location": [
+        6.0,
+        0.575,
+        2.7
+      ],
+      "dimensions": [
+        0.2,
+        7.85,
+        2.6
+      ],
+      "parent": "Wall_East",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_East_South_Lower",
+      "type": "MESH",
+      "location": [
+        6.0,
+        -4.18,
+        0.7
+      ],
+      "dimensions": [
+        0.2,
+        0.64,
+        1.4
+      ],
+      "parent": "Wall_East",
+      "materials": [
+        "M_FadedTeal"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_East_South_Upper",
+      "type": "MESH",
+      "location": [
+        6.0,
+        -4.18,
+        2.7
+      ],
+      "dimensions": [
+        0.2,
+        0.64,
+        2.6
+      ],
+      "parent": "Wall_East",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_North",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_North_Lower",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.5,
+        0.7
+      ],
+      "dimensions": [
+        12.0,
+        0.2,
+        1.4
+      ],
+      "parent": "Wall_North",
+      "materials": [
+        "M_FadedTeal"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_North_Upper",
+      "type": "MESH",
+      "location": [
+        0.0,
+        4.5,
+        2.7
+      ],
+      "dimensions": [
+        12.0,
+        0.2,
+        2.6
+      ],
+      "parent": "Wall_North",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_South",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_South_Lower",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -4.5,
+        0.7
+      ],
+      "dimensions": [
+        12.0,
+        0.2,
+        1.4
+      ],
+      "parent": "Wall_South",
+      "materials": [
+        "M_FadedTeal"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_South_Upper",
+      "type": "MESH",
+      "location": [
+        0.0,
+        -4.5,
+        2.7
+      ],
+      "dimensions": [
+        12.0,
+        0.2,
+        2.6
+      ],
+      "parent": "Wall_South",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_West",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_West_Header",
+      "type": "MESH",
+      "location": [
+        -6.0,
+        0.9,
+        3.37
+      ],
+      "dimensions": [
+        0.2,
+        5.7,
+        1.26
+      ],
+      "parent": "Wall_West",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_West_North_Lower",
+      "type": "MESH",
+      "location": [
+        -6.0,
+        3.75,
+        0.7
+      ],
+      "dimensions": [
+        0.2,
+        1.5,
+        1.4
+      ],
+      "parent": "Wall_West",
+      "materials": [
+        "M_FadedTeal"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_West_North_Upper",
+      "type": "MESH",
+      "location": [
+        -6.0,
+        3.75,
+        2.7
+      ],
+      "dimensions": [
+        0.2,
+        1.5,
+        2.6
+      ],
+      "parent": "Wall_West",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_West_Sill",
+      "type": "MESH",
+      "location": [
+        -6.0,
+        0.9,
+        0.42
+      ],
+      "dimensions": [
+        0.2,
+        5.7,
+        0.84
+      ],
+      "parent": "Wall_West",
+      "materials": [
+        "M_FadedTeal"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_West_South_Lower",
+      "type": "MESH",
+      "location": [
+        -6.0,
+        -3.45,
+        0.7
+      ],
+      "dimensions": [
+        0.2,
+        2.1,
+        1.4
+      ],
+      "parent": "Wall_West",
+      "materials": [
+        "M_FadedTeal"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "Wall_West_South_Upper",
+      "type": "MESH",
+      "location": [
+        -6.0,
+        -3.45,
+        2.7
+      ],
+      "dimensions": [
+        0.2,
+        2.1,
+        2.6
+      ],
+      "parent": "Wall_West",
+      "materials": [
+        "M_OldPlaster"
+      ],
+      "collections": [
+        "Shell"
+      ]
+    },
+    {
+      "name": "WallSpeaker",
+      "type": "MESH",
+      "location": [
+        -4.75,
+        -4.35,
+        3.05
+      ],
+      "dimensions": [
+        0.55,
+        0.16,
+        0.42
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "WasteBasket",
+      "type": "MESH",
+      "location": [
+        5.1,
+        3.65,
+        0.3
+      ],
+      "dimensions": [
+        0.48,
+        0.48,
+        0.6
+      ],
+      "parent": null,
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Window_CurtainRail",
+      "type": "MESH",
+      "location": [
+        -5.72,
+        0.9,
+        2.88
+      ],
+      "dimensions": [
+        0.07,
+        6.0,
+        0.07
+      ],
+      "parent": "Window_West",
+      "materials": [
+        "M_DarkMetal"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Window_Sill",
+      "type": "MESH",
+      "location": [
+        -5.7,
+        0.9,
+        0.76
+      ],
+      "dimensions": [
+        0.4,
+        5.86,
+        0.12
+      ],
+      "parent": "Window_West",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Window_ThreeBay_Frame",
+      "type": "MESH",
+      "location": [
+        -5.86,
+        0.9,
+        0.82
+      ],
+      "dimensions": [
+        0.2,
+        5.79,
+        2.0
+      ],
+      "parent": "Window_West",
+      "materials": [
+        "M_DarkWood"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Window_ThreeBay_Glass",
+      "type": "MESH",
+      "location": [
+        -5.94,
+        2.8,
+        1.77
+      ],
+      "dimensions": [
+        0.025,
+        5.58,
+        1.72
+      ],
+      "parent": "Window_West",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "Window_West",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "Props"
+      ]
+    },
+    {
+      "name": "WindowCache_ClockKey",
+      "type": "MESH",
+      "location": [
+        -5.17,
+        0.88,
+        0.68
+      ],
+      "dimensions": [
+        0.12,
+        0.12,
+        0.16
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed_Drawer",
+      "type": "MESH",
+      "location": [
+        -5.62,
+        0.9,
+        0.55
+      ],
+      "dimensions": [
+        0.12,
+        1.16,
+        0.28
+      ],
+      "parent": "WindowCache_Closed",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed_Latch1",
+      "type": "MESH",
+      "location": [
+        -5.6,
+        2.8,
+        1.7
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        0.24
+      ],
+      "parent": "WindowCache_Closed",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed_Latch2",
+      "type": "MESH",
+      "location": [
+        -5.6,
+        0.9,
+        1.7
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        0.24
+      ],
+      "parent": "WindowCache_Closed",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed_Latch3",
+      "type": "MESH",
+      "location": [
+        -5.6,
+        -1.0,
+        1.7
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        0.24
+      ],
+      "parent": "WindowCache_Closed",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed_Scratch1",
+      "type": "MESH",
+      "location": [
+        -5.585,
+        2.6,
+        1.7
+      ],
+      "dimensions": [
+        0.025,
+        0.02,
+        0.36
+      ],
+      "parent": "WindowCache_Closed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed_Scratch2",
+      "type": "MESH",
+      "location": [
+        -5.585,
+        0.7,
+        1.7
+      ],
+      "dimensions": [
+        0.025,
+        0.02,
+        0.36
+      ],
+      "parent": "WindowCache_Closed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Closed_Scratch3",
+      "type": "MESH",
+      "location": [
+        -5.585,
+        -1.2,
+        1.7
+      ],
+      "dimensions": [
+        0.025,
+        0.02,
+        0.36
+      ],
+      "parent": "WindowCache_Closed",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open",
+      "type": "EMPTY",
+      "location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent": null,
+      "materials": [],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open_Drawer",
+      "type": "MESH",
+      "location": [
+        -5.42,
+        0.9,
+        0.55
+      ],
+      "dimensions": [
+        0.42,
+        1.16,
+        0.28
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_WornWood"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open_Latch1",
+      "type": "MESH",
+      "location": [
+        -5.6,
+        2.8,
+        2.18
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        0.24
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open_Latch2",
+      "type": "MESH",
+      "location": [
+        -5.6,
+        0.9,
+        1.22
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        0.24
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open_Latch3",
+      "type": "MESH",
+      "location": [
+        -5.6,
+        -1.0,
+        1.7
+      ],
+      "dimensions": [
+        0.1,
+        0.12,
+        0.24
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_Amber"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open_Scratch1",
+      "type": "MESH",
+      "location": [
+        -5.585,
+        2.6,
+        2.18
+      ],
+      "dimensions": [
+        0.025,
+        0.02,
+        0.36
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open_Scratch2",
+      "type": "MESH",
+      "location": [
+        -5.585,
+        0.7,
+        1.22
+      ],
+      "dimensions": [
+        0.025,
+        0.02,
+        0.36
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_Open_Scratch3",
+      "type": "MESH",
+      "location": [
+        -5.585,
+        -1.2,
+        1.7
+      ],
+      "dimensions": [
+        0.025,
+        0.02,
+        0.36
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_AgedPaper"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    },
+    {
+      "name": "WindowCache_RosterSlider",
+      "type": "MESH",
+      "location": [
+        -5.18,
+        0.6,
+        0.68
+      ],
+      "dimensions": [
+        0.28,
+        0.18,
+        0.03
+      ],
+      "parent": "WindowCache_Open",
+      "materials": [
+        "M_DirtyGlass"
+      ],
+      "collections": [
+        "StateVariants"
+      ]
+    }
+  ],
+  "materials": [
+    "M_AgedPaper",
+    "M_Amber",
+    "M_Baseboard",
+    "M_Blackboard",
+    "M_Chalk",
+    "M_Curtain",
+    "M_DarkMetal",
+    "M_DarkWood",
+    "M_DetailDecal",
+    "M_DirtyGlass",
+    "M_FadedRed",
+    "M_FadedTeal",
+    "M_FoliageSilhouette",
+    "M_OldPlaster",
+    "M_Rubber",
+    "M_WallStain",
+    "M_WindowExterior",
+    "M_WornFloor",
+    "M_WornWood"
+  ],
+  "collections": [
+    "Decals",
+    "Furniture",
+    "Lookdev",
+    "Props",
+    "Shell",
+    "StateVariants"
+  ]
+}

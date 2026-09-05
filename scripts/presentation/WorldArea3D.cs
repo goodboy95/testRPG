@@ -13,7 +13,13 @@ public partial class WorldArea3D : Node3D
     protected PlayerController3D Player { get; private set; } = null!;
     protected ThirdPersonCameraRig CameraRig { get; private set; } = null!;
     protected bool UseGamepadPrompts { get; private set; }
-    protected string SelectedItemId { get; private set; } = string.Empty;
+    public int InteractionMarkerCount => _markers.Count;
+    public int ActiveInteractionMarkerCount => _markers.Count(IsMarkerActive);
+    public IReadOnlyList<string> ActiveInteractionIds => _markers
+        .Where(IsMarkerActive)
+        .Select(marker => marker.TargetId)
+        .ToArray();
+    public string? CurrentInteractionTargetId => _focused?.TargetId;
 
     private readonly List<InteractionMarker3D> _markers = [];
     private InteractionMarker3D? _focused;
@@ -76,12 +82,6 @@ public partial class WorldArea3D : Node3D
     public virtual void SetGamepadPrompts(bool value)
     {
         UseGamepadPrompts = value;
-        _lastPrompt = "\0";
-    }
-
-    public virtual void SetSelectedItem(string itemId)
-    {
-        SelectedItemId = itemId;
         _lastPrompt = "\0";
     }
 

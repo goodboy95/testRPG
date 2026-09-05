@@ -16,7 +16,6 @@ public interface IDreamAreaRuntime
 
     CameraControlMode CameraControlMode { get; }
     void SetGamepadPrompts(bool value);
-    void SetSelectedItem(string itemId);
     void ApplySettings(PlayerSettings settings);
     void RefreshState();
 }
@@ -24,6 +23,23 @@ public interface IDreamAreaRuntime
 public interface IDreamAreaExitTransition
 {
     Task PlayExitTransitionAsync(string targetId, CancellationToken cancellationToken);
+    void ResetExitTransition();
+}
+
+public interface IDreamAreaTransitionPose3D
+{
+    float CaptureCameraDoorOffsetDegrees(Vector3 exitForward);
+    void ApplyEntryPose(Vector3 playerFacing, float? cameraDoorOffsetDegrees);
+}
+
+public sealed record DreamAreaTransientState(
+    bool XiaoyuHoldingExitLever,
+    string? PreviewPuzzleId = null,
+    IReadOnlyList<string>? PreviewValues = null);
+
+public interface IDreamAreaTransientPresentation
+{
+    void ApplyTransientState(DreamAreaTransientState state);
 }
 
 public interface IDreamAreaVisual

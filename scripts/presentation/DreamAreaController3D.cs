@@ -4,13 +4,14 @@ using TownRpg.Core.Domain;
 
 namespace TownRpg.Presentation;
 
-public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDreamAreaExitTransition
+public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDreamAreaExitTransition,
+    IDreamAreaTransitionPose3D
 {
     [Export] public string AreaId { get; set; } = DreamEscapeIds.AreaClassroom;
 
     private readonly AreaCoordinateMapper3D _coordinateMapper = new(
         new Rect2(16f, 178f, 608f, 152f),
-        new Rect2(-4.52f, -3.30f, 9.04f, 6.60f));
+        new Rect2(-5.7f, -4.2f, 11.4f, 8.4f));
     private GameSession _session = null!;
     private DreamClassroomVisual3D _visual = null!;
     private float _doorClosedYaw;
@@ -39,7 +40,7 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDr
         var protagonistTexture = ResourceLoader.Load<Texture2D>(
             "res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png");
         if (protagonistTexture is not null)
-            Player.ConfigureCharacterFrames(DreamCharacterFrames.Create(protagonistTexture));
+            Player.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(protagonistTexture));
         _visual.ApplyState(dream);
         _doorClosedYaw = _visual.DoorHinge.Rotation.Y;
         ApplySettings(_session.State.Settings);
@@ -69,28 +70,24 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDr
         var dream = _session.State.DreamEscape!;
         return marker.TargetId switch
         {
-            "pickup:dream.chalk" => !dream.SolvedPuzzles.Contains("dream.pickup.chalk"),
-            "observe:target.classroom.window" or
-            "observe:target.classroom.clock" or
-            "observe:target.classroom.duty_roster" =>
-                dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleBlackboard),
+            "puzzle:window_latches" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleWindowLatches),
+            "observe:target.classroom.maintenance_card" =>
+                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueClassroomWindow),
+            "observe:target.classroom.morning_schedule" =>
+                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueClassroomClock),
+            "observe:target.classroom.duty_note" =>
+                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueClassroomDutyRoster),
+            "pickup:dream.clock_hand" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PickupClockHand),
+            "target.classroom.blackboard" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleBlackboard),
+            "target.classroom.clock" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleClockRestore),
+            "target.classroom.duty_roster" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleRosterSlider),
+            "puzzle:teacher_desk" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleTeacherDesk),
             "target.classroom.map_cabinet" =>
                 !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMapCabinet),
-            "target.classroom.class_photo" =>
-                dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMapCabinet),
+            "target.classroom.transom_cache" =>
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleTransomCache),
             _ => true
         };
-    }
-
-    protected override string BuildPrompt(InteractionMarker3D marker)
-    {
-        var button = UseGamepadPrompts ? "A" : "F";
-        if (!string.IsNullOrEmpty(SelectedItemId) &&
-            marker.TargetId.StartsWith("target.", StringComparison.Ordinal))
-        {
-            return $"[{button}] 对目标使用：{DreamInventoryPanel.ItemName(SelectedItemId)}";
-        }
-        return $"[{button}] {marker.Prompt}";
     }
 
     public DreamClassroomVisual3D ClassroomVisual => _visual;
@@ -120,7 +117,7 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDr
         }
         catch
         {
-            ResetDoor();
+            ResetExitTransition();
             throw;
         }
         finally
@@ -129,7 +126,7 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDr
         }
     }
 
-    public void ResetDoor()
+    public void ResetExitTransition()
     {
         if (_visual?.DoorHinge is null) return;
         _visual.DoorHinge.Rotation = new Vector3(
@@ -139,11 +136,37 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDr
         SetRuntimeInputLocked(false);
     }
 
+    public void ResetDoor() => ResetExitTransition();
+
+    public float CaptureCameraDoorOffsetDegrees(Vector3 exitForward)
+    {
+        var doorForward = FlattenDirection(exitForward);
+        var cameraForward = FlattenDirection(CameraRig.HorizontalForward);
+        return Mathf.RadToDeg(doorForward.SignedAngleTo(cameraForward, Vector3.Up));
+    }
+
+    public void ApplyEntryPose(Vector3 playerFacing, float? cameraDoorOffsetDegrees)
+    {
+        var entryForward = FlattenDirection(playerFacing);
+        Player.SetFacingImmediate(entryForward);
+        var cameraForward = entryForward.Rotated(
+            Vector3.Up,
+            Mathf.DegToRad(cameraDoorOffsetDegrees ?? 0f));
+        CameraRig.SetHorizontalForwardImmediate(cameraForward);
+        CameraRig.SnapToTarget();
+    }
+
     private void OnPlayerMoved(Vector3 worldPosition)
     {
         var stored = _coordinateMapper.ToStored(worldPosition);
         var dream = _session.State.DreamEscape!;
         dream.PositionX = stored.X;
         dream.PositionY = stored.Y;
+    }
+
+    private static Vector3 FlattenDirection(Vector3 direction)
+    {
+        var flattened = new Vector3(direction.X, 0f, direction.Z);
+        return flattened.LengthSquared() <= 0.0001f ? Vector3.Forward : flattened.Normalized();
     }
 }

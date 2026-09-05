@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "status": "adopted-runtime-default",
+  "runtimeDefault": true,
+  "sampleOnly": false,
+  "source": "art/blender/dream_late_rooms/dream-auditorium-v1.blend",
+  "gameFile": "assets/generated/dream_escape/3d/dream-auditorium-v1.glb",
+  "bytes": 47378260,
+  "sha256": "7a82c48265a6fac3e9a1a7b0e1c1840802d5851d3f88a612bc511dafdeb0f2ac",
+  "meshObjects": 142,
+  "trianglesUpperBound": 16432,
+  "missingExternalFiles": 0,
+  "generator": "Blender 5.2.0 LTS deterministic construction"
+}

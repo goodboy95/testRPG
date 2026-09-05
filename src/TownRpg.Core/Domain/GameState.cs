@@ -21,6 +21,7 @@ public sealed class GameState
         {
             DreamEscape = new DreamEscapeState
             {
+                ContentVersion = DreamEscapeState.CurrentContentVersion,
                 PositionX = DreamEscapeState.NewGameClassroomPositionX,
                 PositionY = DreamEscapeState.NewGameClassroomPositionY
             }

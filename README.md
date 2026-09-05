@@ -1,8 +1,8 @@
 # town-rpg / 《雾山旧轨》
 
-`town-rpg` 是一款面向 Windows x64 的单机剧情生活 RPG。当前处于 2D/3D 混合迁移阶段：梦境第一室已经完成 3D MVP，走廊、后三室和 Legacy 小镇仍使用 2D 表现。玩家扮演暑假回到故乡的大学生，在山间铁路小镇安排日常、建立关系，并调查开发工程背后的封印真相。
+`town-rpg` 是一款面向 Windows x64 的单机剧情生活 RPG。当前梦境洋房与四室均已迁移到 3D，Legacy 小镇仍为 2D。玩家扮演暑假回到故乡的大学生，在山间铁路小镇安排日常、建立关系，并调查开发工程背后的封印真相。
 
-新游戏当前进入目标 **30–45 分钟**的四室梦境序章第一阶段；旧存档仍可继续约 15–30 分钟的“两日生活＋首次异象”Legacy 切片。计划中的完整版本为 3–5 小时、约七个内容日，不能把剧情大纲写成已实现功能。
+新游戏当前进入目标 **90–120 分钟**的四室梦境序章第一阶段；旧存档仍可继续约 15–30 分钟的“两日生活＋首次异象”Legacy 切片。计划中的完整版本为 3–5 小时、约七个内容日，不能把剧情大纲写成已实现功能。
 
 ## 接手入口
 
@@ -25,8 +25,8 @@ D:\ProgramFiles\Godot\Godot_v4.6.3-stable_mono_win64_console.exe
 ## 已验证状态
 
 - Godot 4.6.3 Debug/Release C# 编译通过。
-- Core、应用规则和内容契约测试基线为 **84/84 通过**。
-- Godot Debug/Release 构建与九场景 Compatibility/OpenGL 冒烟通过；第一室另有 Blender/GLB 确定性校验和 3D 物理探针。
-- 引擎冒烟成功标志：`GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=8`。
+- Core、应用规则和内容契约测试基线为 **104/104 通过**。
+- Godot Debug 构建与九场景 Compatibility/OpenGL 冒烟通过；第一室电影式 v5 教室、第二室 3D 音乐教室、第三室档案兼广播室 v1、第四室旧礼堂 v1 与洋房内廊 v2 均为 3D 运行时默认。后两室专项冒烟覆盖各 15 个交互点、答案线索至少相距 2 米、独立碰撞、ReflectionProbe、安全出生/旧坐标纠正、持久与瞬时机关状态、晓雨协作、白噪声和双侧出口；24 张 1920×1080 自动捕获已生成并抽查。
+- 引擎冒烟成功标志：`GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=8 items=34`。
 
-尚未完成：四室与 Legacy 全程人工验收、Xbox 手柄、1080p 性能计时、Dialogue Manager v3.10.4 实际接入，以及 Windows x64 导出。具体优先级见[交接路线图](doc/production/roadmap-handoff.md)。
+当前工作副本的 3D 区域默认使用本机非商业 `mc_model` PBR 角色；该资源不进入 Git 或导出，缺失时安全回退到 2D billboard。尚未完成：50–60 分钟后半程和完整四室人工盲走、Xbox 手柄、物理鼠标 raw delta、GTX 1660 级硬件性能、正式可分发 3D 主角视觉确认/绑定/接入、Dialogue Manager v3.10.4 实际接入，以及 Windows x64 导出。具体优先级见[交接路线图](doc/production/roadmap-handoff.md)。

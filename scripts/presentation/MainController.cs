@@ -443,7 +443,7 @@ public partial class MainController : Node
         _session.NewGame(playerName, playerTitle);
         ApplySettingsVisuals();
         CloseTitle();
-        LoadDream();
+        LoadDream(showEntryControlReminder: true);
         _session.SaveCheckpoint();
         await Task.CompletedTask;
     }
@@ -554,7 +554,7 @@ public partial class MainController : Node
         RefreshHud();
     }
 
-    private void LoadDream()
+    private void LoadDream(bool showEntryControlReminder = false)
     {
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new FileNotFoundException("Dream escape root scene is missing.");
@@ -567,6 +567,8 @@ public partial class MainController : Node
         _dream = next;
         _dream.PinWakeRequested += OnDreamPinWakeRequested;
         _dream.ExitOpened += OnDreamExitOpened;
+        if (showEntryControlReminder)
+            _dream.ShowEntryControlReminder();
         previousWorld?.QueueFree();
         previousDream?.QueueFree();
         _hud.Visible = false;

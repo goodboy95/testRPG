@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "generator": "scripts/tools/build_dream_manor_textures.py",
+  "materialFamilies": {
+    "building": [
+      "plaster",
+      "stone",
+      "terrazzo",
+      "slate"
+    ],
+    "furnishings": [
+      "dark_oak",
+      "aged_brass",
+      "upholstery",
+      "dark_iron"
+    ],
+    "rug": [
+      "faded_rust",
+      "deep_teal",
+      "muted_cream"
+    ]
+  },
+  "files": {
+    "manor-building-albedo.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "3f0dadc2d24f37211eeac38955d0f6d5e59a3198c08560a24bc5b7316c1f8526"
+    },
+    "manor-building-normal.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "c0376237d02eccde4e5cf6114fc71d65b109c1d5d870f7ed8a38fc46b5e425fa"
+    },
+    "manor-building-orm.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "fed4eea017788ed83b2d54e26cbbb298196d79913a39fbe2dfb153c557dc513f"
+    },
+    "manor-furnishings-albedo.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "9c4b9e5cd6ab5534f2cc0f88982b6e675b8ffead0fd5e514fa09e1cc9fe53b3d"
+    },
+    "manor-furnishings-normal.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "e4ddcd42f131414d9f9e6aa4c1870409bab6786383a0d3cef202e0d526f1ca8f"
+    },
+    "manor-furnishings-orm.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "ac69321d08f0a729197620a1297803ac024b1ded82dbbd1fdfb6b5b36b8dd8d8"
+    },
+    "manor-rug-albedo.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "5e6f024b2378d1e0383576a558e711d77c236e2e63ba5fcfb768c63d6f2d5f68"
+    },
+    "manor-rug-normal.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "04215cb99d57a734a8516d53bc4bd1b673ac4f41a3faa30b7bb33c3904eed0f4"
+    },
+    "manor-rug-orm.png": {
+      "width": 2048,
+      "height": 2048,
+      "mode": "RGB",
+      "sha256": "6f305430c654359421c7560ba2797ba2eac9f84ed634df35ce42e4d34747db92"
+    },
+    "manor-details.png": {
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGBA",
+      "sha256": "d74b8296907ce42dd3c00238ae20a82814b1eeba3aca2d8ce67b3f4fd1f9be46"
+    }
+  }
+}

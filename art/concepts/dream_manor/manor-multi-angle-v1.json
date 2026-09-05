@@ -1,0 +1,126 @@
+{
+  "status": "adopted-modeling-reference",
+  "generation": "Codex built-in image generation; deterministic Pillow board assembly",
+  "boards": [
+    {
+      "path": "manor-interior-multi-angle-board-v1.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "RGB",
+      "sha256": "496890af0305d1fbcc3dab1f081a6f090522cb414176b0385dbe5d31a36201b2"
+    },
+    {
+      "path": "manor-exterior-multi-angle-board-v1.png",
+      "size": [
+        3840,
+        2160
+      ],
+      "mode": "RGB",
+      "sha256": "8ddb48a9efce668322785170d36ebc00a4e034f5a4f8d0ea365c50952c2df4ef"
+    }
+  ],
+  "sources": [
+    {
+      "path": "manor-interior-v2.png",
+      "role": "interior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "dd2049295ca01507047f1e8524eac18b73903218134489306aa4ade68ac3bd3a"
+    },
+    {
+      "path": "manor-interior-angle-02-northbound-v1.png",
+      "role": "interior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "c8d4ddfb65eb6ff3ca0940581c7580aaca3acc8388e554a491d6542617f05315"
+    },
+    {
+      "path": "manor-interior-angle-03-foyer-entry-v1.png",
+      "role": "interior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "9617bca954b1fc1e313d85b8de600063f7f22df6294c97d8a4704a9b4ad3c6ed"
+    },
+    {
+      "path": "manor-interior-angle-04-south-door-pair-v1.png",
+      "role": "interior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "2247460b883e451f4f65f7e225422f4fcfc4a1fee3d22fcc3d32e2f3acbe1b08"
+    },
+    {
+      "path": "manor-interior-angle-05-north-end-v1.png",
+      "role": "interior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "488344b830b4770ef88fc2dd9bab4d904ee1cf553d37a4ade830664dd66cc090"
+    },
+    {
+      "path": "manor-exterior-v1.png",
+      "role": "exterior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "e54ce1fb049f2fc008a74957cdfe091498b25a1d74ea675b8048e685e7a015e4"
+    },
+    {
+      "path": "manor-exterior-angle-03-east-side-v1.png",
+      "role": "exterior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "b5fb6bae3316420f91983024dedff75e1391c65e8ba94aad2db618a7122775ae"
+    },
+    {
+      "path": "manor-exterior-angle-02-north-rear-v1.png",
+      "role": "exterior view",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "sha256": "709a67d0ccd8818d1234a889fa1b7a689ffbe4182f09485f3512917d7f9d2087"
+    },
+    {
+      "path": "manor-floor-plan-v1.png",
+      "role": "authoritative floor plan",
+      "size": [
+        3600,
+        720
+      ],
+      "mode": "RGB",
+      "sha256": "db347ea50d11190a6bb42a6a83dbe281b0b51cfb47864c5132dfead37472d9fe"
+    }
+  ],
+  "prompts": {
+    "path": "manor-multi-angle-prompts-v1.md",
+    "sha256": "cba271842b64efdeb4a28efd2688f99ce222170b0f726fdbb2e4c0d6fefdb606"
+  },
+  "authority": "The deterministic floor plan controls topology, door count and door order. The adopted v1 asset manifest widens the foyer and hall to 7.6x6.8 m and 6.8 m respectively. Generated perspective images control mood, materials and object language only.",
+  "fixedCounts": {
+    "currentRoomEntrances": 4,
+    "lockedExteriorEntrances": 1,
+    "reservedFutureDoorModules": 2
+  }
+}

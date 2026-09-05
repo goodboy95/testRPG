@@ -16,6 +16,14 @@ public partial class ThirdPersonCameraRig : Node3D
     public bool InputActive { get; private set; }
     public float LookSensitivity { get; private set; } = 1f;
     public float YawDegrees => RotationDegrees.Y;
+    public Vector3 HorizontalForward
+    {
+        get
+        {
+            var forward = new Vector3(-Camera.GlobalBasis.Z.X, 0f, -Camera.GlobalBasis.Z.Z);
+            return forward.LengthSquared() <= 0.0001f ? Vector3.Forward : forward.Normalized();
+        }
+    }
 
     private bool _windowFocused = true;
 
@@ -104,6 +112,14 @@ public partial class ThirdPersonCameraRig : Node3D
     public void SetYawImmediate(float yawDegrees)
     {
         RotationDegrees = new Vector3(0f, Mathf.Wrap(yawDegrees, -180f, 180f), 0f);
+    }
+
+    public void SetHorizontalForwardImmediate(Vector3 worldForward)
+    {
+        var direction = new Vector3(worldForward.X, 0f, worldForward.Z);
+        if (direction.LengthSquared() <= 0.0001f) return;
+        direction = direction.Normalized();
+        SetYawImmediate(Mathf.RadToDeg(Mathf.Atan2(-direction.X, -direction.Z)));
     }
 
     public void SnapToTarget()

@@ -54,7 +54,7 @@ flowchart TD
 
 关系、承诺、时间、日程、路线和结局都通过 Core 服务修改或判断。UI 读取阶段文本，不读取内部阈值后自行复制业务规则。
 
-`DreamEscapeService` 同样是唯一谜题判定入口。它先验证当前状态、区域、前置线索与物品，再原子完成一次小操作；`DreamActionResult.Changed=false` 表示错误或重复操作，`GameSession` 不保存。选中物品属于临时 UI 状态，不进入 `GameState`。
+`DreamEscapeService` 同样是唯一谜题判定入口。它先验证当前状态、区域、前置线索与物品，再原子完成一次小操作；`DreamActionResult.Changed=false` 表示错误或重复操作，`GameSession` 不保存。`TargetItemUses` 保存稳定的“目标→可用道具”目录，`UseAvailableItems` 按目录顺序自动应用背包内全部匹配部件；普通物品没有选中状态，批量互动只通知和保存一次。
 
 ### 叙事命令
 
@@ -108,19 +108,25 @@ sequenceDiagram
 - `[已实现]` `ModalGate` 按 owner 引用计数。对话、手册、梦境暂停、标题、战斗和完成页持有 lease，阻止玩家移动和时间推进；梦境暂停不依赖 `SceneTree.Paused`。
 - `[固定约束]` 不使用全局 `SceneTree.Paused` 冻结业务流程；异步流程必须在 `finally` 或统一关闭方法中释放 lease。
 - `[已实现]` `WorldSceneController._UnhandledInput` 处理世界交互，减少 UI 已消费确认键后重复触发的风险。
-- `[已实现]` 输入提示根据最后一次键盘/手柄事件切换；梦境背包为真实 `I`/`Tab` 或 Xbox `X`，Backspace 不属于该动作。背包在 `DreamEscapeController._Input` 的输入前置阶段统一开关，避免 Tab 被 GUI 焦点导航吞掉；其余移动/交互保持 WASD/方向键、F/空格或左摇杆、A。
-- `[已实现]` 非交互 HUD 使用忽略鼠标的过滤策略；Orbit 3D 区域由 `ThirdPersonCameraRig._Input` 读取鼠标水平位移，并且只有 `InputActive=true` 且指针处于捕获状态时才修改 yaw。右摇杆仍在帧更新中控制水平环绕。
-- `[已实现]` 进入第一室游玩时捕获指针；Esc 梦境暂停、背包/谜题/确认框、失焦和转场会立即显示指针并锁定角色与镜头，恢复后重新捕获。指针意外可见时，点击游戏画面可请求重捕获。标题和梦境暂停都提供退出入口，并复用单个二次确认框，避免快速输入重复创建或重复触发。
+- `[已实现]` 梦境背包为真实 `I`/`Tab` 或 Xbox `X`，Backspace 不属于该动作。背包在 `DreamEscapeController._Input` 的输入前置阶段统一开关，避免 Tab 被 GUI 焦点导航吞掉；其余移动/交互保持 WASD/方向键、F/空格或左摇杆、A。新游戏进入第一室前显示一次阻塞式 Esc、I/Tab、Menu/X 操作确认，读档和换房不重复。
+- `[已实现]` 梦境没有常驻任务目标栏，只保留紧凑区域名；非交互 HUD 使用忽略鼠标的过滤策略。Orbit 3D 区域由 `ThirdPersonCameraRig._Input` 读取鼠标水平位移，并且只有 `InputActive=true` 且指针处于捕获状态时才修改 yaw。右摇杆仍在帧更新中控制水平环绕。
+- `[已实现]` 进入第一室或 3D 洋房公共区游玩时捕获指针；Esc 梦境暂停、背包/谜题/确认框、失焦和转场会立即显示指针并锁定角色与镜头，恢复后重新捕获。指针意外可见时，点击游戏画面可请求重捕获。标题和梦境暂停都提供退出入口，并复用单个二次确认框，避免快速输入重复创建或重复触发。
 
 ## 场景生命周期
 
-主场景 `Main.tscn` 常驻。新游戏实例化普通 `Node` 根的 `DreamEscape.tscn`，后者在自身 `AreaHost` 中替换走廊/四室；第一室是 `Node3D`，其余梦境区域仍是 `Node2D`。Legacy 存档实例化 `OldHouse.tscn` 或 `StationQuarter.tscn`。切换时均断开普通 .NET 事件并释放旧节点，长期状态只保存稳定区域 ID 和基础坐标。
+主场景 `Main.tscn` 常驻。新游戏实例化普通 `Node` 根的 `DreamEscape.tscn`，后者在自身 `AreaHost` 中替换洋房公共区/四室；第一至第四室与稳定 ID 仍为 `dream.corridor` 的洋房前厅内廊均是 `Node3D`。Legacy 存档实例化 `OldHouse.tscn` 或 `StationQuarter.tscn`。切换时均断开普通 .NET 事件并释放旧节点，长期状态只保存稳定区域 ID 和基础坐标。
 
-`IDreamAreaRuntime` 为 2D/3D 区域统一提供交互请求、提示变化、临时选中道具、辅助设置和 `CameraControlMode`。通用 3D 表现层由 `WorldArea3D`、`PlayerController3D`、`ThirdPersonCameraRig`、`CameraRelativeMovement`、`InteractionMarker3D`、`StatefulObjectVisual3D` 与 `AreaCoordinateMapper3D` 组成；这些类型不引用梦境谜题答案，可继续用于后三室和未来小镇。第一室使用透视 Orbit 跟随和 SpringArm；旧 `QuarterTurnCameraRig`、`WallCutawayController` 与裁墙着色器仅保留作历史实验对照，不由当前场景加载。`IDreamAreaExitTransition` 允许区域在 Core 切换前播放可取消的门动画；`DreamAreaController3D` 只负责把第一室稳定 ID、门表现与 `DreamEscapeState` 接入通用层。
+`IDreamAreaRuntime` 为梦境区域统一提供交互请求、提示变化、辅助设置和 `CameraControlMode`，不再传递临时选中道具。通用 3D 表现层由 `WorldArea3D`、`PlayerController3D`、`ThirdPersonCameraRig`、`CameraRelativeMovement`、`InteractionMarker3D`、`StatefulObjectVisual3D` 与 `AreaCoordinateMapper3D` 组成；这些类型不引用梦境谜题答案。洋房与四室均使用透视 Orbit 跟随和 SpringArm；旧 `QuarterTurnCameraRig`、`WallCutawayController` 与裁墙着色器仅保留作历史实验对照，不由当前场景加载。`IDreamAreaExitTransition` 允许区域在 Core 切换前播放可取消的门动画并提供统一复位；五个 3D 区域控制器只负责把各自稳定 ID、门表现与 `DreamEscapeState` 接入通用层。`DreamAreaTransientState` 与可选 `IDreamAreaTransientPresentation` 只传递谜题面板预览和晓雨当前协作姿态，面板关闭、换房或重载即清除；DTO 不包含这些字段。四室机关、拾取物、安装件和灯态只从 Core 集合派生，`DreamCompanion3D` 的跟随位置和动画是临时表现状态。锁闭洋房大门只产生表现反馈，不调用 Core 道具/谜题状态。
 
-当前第一室场景仍引用精修 v2 教室 GLB 和 Fixed-Y 二维角色 billboard。教室 v3 Blend/GLB 属于离线视觉候选，尚未切换场景；基于 Blender 官方 CC0 Human Base 的主角 v1 静态 GLB 只是未过视觉门槛的技术样模。原画式主角 v2 与 v1 分开保留，其静态 GLB/manifest 已通过尺寸、预算、结构和只读复导出检查，但 manifest 明确为 `runtimeReady=false`，仍等待负责人视觉确认；文件存在或技术检查通过不代表已有骨骼、权重、动画或 `PlayerController3D` 接入。只有静态候选确认后，角色表现才可通过独立的可复用视觉组件接收实际速度；不得把技术检查通过或静态资产存在误写成运行时角色已经完成。
+`DreamAreaSpawnCatalog` 按来源区域与目标区域选择换场出生点和默认面向。新游戏和普通读档不使用这条覆盖规则：前者仍采用第一室 `(448, 214)`，后者恢复实际保存位置。第一室、第二室与洋房之间的 3D→3D 换场把镜头相对于出口门的水平夹角转换到目标门，2D↔3D 使用目标门默认朝向；第三、第四室门内安全点与最近交互焦点保持超过 48 像素，避免入场自动选中。该入口姿态、镜头 yaw 和门动画进度全部是临时表现状态，不进入存档。
 
-梦境存档继续只保存旧二维 `PositionX/Y`。第一室在表现层把旧活动矩形映射到 9.04×6.60 米 X/Z 平面；`CreateDreamPrologue()` 只为新游戏显式使用 `(448, 214)` 的安全出生点，已有梦境存档坐标不重置，缺失坐标字段的旧 v1 JSON 仍沿用 DTO 的 `(320, 280)` 兼容默认。若恢复坐标位于新家具或门障碍内，则解析最近安全点，并通过 `GameSession.MoveDreamToArea` 保存修正。镜头 yaw、SpringArm 长度、当前焦点、门动画进度和角色动画帧均为临时表现状态。
+当前第一室场景引用 12×9×4 米的电影式 v5 教室 GLB，洋房场景引用电影式 v2 完整可玩内廊 GLB；第二室使用约 11×8×4 米的程序化 PBR 音乐教室。三个区域在 Godot 场景层使用 Filmic、实时冷暖灯和两个 ReflectionProbe，但光照与反射不进入 Core。第二室四个 WAV 由确定性离线脚本生成并记录 provenance，运行时只加载文件，不合成音频；声音关闭时仍可依赖图形、音高与乐器名完成全部机关。`PlayerController3D` 优先动态加载本机非商业 `tests/mc-model-test-runtime/caelus-pbr-test.glb`，驱动 `idle/walk/jog`、实际位移朝向和近镜头隐藏；资源不存在或结构无效时使用 Fixed-Y 二维角色 billboard。该本机目录由 Git 排除，`export_presets.cfg` 也排除 `tests/*`，因此发布包只保留安全回退。v2/v3/v4 教室与 v1 洋房内廊继续作为历史/离线对照，完整洋房外观 v1 GLB不进入场景树。基于 Blender 官方 CC0 Human Base 的主角 v1 静态 GLB 只是未过视觉门槛的技术样模。原画式主角 v2 与 v1 分开保留，其静态 GLB/manifest 已通过尺寸、预算、结构和只读复导出检查，但 manifest 明确为 `runtimeReady=false`，仍等待负责人视觉确认；本机 `mc_model` 覆盖不改变 v2 的审批状态，也不替代正式可分发主角资产。
+
+梦境存档继续只保存旧二维 `PositionX/Y`。第一室在表现层把固定存档矩形 `Rect2(16,178,608,152)` 映射到 11.4×8.4 米 X/Z 活动区；第二室把 `Rect2(16,54,608,272)` 映射到 10.5×7.5 米活动区，从洋房进入使用 `(50.7,288.7)` 的西南门内点；洋房把存档 X `0…640` 映射到世界 Z `-6.8…18`，存档 Y `0…360` 映射到世界 X `-3.8…3.8`。`CreateDreamPrologue()` 只为新游戏显式使用第一室 `(448, 214)` 的安全出生点；从洋房返回第一室使用 `(592.4,305.8)`。若恢复坐标位于新家具或门障碍内，则解析最近安全点并保存修正。镜头 yaw、SpringArm 长度、当前焦点、门动画进度、晓雨位置和角色动画帧均为临时表现状态。
+
+`DreamEscapeState.ContentVersion=4` 区分完整四室规则；`DiscoveredPuzzles` 控制晓雨加入后的提示可见性，`InstalledParts` 保存 11 个稳定槽位 ID。Core 的 `PuzzleInputClues` 目录提供“谜题→外部输入线索”映射及缺失查询，只控制面板说明和三级提示，不阻止正确答案提交；结构前置、安装件、区域开放和协作要求仍由服务判定。机关视觉只由这些 Core 集合派生，Godot 不持有第二份安装或开关状态。缺少内容版本或版本低于 4 的进行中梦境存档明确拒绝；已完成且梦境背包为空的终态和无梦境 Legacy 存档不受影响。
+
+礼堂双侧出口的“晓雨正在按住左侧机关”只属于当前 `DreamEscapeController` 的临时协作姿态：离开礼堂、重建场景或完成出口时清零，不写入 `DreamEscapeState`，也不复用退役的 `dream.auditorium.left_lever`。Core 仍负责验证晓雨加入和三块控制台完成；表现层只有在临时姿态成立后才调用出口结算。
 
 当前独立世界场景只有旧宅和车站分区；河岸、学校档案室、商店活动和废弃铁路主要通过事件段落或同一车站地图上的交互点表现。完整版本扩图时继续保持“常驻应用壳 + 可替换世界子场景”。
 
@@ -134,7 +140,7 @@ sequenceDiagram
 - 角色 ID 必须唯一且包含主角。
 - 日程 NPC 必须存在，等价条件的时间段不得重叠。
 - 每个事件的 `dialoguePath` 必须存在。
-- 八个梦境道具 ID 必须完整唯一，本地化键和图标路径必须存在。
+- 34 个当前梦境道具 ID 必须完整唯一，本地化键和图标路径必须存在。
 - 验证失败写入 `InitializationError`，标题页应阻止新游戏而不是带着残缺内容继续。
 
 更完整的跳转、命令、本地化和资源检查由 `ContentIntegrityTests` 完成。

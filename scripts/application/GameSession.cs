@@ -106,8 +106,14 @@ public partial class GameSession : Node
     public DreamActionResult UseDreamItem(string itemId, string targetId) =>
         ApplyDreamAction(() => DreamEscape.UseItem(itemId, targetId));
 
+    public DreamActionResult UseAvailableDreamItems(string targetId) =>
+        ApplyDreamAction(() => DreamEscape.UseAvailableItems(targetId));
+
     public DreamActionResult ObserveDreamTarget(string targetId) =>
         ApplyDreamAction(() => DreamEscape.Observe(targetId));
+
+    public DreamActionResult DiscoverDreamPuzzle(string puzzleId) =>
+        ApplyDreamAction(() => DreamEscape.DiscoverPuzzle(puzzleId));
 
     public DreamActionResult SubmitDreamPuzzle(string puzzleId, params string[] answer) =>
         ApplyDreamAction(() => DreamEscape.SubmitPuzzle(puzzleId, answer));

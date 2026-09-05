@@ -1,69 +1,39 @@
 {
   "schemaVersion": 1,
   "items": [
-    {
-      "id": "dream.pin",
-      "nameKey": "ITEM_DREAM_PIN_NAME",
-      "descriptionKey": "ITEM_DREAM_PIN_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-pin.png",
-      "selectable": true,
-      "canUseOnSelf": true
-    },
-    {
-      "id": "dream.chalk",
-      "nameKey": "ITEM_DREAM_CHALK_NAME",
-      "descriptionKey": "ITEM_DREAM_CHALK_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-chalk.png",
-      "selectable": true,
-      "canUseOnSelf": false
-    },
-    {
-      "id": "dream.room_two_key",
-      "nameKey": "ITEM_DREAM_ROOM_TWO_KEY_NAME",
-      "descriptionKey": "ITEM_DREAM_ROOM_TWO_KEY_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-room-two-key.png",
-      "selectable": true,
-      "canUseOnSelf": false
-    },
-    {
-      "id": "dream.maintenance_key",
-      "nameKey": "ITEM_DREAM_MAINTENANCE_KEY_NAME",
-      "descriptionKey": "ITEM_DREAM_MAINTENANCE_KEY_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-maintenance-key.png",
-      "selectable": true,
-      "canUseOnSelf": false
-    },
-    {
-      "id": "dream.red_filter",
-      "nameKey": "ITEM_DREAM_RED_FILTER_NAME",
-      "descriptionKey": "ITEM_DREAM_RED_FILTER_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-red-filter.png",
-      "selectable": true,
-      "canUseOnSelf": false
-    },
-    {
-      "id": "dream.class_photo",
-      "nameKey": "ITEM_DREAM_CLASS_PHOTO_NAME",
-      "descriptionKey": "ITEM_DREAM_CLASS_PHOTO_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-class-photo.png",
-      "selectable": true,
-      "canUseOnSelf": false
-    },
-    {
-      "id": "dream.tape_reel",
-      "nameKey": "ITEM_DREAM_TAPE_REEL_NAME",
-      "descriptionKey": "ITEM_DREAM_TAPE_REEL_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-tape-reel.png",
-      "selectable": true,
-      "canUseOnSelf": false
-    },
-    {
-      "id": "dream.recorder_crank",
-      "nameKey": "ITEM_DREAM_RECORDER_CRANK_NAME",
-      "descriptionKey": "ITEM_DREAM_RECORDER_CRANK_DESCRIPTION",
-      "iconPath": "res://assets/generated/dream_escape/item-recorder-crank.png",
-      "selectable": true,
-      "canUseOnSelf": false
-    }
+    { "id": "dream.pin", "nameKey": "ITEM_DREAM_PIN_NAME", "descriptionKey": "ITEM_DREAM_PIN_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-pin.png", "selectable": true, "canUseOnSelf": true },
+    { "id": "dream.chalk", "nameKey": "ITEM_DREAM_CHALK_NAME", "descriptionKey": "ITEM_DREAM_CHALK_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-chalk.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.clock_hand", "nameKey": "ITEM_DREAM_CLOCK_HAND_NAME", "descriptionKey": "ITEM_DREAM_CLOCK_HAND_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-clock-hand.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.clock_key", "nameKey": "ITEM_DREAM_CLOCK_KEY_NAME", "descriptionKey": "ITEM_DREAM_CLOCK_KEY_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-clock-key.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.roster_slider", "nameKey": "ITEM_DREAM_ROSTER_SLIDER_NAME", "descriptionKey": "ITEM_DREAM_ROSTER_SLIDER_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-roster-slider.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.room_two_key", "nameKey": "ITEM_DREAM_ROOM_TWO_KEY_NAME", "descriptionKey": "ITEM_DREAM_ROOM_TWO_KEY_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-room-two-key.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.class_photo_negative", "nameKey": "ITEM_DREAM_CLASS_PHOTO_NEGATIVE_NAME", "descriptionKey": "ITEM_DREAM_CLASS_PHOTO_NEGATIVE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-class-photo-negative.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.attendance_overlay", "nameKey": "ITEM_DREAM_ATTENDANCE_OVERLAY_NAME", "descriptionKey": "ITEM_DREAM_ATTENDANCE_OVERLAY_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-attendance-overlay.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.tape_fragment_classroom", "nameKey": "ITEM_DREAM_TAPE_FRAGMENT_CLASSROOM_NAME", "descriptionKey": "ITEM_DREAM_TAPE_FRAGMENT_CLASSROOM_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-tape-fragment-classroom.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.calibration_reel", "nameKey": "ITEM_DREAM_CALIBRATION_REEL_NAME", "descriptionKey": "ITEM_DREAM_CALIBRATION_REEL_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-calibration-reel.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.recorder_crank", "nameKey": "ITEM_DREAM_RECORDER_CRANK_NAME", "descriptionKey": "ITEM_DREAM_RECORDER_CRANK_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-recorder-crank.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.maintenance_key", "nameKey": "ITEM_DREAM_MAINTENANCE_KEY_NAME", "descriptionKey": "ITEM_DREAM_MAINTENANCE_KEY_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-maintenance-key.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.red_filter", "nameKey": "ITEM_DREAM_RED_FILTER_NAME", "descriptionKey": "ITEM_DREAM_RED_FILTER_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-red-filter.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.stage_hook", "nameKey": "ITEM_DREAM_STAGE_HOOK_NAME", "descriptionKey": "ITEM_DREAM_STAGE_HOOK_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-stage-hook.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.rubber_mallet", "nameKey": "ITEM_DREAM_RUBBER_MALLET_NAME", "descriptionKey": "ITEM_DREAM_RUBBER_MALLET_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-rubber-mallet.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.listening_cone", "nameKey": "ITEM_DREAM_LISTENING_CONE_NAME", "descriptionKey": "ITEM_DREAM_LISTENING_CONE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-listening-cone.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.metronome_weight", "nameKey": "ITEM_DREAM_METRONOME_WEIGHT_NAME", "descriptionKey": "ITEM_DREAM_METRONOME_WEIGHT_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-metronome-weight.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.torn_piano_roll", "nameKey": "ITEM_DREAM_TORN_PIANO_ROLL_NAME", "descriptionKey": "ITEM_DREAM_TORN_PIANO_ROLL_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-torn-piano-roll.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.wax_patch", "nameKey": "ITEM_DREAM_WAX_PATCH_NAME", "descriptionKey": "ITEM_DREAM_WAX_PATCH_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-wax-patch.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.room_three_key", "nameKey": "ITEM_DREAM_ROOM_THREE_KEY_NAME", "descriptionKey": "ITEM_DREAM_ROOM_THREE_KEY_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-room-three-key.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.bench_clamp_key", "nameKey": "ITEM_DREAM_BENCH_CLAMP_KEY_NAME", "descriptionKey": "ITEM_DREAM_BENCH_CLAMP_KEY_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-bench-clamp-key.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.tape_fragment_music", "nameKey": "ITEM_DREAM_TAPE_FRAGMENT_MUSIC_NAME", "descriptionKey": "ITEM_DREAM_TAPE_FRAGMENT_MUSIC_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-tape-fragment-music.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.archive_index_strip", "nameKey": "ITEM_DREAM_ARCHIVE_INDEX_STRIP_NAME", "descriptionKey": "ITEM_DREAM_ARCHIVE_INDEX_STRIP_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-archive-index-strip.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.fuse_tube", "nameKey": "ITEM_DREAM_FUSE_TUBE_NAME", "descriptionKey": "ITEM_DREAM_FUSE_TUBE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-fuse-tube.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.copper_wire", "nameKey": "ITEM_DREAM_COPPER_WIRE_NAME", "descriptionKey": "ITEM_DREAM_COPPER_WIRE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-copper-wire.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.repaired_fuse", "nameKey": "ITEM_DREAM_REPAIRED_FUSE_NAME", "descriptionKey": "ITEM_DREAM_REPAIRED_FUSE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-repaired-fuse.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.splicing_tape", "nameKey": "ITEM_DREAM_SPLICING_TAPE_NAME", "descriptionKey": "ITEM_DREAM_SPLICING_TAPE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-splicing-tape.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.room_four_key", "nameKey": "ITEM_DREAM_ROOM_FOUR_KEY_NAME", "descriptionKey": "ITEM_DREAM_ROOM_FOUR_KEY_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-room-four-key.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.tape_fragment_archive", "nameKey": "ITEM_DREAM_TAPE_FRAGMENT_ARCHIVE_NAME", "descriptionKey": "ITEM_DREAM_TAPE_FRAGMENT_ARCHIVE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-tape-fragment-archive.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.inspection_mirror", "nameKey": "ITEM_DREAM_INSPECTION_MIRROR_NAME", "descriptionKey": "ITEM_DREAM_INSPECTION_MIRROR_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-inspection-mirror.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.curtain_counterweight", "nameKey": "ITEM_DREAM_CURTAIN_COUNTERWEIGHT_NAME", "descriptionKey": "ITEM_DREAM_CURTAIN_COUNTERWEIGHT_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-curtain-counterweight.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.projector_lens", "nameKey": "ITEM_DREAM_PROJECTOR_LENS_NAME", "descriptionKey": "ITEM_DREAM_PROJECTOR_LENS_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-projector-lens.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.master_reel_core", "nameKey": "ITEM_DREAM_MASTER_REEL_CORE_NAME", "descriptionKey": "ITEM_DREAM_MASTER_REEL_CORE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-master-reel-core.png", "selectable": true, "canUseOnSelf": false },
+    { "id": "dream.restored_master_tape", "nameKey": "ITEM_DREAM_RESTORED_MASTER_TAPE_NAME", "descriptionKey": "ITEM_DREAM_RESTORED_MASTER_TAPE_DESCRIPTION", "iconPath": "res://assets/generated/dream_escape/item-restored-master-tape.png", "selectable": true, "canUseOnSelf": false }
   ]
 }

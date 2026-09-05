@@ -195,12 +195,59 @@ do Narrative.Execute("complete_event", "main.d3.example")
 - `build_classroom_art_textures.py build` 从四张采用源图离线生成 2048² albedo/normal/ORM、1024² RGBA 细节和 1024×512 窗外景片，并把哈希一致的运行时镜像写入 `assets/generated/dream_escape/3d/textures-v2/`。`check` 在临时目录重建并同时比对美术源输出、运行时镜像和两份 manifest，不写仓库。
 - 精确谜题文字由 Pillow 使用本机楷体确定性绘制；生成模型只参与概念图、无文字材质源与窗外景片。AI 不生成整间 3D 教室，采用项必须逐一写入 provenance。
 
+#### v4 扩建历史基线
+
+- `art/blender/dream_classroom/classroom-art-pass-v4.blend` 是 12×9×4 米扩建的历史运行时基线。执行 `build_classroom_art_pass_v4.py art-export` 可重建其 GLB/manifest；执行 `art-check` 时只读打开 Blend 并输出到临时目录，不得改写仓库。当前主流程已切换到下文的 v5，不能用 v4 导出覆盖 v5。
+- v4 固定检查 12×9×4 米、完整天花板、18 个共享课桌根、七组状态变体、必需门枢轴、三组窗、可见网格/三角面/GLB 预算和临时导出哈希。Godot 碰撞与交互点继续独立维护。
+- `build_classroom_v4_plan.py build` 生成权威俯视图和概念对照板；`check` 在临时目录重建并比较 SHA-256。该脚本只使用 Pillow，不调用生成模型。
+- 第一、第二室阶段物品图标由 `build_dream_v2_item_icons.py` 确定性生成。第二室 WAV 由 `build_dream_music_audio.py` 离线确定性生成；`check` 必须验证四个 22.05 kHz PCM 文件，运行时不得合成。新增正式图标或音频时必须同时更新物品 JSON/场景引用、本地化、完整性测试和 provenance。
+
 ```powershell
 $PythonExe = 'C:\Python314\python.exe'
 $BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
 & $PythonExe .\scripts\tools\build_classroom_art_textures.py check --root .
 & $BlenderExe --background --python .\scripts\tools\build_classroom_3d.py -- mvp-check --root .
 & $BlenderExe --background --python .\scripts\tools\build_classroom_art_pass.py -- art-check --root .
+```
+
+### 梦境洋房 Blender/GLB 管线
+
+- `[已实现·历史内廊/当前外观源]` `art/blender/dream_manor/dream-manor-v1.blend` 是洋房 v1 室内外源。确定性平面决定尺寸、门位和门数，多角度生成图只决定材质、光照和住宅陈设；不得依据单张生成图擅自增删门或改动通路。
+- v1 Blend 导出历史内廊 `dream-manor-hall-v1.glb` 与当前离线外观 `dream-manor-exterior-v1.glb`。`DreamCorridor.tscn` 当前只引用 v2 内廊；完整外观用于视觉验收和未来室外复用，不得因文件位于 `assets/generated/` 就加载到当前关卡。
+- `build_dream_manor_textures.py` 确定性生成建筑、木材/金属、地毯和细节纹理；`build_dream_manor_3d.py` 负责从已保存 Blend 导出两套 GLB、manifest 和只读临时复导出检查。正式运行与构建不依赖 Blender、Python 或 Blender MCP。
+- GLB只保存视觉网格、门枢轴和状态命名；玩家、墙、门及主要家具碰撞继续在 Godot 中独立定义。四个当前房间入口、一扇锁闭外门和两个无交互扩展实墙模数必须同时通过 Blend、manifest 与场景冒烟校验。
+- Godot 4.6.3 的两份 `.glb.import` 固定使用 `gltf/embedded_image_handling=1`，并将嵌入的 PBR 图提取到 GLB 同目录；这些派生 PNG 与各自 `.import` 必须一并纳入版本控制。实测设为 `0` 会丢弃嵌入贴图，使材质退化为无纹理表面，不能用作节省仓库空间的方案。
+- `.blend`、两套 `.glb`、概念图和大纹理遵守 Git LFS；生成参考、采用关系、提示词、哈希和后处理写入 provenance。检查模式只导出到临时目录并比较结构、纹理和哈希，不改写仓库。
+
+```powershell
+$PythonExe = 'C:\Python314\python.exe'
+$BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
+& $PythonExe .\scripts\tools\build_dream_manor_textures.py check --root .
+& $BlenderExe --background --python-exit-code 1 --python .\scripts\tools\build_dream_manor_3d.py -- manor-check --root .
+```
+
+截至 2026-08-22 的只读基线为：`DREAM_MANOR_TEXTURE_CHECK_PASS files=10 size=2048 readOnly=true`；内廊 GLB 为 160 个网格实例、79 个共享后唯一网格、14,916 个三角面、11 个材质和 21,789,048 字节，外观 GLB 为 101 个网格实例、37 个唯一网格、11,028 个三角面、7 个材质和 16,715,460 字节。两套导出均低于预算，`manor-check` 验证四个当前房门和两个预留实墙模数。
+
+### 电影式环境完整运行时管线
+
+- `[已实现·当前运行时]` 负责人确认样板方向后，教室 v5 已扩展到完整 12×9×4 米房间，洋房内廊 v2 已扩展到完整可玩门厅与内廊。`DreamClassroom.tscn` 引用 `classroom-art-pass-v5.glb`，`DreamCorridor.tscn` 引用 `dream-manor-hall-v2.glb`；v4/v1 保留为历史基线，不提供游戏内切换。
+- 两张 2048×1152 目标概念图是布局保持型 paint-over：生成模型只决定电影式材质、色温、磨损密度和光照层次，不得改变门位、谜题目标、房间比例或交互结构。主角 v2 只作为 Lookdev 比例参考，不因此获得视觉批准。
+- `build_environment_cinematic_sources.py build/check` 管理 Poly Haven 的八个 CC0 2K 材质族。原始下载、缩略图、逐文件 URL、MD5/SHA-256、色彩空间、获取日期和 CC0 许可证写入 `art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json`；项目派生材质位于 `art/blender/environment-cinematic-samples/textures-v1/`。
+- `classroom-art-pass-v5.blend` 与 `dream-manor-hall-v2.blend` 是当前权威手工源。`expand_environment_cinematic_full.py classroom-expand/manor-expand` 只维护幂等 `CinematicFullDetails` 集合，不从方盒重建场景；`*-check` 只读验证全场景结构。不得用早期样板构建步骤覆盖这两份 Blend。
+- `export_environment_cinematic_samples.py` 负责从权威 Blend 导出 GLB/manifest 和临时复导检查；洋房导出必须同时包含 `CinematicSampleDetails` 与 `CinematicFullDetails`，否则会漏掉独立护墙板。两份 schema v2 manifest 必须保持 `status=cinematic-full-runtime`、`sampleOnly=false`、`runtimeDefault=true`，并记录源/GLB 哈希、纹理来源、缺失外链、三角面、最大可见网格、材质、GLB和纹理显存预算。
+- 当前教室 v5 为 114,452 三角面、178 个最大同时可见网格、14 个材质和 56,502,720 字节；洋房 v2 为 88,244 三角面、198 个可见网格、12 个材质和 37,793,392 字节。18 组课桌共享网格；洋房七个门枢轴和四段全廊护墙板必须通过 Godot 冒烟。
+- 当前未建立可复验的 Compatibility `LightmapGI` 烘焙链，因此运行时使用扫描 PBR 的 AO/cavity、带阴影实时灯和每区域两个 ReflectionProbe。Lookdev 相机、灯光和静态 3D 人物参考不导出进环境 GLB；Godot 场景内灯光不改变 Core 状态。
+- 本轮未购买 Fab 或 BlenderKit 内容。采购前评审记录位于 `art/concepts/environment-cinematic/commercial-candidates-v1.md`，4K 候选板由 `build_environment_commercial_candidate_board.py` 确定性生成；候选缩略图只用于私有内部评审，不属于采用资产。未来商业候选必须先提交价格、许可、三角面和纹理规格；原始商业下载包不进入 Git，项目化派生物仍需记录再分发限制。
+
+```powershell
+$PythonExe = 'C:\Python314\python.exe'
+$BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
+& $PythonExe .\scripts\tools\build_environment_cinematic_sources.py check
+& $BlenderExe --background .\art\blender\dream_classroom\classroom-art-pass-v5.blend --python-exit-code 1 --python .\scripts\tools\expand_environment_cinematic_full.py -- classroom-check --root .
+& $BlenderExe --background .\art\blender\dream_manor\dream-manor-hall-v2.blend --python-exit-code 1 --python .\scripts\tools\expand_environment_cinematic_full.py -- manor-check --root .
+& $BlenderExe --background --factory-startup --python-exit-code 1 --python .\scripts\tools\export_environment_cinematic_samples.py -- classroom-check --root .
+& $BlenderExe --background --factory-startup --python-exit-code 1 --python .\scripts\tools\export_environment_cinematic_samples.py -- manor-check --root .
+& $PythonExe .\scripts\tools\build_environment_commercial_candidate_board.py --root .
 ```
 
 ### 主角 v2 静态候选管线

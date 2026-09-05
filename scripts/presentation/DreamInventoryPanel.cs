@@ -13,7 +13,6 @@ public enum DreamInventoryPage
 
 public partial class DreamInventoryPanel : Control
 {
-    public event Action<string>? ItemSelected;
     public event Action? PinUseRequested;
     public event Action<string>? HintRequested;
 
@@ -23,8 +22,6 @@ public partial class DreamInventoryPanel : Control
     private Button _cluesTab = null!;
     private Button _xiaoyuTab = null!;
     private VBoxContainer _content = null!;
-    private Label _selected = null!;
-    private string _selectedItemId = string.Empty;
     private DreamInventoryPage _page = DreamInventoryPage.Items;
 
     public override void _Ready()
@@ -60,10 +57,6 @@ public partial class DreamInventoryPanel : Control
         _cluesTab = AddTab(tabs, "记录", DreamInventoryPage.Clues);
         _xiaoyuTab = AddTab(tabs, "与晓雨商量", DreamInventoryPage.Xiaoyu);
 
-        _selected = new Label();
-        _selected.AddThemeColorOverride("font_color", new Color("9bd3c9"));
-        root.AddChild(_selected);
-
         var pagePanel = new PanelContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
         pagePanel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("0f1d29dd"), 6));
         root.AddChild(pagePanel);
@@ -94,9 +87,8 @@ public partial class DreamInventoryPanel : Control
         }
     }
 
-    public void Open(string selectedItemId, DreamInventoryPage page = DreamInventoryPage.Items)
+    public void Open(DreamInventoryPage page = DreamInventoryPage.Items)
     {
-        _selectedItemId = selectedItemId;
         _page = page == DreamInventoryPage.Xiaoyu && _session.State.DreamEscape?.XiaoyuJoined != true
             ? DreamInventoryPage.Items
             : page;
@@ -129,10 +121,6 @@ public partial class DreamInventoryPanel : Control
         _itemsTab.ButtonPressed = _page == DreamInventoryPage.Items;
         _cluesTab.ButtonPressed = _page == DreamInventoryPage.Clues;
         _xiaoyuTab.ButtonPressed = _page == DreamInventoryPage.Xiaoyu;
-        _selected.Text = string.IsNullOrEmpty(_selectedItemId)
-            ? "当前未选用道具"
-            : $"当前选用：{ItemName(_selectedItemId)}（再次选择可取消）";
-
         switch (_page)
         {
             case DreamInventoryPage.Items:
@@ -189,23 +177,16 @@ public partial class DreamInventoryPanel : Control
                 SizeFlagsHorizontal = SizeFlags.ExpandFill,
                 VerticalAlignment = VerticalAlignment.Center
             });
-            var action = UiStyles.Button(itemId == DreamEscapeIds.ItemPin
-                ? "对自己使用"
-                : itemId == _selectedItemId ? "取消选用" : "选用");
-            action.CustomMinimumSize = new Vector2(104, 40);
-            action.Pressed += () =>
+            if (itemId == DreamEscapeIds.ItemPin)
             {
-                if (itemId == DreamEscapeIds.ItemPin)
+                var action = UiStyles.Button("对自己使用");
+                action.CustomMinimumSize = new Vector2(104, 40);
+                action.Pressed += () =>
                 {
                     PinUseRequested?.Invoke();
-                    return;
-                }
-                var next = itemId == _selectedItemId ? string.Empty : itemId;
-                _selectedItemId = next;
-                ItemSelected?.Invoke(next);
-                ClosePanel();
-            };
-            row.AddChild(action);
+                };
+                row.AddChild(action);
+            }
         }
     }
 
@@ -284,9 +265,25 @@ public partial class DreamInventoryPanel : Control
     public static string ItemName(string itemId) => itemId switch
     {
         DreamEscapeIds.ItemPin => "大头针", DreamEscapeIds.ItemChalk => "粉笔",
+        DreamEscapeIds.ItemClockHand => "黄铜时针", DreamEscapeIds.ItemClockKey => "时钟上弦钥匙",
+        DreamEscapeIds.ItemRosterSlider => "值日表滑片",
         DreamEscapeIds.ItemRoomTwoKey => "第二室钥匙", DreamEscapeIds.ItemMaintenanceKey => "维护钥匙",
-        DreamEscapeIds.ItemRedFilter => "红色透明尺", DreamEscapeIds.ItemClassPhoto => "全班合影",
-        DreamEscapeIds.ItemTapeReel => "录音带", DreamEscapeIds.ItemRecorderCrank => "录音机摇柄",
+        DreamEscapeIds.ItemRedFilter => "红色透明尺", DreamEscapeIds.ItemClassPhotoNegative => "全班合影底片",
+        DreamEscapeIds.ItemAttendanceOverlay => "点名孔卡", DreamEscapeIds.ItemTapeFragmentClassroom => "教室剪带",
+        DreamEscapeIds.ItemCalibrationReel => "校准带盘", DreamEscapeIds.ItemRecorderCrank => "录音机摇柄",
+        DreamEscapeIds.ItemStageHook => "舞台钩杆",
+        DreamEscapeIds.ItemRubberMallet => "橡胶音槌", DreamEscapeIds.ItemListeningCone => "共鸣听筒",
+        DreamEscapeIds.ItemMetronomeWeight => "节拍器摆锤", DreamEscapeIds.ItemTornPianoRoll => "破损钢琴纸带",
+        DreamEscapeIds.ItemWaxPatch => "蜡纸修补条", DreamEscapeIds.ItemRoomThreeKey => "第三室钥匙",
+        DreamEscapeIds.ItemBenchClampKey => "琴凳夹钥", DreamEscapeIds.ItemTapeFragmentMusic => "音乐室剪带",
+        DreamEscapeIds.ItemArchiveIndexStrip => "档案索引条", DreamEscapeIds.ItemFuseTube => "陶瓷保险管",
+        DreamEscapeIds.ItemCopperWire => "漆包铜线", DreamEscapeIds.ItemRepairedFuse => "修复保险丝",
+        DreamEscapeIds.ItemSplicingTape => "接带胶", DreamEscapeIds.ItemRoomFourKey => "第四室钥匙",
+        DreamEscapeIds.ItemTapeFragmentArchive => "档案室剪带",
+        DreamEscapeIds.ItemInspectionMirror => "折角检视镜",
+        DreamEscapeIds.ItemCurtainCounterweight => "幕布配重",
+        DreamEscapeIds.ItemProjectorLens => "放映镜头", DreamEscapeIds.ItemMasterReelCore => "空母带盘芯",
+        DreamEscapeIds.ItemRestoredMasterTape => "复原母带",
         _ => itemId
     };
 
@@ -294,43 +291,96 @@ public partial class DreamInventoryPanel : Control
     {
         DreamEscapeIds.ItemPin => "一枚尖锐的大头针。只能对自己使用。",
         DreamEscapeIds.ItemChalk => "还能写出字的白粉笔。",
+        DreamEscapeIds.ItemClockHand => "从时钟下方找到的黄铜时针。",
+        DreamEscapeIds.ItemClockKey => "短柄黄铜钥匙，尺寸与旧时钟侧孔吻合。",
+        DreamEscapeIds.ItemRosterSlider => "透明滑片，边缘与值日表破损处相合。",
         DreamEscapeIds.ItemRoomTwoKey => "黄铜钥匙，铭牌刻着“二”。",
         DreamEscapeIds.ItemMaintenanceKey => "带三角形匙头的工具钥匙。",
         DreamEscapeIds.ItemRedFilter => "透明的红色塑料尺，能滤掉部分颜色。",
-        DreamEscapeIds.ItemClassPhoto => "旧校舍某一届学生的全班合影。",
-        DreamEscapeIds.ItemTapeReel => "从点名柜里找到的旧录音带。",
+        DreamEscapeIds.ItemClassPhotoNegative => "无法直接辨清座位的旧合影底片。",
+        DreamEscapeIds.ItemAttendanceOverlay => "带有规则孔位的透明点名卡。",
+        DreamEscapeIds.ItemTapeFragmentClassroom => "标着“教室”的剪带，单独无法播放。",
+        DreamEscapeIds.ItemCalibrationReel => "校准机械停点的短带盘，不是母带碎片。",
         DreamEscapeIds.ItemRecorderCrank => "可以装在手摇录音机侧面的摇柄。",
+        DreamEscapeIds.ItemStageHook => "细长钩杆，适合拉动高处带环的机关。",
+        DreamEscapeIds.ItemRubberMallet => "不会损伤音叉表面的软头音槌。",
+        DreamEscapeIds.ItemListeningCone => "能放大音叉衰减并显示对应波形的金属听筒。",
+        DreamEscapeIds.ItemMetronomeWeight => "刻着配重刻度，尺寸与钢琴上的节拍器吻合。",
+        DreamEscapeIds.ItemTornPianoRoll => "分成四段的旧纸带，裂口边缘仍能彼此吻合。",
+        DreamEscapeIds.ItemWaxPatch => "只能固定正确接缝的半透明蜡纸条。",
+        DreamEscapeIds.ItemRoomThreeKey => "黄铜钥匙，铭牌刻着“三”。",
+        DreamEscapeIds.ItemBenchClampKey => "扁平工具钥匙，前端适合松开隐藏夹锁。",
+        DreamEscapeIds.ItemTapeFragmentMusic => "标着“音乐”的剪带，单独无法播放。",
+        DreamEscapeIds.ItemArchiveIndexStrip => "标着四个抽屉节点的档案索引条。",
+        DreamEscapeIds.ItemFuseTube => "烧断的旧保险管，陶瓷壳仍然完整。",
+        DreamEscapeIds.ItemCopperWire => "可用于修补保险管的细漆包铜线。",
+        DreamEscapeIds.ItemRepairedFuse => "已经桥接完成、等待安装的保险丝。",
+        DreamEscapeIds.ItemSplicingTape => "广播室使用的窄幅接带胶。",
+        DreamEscapeIds.ItemRoomFourKey => "黄铜钥匙，铭牌刻着“四”。",
+        DreamEscapeIds.ItemTapeFragmentArchive => "标着“档案”的剪带，单独无法播放。",
+        DreamEscapeIds.ItemInspectionMirror => "能看见并拨动高柜背锁的折角长柄镜。",
+        DreamEscapeIds.ItemCurtainCounterweight => "礼堂飞索架缺失的铸铁配重。",
+        DreamEscapeIds.ItemProjectorLens => "旧式放映机的镜头组件。",
+        DreamEscapeIds.ItemMasterReelCore => "可以承载三段剪带的空盘芯。",
+        DreamEscapeIds.ItemRestoredMasterTape => "三段剪带拼成的母带；安装后只输出白噪声。",
         _ => string.Empty
     };
 
     private static string ClueText(string clueId) => clueId switch
     {
         DreamEscapeIds.ClueDeskSources => "黑板：粉笔字把窗、时钟和值日表连成观察顺序。",
-        DreamEscapeIds.ClueClassroomWindow => "旧窗格：三扇窗格各有一道醒目的划痕。",
-        DreamEscapeIds.ClueClassroomClock => "时钟：分针停在十二，时针停在七。",
-        DreamEscapeIds.ClueClassroomDutyRoster => "值日表：第二项被红笔圈了起来。",
+        DreamEscapeIds.ClueClassroomWindow => "后排左课桌维护卡：三幅窗扣磨损示意从左到右是上段、下段、中段。",
+        DreamEscapeIds.ClueClassroomClock => "讲台晨间作息表：时钟图标旁写着 7:00。",
+        DreamEscapeIds.ClueClassroomDutyRoster => "后排右课桌便签：值日表第 2 项被红笔圈出。",
         DreamEscapeIds.ClueCageSequence => "乐谱：四条谱线上的编号对应器材间音板。",
-        DreamEscapeIds.ClueListenWindow => "窗边：短促的矩形波，像木鱼敲击；同时写有“木鱼”。",
-        DreamEscapeIds.ClueListenLectern => "讲台：连续起伏的键形波，像钢琴；同时写有“钢琴”。",
-        DreamEscapeIds.ClueListenDoor => "门边：先有三角尖波，随后是圆环波；标记为三角铁、手铃。",
-        DreamEscapeIds.ClueArchiveRules => "归档规则：四个社团应按当天最早使用教室的时间排列。",
+        DreamEscapeIds.ClueMusicTempoNotice => "入口公告板：排练通知把 72 BPM 圈了出来。",
+        DreamEscapeIds.ClueMusicForkReference => "器材间对照表：四支音叉的衰减、波形与 A3—C4—E4—A4 对应。",
+        DreamEscapeIds.ClueMusicRollTemplate => "纸带柜裂口模板：四段编号按 2—4—1—3 拼合。",
+        DreamEscapeIds.ClueMusicBeatGlyphs => "节拍器：72 BPM 下依次显出 ○—◇—□—△；第四拍的低频由晓雨确认，界面同时显示方形波。",
+        DreamEscapeIds.ClueMusicGlyphPitchMap => "音叉架：○=A3、◇=C4、□=E4、△=A4；每项同时记录音高文字和波形。",
+        DreamEscapeIds.ClueMusicPitchInstrumentMap => "钢琴纸带：A3=木鱼、C4=钢琴、E4=三角铁、A4=手铃。",
+        DreamEscapeIds.ClueMusicAcousticSequence => "声学墙：○—◇—□—△ 逐层换算为木鱼—钢琴—三角铁—手铃。",
+        DreamEscapeIds.ClueArchiveRegistryRule => "登记规则：先上午后下午；同一时段先北侧后南侧。",
+        DreamEscapeIds.ClueArchiveRegistryChoir => "合唱档案：上午、北侧。",
+        DreamEscapeIds.ClueArchiveRegistryBroadcast => "广播档案：上午、南侧。",
+        DreamEscapeIds.ClueArchiveRegistryArt => "美术档案：下午、北侧。",
+        DreamEscapeIds.ClueArchiveRegistryTrack => "田径档案：下午、南侧。",
+        DreamEscapeIds.ClueArchiveDrawerRoute => "档案索引条：抽屉线路依次连接 C1—A4—D2—B3。",
+        DreamEscapeIds.ClueArchiveFuseRoute => "奖励柜线路图：铜线应依次经过左—中—右。",
+        DreamEscapeIds.ClueArchiveEditingStops => "录音机机械停点：12—24—31—45。",
         DreamEscapeIds.ClueMapTool => "教师桌便签：地图柜需要三角形维护钥匙。",
         DreamEscapeIds.ClueSeatCoordinates => "合影滤色：四名学生分别落在 B2、D1、A3、C4。",
         DreamEscapeIds.ClueBroadcastSequence => "录音波形下依次画着窗帘、时钟、校铃、点名册。",
+        DreamEscapeIds.ClueAuditoriumLineSetNotches => "幕布配重磨损尺：A3—B1—C4—D2。",
+        DreamEscapeIds.ClueAuditoriumProjectionOrder => "升幕后投影轮廓：窗格—人物—校铃。",
+        DreamEscapeIds.ClueAuditoriumTapeOrder => "母带登记卡：剪带顺序为教室—音乐—档案。",
         _ => clueId
     };
 
     private static string PuzzleName(string id) => id switch
     {
-        DreamEscapeIds.PuzzleBlackboard => "黑板擦痕", DreamEscapeIds.PuzzleTeacherDesk => "教师桌",
-        DreamEscapeIds.PuzzleRoomTwoDoor => "第二扇门", DreamEscapeIds.PuzzleMusicScore => "蒙尘乐谱",
-        DreamEscapeIds.PuzzleMusicCage => "器材间音板", DreamEscapeIds.PuzzleListening => "辨听排列",
-        DreamEscapeIds.PuzzleArchiveOrder => "社团档案", DreamEscapeIds.PuzzleMapCabinet => "地图柜",
-        DreamEscapeIds.PuzzlePhotoFilter => "合影滤色", DreamEscapeIds.PuzzleAttendance => "点名柜",
-        DreamEscapeIds.PuzzleRecorderTape or DreamEscapeIds.PuzzleRecorderCrank => "旧录音机",
-        DreamEscapeIds.PuzzleRoomFourDoor => "第四扇门", DreamEscapeIds.PuzzleFinalDesk => "数字控制板",
-        DreamEscapeIds.PuzzleFinalInstruments => "乐器控制板", DreamEscapeIds.PuzzleFinalBroadcast => "广播控制板",
-        DreamEscapeIds.PuzzleLeftLever => "双侧机关", DreamEscapeIds.PuzzleExit => "出口总闸",
+        DreamEscapeIds.PuzzleWindowLatches => "窗扣暗格", DreamEscapeIds.PuzzleBlackboard => "黑板擦痕",
+        DreamEscapeIds.PuzzleClockRestore => "修复时钟", DreamEscapeIds.PuzzleRosterSlider => "值日表滑片",
+        DreamEscapeIds.PuzzleTeacherDesk => "教师桌", DreamEscapeIds.PuzzleMusicScore => "蒙尘乐谱",
+        DreamEscapeIds.PuzzleMusicCage => "器材间音板", DreamEscapeIds.PuzzleMusicMetronome => "节拍器校准",
+        DreamEscapeIds.PuzzleMusicTuningForks => "音叉排序", DreamEscapeIds.PuzzleMusicPianoRoll => "钢琴纸带",
+        DreamEscapeIds.PuzzleMusicAcousticWall => "声学墙转译",
+        DreamEscapeIds.PuzzleArchiveSignalRegistry => "广播档案登记", DreamEscapeIds.PuzzleMapCabinet => "地图柜",
+        DreamEscapeIds.PuzzleTransomCache => "气窗盒",
+        DreamEscapeIds.PuzzleMusicAttendanceReader => "点名读取装置",
+        DreamEscapeIds.PuzzleMusicPianoBenchCache => "琴凳暗格",
+        DreamEscapeIds.PuzzleArchiveDrawerRoute => "抽屉线路",
+        DreamEscapeIds.PuzzleArchiveFuseRepair => "保险丝修复",
+        DreamEscapeIds.PuzzleArchiveRecorderRebuild => "录音机重建",
+        DreamEscapeIds.PuzzleArchiveEditingCounter => "剪辑计数器",
+        DreamEscapeIds.PuzzleArchiveUpperVault => "高柜暗格",
+        DreamEscapeIds.PuzzleAuditoriumLineSetBalance => "幕布吊杆配平",
+        DreamEscapeIds.PuzzleAuditoriumShadowProjector => "影盘放映机",
+        DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice => "母带拼接",
+        DreamEscapeIds.PuzzleAuditoriumLightConsole => "灯光控制台",
+        DreamEscapeIds.PuzzleAuditoriumSoundConsole => "声道控制台",
+        DreamEscapeIds.PuzzleAuditoriumBroadcastConsole => "广播控制台",
+        DreamEscapeIds.PuzzleExit => "双侧出口机关",
         _ => id
     };
 }

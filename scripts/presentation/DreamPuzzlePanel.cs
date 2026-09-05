@@ -6,6 +6,8 @@ namespace TownRpg.Presentation;
 public partial class DreamPuzzlePanel : Control
 {
     public event Action<string, string[]>? Submitted;
+    public event Action<string, string[]>? PreviewChanged;
+    public event Action<string>? Closed;
 
     private GameSession _session = null!;
     private IDisposable? _modalLease;
@@ -167,11 +169,13 @@ public partial class DreamPuzzlePanel : Control
 
     public void ClosePanel()
     {
+        var closedPuzzle = _puzzleId;
         Visible = false;
         _puzzleId = string.Empty;
         _tokens.Clear();
         _modalLease?.Dispose();
         _modalLease = null;
+        if (!string.IsNullOrEmpty(closedPuzzle)) Closed?.Invoke(closedPuzzle);
     }
 
     private void AddToken(string token)
@@ -211,6 +215,7 @@ public partial class DreamPuzzlePanel : Control
         _submit.Disabled = _tokens.Count != _expectedLength;
         foreach (var (token, button) in _choiceButtons)
             button.Disabled = !_allowRepeats && _tokens.Contains(token, StringComparer.Ordinal);
+        if (!string.IsNullOrEmpty(_puzzleId)) PreviewChanged?.Invoke(_puzzleId, _tokens.ToArray());
     }
 
     private static string DisplayToken(string token) => token switch

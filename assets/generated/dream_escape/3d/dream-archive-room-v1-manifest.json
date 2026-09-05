@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "status": "adopted-runtime-default",
+  "runtimeDefault": true,
+  "sampleOnly": false,
+  "source": "art/blender/dream_late_rooms/dream-archive-room-v1.blend",
+  "gameFile": "assets/generated/dream_escape/3d/dream-archive-room-v1.glb",
+  "bytes": 47053364,
+  "sha256": "3c79e5531f02e97c1c24fe2aa5358bd716225e0095679b65018c74dd5c1e09aa",
+  "meshObjects": 106,
+  "trianglesUpperBound": 11888,
+  "missingExternalFiles": 0,
+  "generator": "Blender 5.2.0 LTS deterministic construction"
+}
