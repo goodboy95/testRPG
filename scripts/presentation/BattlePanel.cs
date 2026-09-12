@@ -17,37 +17,39 @@ public partial class BattlePanel : Control
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var shade = new ColorRect { Color = new Color("0b1521e0") };
+        var shade = new ColorRect { Color = UiStyles.Background };
         shade.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         AddChild(shade);
 
+        var frame = new VBoxContainer { Position = new Vector2(24, 14), Size = new Vector2(592, 332) };
+        frame.AddThemeConstantOverride("separation", 8); AddChild(frame);
         var title = new Label
         {
             Text = "旧隧道 · 异常共鸣",
-            Position = new Vector2(28, 22)
+            SizeFlagsHorizontal = SizeFlags.ExpandFill
         };
-        title.AddThemeFontSizeOverride("font_size", 24);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        AddChild(title);
+        UiStyles.Heading(title, 20);
+        frame.AddChild(title);
 
-        _status = new Label { Position = new Vector2(30, 62), Size = new Vector2(580, 25) };
-        AddChild(_status);
+        _status = new Label { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        UiStyles.Font(_status, 12);
+        frame.AddChild(_status);
+        var paper = new PanelContainer { SizeFlagsVertical = SizeFlags.ExpandFill }; UiStyles.PaperSurface(paper); frame.AddChild(paper);
         _log = new RichTextLabel
         {
-            Position = new Vector2(30, 96),
-            Size = new Vector2(580, 170),
+            SizeFlagsVertical = SizeFlags.ExpandFill,
             BbcodeEnabled = true,
             Text = "铁轨深处传来不属于机械的低鸣。你们不需要消灭它，只需找到让共鸣平静的方法。"
         };
-        AddChild(_log);
+        paper.AddChild(_log);
 
         _actions = new HBoxContainer
         {
-            Position = new Vector2(30, 286),
-            Size = new Vector2(580, 46),
+            Position = new Vector2(24, 294),
+            Size = new Vector2(592, 46),
             Alignment = BoxContainer.AlignmentMode.Center
         };
-        AddChild(_actions);
+        frame.AddChild(_actions);
         AddAction("观察节拍", BattleAction.Observe);
         AddAction("保护同伴", BattleAction.Guard);
         AddAction("请求安抚", BattleAction.Soothe);
@@ -75,7 +77,7 @@ public partial class BattlePanel : Control
 
     public void ApplyResult(BattleTurnResult result)
     {
-        _log.AppendText($"\n\n[color=#b9d1c5]第 {result.Turn} 回合[/color]\n{result.Message}");
+        _log.AppendText($"\n\n[color=#754d32]第 {result.Turn} 回合[/color]\n{result.Message}");
         _status.Text = $"共鸣强度：{result.Resonance}/6　　意志：{result.Resolve}/6";
         if (result.Won || result.Retreated)
         {
@@ -100,6 +102,7 @@ public partial class BattlePanel : Control
     private void ShowRetry()
     {
         SetActionsEnabled(false);
+        foreach (var child in _actions.GetChildren().OfType<Button>()) child.Visible = child == _retry;
         _retry.Visible = true;
         _retry.Disabled = false;
         _retry.GrabFocus();
@@ -112,6 +115,7 @@ public partial class BattlePanel : Control
             if (child is Button button)
             {
                 button.Disabled = !enabled;
+                if (enabled && button != _retry) button.Visible = true;
             }
         }
 

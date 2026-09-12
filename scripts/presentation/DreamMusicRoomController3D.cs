@@ -5,11 +5,9 @@ using TownRpg.Core.Domain;
 namespace TownRpg.Presentation;
 
 public partial class DreamMusicRoomController3D : WorldArea3D, IDreamAreaRuntime, IDreamAreaExitTransition,
-    IDreamAreaTransitionPose3D
+    IDreamAreaTransitionPose3D, IDreamAreaTransientPresentation
 {
-    private readonly AreaCoordinateMapper3D _coordinateMapper = new(
-        new Rect2(16f, 54f, 608f, 272f),
-        new Rect2(-5.25f, -3.75f, 10.5f, 7.5f));
+    private readonly AreaCoordinateMapper3D _coordinateMapper = MusicRoomLayout3D.Mapper;
     private GameSession _session = null!;
     private DreamMusicVisual3D _visual = null!;
     private DreamCompanion3D _companion = null!;
@@ -35,10 +33,14 @@ public partial class DreamMusicRoomController3D : WorldArea3D, IDreamAreaRuntime
         _visual = GetNode<DreamMusicVisual3D>("MusicVisual");
         _ambience = GetNode<AudioStreamPlayer>("AmbiencePlayer");
         _mechanismCue = GetNode<AudioStreamPlayer>("MechanismCuePlayer");
+        foreach (var marker in GetNode<Node3D>("InteractionMarkers").GetChildren().OfType<InteractionMarker3D>())
+            marker.Position = MusicRoomLayout3D.MarkerPositions.TryGetValue(marker.TargetId, out var position)
+                ? position : throw new InvalidOperationException($"Unknown music marker '{marker.TargetId}'.");
         base._Ready();
         _companion = GetNode<DreamCompanion3D>("XiaoyuCompanion");
         var dream = _session.State.DreamEscape
             ?? throw new InvalidOperationException("3D music room loaded without dream state.");
+        _visual.ApplyState(dream);
         var requestedStored = new Vector2(dream.PositionX, dream.PositionY);
         var requestedWorld = _coordinateMapper.ToWorld(requestedStored);
         var resolvedWorld = _visual.ResolveSpawn(requestedWorld);
@@ -54,7 +56,14 @@ public partial class DreamMusicRoomController3D : WorldArea3D, IDreamAreaRuntime
             "res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png");
         if (protagonistTexture is not null)
             Player.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(protagonistTexture));
-        _visual.ApplyState(dream);
+        _companion.PreJoinPosition = MusicRoomLayout3D.BeforeJoin;
+        _companion.ConfigureBillboardHeight(1.6f);
+        _companion.UseRoutedMotion = true;
+        _companion.FollowPositionResolver = _visual.ResolveSpawn;
+        _companion.FollowStepResolver = _visual.AdvanceCompanion;
+        _companion.FollowPositionIsBlocked = _visual.IsBlocked;
+        _companion.RoutedMotionPaused = () => _session.Modal.IsBlocked || !_visual.EquipmentPassable;
+        _companion.RefreshImmediate(force: true);
         _knownSolved.UnionWith(dream.SolvedPuzzles);
         _ambience.Finished += OnAmbienceFinished;
         _ambience.Play();
@@ -84,6 +93,10 @@ public partial class DreamMusicRoomController3D : WorldArea3D, IDreamAreaRuntime
         _companion.RefreshImmediate();
     }
 
+    public void ApplyTransientState(DreamAreaTransientState state) =>
+        _companion.SetHeldPose(state.PreviewPuzzleId == DreamEscapeIds.PuzzleMusicChannelCalibration,
+            MusicRoomLayout3D.SideObservation, "observe", Vector3.Left);
+
     protected override bool IsMarkerActive(InteractionMarker3D marker)
     {
         var dream = _session.State.DreamEscape!;
@@ -96,22 +109,21 @@ public partial class DreamMusicRoomController3D : WorldArea3D, IDreamAreaRuntime
             "pickup:dream.metronome_weight" => PickupActive(dream, DreamEscapeIds.PickupMetronomeWeight),
             "pickup:dream.torn_piano_roll" => PickupActive(dream, DreamEscapeIds.PickupTornPianoRoll),
             "pickup:dream.wax_patch" => PickupActive(dream, DreamEscapeIds.PickupWaxPatch),
-            "target.music.metronome" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicMetronome),
-            "puzzle:music_tuning_forks" =>
-                dream.XiaoyuJoined && !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicTuningForks),
+            "target.music.metronome" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.ProgressMetronomeReady),
+            "puzzle:music_channel_calibration" =>
+                dream.XiaoyuJoined && !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicChannelCalibration),
             "puzzle:music_piano_roll" =>
                 dream.XiaoyuJoined && !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicPianoRoll),
             "puzzle:music_acoustic_wall" =>
                 dream.XiaoyuJoined && !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicAcousticWall),
-            "puzzle:music_attendance_reader" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicAttendanceReader),
-            "target.music.piano_bench" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicPianoBenchCache),
+            "puzzle:music_backstage_photo" =>
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicBackstagePhoto),
+            "observe:target.music.side_wave" => dream.XiaoyuJoined,
             "observe:target.music.tempo_notice" => dream.XiaoyuJoined &&
                 !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueMusicTempoNotice),
             "observe:target.music.fork_reference" => dream.XiaoyuJoined &&
                 dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicCage) &&
-                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueMusicForkReference),
+                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueMusicFrontWaves),
             "observe:target.music.roll_template" => dream.XiaoyuJoined &&
                 !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueMusicRollTemplate),
             "hint:xiaoyu" => dream.XiaoyuJoined,
@@ -174,7 +186,7 @@ public partial class DreamMusicRoomController3D : WorldArea3D, IDreamAreaRuntime
             Mathf.DegToRad(cameraDoorOffsetDegrees ?? 0f));
         CameraRig.SetHorizontalForwardImmediate(cameraForward);
         CameraRig.SnapToTarget();
-        _companion.RefreshImmediate();
+        _companion.RefreshImmediate(force: true);
     }
 
     private static bool PickupActive(DreamEscapeState state, string progressId) =>
@@ -191,9 +203,9 @@ public partial class DreamMusicRoomController3D : WorldArea3D, IDreamAreaRuntime
         {
             (DreamEscapeIds.PuzzleMusicAcousticWall,
                 "res://assets/generated/dream_escape/audio/music-acoustic-wall.wav"),
-            (DreamEscapeIds.PuzzleMusicTuningForks,
+            (DreamEscapeIds.PuzzleMusicChannelCalibration,
                 "res://assets/generated/dream_escape/audio/music-tuning-forks-a3-c4-e4-a4.wav"),
-            (DreamEscapeIds.PuzzleMusicMetronome,
+            (DreamEscapeIds.ProgressMetronomeReady,
                 "res://assets/generated/dream_escape/audio/music-metronome-72.wav")
         }.FirstOrDefault(cue => dream.SolvedPuzzles.Contains(cue.Item1) &&
                                  !_knownSolved.Contains(cue.Item1)).Item2;

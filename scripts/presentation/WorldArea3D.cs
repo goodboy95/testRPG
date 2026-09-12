@@ -20,6 +20,15 @@ public partial class WorldArea3D : Node3D
         .Select(marker => marker.TargetId)
         .ToArray();
     public string? CurrentInteractionTargetId => _focused?.TargetId;
+    public Vector2? InteractionScreenPoint
+    {
+        get
+        {
+            if (_focused is null || CameraRig.Camera.IsPositionBehind(_focused.GlobalPosition)) return null;
+            var viewport = GetViewport().GetVisibleRect().Size;
+            return CameraRig.Camera.UnprojectPosition(_focused.GlobalPosition + Vector3.Up * .45f) / viewport * new Vector2(640, 360);
+        }
+    }
 
     private readonly List<InteractionMarker3D> _markers = [];
     private InteractionMarker3D? _focused;
@@ -75,7 +84,13 @@ public partial class WorldArea3D : Node3D
         if (_focused is not null && inputEvent.IsActionPressed("interact"))
         {
             GetViewport().SetInputAsHandled();
-            InteractionRequested?.Invoke(_focused.TargetId);
+            var target = _focused;
+            var pose = target.TargetId.StartsWith("pickup:", StringComparison.Ordinal) ? "pickup" :
+                target.TargetId.StartsWith("observe:", StringComparison.Ordinal) ? "observe" :
+                target.TargetId == "hint:xiaoyu" ? "talk" : "operate";
+            Player.PlayInteractionPose(pose, target.GlobalPosition);
+            if (pose == "talk") GetNodeOrNull<DreamCompanion3D>("XiaoyuCompanion")?.PlayConversationPose(Player.GlobalPosition);
+            InteractionRequested?.Invoke(target.TargetId);
         }
     }
 
@@ -105,7 +120,7 @@ public partial class WorldArea3D : Node3D
     }
 
     protected virtual string BuildPrompt(InteractionMarker3D marker) =>
-        $"[{(UseGamepadPrompts ? "A" : "F")}] {marker.Prompt}";
+        $"[{(UseGamepadPrompts ? "A" : "F")}] {(marker.Prompt.StartsWith("DREAM_V6_", StringComparison.Ordinal) ? DreamPrologueText.Get(marker.Prompt) : marker.Prompt)}";
 
     private InteractionMarker3D? FindInteractionTarget()
     {

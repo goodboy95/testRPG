@@ -7,6 +7,49 @@ namespace TownRpg.Core.Tests;
 public sealed class SaveGameSerializerTests
 {
     [Fact]
+    public void SubtitleSettings_RoundTripIndependentlyOfMenuText()
+    {
+        var state = GameState.CreateVerticalSlice();
+        state.Settings.FontScale = 1.25f;
+        state.Settings.SubtitleFontScale = 2f;
+        state.Settings.SubtitleBackground = SubtitleBackground.HighContrast;
+        var restored = SaveGameSerializer.Deserialize(SaveGameSerializer.Serialize(state));
+        Assert.Equal(1.25f, restored.Settings.FontScale);
+        Assert.Equal(2f, restored.Settings.EffectiveSubtitleFontScale);
+        Assert.Equal(SubtitleBackground.HighContrast, restored.Settings.SubtitleBackground);
+    }
+
+    [Fact]
+    public void OldSubtitleSettings_InheritSavedFontScaleWithoutResettingOtherPreferences()
+    {
+        var state = GameState.CreateVerticalSlice();
+        state.Settings.FontScale = 1.5f;
+        state.Settings.TextSpeed = .75f;
+        var json = System.Text.Json.Nodes.JsonNode.Parse(SaveGameSerializer.Serialize(state))!;
+        var settings = json["game"]!["settings"]!.AsObject();
+        settings.Remove("subtitleFontScale"); settings.Remove("subtitleBackground");
+        var restored = SaveGameSerializer.Deserialize(json.ToJsonString());
+        Assert.Null(restored.Settings.SubtitleFontScale);
+        Assert.Equal(1.5f, restored.Settings.EffectiveSubtitleFontScale);
+        Assert.Equal(SubtitleBackground.SoftShadow, restored.Settings.SubtitleBackground);
+        Assert.Equal(.75f, restored.Settings.TextSpeed);
+        restored.Settings.SubtitleFontScale = 1f;
+        Assert.Equal(1.5f, restored.Settings.FontScale);
+    }
+
+    [Theory]
+    [InlineData(.74f, 0)]
+    [InlineData(2.01f, 0)]
+    [InlineData(1f, 99)]
+    public void SubtitleSettings_RejectInvalidScaleOrBackground(float scale, int background)
+    {
+        var state = GameState.CreateVerticalSlice();
+        state.Settings.SubtitleFontScale = scale;
+        state.Settings.SubtitleBackground = (SubtitleBackground)background;
+        Assert.Throws<InvalidDataException>(() => SaveGameSerializer.Deserialize(SaveGameSerializer.Serialize(state)));
+    }
+
+    [Fact]
     public void RoundTrip_PreservesVerticalSliceState()
     {
         var state = GameState.CreateVerticalSlice();

@@ -12,7 +12,7 @@ public enum DreamEscapeStatus
 
 public sealed class DreamEscapeState
 {
-    public const int CurrentContentVersion = 5;
+    public const int CurrentContentVersion = 6;
     public const float NewGameClassroomPositionX = 448f;
     public const float NewGameClassroomPositionY = 214f;
 
@@ -72,9 +72,6 @@ public static class DreamEscapeIds
     public const string ItemSplicingTape = "dream.splicing_tape";
     public const string ItemRoomFourKey = "dream.room_four_key";
     public const string ItemTapeFragmentArchive = "dream.tape_fragment_archive";
-    public const string ItemStageHook = "dream.stage_hook";
-    public const string ItemBenchClampKey = "dream.bench_clamp_key";
-    public const string ItemInspectionMirror = "dream.inspection_mirror";
     public const string ItemCurtainCounterweight = "dream.curtain_counterweight";
     public const string ItemProjectorLens = "dream.projector_lens";
     public const string ItemMasterReelCore = "dream.master_reel_core";
@@ -86,27 +83,18 @@ public static class DreamEscapeIds
     public const string PuzzleRosterSlider = "dream.classroom.roster_slider";
     public const string PuzzleTeacherDesk = "dream.classroom.teacher_desk";
     public const string PuzzleMapCabinet = "dream.classroom.map_cabinet";
-    public const string PuzzleTransomCache = "dream.classroom.transom_cache";
     public const string PuzzleMusicScore = "dream.music.score";
     public const string PuzzleMusicCage = "dream.music.cage";
-    public const string PuzzleMusicMetronome = "dream.music.metronome";
-    public const string PuzzleMusicTuningForks = "dream.music.tuning_forks";
+    public const string PuzzleMusicChannelCalibration = "dream.music.channel_calibration";
     public const string PuzzleMusicPianoRoll = "dream.music.piano_roll";
     public const string PuzzleMusicAcousticWall = "dream.music.acoustic_wall";
-    public const string PuzzleMusicAttendanceReader = "dream.music.attendance_reader";
-    public const string PuzzleMusicPianoBenchCache = "dream.music.piano_bench_cache";
-    public const string PuzzleArchiveSignalRegistry = "dream.archive.signal_registry";
-    public const string PuzzleArchiveDrawerRoute = "dream.archive.drawer_route";
-    public const string PuzzleArchiveFuseRepair = "dream.archive.fuse_repair";
+    public const string PuzzleMusicBackstagePhoto = "dream.music.backstage_photo";
+    public const string PuzzleArchiveRetrieval = "dream.archive.retrieval";
     public const string PuzzleArchiveRecorderRebuild = "dream.archive.recorder_rebuild";
-    public const string PuzzleArchiveEditingCounter = "dream.archive.editing_counter";
-    public const string PuzzleArchiveUpperVault = "dream.archive.upper_vault";
-    public const string PuzzleAuditoriumLineSetBalance = "dream.auditorium.line_set_balance";
-    public const string PuzzleAuditoriumShadowProjector = "dream.auditorium.shadow_projector";
-    public const string PuzzleAuditoriumMasterTapeSplice = "dream.auditorium.master_tape_splice";
-    public const string PuzzleAuditoriumLightConsole = "dream.auditorium.light_console";
-    public const string PuzzleAuditoriumSoundConsole = "dream.auditorium.sound_console";
-    public const string PuzzleAuditoriumBroadcastConsole = "dream.auditorium.broadcast_console";
+    public const string PuzzleArchiveWorkTimeline = "dream.archive.work_timeline";
+    public const string PuzzleAuditoriumStageAlignment = "dream.auditorium.stage_alignment";
+    public const string PuzzleAuditoriumTapeReconstruction = "dream.auditorium.tape_reconstruction";
+    public const string PuzzleAuditoriumHandoffPlan = "dream.auditorium.handoff_plan";
     public const string PuzzleExit = "dream.auditorium.exit";
 
     public const string ClueDeskSources = "dream.clue.desk_sources";
@@ -115,11 +103,10 @@ public static class DreamEscapeIds
     public const string ClueClassroomDutyRoster = "dream.clue.classroom_duty_roster";
     public const string ClueCageSequence = "dream.clue.cage_sequence";
     public const string ClueMusicTempoNotice = "dream.clue.music_tempo_notice";
-    public const string ClueMusicForkReference = "dream.clue.music_fork_reference";
+    public const string ClueMusicFrontWaves = "dream.clue.music_front_waves";
     public const string ClueMusicRollTemplate = "dream.clue.music_roll_template";
-    public const string ClueMusicBeatGlyphs = "dream.clue.music_beat_glyphs";
-    public const string ClueMusicGlyphPitchMap = "dream.clue.music_glyph_pitch_map";
-    public const string ClueMusicPitchInstrumentMap = "dream.clue.music_pitch_instrument_map";
+    public const string ClueMusicChannelMap = "dream.clue.music_channel_map";
+    public const string ClueMusicRepairedScore = "dream.clue.music_repaired_score";
     public const string ClueMusicAcousticSequence = "dream.clue.music_acoustic_sequence";
     public const string ClueArchiveRegistryRule = "dream.clue.archive_registry_rule";
     public const string ClueArchiveRegistryChoir = "dream.clue.archive_registry_choir";
@@ -128,13 +115,13 @@ public static class DreamEscapeIds
     public const string ClueArchiveRegistryTrack = "dream.clue.archive_registry_track";
     public const string ClueArchiveDrawerRoute = "dream.clue.archive_drawer_route";
     public const string ClueArchiveFuseRoute = "dream.clue.archive_fuse_route";
-    public const string ClueArchiveEditingStops = "dream.clue.archive_editing_stops";
+    public const string ClueWorkTickets = "dream.clue.work_tickets";
     public const string ClueMapTool = "dream.clue.map_tool";
-    public const string ClueSeatCoordinates = "dream.clue.seat_coordinates";
-    public const string ClueBroadcastSequence = "dream.clue.broadcast_sequence";
-    public const string ClueAuditoriumLineSetNotches = "dream.clue.auditorium_line_set_notches";
-    public const string ClueAuditoriumProjectionOrder = "dream.clue.auditorium_projection_order";
-    public const string ClueAuditoriumTapeOrder = "dream.clue.auditorium_tape_order";
+    public const string ClueBackstagePosition = "dream.clue.backstage_position";
+    public const string ClueWorkTimeline = "dream.clue.work_timeline";
+    public const string ClueStageFrontFrame = "dream.clue.stage_front_frame";
+    public const string ClueStageSideFrame = "dream.clue.stage_side_frame";
+    public const string ClueTapeSeams = "dream.clue.tape_seams";
 
     public const string SlotClassroomClockHand = "dream.slot.classroom.clock_hand";
     public const string SlotClassroomClockKey = "dream.slot.classroom.clock_key";
@@ -158,8 +145,17 @@ public static class DreamEscapeIds
     public const string PickupCurtainCounterweight = "dream.pickup.curtain_counterweight";
     public const string PickupProjectorLens = "dream.pickup.projector_lens";
 
-    public static readonly IReadOnlySet<string> Areas = Set(AreaCorridor, AreaClassroom, AreaMusic, AreaArchive, AreaAuditorium);
+    public const string ProgressMetronomeReady = "dream.assembly.metronome";
+    public const string ProgressFuseAssembly = "dream.assembly.fuse";
+    public const string ClueDoorMapping = "dream.clue.door_mapping";
+    public const string ClueMusicSideWave = "dream.clue.music_side_wave";
+    public const string ClueProgramme = "dream.clue.programme";
+    public const string CluePreparationList = "dream.clue.preparation_list";
+    public const string ClueArchiveScope = "dream.clue.archive_scope";
+    public const string CluePhotoDuty = "dream.clue.photo_duty";
+    public const string ClueHandoffCircuit = "dream.clue.handoff_circuit";
 
+    public static readonly IReadOnlySet<string> Areas = Set(AreaCorridor, AreaClassroom, AreaMusic, AreaArchive, AreaAuditorium);
     public static readonly IReadOnlySet<string> Items = Set(
         ItemPin, ItemChalk, ItemClockHand, ItemClockKey, ItemRosterSlider, ItemRoomTwoKey,
         ItemClassPhotoNegative, ItemAttendanceOverlay, ItemTapeFragmentClassroom,
@@ -167,67 +163,53 @@ public static class DreamEscapeIds
         ItemRoomThreeKey, ItemCalibrationReel, ItemRecorderCrank, ItemTapeFragmentMusic,
         ItemMaintenanceKey, ItemRedFilter, ItemArchiveIndexStrip, ItemFuseTube, ItemCopperWire,
         ItemRepairedFuse, ItemSplicingTape, ItemRoomFourKey, ItemTapeFragmentArchive,
-        ItemStageHook, ItemBenchClampKey, ItemInspectionMirror, ItemCurtainCounterweight,
-        ItemProjectorLens, ItemMasterReelCore, ItemRestoredMasterTape);
-
+        ItemCurtainCounterweight, ItemProjectorLens, ItemMasterReelCore, ItemRestoredMasterTape);
     public static readonly IReadOnlySet<string> Puzzles = Set(
-        PuzzleWindowLatches, PuzzleBlackboard, PuzzleClockRestore, PuzzleRosterSlider,
-        PuzzleTeacherDesk, PuzzleMapCabinet, PuzzleTransomCache,
-        PuzzleMusicScore, PuzzleMusicCage, PuzzleMusicMetronome, PuzzleMusicTuningForks,
-        PuzzleMusicPianoRoll, PuzzleMusicAcousticWall, PuzzleMusicAttendanceReader,
-        PuzzleMusicPianoBenchCache,
-        PuzzleArchiveSignalRegistry, PuzzleArchiveDrawerRoute, PuzzleArchiveFuseRepair,
-        PuzzleArchiveRecorderRebuild, PuzzleArchiveEditingCounter, PuzzleArchiveUpperVault,
-        PuzzleAuditoriumLineSetBalance, PuzzleAuditoriumShadowProjector,
-        PuzzleAuditoriumMasterTapeSplice, PuzzleAuditoriumLightConsole,
-        PuzzleAuditoriumSoundConsole, PuzzleAuditoriumBroadcastConsole, PuzzleExit);
-
+        PuzzleWindowLatches, PuzzleBlackboard, PuzzleClockRestore, PuzzleRosterSlider, PuzzleTeacherDesk,
+        PuzzleMapCabinet, PuzzleMusicScore, PuzzleMusicCage, PuzzleMusicChannelCalibration,
+        PuzzleMusicPianoRoll, PuzzleMusicAcousticWall, PuzzleMusicBackstagePhoto,
+        PuzzleArchiveRetrieval, PuzzleArchiveRecorderRebuild, PuzzleArchiveWorkTimeline,
+        PuzzleAuditoriumStageAlignment, PuzzleAuditoriumTapeReconstruction,
+        PuzzleAuditoriumHandoffPlan, PuzzleExit);
     public static readonly IReadOnlySet<string> Clues = Set(
         ClueDeskSources, ClueClassroomWindow, ClueClassroomClock, ClueClassroomDutyRoster,
-        ClueCageSequence, ClueMusicTempoNotice, ClueMusicForkReference, ClueMusicRollTemplate,
-        ClueMusicBeatGlyphs, ClueMusicGlyphPitchMap, ClueMusicPitchInstrumentMap,
+        ClueCageSequence, ClueDoorMapping, ClueMusicTempoNotice, ClueMusicFrontWaves,
+        ClueMusicSideWave, ClueMusicRollTemplate, ClueMusicChannelMap, ClueMusicRepairedScore,
         ClueMusicAcousticSequence, ClueArchiveRegistryRule, ClueArchiveRegistryChoir,
         ClueArchiveRegistryBroadcast, ClueArchiveRegistryArt, ClueArchiveRegistryTrack,
-        ClueArchiveDrawerRoute, ClueArchiveFuseRoute, ClueArchiveEditingStops,
-        ClueMapTool, ClueSeatCoordinates, ClueBroadcastSequence,
-        ClueAuditoriumLineSetNotches, ClueAuditoriumProjectionOrder, ClueAuditoriumTapeOrder);
-
+        ClueArchiveDrawerRoute, ClueArchiveFuseRoute, ClueWorkTickets, ClueMapTool,
+        ClueBackstagePosition, ClueWorkTimeline, ClueStageFrontFrame, ClueStageSideFrame,
+        ClueTapeSeams, ClueProgramme, CluePreparationList, ClueArchiveScope, CluePhotoDuty,
+        ClueHandoffCircuit);
     public static readonly IReadOnlySet<string> InstalledPartSlots = Set(
         SlotClassroomClockHand, SlotClassroomClockKey, SlotClassroomRosterSlider,
-        SlotMusicMetronomeWeight, SlotMusicPianoRoll,
-        SlotArchiveRecorderReel, SlotArchiveRecorderCrank, SlotArchiveRecorderFuse,
-        SlotAuditoriumCurtainCounterweight, SlotAuditoriumProjectorLens, SlotAuditoriumMasterTape);
-
+        SlotMusicMetronomeWeight, SlotMusicPianoRoll, SlotArchiveRecorderReel, SlotArchiveRecorderCrank,
+        SlotArchiveRecorderFuse, SlotAuditoriumCurtainCounterweight, SlotAuditoriumProjectorLens,
+        SlotAuditoriumMasterTape);
     public static readonly IReadOnlySet<string> PickupProgress = Set(
         PickupClockHand, PickupRubberMallet, PickupListeningCone, PickupMetronomeWeight,
         PickupTornPianoRoll, PickupWaxPatch, PickupArchiveIndexStrip,
-        PickupCurtainCounterweight, PickupProjectorLens);
+        PickupCurtainCounterweight, PickupProjectorLens, ProgressMetronomeReady, ProgressFuseAssembly);
 
     public static readonly IReadOnlyDictionary<string, IReadOnlyList<string>> PuzzleInputClues =
         new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal)
         {
             [PuzzleWindowLatches] = [ClueClassroomWindow],
-            [PuzzleClockRestore] = [ClueClassroomClock],
+            [PuzzleClockRestore] = [ClueClassroomClock, ClueClassroomDutyRoster],
             [PuzzleRosterSlider] = [ClueClassroomDutyRoster],
-            [PuzzleTeacherDesk] = [ClueDeskSources, ClueClassroomWindow, ClueClassroomClock, ClueClassroomDutyRoster],
-            [PuzzleMusicCage] = [ClueCageSequence],
-            [PuzzleMusicMetronome] = [ClueMusicTempoNotice],
-            [PuzzleMusicTuningForks] = [ClueMusicForkReference],
+            [PuzzleTeacherDesk] = [ClueDeskSources, ClueClassroomClock, ClueClassroomDutyRoster],
+            [PuzzleMusicCage] = [ClueCageSequence, ClueDoorMapping],
+            [PuzzleMusicChannelCalibration] = [ClueMusicFrontWaves, ClueMusicSideWave],
             [PuzzleMusicPianoRoll] = [ClueMusicRollTemplate],
-            [PuzzleMusicAcousticWall] = [ClueMusicBeatGlyphs, ClueMusicGlyphPitchMap, ClueMusicPitchInstrumentMap],
-            [PuzzleArchiveSignalRegistry] = [ClueArchiveRegistryRule, ClueArchiveRegistryChoir,
-                ClueArchiveRegistryBroadcast, ClueArchiveRegistryArt, ClueArchiveRegistryTrack],
-            [PuzzleArchiveDrawerRoute] = [ClueArchiveDrawerRoute],
-            [PuzzleArchiveFuseRepair] = [ClueArchiveFuseRoute],
-            [PuzzleArchiveEditingCounter] = [ClueArchiveEditingStops],
-            [PuzzleAuditoriumLineSetBalance] = [ClueAuditoriumLineSetNotches],
-            [PuzzleAuditoriumShadowProjector] = [ClueAuditoriumProjectionOrder],
-            [PuzzleAuditoriumMasterTapeSplice] = [ClueAuditoriumTapeOrder],
-            [PuzzleAuditoriumLightConsole] = [ClueDeskSources],
-            [PuzzleAuditoriumSoundConsole] = [ClueMusicAcousticSequence],
-            [PuzzleAuditoriumBroadcastConsole] = [ClueBroadcastSequence]
+            [PuzzleMusicAcousticWall] = [ClueMusicChannelMap, ClueMusicRepairedScore],
+            [PuzzleArchiveRetrieval] = [ClueArchiveRegistryRule, ClueArchiveRegistryChoir,
+                ClueArchiveRegistryBroadcast, ClueArchiveRegistryArt, ClueArchiveRegistryTrack, ClueArchiveDrawerRoute],
+            [PuzzleMusicBackstagePhoto] = [ClueProgramme, CluePhotoDuty],
+            [PuzzleArchiveWorkTimeline] = [ClueWorkTickets, ClueBackstagePosition],
+            [PuzzleAuditoriumStageAlignment] = [ClueStageFrontFrame, ClueStageSideFrame],
+            [PuzzleAuditoriumTapeReconstruction] = [ClueTapeSeams, ClueWorkTimeline],
+            [PuzzleAuditoriumHandoffPlan] = [ClueHandoffCircuit, ClueWorkTimeline]
         };
-
     public static readonly IReadOnlyDictionary<string, IReadOnlyList<string>> TargetItemUses =
         new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal)
         {
@@ -235,46 +217,33 @@ public static class DreamEscapeIds
             ["target.classroom.clock"] = [ItemClockHand, ItemClockKey],
             ["target.classroom.duty_roster"] = [ItemRosterSlider],
             ["target.classroom.map_cabinet"] = [ItemMaintenanceKey],
-            ["target.classroom.transom_cache"] = [ItemStageHook],
             ["target.corridor.room_two_door"] = [ItemRoomTwoKey],
             ["target.corridor.room_three_door"] = [ItemRoomThreeKey],
             ["target.corridor.room_four_door"] = [ItemRoomFourKey],
             ["target.music.score"] = [ItemChalk],
             ["target.music.metronome"] = [ItemMetronomeWeight],
-            ["target.music.piano_bench"] = [ItemBenchClampKey],
             ["target.archive.recorder"] = [ItemCalibrationReel, ItemRecorderCrank, ItemRepairedFuse],
-            ["target.archive.upper_vault"] = [ItemInspectionMirror],
-            ["target.auditorium.line_set"] = [ItemCurtainCounterweight],
-            ["target.auditorium.projector"] = [ItemProjectorLens],
+            ["target.auditorium.line_set"] = [ItemCurtainCounterweight, ItemProjectorLens],
+            ["target.auditorium.projector"] = [ItemProjectorLens, ItemCurtainCounterweight],
             ["target.auditorium.master_player"] = [ItemRestoredMasterTape]
         };
-
     public static readonly IReadOnlyDictionary<string, IReadOnlyList<string>> PuzzlePrerequisites =
         new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal)
         {
             [PuzzleBlackboard] = [PuzzleWindowLatches],
             [PuzzleTeacherDesk] = [PuzzleBlackboard, PuzzleClockRestore, PuzzleRosterSlider],
-            [PuzzleMapCabinet] = [PuzzleArchiveSignalRegistry],
-            [PuzzleTransomCache] = [PuzzleAuditoriumShadowProjector],
+            [PuzzleMapCabinet] = [PuzzleArchiveRetrieval],
             [PuzzleMusicCage] = [PuzzleMusicScore],
-            [PuzzleMusicMetronome] = [PuzzleMusicCage],
-            [PuzzleMusicTuningForks] = [PuzzleMusicCage],
+            [PuzzleMusicChannelCalibration] = [PuzzleMusicCage],
             [PuzzleMusicPianoRoll] = [PuzzleMusicCage],
-            [PuzzleMusicAcousticWall] = [PuzzleMusicMetronome, PuzzleMusicTuningForks, PuzzleMusicPianoRoll],
-            [PuzzleMusicAttendanceReader] = [PuzzleMapCabinet, PuzzleArchiveSignalRegistry],
-            [PuzzleMusicPianoBenchCache] = [PuzzleAuditoriumShadowProjector],
-            [PuzzleArchiveFuseRepair] = [PuzzleArchiveSignalRegistry, PuzzleArchiveDrawerRoute],
-            [PuzzleArchiveRecorderRebuild] = [PuzzleArchiveFuseRepair, PuzzleMusicAttendanceReader],
-            [PuzzleArchiveEditingCounter] = [PuzzleArchiveRecorderRebuild],
-            [PuzzleArchiveUpperVault] = [PuzzleAuditoriumShadowProjector],
-            [PuzzleAuditoriumLineSetBalance] = [PuzzleArchiveEditingCounter],
-            [PuzzleAuditoriumShadowProjector] = [PuzzleAuditoriumLineSetBalance],
-            [PuzzleAuditoriumMasterTapeSplice] = [PuzzleTransomCache, PuzzleMusicPianoBenchCache, PuzzleArchiveUpperVault],
-            [PuzzleAuditoriumLightConsole] = [PuzzleAuditoriumMasterTapeSplice],
-            [PuzzleAuditoriumSoundConsole] = [PuzzleAuditoriumMasterTapeSplice],
-            [PuzzleAuditoriumBroadcastConsole] = [PuzzleAuditoriumMasterTapeSplice],
-            [PuzzleExit] = [PuzzleAuditoriumLightConsole, PuzzleAuditoriumSoundConsole,
-                PuzzleAuditoriumBroadcastConsole]
+            [PuzzleMusicAcousticWall] = [PuzzleMusicChannelCalibration, PuzzleMusicPianoRoll],
+            [PuzzleMusicBackstagePhoto] = [PuzzleMapCabinet, PuzzleArchiveRetrieval],
+            [PuzzleArchiveRecorderRebuild] = [PuzzleMusicBackstagePhoto, PuzzleArchiveRetrieval],
+            [PuzzleArchiveWorkTimeline] = [PuzzleArchiveRecorderRebuild],
+            [PuzzleAuditoriumStageAlignment] = [PuzzleArchiveWorkTimeline],
+            [PuzzleAuditoriumTapeReconstruction] = [PuzzleAuditoriumStageAlignment, PuzzleArchiveWorkTimeline],
+            [PuzzleAuditoriumHandoffPlan] = [PuzzleAuditoriumTapeReconstruction],
+            [PuzzleExit] = [PuzzleAuditoriumHandoffPlan]
         };
 
     private static IReadOnlySet<string> Set(params string[] values) =>
@@ -283,6 +252,36 @@ public static class DreamEscapeIds
 
 public static class RetiredDreamEscapeIds
 {
+    public const string ClueMusicBeatGlyphs = "dream.clue.music_beat_glyphs";
+    public const string ItemBenchClampKey = "dream.bench_clamp_key";
+    public const string ItemInspectionMirror = "dream.inspection_mirror";
+    public const string ItemStageHook = "dream.stage_hook";
+    public const string PuzzleArchiveDrawerRoute = "dream.archive.drawer_route";
+    public const string PuzzleArchiveFuseRepair = "dream.archive.fuse_repair";
+    public const string PuzzleArchiveUpperVault = "dream.archive.upper_vault";
+    public const string PuzzleAuditoriumLightConsole = "dream.auditorium.light_console";
+    public const string PuzzleAuditoriumShadowProjector = "dream.auditorium.shadow_projector";
+    public const string PuzzleAuditoriumSoundConsole = "dream.auditorium.sound_console";
+    public const string PuzzleMusicMetronome = "dream.music.metronome";
+    public const string PuzzleMusicPianoBenchCache = "dream.music.piano_bench_cache";
+    public const string PuzzleTransomCache = "dream.classroom.transom_cache";
+    public const string PuzzleMusicTuningForks = "dream.music.tuning_forks";
+    public const string PuzzleMusicAttendanceReader = "dream.music.attendance_reader";
+    public const string PuzzleArchiveSignalRegistry = "dream.archive.signal_registry";
+    public const string PuzzleArchiveEditingCounter = "dream.archive.editing_counter";
+    public const string PuzzleAuditoriumLineSetBalance = "dream.auditorium.line_set_balance";
+    public const string PuzzleAuditoriumMasterTapeSplice = "dream.auditorium.master_tape_splice";
+    public const string PuzzleAuditoriumBroadcastConsole = "dream.auditorium.broadcast_console";
+    public const string ClueMusicForkReference = "dream.clue.music_fork_reference";
+    public const string ClueMusicGlyphPitchMap = "dream.clue.music_glyph_pitch_map";
+    public const string ClueMusicPitchInstrumentMap = "dream.clue.music_pitch_instrument_map";
+    public const string ClueSeatCoordinates = "dream.clue.seat_coordinates";
+    public const string ClueArchiveEditingStops = "dream.clue.archive_editing_stops";
+    public const string ClueBroadcastSequence = "dream.clue.broadcast_sequence";
+    public const string ClueAuditoriumLineSetNotches = "dream.clue.auditorium_line_set_notches";
+    public const string ClueAuditoriumProjectionOrder = "dream.clue.auditorium_projection_order";
+    public const string ClueAuditoriumTapeOrder = "dream.clue.auditorium_tape_order";
+
     public const string ItemClassPhoto = "dream.class_photo";
     public const string ItemTapeReel = "dream.tape_reel";
     public const string PuzzlePhotoFilter = "dream.classroom.photo_filter";
@@ -316,6 +315,7 @@ public static class RetiredDreamEscapeIds
 
     public static readonly IReadOnlySet<string> Puzzles = new HashSet<string>(StringComparer.Ordinal)
     {
+        PuzzleArchiveDrawerRoute, PuzzleArchiveFuseRepair, PuzzleArchiveUpperVault, PuzzleAuditoriumLightConsole, PuzzleAuditoriumShadowProjector, PuzzleAuditoriumSoundConsole, PuzzleMusicMetronome, PuzzleMusicPianoBenchCache, PuzzleTransomCache, PuzzleMusicTuningForks, PuzzleMusicAttendanceReader, PuzzleArchiveSignalRegistry, PuzzleArchiveEditingCounter, PuzzleAuditoriumLineSetBalance, PuzzleAuditoriumMasterTapeSplice, PuzzleAuditoriumBroadcastConsole,
         PuzzlePhotoFilter, PuzzleMusicListening, PuzzleMusicAttendance, PuzzleRecorderTape,
         PuzzleRecorderCrank, PuzzleRoomTwoDoor, PuzzleRoomFourDoor, PuzzleFinalDesk,
         PuzzleFinalInstruments, PuzzleFinalBroadcast, PuzzleLeftLever,
@@ -324,6 +324,7 @@ public static class RetiredDreamEscapeIds
 
     public static readonly IReadOnlySet<string> Clues = new HashSet<string>(StringComparer.Ordinal)
     {
+        ClueMusicBeatGlyphs, ClueMusicForkReference, ClueMusicGlyphPitchMap, ClueMusicPitchInstrumentMap, ClueSeatCoordinates, ClueArchiveEditingStops, ClueBroadcastSequence, ClueAuditoriumLineSetNotches, ClueAuditoriumProjectionOrder, ClueAuditoriumTapeOrder,
         ClueArchiveRules, ClueArchiveScheduleChoir, ClueArchiveScheduleBroadcast,
         ClueArchiveScheduleArt, ClueArchiveScheduleTrack, ClueAuditoriumRiggingOrder
     };

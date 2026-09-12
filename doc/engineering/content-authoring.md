@@ -80,7 +80,7 @@
 
 ## Dialogue Manager 文件
 
-`[计划]` 插件固定为 v3.10.4。现有八个文件使用下列逐条调用形态，它便于验证对白内容，但尚未提供整事件原子性：
+`[已实现]` 插件固定为 v3.10.4，已接入 13 段序章文件；每段只有一个完成命令，在 END 后由 Core 原子提交。新增线性序章内容须通过 PrologueV6Probe 与内容测试。下列逐条命令示例仅描述八个 Legacy 文件的待迁移形态：
 
 ```text
 ~ start
@@ -213,7 +213,7 @@ $BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
 ### 梦境洋房 Blender/GLB 管线
 
 - `[已实现·历史内廊/当前外观源]` `art/blender/dream_manor/dream-manor-v1.blend` 是洋房 v1 室内外源。确定性平面决定尺寸、门位和门数，多角度生成图只决定材质、光照和住宅陈设；不得依据单张生成图擅自增删门或改动通路。
-- v1 Blend 导出历史内廊 `dream-manor-hall-v1.glb` 与当前离线外观 `dream-manor-exterior-v1.glb`。`DreamCorridor.tscn` 当前只引用 v2 内廊；完整外观用于视觉验收和未来室外复用，不得因文件位于 `assets/generated/` 就加载到当前关卡。
+- v1 Blend 导出历史内廊 `dream-manor-hall-v1.glb` 与历史离线外观 `dream-manor-exterior-v1.glb`。`DreamCorridor.tscn` 当前只引用 v3 大厅；完整外观用于视觉验收和未来室外复用，不得因文件位于 `assets/generated/` 就加载到当前关卡。
 - `build_dream_manor_textures.py` 确定性生成建筑、木材/金属、地毯和细节纹理；`build_dream_manor_3d.py` 负责从已保存 Blend 导出两套 GLB、manifest 和只读临时复导出检查。正式运行与构建不依赖 Blender、Python 或 Blender MCP。
 - GLB只保存视觉网格、门枢轴和状态命名；玩家、墙、门及主要家具碰撞继续在 Godot 中独立定义。四个当前房间入口、一扇锁闭外门和两个无交互扩展实墙模数必须同时通过 Blend、manifest 与场景冒烟校验。
 - Godot 4.6.3 的两份 `.glb.import` 固定使用 `gltf/embedded_image_handling=1`，并将嵌入的 PBR 图提取到 GLB 同目录；这些派生 PNG 与各自 `.import` 必须一并纳入版本控制。实测设为 `0` 会丢弃嵌入贴图，使材质退化为无纹理表面，不能用作节省仓库空间的方案。
@@ -228,14 +228,14 @@ $BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
 
 截至 2026-08-22 的只读基线为：`DREAM_MANOR_TEXTURE_CHECK_PASS files=10 size=2048 readOnly=true`；内廊 GLB 为 160 个网格实例、79 个共享后唯一网格、14,916 个三角面、11 个材质和 21,789,048 字节，外观 GLB 为 101 个网格实例、37 个唯一网格、11,028 个三角面、7 个材质和 16,715,460 字节。两套导出均低于预算，`manor-check` 验证四个当前房门和两个预留实墙模数。
 
-### 电影式环境完整运行时管线
+### 电影式环境完整运行时管线（教室 v5 与洋房 v2 历史）
 
-- `[已实现·当前运行时]` 负责人确认样板方向后，教室 v5 已扩展到完整 12×9×4 米房间，洋房内廊 v2 已扩展到完整可玩门厅与内廊。`DreamClassroom.tscn` 引用 `classroom-art-pass-v5.glb`，`DreamCorridor.tscn` 引用 `dream-manor-hall-v2.glb`；v4/v1 保留为历史基线，不提供游戏内切换。
+- `[已实现·历史记录]` 负责人确认样板方向后，教室 v5 已扩展到完整 12×9×4 米房间，洋房内廊 v2 已扩展到完整可玩门厅与内廊。当时 `DreamClassroom.tscn` 引用 `classroom-art-pass-v5.glb`，`DreamCorridor.tscn` 引用 `dream-manor-hall-v2.glb`；v4/v1 保留为历史基线，不提供游戏内切换。
 - 两张 2048×1152 目标概念图是布局保持型 paint-over：生成模型只决定电影式材质、色温、磨损密度和光照层次，不得改变门位、谜题目标、房间比例或交互结构。主角 v2 只作为 Lookdev 比例参考，不因此获得视觉批准。
 - `build_environment_cinematic_sources.py build/check` 管理 Poly Haven 的八个 CC0 2K 材质族。原始下载、缩略图、逐文件 URL、MD5/SHA-256、色彩空间、获取日期和 CC0 许可证写入 `art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json`；项目派生材质位于 `art/blender/environment-cinematic-samples/textures-v1/`。
-- `classroom-art-pass-v5.blend` 与 `dream-manor-hall-v2.blend` 是当前权威手工源。`expand_environment_cinematic_full.py classroom-expand/manor-expand` 只维护幂等 `CinematicFullDetails` 集合，不从方盒重建场景；`*-check` 只读验证全场景结构。不得用早期样板构建步骤覆盖这两份 Blend。
+- `classroom-art-pass-v5.blend` 是保留的历史源，`dream-manor-hall-v2.blend` 是洋房保留的历史源。`expand_environment_cinematic_full.py classroom-expand/manor-expand` 只维护幂等 `CinematicFullDetails` 集合，不从方盒重建场景；`*-check` 只读验证全场景结构。不得用早期样板构建步骤覆盖这两份 Blend。
 - `export_environment_cinematic_samples.py` 负责从权威 Blend 导出 GLB/manifest 和临时复导检查；洋房导出必须同时包含 `CinematicSampleDetails` 与 `CinematicFullDetails`，否则会漏掉独立护墙板。两份 schema v2 manifest 必须保持 `status=cinematic-full-runtime`、`sampleOnly=false`、`runtimeDefault=true`，并记录源/GLB 哈希、纹理来源、缺失外链、三角面、最大可见网格、材质、GLB和纹理显存预算。
-- 当前教室 v5 为 114,452 三角面、178 个最大同时可见网格、14 个材质和 56,502,720 字节；洋房 v2 为 88,244 三角面、198 个可见网格、12 个材质和 37,793,392 字节。18 组课桌共享网格；洋房七个门枢轴和四段全廊护墙板必须通过 Godot 冒烟。
+- 历史教室 v5 为 114,452 三角面、178 个最大同时可见网格、14 个材质和 56,502,720 字节；洋房 v2 为 88,244 三角面、198 个可见网格、12 个材质和 37,793,392 字节。18 组课桌共享网格；洋房七个门枢轴和四段全廊护墙板必须通过 Godot 冒烟。
 - 当前未建立可复验的 Compatibility `LightmapGI` 烘焙链，因此运行时使用扫描 PBR 的 AO/cavity、带阴影实时灯和每区域两个 ReflectionProbe。Lookdev 相机、灯光和静态 3D 人物参考不导出进环境 GLB；Godot 场景内灯光不改变 Core 状态。
 - 本轮未购买 Fab 或 BlenderKit 内容。采购前评审记录位于 `art/concepts/environment-cinematic/commercial-candidates-v1.md`，4K 候选板由 `build_environment_commercial_candidate_board.py` 确定性生成；候选缩略图只用于私有内部评审，不属于采用资产。未来商业候选必须先提交价格、许可、三角面和纹理规格；原始商业下载包不进入 Git，项目化派生物仍需记录再分发限制。
 
@@ -266,3 +266,27 @@ $BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
 负责人确认脸型、发型、服装轮廓、材质和方案 A 教室比例前，后续绑定/动画阶段保持阻断。完整静态验收图与预算要求见 `doc/production/testing-release.md`，资产的当前真实状态见 `art/blender/characters/README.md`。
 
 截至 2026-08-22 的技术基线为：`PROTAGONIST_ART_V2_CHECK_PASS meshes=6 triangles=34972 height=1.7017 bytes=1532748 readOnly=true bound=false animated=false`；三张纹理均为 2048²，材质面为 1，GLB 不含 skin、animation 或 camera。该基线不得改写为视觉已批准或运行时已接入。
+
+### 第一室 v6 当前管线
+
+`[已实现]` 当前教室源和 GLB 分别为 `classroom-art-pass-v6.blend` / `classroom-art-pass-v6.glb`。使用 `scripts/tools/remodel_classroom_v6.py build/export/check`；该脚本保留 v5，维护新源、共享桌阵、状态根、布局约束和 provenance。旧 `expand_environment_cinematic_full.py classroom-expand` 与电影式 exporter 的默认 classroom 模式只服务历史 v5，不得用于覆盖 v6。完整步骤及状态见[第一室建模与布局 v6](classroom-remodel-v6.md)。
+
+### 洋房大厅 v3 当前管线
+
+`[已实现]` 当前权威源为 `dream-manor-hall-v3.blend`，运行时为同名 GLB。用 `remodel_manor_v3.py check --root .` 只读复验；`build` 会重建 v3，不能覆盖后续手工修改。v1/v2 及旧外观保留历史用途，旧外观尺寸不代表当前内部。布局读取 `MansionLayout3D`，禁止分别调整模型、门位和碰撞。实际 UV、贴图内存、复导哈希与 provenance 见[大厅 v3](manor-remodel-v3.md)。
+
+## 解谜题面与角色帮助
+
+`[已实现]` 当前序章遵循[角色提示规则](puzzle-feedback.md)。新谜题必须遵循：题面只描述装置和操作；完整答案只留在制作/回归文档；原始纸面、图形、合作观察须足以解题。不要将解法搬进道具不足提示或机关文字替代。
+
+主角失败独白只能引用实际已知材料，部分收集时也可以回想已见部分；无材料时表达疑惑。每个适用情境至少写两句，按对象变换句式，不用统一模板反复替换名词。安装、消耗后仍能证明曾取得的材料需要同步 `DreamThoughtRules`。加入后的主动求助保持三级自然对话，最后一级只给局部、试探建议，三个级别合计仍留出推理空间。技术错误不伪装成角色台词。
+
+新增文案需检查本地化、材料证明、失败不改变状态及同次操作单条反馈，并逐题人工审核剧透边界。机关不再提供“关联资料”；独立记录、现场检视、必要合作观察和图形文字替代仍必须可用。
+
+## 音乐室 v2 环境资产
+
+`[已实现]` 当前使用 `music-room-art-pass-v2.blend/glb`，制作脚本读取 `MusicRoomLayout3D.cs`。新增/移动机关需同步共享布局、状态根、纸面 Label3D、manifest/provenance 和实际 GLB 检查。日常用 `remodel_music_v2.py check` 只读验证；不要运行 `graybox` 覆写细模。复用现有三套 CC0 材质、四个离线 WAV，环境名称调整不改变谜题答案。见[制作说明](music-remodel-v2.md)。
+
+### 双角色动作 v3（本机限定）
+
+`[已实现]` 流萤 PMX 是晓雨本机外观源；受限原件保留，独立制作源、12 段动作、GLB 和脚部复导审计在 `outputs/character-motion-v3/`。禁止把受限资产写入正式可分发角色目录，也不得通过旧 v2 动作构建器覆盖新版镜像。详细流程、来源、回退与限制见[双角色动作](character-motion.md)。

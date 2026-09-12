@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://cs80yqdnacsio"
+path="res://.godot/imported/evt_dream_stage.dialogue-9de8090d8cd3db4a22cc96521f2cb88b.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_stage.dialogue"
+dest_files=["res://.godot/imported/evt_dream_stage.dialogue-9de8090d8cd3db4a22cc96521f2cb88b.tres"]
+
+[params]
+
+defaults=true

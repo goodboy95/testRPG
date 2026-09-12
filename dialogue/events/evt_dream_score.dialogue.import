@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c1kr2frlv3x0m"
+path="res://.godot/imported/evt_dream_score.dialogue-92a1f13b250d6a28204f2f3fb088d1cc.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_score.dialogue"
+dest_files=["res://.godot/imported/evt_dream_score.dialogue-92a1f13b250d6a28204f2f3fb088d1cc.tres"]
+
+[params]
+
+defaults=true

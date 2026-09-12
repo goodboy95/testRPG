@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://ba3lhavwb6l5q"
+path="res://.godot/imported/evt_d1_promise.dialogue-d5d9936b04a1af8131d826ba546af677.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_d1_promise.dialogue"
+dest_files=["res://.godot/imported/evt_d1_promise.dialogue-d5d9936b04a1af8131d826ba546af677.tres"]
+
+[params]
+
+defaults=true

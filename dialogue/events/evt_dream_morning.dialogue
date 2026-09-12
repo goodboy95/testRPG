@@ -1,0 +1,4 @@
+~ start
+主角: 七点交接，七点一刻开排。大家进场之前，已经有人在忙了。 [ID:DREAM_V6_STORY_MORNING_001]
+do Narrative.Execute("complete_event", "dream.prologue.morning")
+=> END

@@ -9,14 +9,14 @@ public static class DreamAreaSpawnCatalog
 {
     private static readonly DreamMansionCoordinateMapper3D MansionMapper = new();
 
-    public static readonly Vector3 MansionRoomOneEntryWorld = new(-2.2f, 0f, 3.2f);
-    public static readonly Vector3 MansionRoomTwoEntryWorld = new(2.2f, 0f, 3.2f);
-    public static readonly Vector3 MansionRoomThreeEntryWorld = new(-2.2f, 0f, 13.2f);
-    public static readonly Vector3 MansionRoomFourEntryWorld = new(0f, 0f, 16.8f);
+    public static readonly Vector3 MansionRoomOneEntryWorld = MansionLayout3D.RoomOneEntry;
+    public static readonly Vector3 MansionRoomTwoEntryWorld = MansionLayout3D.RoomTwoEntry;
+    public static readonly Vector3 MansionRoomThreeEntryWorld = MansionLayout3D.RoomThreeEntry;
+    public static readonly Vector3 MansionRoomFourEntryWorld = MansionLayout3D.RoomFourEntry;
     public static readonly Vector2 ClassroomDoorEntryStored = new(592.4f, 305.8f);
-    public static readonly Vector2 MusicDoorEntryStored = new(50.7f, 288.7f);
-    public static readonly Vector2 ArchiveDoorEntryStored = new(513.5f, 319.2f);
-    public static readonly Vector2 AuditoriumDoorEntryStored = new(399f, 318.6f);
+    public static readonly Vector2 MusicDoorEntryStored = MusicRoomLayout3D.Mapper.ToStored(MusicRoomLayout3D.Entry);
+    public static readonly Vector2 ArchiveDoorEntryStored = ArchiveRoomLayout3D.Mapper.ToStored(ArchiveRoomLayout3D.Entry);
+    public static readonly Vector2 AuditoriumDoorEntryStored = AuditoriumLayout3D.Mapper.ToStored(AuditoriumLayout3D.Entry);
 
     public static DreamAreaSpawnRoute Resolve(string sourceAreaId, string targetAreaId)
     {
@@ -37,7 +37,7 @@ public static class DreamAreaSpawnCatalog
             (DreamEscapeIds.AreaCorridor, DreamEscapeIds.AreaArchive) =>
                 new DreamAreaSpawnRoute(ArchiveDoorEntryStored, Vector3.Left),
             (DreamEscapeIds.AreaCorridor, DreamEscapeIds.AreaAuditorium) =>
-                new DreamAreaSpawnRoute(AuditoriumDoorEntryStored, Vector3.Back),
+                new DreamAreaSpawnRoute(AuditoriumDoorEntryStored, Vector3.Forward),
             _ => throw new ArgumentOutOfRangeException(
                 nameof(targetAreaId),
                 $"Unsupported dream area transition '{sourceAreaId}' -> '{targetAreaId}'.")
@@ -57,7 +57,7 @@ public static class DreamAreaSpawnCatalog
             (DreamEscapeIds.AreaCorridor, DreamEscapeIds.AreaMusic) => Vector3.Right,
             (DreamEscapeIds.AreaArchive, DreamEscapeIds.AreaCorridor) => Vector3.Right,
             (DreamEscapeIds.AreaCorridor, DreamEscapeIds.AreaArchive) => Vector3.Left,
-            (DreamEscapeIds.AreaAuditorium, DreamEscapeIds.AreaCorridor) => Vector3.Forward,
+            (DreamEscapeIds.AreaAuditorium, DreamEscapeIds.AreaCorridor) => Vector3.Back,
             (DreamEscapeIds.AreaCorridor, DreamEscapeIds.AreaAuditorium) => Vector3.Back,
             _ => Vector3.Zero
         };

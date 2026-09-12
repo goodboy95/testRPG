@@ -1,0 +1,7 @@
+~ start
+林晓雨: 锁扣固定了，我可以松手了。 [ID:DREAM_V6_STORY_HANDOFF_001]
+主角: 好，一起走。 [ID:DREAM_V6_STORY_HANDOFF_002]
+林晓雨: 刚才站在那边，我才发现要盯的东西真不少。 [ID:DREAM_V6_STORY_HANDOFF_003]
+主角: 节目单之外的那些工作，我们这次都看见了。 [ID:DREAM_V6_STORY_HANDOFF_004]
+do Narrative.Execute("complete_event", "dream.prologue.handoff")
+=> END

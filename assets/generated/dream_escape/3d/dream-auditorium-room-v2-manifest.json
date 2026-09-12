@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 2,
+  "status": "cinematic-full-runtime",
+  "sampleOnly": false,
+  "runtimeDefault": true,
+  "previousRuntimeAsset": "art/blender/dream_late_rooms/dream-auditorium-v1.blend",
+  "blenderVersion": "5.2.0 LTS",
+  "sourceFile": "art/blender/dream_late_rooms/dream-auditorium-room-v2.blend",
+  "runtimeGlbFile": "assets/generated/dream_escape/3d/dream-auditorium-room-v2.glb",
+  "sourceSha256": "4352fe1228ff4f3746979d519e5400afa11c23e0345d22c5e024a1164bfafcc6",
+  "runtimeGlbSha256": "f0d5b0323769dd9da1e66800b4417918ff169228064145fb05c4038f1a894263",
+  "runtimeGlbBytes": 32833880,
+  "geometry": {
+    "objectCount": 126,
+    "meshObjectCount": 97,
+    "maximumVisibleMeshCount": 97,
+    "uniqueMeshCount": 66,
+    "triangleCount": 86004,
+    "materialCount": 15,
+    "materials": [
+      "AuditoriumV2_Brass",
+      "AuditoriumV2_Glass",
+      "AuditoriumV2_Green",
+      "AuditoriumV2_Ink",
+      "AuditoriumV2_Iron",
+      "AuditoriumV2_Ivory",
+      "AuditoriumV2_Lamp",
+      "AuditoriumV2_Nickel",
+      "AuditoriumV2_Oak",
+      "AuditoriumV2_Paper",
+      "AuditoriumV2_Plaster",
+      "AuditoriumV2_Rope",
+      "AuditoriumV2_Rubber",
+      "AuditoriumV2_Terrazzo",
+      "AuditoriumV2_WineCloth"
+    ],
+    "packedOrReferencedImages": [
+      "fabric_pattern_07_arm_2k.jpg",
+      "fabric_pattern_07_nor_gl_2k.jpg",
+      "oak_veneer_01_arm_2k.jpg",
+      "oak_veneer_01_diff_2k.jpg",
+      "oak_veneer_01_nor_gl_2k.jpg",
+      "painted_plaster_wall_arm_2k.jpg",
+      "painted_plaster_wall_diff_2k.jpg",
+      "painted_plaster_wall_nor_gl_2k.jpg",
+      "terrazzo_tiles_arm_2k.jpg",
+      "terrazzo_tiles_diff_2k.jpg",
+      "terrazzo_tiles_nor_gl_2k.jpg"
+    ],
+    "missingExternalFiles": []
+  },
+  "textureMemoryEstimateMiB": 234.67,
+  "lightingDecision": "Color ambient, west clerestory and practical stage/console lighting; no SSAO",
+  "exportProfile": {
+    "format": "GLB",
+    "animations": false,
+    "cameras": false,
+    "lights": false,
+    "lookdevCollectionExcluded": true,
+    "runtimeDependsOnBlender": false
+  },
+  "limits": {
+    "triangles": 260000,
+    "visibleMeshes": 320,
+    "materials": 32,
+    "glbBytes": 83886080
+  },
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "fabric_pattern_07",
+      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+        "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+        "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ],
+  "layoutVersion": 2,
+  "layoutSource": "scripts/presentation/AuditoriumLayout3D.cs",
+  "layoutSha256": "ec2a2fb77f827242764dcb44ae3bf34860d9076c9fa916bcfca15af1c0b0d25f",
+  "layout": {
+    "Width": 22.0,
+    "Depth": 16.0,
+    "Height": 7.5,
+    "WallThickness": 0.2,
+    "DoorWidth": 1.8,
+    "DoorHeight": 2.8,
+    "MainAisleWidth": 3.38,
+    "SecondaryAisleWidth": 1.5,
+    "WeightMinimumHeight": 1.3,
+    "WeightStep": 0.45,
+    "CurtainTop": [
+      0.0,
+      6.7,
+      -4.4
+    ],
+    "Weight01": [
+      9.3,
+      1.3,
+      -6.75
+    ],
+    "Weight02": [
+      9.3,
+      1.3,
+      -5.92
+    ],
+    "Weight03": [
+      9.3,
+      1.3,
+      -5.09
+    ],
+    "Weight04": [
+      9.3,
+      1.3,
+      -4.26
+    ],
+    "Disc01": [
+      -9.24,
+      1.45,
+      -5.18
+    ],
+    "Disc02": [
+      -9.24,
+      1.45,
+      -4.8
+    ],
+    "Disc03": [
+      -9.24,
+      1.45,
+      -4.42
+    ],
+    "MasterReel": [
+      9.2,
+      1.23,
+      5.8
+    ],
+    "ExitHinge": [
+      -0.9,
+      0.0,
+      7.98
+    ],
+    "Entry": [
+      0.0,
+      0.0,
+      5.2
+    ],
+    "SideObservation": [
+      -7.95,
+      0.0,
+      -7.1
+    ],
+    "LeftLeverCompanion": [
+      -8.5,
+      0.0,
+      -0.8
+    ],
+    "StagePosition": [
+      0.0,
+      0.55,
+      -6.0
+    ],
+    "StageSize": [
+      14.0,
+      1.1,
+      4.0
+    ],
+    "ProjectorPosition": [
+      -9.7,
+      1.0,
+      -4.8
+    ],
+    "ProjectorSize": [
+      2.0,
+      2.0,
+      1.4
+    ],
+    "FlyRailPosition": [
+      9.7,
+      3.2,
+      -5.5
+    ],
+    "FlyRailSize": [
+      1.4,
+      6.4,
+      3.8
+    ],
+    "LensTablePosition": [
+      -9.7,
+      0.4,
+      0.5
+    ],
+    "LensTableSize": [
+      1.2,
+      0.8,
+      0.8
+    ],
+    "WeightTablePosition": [
+      9.7,
+      0.4,
+      0.5
+    ],
+    "WeightTableSize": [
+      1.2,
+      0.8,
+      0.8
+    ],
+    "TapeReferenceTablePosition": [
+      -9.7,
+      0.4,
+      3.1
+    ],
+    "TapeReferenceTableSize": [
+      1.6,
+      0.8,
+      1.2
+    ],
+    "SpliceBenchPosition": [
+      9.7,
+      0.4,
+      3.1
+    ],
+    "SpliceBenchSize": [
+      1.6,
+      0.8,
+      1.2
+    ],
+    "MasterPlayerPosition": [
+      9.7,
+      0.8,
+      5.8
+    ],
+    "MasterPlayerSize": [
+      1.6,
+      1.6,
+      1.0
+    ],
+    "LightConsolePosition": [
+      -6.0,
+      0.5,
+      6.95
+    ],
+    "LightConsoleSize": [
+      1.8,
+      1.0,
+      1.0
+    ],
+    "SoundConsolePosition": [
+      -3.3,
+      0.5,
+      6.95
+    ],
+    "SoundConsoleSize": [
+      1.8,
+      1.0,
+      1.0
+    ],
+    "BroadcastConsolePosition": [
+      5.8,
+      0.5,
+      6.95
+    ],
+    "BroadcastConsoleSize": [
+      1.8,
+      1.0,
+      1.0
+    ],
+    "LeftLeverPosition": [
+      -8.6,
+      0.65,
+      -1.8
+    ],
+    "LeftLeverSize": [
+      0.55,
+      1.3,
+      0.6
+    ],
+    "RightSwitchPosition": [
+      8.6,
+      0.65,
+      -1.8
+    ],
+    "RightSwitchSize": [
+      0.55,
+      1.3,
+      0.6
+    ],
+    "SideStandPosition": [
+      -7.13,
+      0.85,
+      -7.1
+    ],
+    "SideStandSize": [
+      0.15,
+      1.7,
+      0.85
+    ],
+    "SeatSize": [
+      0.62,
+      0.95,
+      0.72
+    ],
+    "Seat01": [
+      -2.0,
+      0.475,
+      -1.0
+    ],
+    "Seat02": [
+      -2.88,
+      0.475,
+      -1.0
+    ],
+    "Seat03": [
+      -3.76,
+      0.475,
+      -1.0
+    ],
+    "Seat04": [
+      -4.64,
+      0.475,
+      -1.0
+    ],
+    "Seat05": [
+      -2.0,
+      0.475,
+      0.75
+    ],
+    "Seat06": [
+      -2.88,
+      0.475,
+      0.75
+    ],
+    "Seat07": [
+      -3.76,
+      0.475,
+      0.75
+    ],
+    "Seat08": [
+      -4.64,
+      0.475,
+      0.75
+    ],
+    "Seat09": [
+      -2.0,
+      0.475,
+      2.5
+    ],
+    "Seat10": [
+      -2.88,
+      0.475,
+      2.5
+    ],
+    "Seat11": [
+      -3.76,
+      0.475,
+      2.5
+    ],
+    "Seat12": [
+      -4.64,
+      0.475,
+      2.5
+    ],
+    "Seat13": [
+      -2.0,
+      0.475,
+      4.25
+    ],
+    "Seat14": [
+      -2.88,
+      0.475,
+      4.25
+    ],
+    "Seat15": [
+      -3.76,
+      0.475,
+      4.25
+    ],
+    "Seat16": [
+      -4.64,
+      0.475,
+      4.25
+    ],
+    "Seat17": [
+      2.0,
+      0.475,
+      -1.0
+    ],
+    "Seat18": [
+      2.88,
+      0.475,
+      -1.0
+    ],
+    "Seat19": [
+      3.76,
+      0.475,
+      -1.0
+    ],
+    "Seat20": [
+      4.64,
+      0.475,
+      -1.0
+    ],
+    "Seat21": [
+      2.0,
+      0.475,
+      0.75
+    ],
+    "Seat22": [
+      2.88,
+      0.475,
+      0.75
+    ],
+    "Seat23": [
+      3.76,
+      0.475,
+      0.75
+    ],
+    "Seat24": [
+      4.64,
+      0.475,
+      0.75
+    ],
+    "Seat25": [
+      2.0,
+      0.475,
+      2.5
+    ],
+    "Seat26": [
+      2.88,
+      0.475,
+      2.5
+    ],
+    "Seat27": [
+      3.76,
+      0.475,
+      2.5
+    ],
+    "Seat28": [
+      4.64,
+      0.475,
+      2.5
+    ],
+    "Seat29": [
+      2.0,
+      0.475,
+      4.25
+    ],
+    "Seat30": [
+      2.88,
+      0.475,
+      4.25
+    ],
+    "Seat31": [
+      3.76,
+      0.475,
+      4.25
+    ],
+    "Seat32": [
+      4.64,
+      0.475,
+      4.25
+    ]
+  },
+  "graybox": false,
+  "visualAcceptance": "pending-human-review",
+  "seating": {
+    "instances": 32,
+    "sharedMesh": true,
+    "rowsPerBank": 4,
+    "seatsPerRow": 4
+  },
+  "stage": "Scenic raised platform; all interaction and cooperation anchors are on Y=0"
+}

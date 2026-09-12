@@ -5,8 +5,8 @@ namespace TownRpg.Presentation;
 public sealed class DreamMansionCoordinateMapper3D
 {
     public Rect2 StoredBounds { get; } = new(0f, 0f, 640f, 360f);
-    public Vector2 WorldXBounds { get; } = new(-3.8f, 3.8f);
-    public Vector2 WorldZBounds { get; } = new(-6.8f, 18f);
+    public Vector2 WorldXBounds { get; } = new(-MansionLayout3D.FoyerWidth / 2, MansionLayout3D.FoyerWidth / 2);
+    public Vector2 WorldZBounds { get; } = new(-MansionLayout3D.FoyerDepth, MansionLayout3D.HallDepth);
 
     public Vector3 ToWorld(Vector2 storedPosition)
     {

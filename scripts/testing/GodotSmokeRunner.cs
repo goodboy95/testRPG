@@ -87,8 +87,16 @@ public partial class GodotSmokeRunner : Node
             }
             ValidateInputBindings();
             ValidateDisplaySettings();
+            await CharacterMotionProbe.Run(this);
 
             var userArguments = OS.GetCmdlineUserArgs();
+            var motionCapture = userArguments.FirstOrDefault(argument => argument.StartsWith("--capture-character-motion=", StringComparison.Ordinal));
+            if (motionCapture is not null)
+            {
+                await CharacterMotionCapture.Run(this, session, motionCapture["--capture-character-motion=".Length..]);
+                GetTree().Quit(0);
+                return;
+            }
             if (userArguments.Contains("--profile-classroom-3d", StringComparer.Ordinal))
             {
                 await ProfileDreamClassroom3D();
@@ -102,7 +110,8 @@ public partial class GodotSmokeRunner : Node
             if (!string.IsNullOrWhiteSpace(captureDirectory))
             {
                 await CaptureDreamClassroom3D(session, Path.GetFullPath(captureDirectory));
-                GD.Print("CLASSROOM_3D_CAPTURE_PASS files=15 size=1920x1080");
+                var size = ClassroomCaptureSize();
+                GD.Print($"CLASSROOM_3D_CAPTURE_PASS files=15 size={size.X}x{size.Y}");
                 GetTree().Quit(0);
                 return;
             }
@@ -116,7 +125,8 @@ public partial class GodotSmokeRunner : Node
                 await CaptureDreamMansion3D(
                     session,
                     Path.GetFullPath(mansionCaptureDirectory));
-                GD.Print("DREAM_MANOR_GODOT_CAPTURE_PASS files=9 size=1920x1080");
+                var size = ManorCaptureSize();
+                GD.Print($"DREAM_MANOR_GODOT_CAPTURE_PASS files=9 size={size.X}x{size.Y}");
                 GetTree().Quit(0);
                 return;
             }
@@ -216,7 +226,7 @@ public partial class GodotSmokeRunner : Node
                 throw new InvalidOperationException("Could not load 3D classroom GLB or cutaway shader.");
             }
             if (ResourceLoader.Load<PackedScene>(
-                    "res://assets/generated/dream_escape/3d/dream-manor-hall-v2.glb") is null ||
+                    "res://assets/generated/dream_escape/3d/dream-manor-hall-v3.glb") is null ||
                 ResourceLoader.Load<PackedScene>(
                     "res://assets/generated/dream_escape/3d/dream-manor-exterior-v1.glb") is null)
             {
@@ -338,11 +348,11 @@ public partial class GodotSmokeRunner : Node
                             clueMarker.GlobalPosition.X,
                             clueMarker.GlobalPosition.Z)) <=
                         latchMarker.InteractionRange + clueMarker.InteractionRange;
-                    if (markerCount != 12 || collisionNodes != 29 || reflectionProbes != 2 ||
-                        visual.CollisionBodyCount != 29 || visual.FurnitureCollisionCount != 20 ||
+                    if (markerCount != 11 || collisionNodes != 24 || reflectionProbes != 2 ||
+                        visual.CollisionBodyCount != 24 || visual.FurnitureCollisionCount != 15 ||
                         playerShape is null || blockedMarkers.Length > 0 || windowMarkersOverlap || separationFailed ||
                         latchMarker.Position.DistanceTo(new Vector3(-5.20f, 0f, -0.90f)) > 0.001f ||
-                        clueMarker.Position.DistanceTo(new Vector3(-3.40f, 0f, 2.20f)) > 0.001f ||
+                        clueMarker.Position.DistanceTo(new Vector3(-4.45f, 0f, 2.30f)) > 0.001f ||
                         Math.Abs(latchMarker.InteractionRange - 1.0f) > 0.001f ||
                         Math.Abs(clueMarker.InteractionRange - 1.0f) > 0.001f)
                     {
@@ -389,6 +399,13 @@ public partial class GodotSmokeRunner : Node
             await ValidateWindowInteractionsThroughDreamRoot(session);
             await ValidateAutomaticRecorderUseThroughDreamRoot(session);
             await ValidateClassroomMansionRoundTrip(session);
+            await ValidateAllMansionRoundTrips(session);
+
+            var prologueProbe = new PrologueV6Probe();
+            AddChild(prologueProbe);
+            await prologueProbe.Run();
+            prologueProbe.QueueFree();
+            var uiProbe = new UiRemakeProbe(); AddChild(uiProbe); await uiProbe.Run(); uiProbe.QueueFree();
 
             GD.Print($"GODOT_SMOKE_PASS scenes={ScenePaths.Length} " +
                      $"characters={session.Content.Characters.Characters.Count} " +
@@ -406,7 +423,7 @@ public partial class GodotSmokeRunner : Node
 
     private async Task CaptureDreamClassroom3D(GameSession session, string outputDirectory)
     {
-        var captureSize = new Vector2I(1920, 1080);
+        var captureSize = ClassroomCaptureSize();
         DirAccess.MakeDirRecursiveAbsolute(outputDirectory);
         DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
         DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
@@ -456,20 +473,20 @@ public partial class GodotSmokeRunner : Node
         dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMapCabinet);
         visual.ApplyState(dream);
         await SaveCapture(outputDirectory, "10-state-map-cabinet.png", captureSize);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleTransomCache);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMapCabinet);
         visual.ApplyState(dream);
         await SaveCapture(outputDirectory, "11-state-transom-cache.png", captureSize);
         visual.SetCollisionDebug(true);
         await SaveCapture(outputDirectory, "12-collision-debug.png", captureSize);
         visual.SetCollisionDebug(false);
 
-        classroom.PlayerActor.GlobalPosition = new Vector3(3.0f, 0f, 2.25f);
+        classroom.PlayerActor.GlobalPosition = new Vector3(4.7f, 0f, 3.35f);
         classroom.CameraController.SetYawImmediate(-90f);
         classroom.CameraController.SnapToTarget();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         await SaveCapture(outputDirectory, "13-closeup-east-door.png", captureSize);
 
-        classroom.PlayerActor.GlobalPosition = new Vector3(2.35f, 0f, -1.45f);
+        classroom.PlayerActor.GlobalPosition = new Vector3(2.35f, 0f, -1.85f);
         classroom.CameraController.SetYawImmediate(0f);
         classroom.CameraController.SnapToTarget();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -482,6 +499,18 @@ public partial class GodotSmokeRunner : Node
         await SaveCapture(outputDirectory, "15-closeup-student-desks.png", captureSize);
         classroom.QueueFree();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+    }
+
+    private static Vector2I ClassroomCaptureSize()
+    {
+        var option = OS.GetCmdlineUserArgs().FirstOrDefault(arg => arg.StartsWith("--classroom-size=", StringComparison.Ordinal));
+        return option?["--classroom-size=".Length..] switch
+        {
+            null or "1920x1080" => new Vector2I(1920, 1080),
+            "1280x720" => new Vector2I(1280, 720),
+            "1600x900" => new Vector2I(1600, 900),
+            _ => throw new InvalidOperationException("Unsupported classroom capture size.")
+        };
     }
 
     private async Task CaptureDreamMusicRoom3D(GameSession session, string outputDirectory)
@@ -521,16 +550,16 @@ public partial class GodotSmokeRunner : Node
             await SaveCapture(outputDirectory, fileName, captureSize);
         }
 
-        await Capture("01-entry-overview.png", new Vector3(-4.65f, 0f, 2.72f), -40f);
-        await Capture("02-north-mechanisms.png", new Vector3(0f, 0f, 0.95f), 0f);
-        await Capture("03-south-piano.png", new Vector3(0f, 0f, 0.95f), 180f);
+        await Capture("01-entry-overview.png", MusicRoomLayout3D.Entry, -35f);
+        await Capture("02-north-mechanisms.png", new Vector3(1.4f, 0f, -2.25f), 0f);
+        await Capture("03-south-piano.png", new Vector3(0f, 0f, 2.6f), 180f);
 
         dream.XiaoyuJoined = true;
         dream.SolvedPuzzles.UnionWith([
             DreamEscapeIds.PuzzleMusicScore,
             DreamEscapeIds.PuzzleMusicCage,
-            DreamEscapeIds.PuzzleMusicMetronome,
-            DreamEscapeIds.PuzzleMusicTuningForks,
+            DreamEscapeIds.ProgressMetronomeReady,
+            DreamEscapeIds.PuzzleMusicChannelCalibration,
             DreamEscapeIds.PuzzleMusicPianoRoll,
             DreamEscapeIds.PuzzleMusicAcousticWall
         ]);
@@ -539,7 +568,8 @@ public partial class GodotSmokeRunner : Node
             DreamEscapeIds.SlotMusicPianoRoll
         ]);
         musicRoom.RefreshState();
-        await Capture("04-solved-acoustic-wall.png", new Vector3(1.8f, 0f, 0.1f), -90f);
+        musicRoom.MusicVisual._Process(.4);
+        await Capture("04-solved-acoustic-wall.png", new Vector3(4.2f, 0f, 1.25f), -90f);
 
         musicRoom.QueueFree();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -591,12 +621,12 @@ public partial class GodotSmokeRunner : Node
         await CaptureArchive("03-entry-south.png", archiveEntry, 180f);
         await CaptureArchive("04-entry-west.png", archiveEntry, 90f);
         await CaptureArchive("05-registry-initial.png", new Vector3(1.7f, 0f, 1.25f), 0f);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveSignalRegistry);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveRetrieval);
         archive.RefreshState();
         await CaptureArchive("06-registry-solved.png", new Vector3(1.7f, 0f, 1.25f), 0f);
         dream.SolvedPuzzles.UnionWith([
-            DreamEscapeIds.PuzzleArchiveDrawerRoute,
-            DreamEscapeIds.PuzzleArchiveFuseRepair,
+            DreamEscapeIds.PuzzleArchiveRetrieval,
+            DreamEscapeIds.ProgressFuseAssembly,
             DreamEscapeIds.PuzzleArchiveRecorderRebuild
         ]);
         dream.InstalledParts.UnionWith([
@@ -607,8 +637,8 @@ public partial class GodotSmokeRunner : Node
         archive.RefreshState();
         await CaptureArchive("07-recorder-rebuilt.png", new Vector3(1.0f, 0f, 2.2f), -90f);
         dream.SolvedPuzzles.UnionWith([
-            DreamEscapeIds.PuzzleArchiveEditingCounter,
-            DreamEscapeIds.PuzzleArchiveUpperVault
+            DreamEscapeIds.PuzzleArchiveWorkTimeline,
+            DreamEscapeIds.PuzzleArchiveRetrieval
         ]);
         archive.RefreshState();
         await CaptureArchive("08-counter-vault-open.png", new Vector3(-1.8f, 0f, 2.0f), 180f);
@@ -655,20 +685,20 @@ public partial class GodotSmokeRunner : Node
         await CaptureAuditorium("03-entry-south.png", auditoriumEntry, 180f);
         await CaptureAuditorium("04-entry-west.png", auditoriumEntry, 90f);
         await CaptureAuditorium("05-line-set-initial.png", new Vector3(5.8f, 0f, -2.0f), 0f);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumLineSetBalance);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
         auditorium.RefreshState();
         await CaptureAuditorium("06-curtain-raised.png", new Vector3(1.8f, 0f, -2.1f), 0f);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumShadowProjector);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
         auditorium.RefreshState();
         await CaptureAuditorium("07-projector-aligned.png", new Vector3(-4.8f, 0f, -2.0f), 90f);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction);
         dream.InstalledParts.Add(DreamEscapeIds.SlotAuditoriumMasterTape);
         auditorium.RefreshState();
         await CaptureAuditorium("08-master-tape-installed.png", new Vector3(4.5f, 0f, 1.8f), -90f);
         dream.SolvedPuzzles.UnionWith([
-            DreamEscapeIds.PuzzleAuditoriumLightConsole,
-            DreamEscapeIds.PuzzleAuditoriumSoundConsole,
-            DreamEscapeIds.PuzzleAuditoriumBroadcastConsole
+            DreamEscapeIds.PuzzleAuditoriumHandoffPlan,
+            DreamEscapeIds.PuzzleAuditoriumHandoffPlan,
+            DreamEscapeIds.PuzzleAuditoriumHandoffPlan
         ]);
         auditorium.RefreshState();
         await CaptureAuditorium("09-three-consoles-solved.png", new Vector3(2.2f, 0f, 3.1f), 180f);
@@ -683,9 +713,21 @@ public partial class GodotSmokeRunner : Node
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 
+    private static Vector2I ManorCaptureSize()
+    {
+        var argument = OS.GetCmdlineUserArgs().FirstOrDefault(value => value.StartsWith("--manor-size=", StringComparison.Ordinal));
+        return argument?["--manor-size=".Length..] switch
+        {
+            null or "1920x1080" => new Vector2I(1920, 1080),
+            "1280x720" => new Vector2I(1280, 720),
+            "1600x900" => new Vector2I(1600, 900),
+            _ => throw new ArgumentOutOfRangeException(nameof(argument), "Unsupported manor capture size.")
+        };
+    }
+
     private async Task CaptureDreamMansion3D(GameSession session, string outputDirectory)
     {
-        var captureSize = new Vector2I(1920, 1080);
+        var captureSize = ManorCaptureSize();
         DirAccess.MakeDirRecursiveAbsolute(outputDirectory);
         DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
         DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, true);
@@ -709,12 +751,12 @@ public partial class GodotSmokeRunner : Node
 
         var views = new[]
         {
-            ("01-foyer-front-door.png", new Vector3(0f, 0f, -3.55f), 0f),
-            ("02-hall-looking-north.png", new Vector3(0f, 0f, -0.15f), 180f),
-            ("03-room-one-door.png", new Vector3(-1.25f, 0f, 3.20f), 90f),
-            ("04-room-two-door.png", new Vector3(1.25f, 0f, 3.20f), -90f),
-            ("05-fireplace-and-foyer.png", new Vector3(-1.35f, 0f, -3.45f), 90f),
-            ("06-room-four-double-door.png", new Vector3(0f, 0f, 15.35f), 180f)
+            ("01-foyer-front-door.png", new Vector3(0f, 0f, -4.2f), 0f),
+            ("02-hall-looking-north.png", new Vector3(0f, 0f, -1.5f), 180f),
+            ("03-room-one-door.png", new Vector3(-1.25f, 0f, 2.40f), 90f),
+            ("04-room-two-door.png", new Vector3(1.25f, 0f, 2.40f), -90f),
+            ("05-fireplace-and-foyer.png", new Vector3(-1.6f, 0f, -4.2f), 90f),
+            ("06-room-four-double-door.png", new Vector3(0f, 0f, 9.9f), 180f)
         };
         foreach (var (fileName, playerPosition, yawDegrees) in views)
         {
@@ -736,7 +778,7 @@ public partial class GodotSmokeRunner : Node
         mansion.MansionVisual.ResetDoors();
 
         mansion.MansionVisual.SetCollisionDebug(true);
-        mansion.PlayerActor.GlobalPosition = new Vector3(0f, 0f, -0.15f);
+        mansion.PlayerActor.GlobalPosition = new Vector3(0f, 0f, -1.5f);
         mansion.CameraController.SetYawImmediate(180f);
         mansion.CameraController.SnapToTarget();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -745,6 +787,67 @@ public partial class GodotSmokeRunner : Node
 
         mansion.QueueFree();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+    }
+
+    private async Task ValidateAllMansionRoundTrips(GameSession session)
+    {
+        var rooms = new[] { DreamEscapeIds.AreaClassroom, DreamEscapeIds.AreaMusic,
+            DreamEscapeIds.AreaArchive, DreamEscapeIds.AreaAuditorium };
+        session.NewGame("大厅四室重复往返", "同学");
+        session.State.DreamEscape!.UnlockedAreas.UnionWith(rooms);
+        MarkPrologueStoriesRead(session);
+        var entry = DreamAreaSpawnCatalog.Resolve(rooms[0], DreamEscapeIds.AreaCorridor);
+        session.MoveDreamToArea(DreamEscapeIds.AreaCorridor, entry.StoredPosition.X, entry.StoredPosition.Y);
+        var root = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")!
+            .Instantiate<DreamEscapeController>();
+        AddChild(root);
+        try
+        {
+            var host = root.GetNode<Node>("AreaHost");
+            foreach (var roomId in rooms)
+            for (var repeat = 0; repeat < 2; repeat++)
+            foreach (var (sourceId, targetId) in new[] {
+                (DreamEscapeIds.AreaCorridor, roomId), (roomId, DreamEscapeIds.AreaCorridor) })
+            {
+                var source = host.GetChildren().OfType<WorldArea3D>().Single();
+                var marker = source.GetNode<Node3D>("InteractionMarkers").GetChildren()
+                    .OfType<InteractionMarker3D>().Single(m => m.TargetId == $"area:{targetId}");
+                var player = source.GetNode<PlayerController3D>("Player");
+                DreamAreaSpawnCatalog.TryGetExitForward(sourceId, targetId, out var exitForward);
+                player.GlobalPosition = marker.GlobalPosition;
+                player.SetFacingImmediate(exitForward);
+                source.GetNode<ThirdPersonCameraRig>("ThirdPersonCameraRig").SetYawImmediate(37f);
+                var sourceOffset = ((IDreamAreaTransitionPose3D)source).CaptureCameraDoorOffsetDegrees(exitForward);
+                for (var frame = 0; frame < 30 && source.CurrentInteractionTargetId != marker.TargetId; frame++)
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                if (source.CurrentInteractionTargetId != marker.TargetId || session.Modal.IsBlocked)
+                    throw new InvalidOperationException($"Round-trip focus unavailable: {sourceId} -> {targetId}.");
+                Input.ParseInputEvent(new InputEventAction { Action = "interact", Pressed = true });
+                Input.ParseInputEvent(new InputEventAction { Action = "interact", Pressed = false });
+                for (var frame = 0; frame < 240 &&
+                    (session.State.DreamEscape!.CurrentAreaId != targetId || session.Modal.IsBlocked); frame++)
+                    await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+                var destination = host.GetChildren().OfType<WorldArea3D>().Single();
+                var route = DreamAreaSpawnCatalog.Resolve(sourceId, targetId);
+                var offset = ((IDreamAreaTransitionPose3D)destination).CaptureCameraDoorOffsetDegrees(route.EntryFacing);
+                if (session.State.DreamEscape!.CurrentAreaId != targetId || session.Modal.IsBlocked ||
+                    !destination.GetNode<PlayerController3D>("Player").InputEnabled ||
+                    Math.Abs(Mathf.AngleDifference(Mathf.DegToRad(offset), Mathf.DegToRad(sourceOffset))) > .001f)
+                    throw new InvalidOperationException($"Round-trip state/camera failed: {sourceId} -> {targetId} repeat={repeat}.");
+                if (destination is DreamMansionController3D mansion &&
+                    (mansion.MansionVisual.IsBlocked(mansion.PlayerActor.GlobalPosition) ||
+                     mansion.PlayerActor.GlobalPosition.DistanceTo(new DreamMansionCoordinateMapper3D().ToWorld(route.StoredPosition)) > .001f ||
+                     mansion.CurrentInteractionTargetId is not null))
+                    throw new InvalidOperationException($"Return entry failed: {sourceId}.");
+            }
+            GD.Print("MANOR_V3_ROUNDTRIPS_PASS rooms=4 repeats=2 transitions=16 camera=true");
+        }
+        finally
+        {
+            root.QueueFree();
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
     }
 
     private async Task ValidateClassroomMansionRoundTrip(GameSession session)
@@ -760,6 +863,7 @@ public partial class GodotSmokeRunner : Node
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new InvalidOperationException("Could not load dream root for doorway round-trip smoke.");
         var dreamRoot = packed.Instantiate<DreamEscapeController>();
+        MarkPrologueStoriesRead(session);
         AddChild(dreamRoot);
         try
         {
@@ -805,7 +909,9 @@ public partial class GodotSmokeRunner : Node
                     $"cameraOffset={mansionOffset}/{sourceCameraOffset}.");
             }
 
-            mansion.PlayerActor.GlobalPosition = DreamAreaSpawnCatalog.MansionRoomOneEntryWorld;
+            if (mansion.CurrentInteractionTargetId is not null)
+                throw new InvalidOperationException("Mansion entry should not automatically focus a door.");
+            mansion.PlayerActor.GlobalPosition = MansionLayout3D.MarkerPositions[$"area:{DreamEscapeIds.AreaClassroom}"];
             mansion.PlayerActor.SetFacingImmediate(Vector3.Left);
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             Input.ParseInputEvent(new InputEventAction { Action = "interact", Pressed = true });
@@ -819,6 +925,10 @@ public partial class GodotSmokeRunner : Node
             }
             if (returnedClassroom is null)
                 throw new InvalidOperationException("Mansion interaction did not return to the 3D classroom.");
+            for (var frame = 0; frame < 90 && session.Modal.IsBlocked; frame++)
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            if (session.Modal.IsBlocked)
+                throw new InvalidOperationException("Mansion-to-classroom transition retained its modal lease.");
             var mapper = new AreaCoordinateMapper3D(
                 new Rect2(16f, 178f, 608f, 152f),
                 new Rect2(-5.7f, -4.2f, 11.4f, 8.4f));
@@ -851,6 +961,7 @@ public partial class GodotSmokeRunner : Node
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new InvalidOperationException("Could not load dream root for window interaction smoke.");
         var dreamRoot = packed.Instantiate<DreamEscapeController>();
+        MarkPrologueStoriesRead(session);
         AddChild(dreamRoot);
         try
         {
@@ -882,14 +993,14 @@ public partial class GodotSmokeRunner : Node
                 await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             }
 
-            if (classroom.ActiveInteractionMarkerCount != 12)
+            if (classroom.ActiveInteractionMarkerCount != 11)
                 throw new InvalidOperationException("Initial classroom did not expose both window interactions.");
 
             await FocusAndInteract(latchMarker, "调整三只旧窗扣");
             if (!mechanism.Visible ||
                 dream.DiscoveredClues.Contains(DreamEscapeIds.ClueClassroomWindow) ||
                 !Descendants<Label>(mechanism).Any(label =>
-                    label.Text.Contains("课桌区域寻找维护资料", StringComparison.Ordinal)))
+                    label.Text == UiText.Get("UI_LATCH_HELP")))
             {
                 throw new InvalidOperationException(
                     "Unobserved latch interaction did not open the non-spoiler mechanism panel.");
@@ -900,20 +1011,22 @@ public partial class GodotSmokeRunner : Node
             await FocusAndInteract(clueMarker, "调查窗扣维护卡");
             if (mechanism.Visible ||
                 !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueClassroomWindow) ||
-                classroom.ActiveInteractionMarkerCount != 11 ||
+                classroom.ActiveInteractionMarkerCount != 10 ||
                 !Descendants<Label>(dreamRoot).Any(label =>
                     label.Visible && label.Text.Contains(
-                        "上段、下段、中段。记录页已保存",
+                        "上段、下段、中段",
                         StringComparison.Ordinal)))
             {
                 throw new InvalidOperationException(
                     "Maintenance-card interaction did not record the clue independently of the latch panel.");
             }
 
+            Descendants<ReadingPanel>(dreamRoot).Single(panel => panel.IsVisibleInTree()).ClosePanel();
+
             inventory.Open(DreamInventoryPage.Clues);
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             if (!Descendants<Label>(inventory).Any(label => label.Text.Contains(
-                    "三幅窗扣磨损示意从左到右是上段、下段、中段",
+                    "三只窗扣的磨损位置是上段、下段、中段",
                     StringComparison.Ordinal)))
             {
                 throw new InvalidOperationException(
@@ -924,18 +1037,18 @@ public partial class GodotSmokeRunner : Node
 
             await FocusAndInteract(latchMarker, "调整三只旧窗扣");
             if (!mechanism.Visible ||
-                !Descendants<Label>(mechanism).Any(label =>
-                    label.Text.Contains("上段—下段—中段", StringComparison.Ordinal)))
+                Descendants<Button>(mechanism).Any(button => button.Name == "PuzzleReferences") ||
+                Descendants<ArchiveReader>(mechanism).Any())
             {
                 throw new InvalidOperationException(
-                    "Observed latch interaction did not show the recorded scratch pattern.");
+                    "Mechanism is missing or still contains the removed reference reader.");
             }
             mechanism.ClosePanel();
             var solved = session.SubmitDreamPuzzle(
                 DreamEscapeIds.PuzzleWindowLatches,
                 "up", "down", "middle");
             classroom.RefreshState();
-            if (!solved.Changed || classroom.ActiveInteractionMarkerCount != 10)
+            if (!solved.Changed || classroom.ActiveInteractionMarkerCount != 9)
             {
                 throw new InvalidOperationException(
                     "Solved window latch or recorded scratch marker remained active.");
@@ -973,6 +1086,7 @@ public partial class GodotSmokeRunner : Node
     {
         session.NewGame("录音机自动安装", "同学");
         var dream = session.State.DreamEscape!;
+        dream.SolvedPuzzles.UnionWith([DreamEscapeIds.PuzzleMusicBackstagePhoto, DreamEscapeIds.PuzzleArchiveRetrieval]);
         dream.UnlockedAreas.Add(DreamEscapeIds.AreaArchive);
         dream.CurrentAreaId = DreamEscapeIds.AreaArchive;
         dream.PositionX = 320f;
@@ -987,6 +1101,7 @@ public partial class GodotSmokeRunner : Node
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new InvalidOperationException("Could not load dream root for recorder auto-use smoke.");
         var dreamRoot = packed.Instantiate<DreamEscapeController>();
+        MarkPrologueStoriesRead(session);
         AddChild(dreamRoot);
         try
         {
@@ -994,7 +1109,14 @@ public partial class GodotSmokeRunner : Node
             var archive = dreamRoot.GetNode<DreamArchiveRoomController3D>("AreaHost/DreamArchiveRoom3D");
             var recorder = archive.GetNode<Node3D>("InteractionMarkers/Recorder");
             archive.PlayerActor.GlobalPosition = recorder.GlobalPosition;
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            // ProcessFrame fires before WorldArea3D._Process updates the interaction focus.
+            for (var frame = 0; frame < 30 &&
+                 archive.CurrentInteractionTargetId != "target.archive.recorder"; frame++)
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            if (archive.CurrentInteractionTargetId != "target.archive.recorder")
+                throw new InvalidOperationException(
+                    $"Recorder focus was not ready: target={archive.CurrentInteractionTargetId} " +
+                    $"modal={session.Modal.IsBlocked} position={archive.PlayerActor.GlobalPosition}.");
             Input.ParseInputEvent(new InputEventAction { Action = "interact", Pressed = true });
             Input.ParseInputEvent(new InputEventAction { Action = "interact", Pressed = false });
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -1353,7 +1475,9 @@ public partial class GodotSmokeRunner : Node
             .OfType<InputEventJoypadMotion>()
             .Any(input => input.Axis == axis && Math.Sign(input.AxisValue) == Math.Sign(direction));
 
-        if (!HasKey("interact", Key.F) || !HasKey("interact", Key.Space) ||
+        if (!HasKey("move_slow", Key.Shift) ||
+            InputMap.ActionGetEvents("move_slow").OfType<InputEventKey>().All(input => input.Location != KeyLocation.Unspecified) ||
+            !HasKey("interact", Key.F) || !HasKey("interact", Key.Space) ||
             !HasButton("interact", JoyButton.A) ||
             !HasKey("inventory", Key.I) || !HasKey("inventory", Key.Tab) ||
             HasKey("inventory", Key.Backspace) || !HasButton("inventory", JoyButton.X) ||
@@ -1364,6 +1488,20 @@ public partial class GodotSmokeRunner : Node
             throw new InvalidOperationException(
                 "Keyboard or Xbox interaction, inventory or orbit bindings are incomplete.");
         }
+    }
+
+    private async Task DrainPrologueDialogue(Node root)
+    {
+        var session = GetNode<GameSession>("/root/GameSession");
+        for (var frame = 0; frame < 180; frame++)
+        {
+            foreach (var button in Descendants<Button>(root).Where(button => button.IsVisibleInTree() &&
+                         (button.Text.StartsWith("继续", StringComparison.Ordinal) || button.Text.StartsWith("下一页", StringComparison.Ordinal))))
+                button.EmitSignal(BaseButton.SignalName.Pressed);
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            if (!session.Modal.IsBlocked && session.State.CompletedEvents.Contains(DreamPrologueCatalog.EventId("intro"))) return;
+        }
+        throw new InvalidOperationException("Prologue dialogue did not reach END or release its modal lease.");
     }
 
     private async Task ValidateDreamPauseAndExit(MainController main)
@@ -1392,6 +1530,7 @@ public partial class GodotSmokeRunner : Node
         }
         reminder.GetOkButton().EmitSignal(BaseButton.SignalName.Pressed);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        await DrainPrologueDialogue(main);
         if (dream.ControlReminderVisible || GetNode<GameSession>("/root/GameSession").Modal.IsBlocked)
             throw new InvalidOperationException("Control reminder did not release its modal lock.");
 
@@ -1557,17 +1696,16 @@ public partial class GodotSmokeRunner : Node
     {
         var pairs = new[]
         {
-            ("observe:target.archive.registry_rule", "puzzle:archive_signal_registry"),
-            ("observe:target.archive.registry_choir", "puzzle:archive_signal_registry"),
-            ("observe:target.archive.registry_broadcast", "puzzle:archive_signal_registry"),
-            ("observe:target.archive.registry_art", "puzzle:archive_signal_registry"),
-            ("observe:target.archive.registry_track", "puzzle:archive_signal_registry"),
-            ("pickup:dream.archive_index_strip", "puzzle:archive_drawer_route"),
-            ("observe:target.archive.fuse_route", "puzzle:archive_fuse_repair"),
-            ("target.archive.recorder", "puzzle:archive_editing_counter")
+            ("observe:target.archive.registry_rule", "puzzle:archive_retrieval"),
+            ("observe:target.archive.registry_choir", "puzzle:archive_retrieval"),
+            ("observe:target.archive.registry_broadcast", "puzzle:archive_retrieval"),
+            ("observe:target.archive.registry_art", "puzzle:archive_retrieval"),
+            ("observe:target.archive.registry_track", "puzzle:archive_retrieval"),
+            ("pickup:dream.archive_index_strip", "puzzle:archive_retrieval"),
+            ("observe:target.archive.fuse_route", "assembly:archive_fuse"),
+            ("target.archive.recorder", "puzzle:archive_work_timeline")
         };
-        var mapper = new AreaCoordinateMapper3D(
-            new Rect2(16f, 54f, 608f, 272f), new Rect2(-5.5f, -4f, 11f, 8f));
+        var mapper = ArchiveRoomLayout3D.Mapper;
         ValidateDreamLateRoom3D(area, area.ArchiveVisual, DreamEscapeIds.AreaArchive,
             "ArchiveModel", 2, mapper, pairs);
     }
@@ -1578,10 +1716,9 @@ public partial class GodotSmokeRunner : Node
         {
             ("observe:target.auditorium.line_set_notches", "target.auditorium.line_set"),
             ("observe:target.auditorium.projection_order", "target.auditorium.projector"),
-            ("observe:target.auditorium.tape_order", "puzzle:auditorium_master_tape_splice")
+            ("observe:target.auditorium.tape_order", "puzzle:auditorium_tape_reconstruction")
         };
-        var mapper = new AreaCoordinateMapper3D(
-            new Rect2(16f, 54f, 608f, 272f), new Rect2(-8.5f, -5.5f, 17f, 11f));
+        var mapper = AuditoriumLayout3D.Mapper;
         ValidateDreamLateRoom3D(area, area.AuditoriumVisual, DreamEscapeIds.AreaAuditorium,
             "AuditoriumModel", 3, mapper, pairs);
     }
@@ -1615,8 +1752,8 @@ public partial class GodotSmokeRunner : Node
         var roundTripStored = mapper.ToStored(mapper.ToWorld(entryStored));
         var invalidStoredResolved = visual.ResolveSpawn(mapper.ToWorld(new Vector2(-500f, 900f)));
 
-        if (area.CameraControlMode != CameraControlMode.Orbit || area.InteractionMarkerCount != 15 ||
-            markers.Length != 15 || byId.Count != 15 || tooClose.Length > 0 ||
+        if (area.CameraControlMode != CameraControlMode.Orbit || area.InteractionMarkerCount != (areaId == DreamEscapeIds.AreaArchive ? 13 : 15) ||
+            markers.Length != (areaId == DreamEscapeIds.AreaArchive ? 13 : 15) || byId.Count != markers.Length || tooClose.Length > 0 ||
             autoFocused is not null || collisionBodies.Length != visual.CollisionBodyCount ||
             visual.FurnitureCollisionCount < 8 || expectedReflectionProbes != reflectionProbes ||
             area.GetNodeOrNull<Node3D>(modelNodeName) is null ||
@@ -1700,22 +1837,22 @@ public partial class GodotSmokeRunner : Node
         AddChild(archive);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         if (archive.ActiveInteractionIds.Contains("observe:target.archive.fuse_route") ||
-            !archive.ActiveInteractionIds.Contains("puzzle:archive_signal_registry") ||
+            !archive.ActiveInteractionIds.Contains("puzzle:archive_retrieval") ||
             archive.ArchiveVisual.RegistrySolved)
         {
             throw new InvalidOperationException("Archive fuse-route clue was visible before its reward cabinet opened.");
         }
         archive.ApplyTransientState(new DreamAreaTransientState(false,
-            DreamEscapeIds.PuzzleArchiveSignalRegistry, ["choir", "broadcast"]));
+            DreamEscapeIds.PuzzleArchiveRetrieval, ["choir", "broadcast"]));
         if (archive.ArchiveVisual.RegistryPreviewCount != 2)
             throw new InvalidOperationException("Archive registry did not apply its transient panel preview.");
         archive.ApplyTransientState(new DreamAreaTransientState(false, null, null));
         if (archive.ArchiveVisual.RegistryPreviewCount != 0)
             throw new InvalidOperationException("Archive registry preview survived panel close.");
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveSignalRegistry);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveRetrieval);
         archive.RefreshState();
         if (!archive.ActiveInteractionIds.Contains("observe:target.archive.fuse_route") ||
-            archive.ActiveInteractionIds.Contains("puzzle:archive_signal_registry") ||
+            archive.ActiveInteractionIds.Contains("puzzle:archive_retrieval") ||
             !archive.ArchiveVisual.RegistrySolved)
         {
             throw new InvalidOperationException("Archive order completion did not swap in the fuse-route clue.");
@@ -1735,7 +1872,7 @@ public partial class GodotSmokeRunner : Node
         var auditorium = auditoriumPacked.Instantiate<DreamAuditoriumController3D>();
         AddChild(auditorium);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        if (auditorium.ActiveInteractionIds.Contains("observe:target.auditorium.projection_order") ||
+        if (!auditorium.ActiveInteractionIds.Contains("observe:target.auditorium.projection_order") ||
             auditorium.ActiveInteractionIds.Contains("observe:target.auditorium.tape_order") ||
             auditorium.AuditoriumVisual.CurtainRaised ||
             auditorium.AuditoriumVisual.ProjectorSolved)
@@ -1743,13 +1880,13 @@ public partial class GodotSmokeRunner : Node
             throw new InvalidOperationException("Auditorium lock-behind clues were visible before their prerequisites.");
         }
         auditorium.ApplyTransientState(new DreamAreaTransientState(false,
-            DreamEscapeIds.PuzzleAuditoriumLineSetBalance, ["3", "1", "4", "2"]));
+            DreamEscapeIds.PuzzleAuditoriumStageAlignment, ["3", "1", "4", "2", "window", "figure", "bell"]));
         if (!auditorium.AuditoriumVisual.LineSetValues.SequenceEqual([3, 1, 4, 2]))
             throw new InvalidOperationException("Auditorium line set did not apply its transient panel preview.");
         auditorium.ApplyTransientState(new DreamAreaTransientState(false, null, null));
         if (!auditorium.AuditoriumVisual.LineSetValues.SequenceEqual([1, 1, 1, 1]))
             throw new InvalidOperationException("Auditorium line-set preview survived panel close.");
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumLineSetBalance);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
         auditorium.RefreshState();
         if (!auditorium.ActiveInteractionIds.Contains("observe:target.auditorium.projection_order") ||
             auditorium.ActiveInteractionIds.Contains("target.auditorium.line_set") ||
@@ -1757,8 +1894,8 @@ public partial class GodotSmokeRunner : Node
         {
             throw new InvalidOperationException("Raised curtain did not swap in the projection clue.");
         }
-        dream.DiscoveredClues.Add(DreamEscapeIds.ClueAuditoriumProjectionOrder);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumShadowProjector);
+        dream.DiscoveredClues.Add(DreamEscapeIds.ClueStageSideFrame);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
         auditorium.RefreshState();
         if (!auditorium.ActiveInteractionIds.Contains("observe:target.auditorium.tape_order") ||
             auditorium.ActiveInteractionIds.Contains("target.auditorium.projector") ||
@@ -1767,13 +1904,19 @@ public partial class GodotSmokeRunner : Node
         {
             throw new InvalidOperationException("Projector completion did not swap in the tape-order card.");
         }
-        dream.DiscoveredClues.Add(DreamEscapeIds.ClueAuditoriumTapeOrder);
+        dream.DiscoveredClues.Add(DreamEscapeIds.ClueTapeSeams);
         auditorium.RefreshState();
         if (auditorium.ActiveInteractionIds.Contains("observe:target.auditorium.tape_order") ||
             !auditorium.AuditoriumVisual.ProjectorSolved)
             throw new InvalidOperationException("Recorded auditorium tape-order clue remained interactive.");
         auditorium.QueueFree();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+    }
+
+    private static void MarkPrologueStoriesRead(GameSession session)
+    {
+        session.State.CompletedEvents.Add(DreamPrologueCatalog.EventId("intro"));
+        session.State.CompletedEvents.UnionWith(DreamPrologueCatalog.Groups.Select(group => DreamPrologueCatalog.EventId(group.Id)));
     }
 
     private async Task ValidateAuditoriumTwoSidedExit(GameSession session)
@@ -1786,14 +1929,15 @@ public partial class GodotSmokeRunner : Node
         dream.PositionX = 320f;
         dream.PositionY = 270f;
         dream.XiaoyuJoined = true;
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumLightConsole);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumSoundConsole);
-        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumBroadcastConsole);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumHandoffPlan);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumHandoffPlan);
+        dream.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumHandoffPlan);
         dream.InstalledParts.Add(DreamEscapeIds.SlotAuditoriumMasterTape);
 
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new InvalidOperationException("Could not load dream root for auditorium exit smoke.");
         var dreamRoot = packed.Instantiate<DreamEscapeController>();
+        MarkPrologueStoriesRead(session);
         AddChild(dreamRoot);
         try
         {
@@ -1835,6 +1979,18 @@ public partial class GodotSmokeRunner : Node
             if (!dreamRoot.XiaoyuHoldingExitLever || !auditorium.AuditoriumVisual.ExitLeverHeld)
                 throw new InvalidOperationException("Left-lever interaction did not stage Xiaoyu's temporary hold.");
 
+            await InteractAt("action:left_lever");
+            if (dreamRoot.XiaoyuHoldingExitLever || auditorium.AuditoriumVisual.ExitLeverHeld)
+                throw new InvalidOperationException("Repeating the left lever did not cancel the handoff.");
+            await InteractAt("action:left_lever");
+            var inventory = Descendants<DreamInventoryPanel>(dreamRoot).Single();
+            inventory.Open();
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            if (dreamRoot.XiaoyuHoldingExitLever || auditorium.AuditoriumVisual.ExitLeverHeld)
+                throw new InvalidOperationException("Opening records/inventory retained a temporary handoff.");
+            inventory.ClosePanel();
+            await InteractAt("action:left_lever");
+
             await InteractAt($"area:{DreamEscapeIds.AreaCorridor}");
             for (var frame = 0; frame < 180 &&
                  dreamRoot.GetNodeOrNull<DreamMansionController3D>("AreaHost/DreamMansion3D") is null; frame++)
@@ -1861,6 +2017,7 @@ public partial class GodotSmokeRunner : Node
         dreamRoot = packed.Instantiate<DreamEscapeController>();
         var exitOpenedEvent = false;
         dreamRoot.ExitOpened += () => exitOpenedEvent = true;
+        MarkPrologueStoriesRead(session);
         AddChild(dreamRoot);
         try
         {
@@ -1895,6 +2052,12 @@ public partial class GodotSmokeRunner : Node
 
             await InteractAt("action:open_exit");
             await InteractAt("action:left_lever");
+            await InteractAt("observe:target.auditorium.handoff_circuit");
+            await InteractAt("action:open_exit");
+            if (dream.Status != DreamEscapeStatus.InProgress)
+                throw new InvalidOperationException("Exit bypassed the monitor and lighting handoff.");
+            await InteractAt("action:handoff_monitor");
+            await InteractAt("observe:target.auditorium.handoff_circuit");
             await InteractAt("action:open_exit");
             if (dream.Status != DreamEscapeStatus.ExitOpened || !exitOpenedEvent ||
                 dreamRoot.XiaoyuHoldingExitLever)
@@ -1929,11 +2092,11 @@ public partial class GodotSmokeRunner : Node
             "pickup:dream.torn_piano_roll",
             "pickup:dream.wax_patch",
             "target.music.metronome",
-            "puzzle:music_tuning_forks",
+            "puzzle:music_channel_calibration",
             "puzzle:music_piano_roll",
             "puzzle:music_acoustic_wall",
-            "puzzle:music_attendance_reader",
-            "target.music.piano_bench",
+            "puzzle:music_backstage_photo",
+            "observe:target.music.side_wave",
             "hint:xiaoyu",
             "observe:target.music.tempo_notice",
             "observe:target.music.fork_reference",
@@ -1947,11 +2110,10 @@ public partial class GodotSmokeRunner : Node
         var route = DreamAreaSpawnCatalog.Resolve(
             DreamEscapeIds.AreaCorridor,
             DreamEscapeIds.AreaMusic);
-        var mapper = new AreaCoordinateMapper3D(
-            new Rect2(16f, 54f, 608f, 272f),
-            new Rect2(-5.25f, -3.75f, 10.5f, 7.5f));
+        var mapper = MusicRoomLayout3D.Mapper;
         var expectedSpawn = mapper.ToWorld(route.StoredPosition);
-        var safeFallback = visual.ResolveSpawn(new Vector3(0.8f, 0f, 3.32f));
+        var unsafePiano = new Vector3(MusicRoomLayout3D.PianoPosition.X, 0, MusicRoomLayout3D.PianoPosition.Z);
+        var safeFallback = visual.ResolveSpawn(unsafePiano);
         var playerShape = musicRoom.PlayerActor.GetNode<CollisionShape3D>("CollisionShape3D").Shape;
         var musicAudioPaths = new[]
         {
@@ -1968,13 +2130,13 @@ public partial class GodotSmokeRunner : Node
         if (musicRoom.CameraControlMode != CameraControlMode.Orbit ||
             musicRoom.InteractionMarkerCount != 18 || markers.Length != 18 ||
             !actualMarkerIds.SetEquals(expectedMarkerIds) ||
-            collisionNodes != 16 || visual.CollisionBodyCount != 16 ||
-            visual.FurnitureCollisionCount != 7 || reflectionProbes != 2 ||
+            collisionNodes != MusicRoomLayout3D.Collisions.Length || visual.CollisionBodyCount != 31 ||
+            visual.FurnitureCollisionCount != 16 || reflectionProbes != 2 ||
             playerShape is null || missingAudio.Length > 0 ||
             musicRoom.AmbiencePlayer.Stream is null || !musicRoom.AmbiencePlayer.Playing ||
             visual.IsBlocked(expectedSpawn) ||
             musicRoom.PlayerActor.GlobalPosition.DistanceTo(expectedSpawn) > 0.001f ||
-            visual.IsBlocked(safeFallback) || safeFallback.IsEqualApprox(new Vector3(0.8f, 0f, 3.32f)))
+            visual.IsBlocked(safeFallback) || safeFallback.IsEqualApprox(unsafePiano))
         {
             throw new InvalidOperationException(
                 $"3D music-room composition invalid: mode={musicRoom.CameraControlMode} " +
@@ -1996,13 +2158,13 @@ public partial class GodotSmokeRunner : Node
             throw new InvalidOperationException("Music-room Orbit camera no longer matches the adopted framing.");
         }
 
-        ValidateMusicMarkerReachability(visual, markers, expectedSpawn);
+        ValidateMusicMarkerReachability(visual, markers.Where(m => musicRoom.ActiveInteractionIds.Contains(m.TargetId)).ToArray(), expectedSpawn);
         ValidateMusicTextAlternatives(visual);
         var markerById = markers.ToDictionary(marker => marker.TargetId, StringComparer.Ordinal);
         var musicSeparated = new[]
         {
             ("observe:target.music.tempo_notice", "target.music.metronome"),
-            ("observe:target.music.fork_reference", "puzzle:music_tuning_forks"),
+            ("observe:target.music.fork_reference", "puzzle:music_channel_calibration"),
             ("observe:target.music.roll_template", "puzzle:music_piano_roll")
         };
         if (musicSeparated.Any(pair => new Vector2(
@@ -2027,8 +2189,8 @@ public partial class GodotSmokeRunner : Node
                 visual.AcousticWallSolved || visual.AttendanceReaderOpen ||
                 visual.PianoBenchOpen || musicRoom.Companion.IsFollowing ||
                 !musicRoom.Companion.Visible ||
-                musicRoom.Companion.GlobalPosition.DistanceTo(new Vector3(3.8f, 0f, -3.15f)) > 0.001f ||
-                musicRoom.ActiveInteractionMarkerCount != 6)
+                musicRoom.Companion.GlobalPosition.DistanceTo(MusicRoomLayout3D.BeforeJoin) > 0.001f ||
+                musicRoom.ActiveInteractionMarkerCount != 5)
             {
                 throw new InvalidOperationException("Initial music-room Core-derived visual state is invalid.");
             }
@@ -2039,12 +2201,14 @@ public partial class GodotSmokeRunner : Node
             ]);
             dream.XiaoyuJoined = true;
             musicRoom.RefreshState();
+            visual._Process(.4);
+            for(var tick=0;tick<600;tick++)musicRoom.Companion._Process(.02);
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             var companionDistance = musicRoom.Companion.GlobalPosition
                 .DistanceTo(musicRoom.PlayerActor.GlobalPosition);
             if (!visual.ScoreRevealed || !visual.CageOpen || visual.VisiblePickupCount != 5 ||
                 !musicRoom.Companion.IsFollowing || !musicRoom.Companion.Visible ||
-                companionDistance is < 1.15f or > 1.35f ||
+                companionDistance is < .65f or > 1.5f ||
                 musicRoom.Companion.Sprite.Billboard != BaseMaterial3D.BillboardModeEnum.FixedY ||
                 musicRoom.ActiveInteractionMarkerCount != 16)
             {
@@ -2054,10 +2218,22 @@ public partial class GodotSmokeRunner : Node
                     $"activeMarkers={musicRoom.ActiveInteractionMarkerCount}.");
             }
 
+            ValidateMusicMarkerReachability(visual, markers, expectedSpawn);
+
             musicRoom.Companion.GlobalPosition = new Vector3(100f, 0f, 100f);
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-            if (musicRoom.Companion.GlobalPosition.DistanceTo(musicRoom.PlayerActor.GlobalPosition) > 1.35f)
+            if (musicRoom.Companion.GlobalPosition.DistanceTo(musicRoom.PlayerActor.GlobalPosition) > 1.5f)
                 throw new InvalidOperationException("Music-room companion did not recover from abnormal distance.");
+
+            musicRoom.ApplyTransientState(new DreamAreaTransientState(false,
+                DreamEscapeIds.PuzzleMusicChannelCalibration, []));
+            for(var tick=0;tick<600;tick++)musicRoom.Companion._Process(.02);
+            if (musicRoom.Companion.GlobalPosition.DistanceTo(MusicRoomLayout3D.SideObservation) > 0.01f)
+                throw new InvalidOperationException("Calibration did not place Xiaoyu on the acoustic side.");
+            musicRoom.ApplyTransientState(new DreamAreaTransientState(false, null, null));
+            for(var tick=0;tick<600;tick++)musicRoom.Companion._Process(.02);
+            if (musicRoom.Companion.GlobalPosition.DistanceTo(musicRoom.PlayerActor.GlobalPosition) > 1.5f)
+                throw new InvalidOperationException("Closing calibration did not restore Xiaoyu's follow pose.");
 
             dream.InstalledParts.UnionWith([
                 DreamEscapeIds.SlotMusicMetronomeWeight,
@@ -2068,17 +2244,17 @@ public partial class GodotSmokeRunner : Node
                 throw new InvalidOperationException("Music-room installed parts are not derived from Core slots.");
 
             dream.SolvedPuzzles.UnionWith([
-                DreamEscapeIds.PuzzleMusicMetronome,
-                DreamEscapeIds.PuzzleMusicTuningForks,
+                DreamEscapeIds.ProgressMetronomeReady,
+                DreamEscapeIds.PuzzleMusicChannelCalibration,
                 DreamEscapeIds.PuzzleMusicPianoRoll,
                 DreamEscapeIds.PuzzleMusicAcousticWall,
-                DreamEscapeIds.PuzzleMusicAttendanceReader,
-                DreamEscapeIds.PuzzleMusicPianoBenchCache
+                DreamEscapeIds.PuzzleMusicBackstagePhoto,
+                DreamEscapeIds.PuzzleMusicBackstagePhoto
             ]);
             musicRoom.RefreshState();
             if (!visual.MetronomeSolved || !visual.TuningForksSolved ||
                 !visual.PianoRollInstalled || !visual.AcousticWallSolved ||
-                !visual.AttendanceReaderOpen || !visual.PianoBenchOpen)
+                !visual.AttendanceReaderOpen || visual.PianoBenchOpen)
             {
                 throw new InvalidOperationException("Solved music-room visuals did not follow Core puzzle state.");
             }
@@ -2112,9 +2288,10 @@ public partial class GodotSmokeRunner : Node
         var geometry = visual.GetNode<Node3D>("MusicRoomGeometry");
         var expected = new Dictionary<string, string>(StringComparer.Ordinal)
         {
+            ["ScoreSequence"] = "○  →  △  →  ◇  →  □",
             ["BeatGlyphs"] = "○   ◇   □   △",
-            ["ForkMap"] = "○ A3    ◇ C4    □ E4    △ A4",
-            ["PitchInstrumentMap"] = "A3 木鱼   C4 钢琴   E4 三角铁   A4 手铃"
+            ["ForkMap"] = "○ 木鱼    ◇ 钢琴    □ 三角铁    △ 手铃",
+            ["PitchInstrumentMap"] = "○ → ◇ → □ → △   等待侧台回应"
         };
         var invalid = expected.Where(pair =>
                 geometry.FindChild(pair.Key, true, false) is not Label3D label ||
@@ -2209,12 +2386,8 @@ public partial class GodotSmokeRunner : Node
             .ToHashSet(StringComparer.Ordinal);
         var collisionNodes = visual.GetNode<Node3D>("CollisionBodies").GetChildren()
             .OfType<StaticBody3D>().ToArray();
-        var expectedFurniturePositions = new Dictionary<string, Vector3>(StringComparer.Ordinal)
-        {
-            ["Fireplace"] = new Vector3(-3.31f, 1.03f, -3.45f),
-            ["ConsoleTable"] = new Vector3(3.06f, 0.75f, -1.72f),
-            ["FoyerBench"] = new Vector3(3.00f, 0.75f, 6.80f)
-        };
+        var expectedFurniturePositions = MansionLayout3D.Collisions.Where(spec => spec.Furniture)
+            .ToDictionary(spec => spec.Name, spec => spec.Position, StringComparer.Ordinal);
         var misalignedFurniture = expectedFurniturePositions
             .Where(expected => collisionNodes.FirstOrDefault(body => body.Name == expected.Key) is not { } body ||
                                body.Position.DistanceTo(expected.Value) > 0.001f)
@@ -2229,8 +2402,8 @@ public partial class GodotSmokeRunner : Node
             mansion.InteractionMarkerCount != 8 || markers.Length != 8 ||
             !actualMarkerIds.SetEquals(expectedMarkerIds) ||
             mansion.ActiveInteractionMarkerCount != 5 ||
-            collisionNodes.Length != 14 || visual.CollisionBodyCount != 14 || reflectionProbes != 2 ||
-            visual.FurnitureCollisionCount != 3 || visual.DoorBarrierCount != 5 ||
+            collisionNodes.Length != 25 || visual.CollisionBodyCount != 25 || reflectionProbes != 2 ||
+            visual.FurnitureCollisionCount != 7 || visual.DoorBarrierCount != 5 ||
             visual.DoorHingeCount != 7 || blockedMarkers.Length > 0 ||
             misalignedFurniture.Length > 0)
         {
@@ -2282,12 +2455,12 @@ public partial class GodotSmokeRunner : Node
             "Door_Room4_Hinge_R",
             "Door_Front_Hinge_L",
             "Door_Front_Hinge_R",
-            "FULL_Manor_DoorMoulding_01",
-            "FULL_Manor_DoorMoulding_07",
-            "FULL_Manor_WainscotEast",
-            "FULL_Manor_SconceBrasswork",
-            "FULL_Manor_FireplaceMoulding",
-            "FULL_Manor_ReservedModules"
+            "Door_Room1_Frame",
+            "Door_Room4_Frame",
+            "V3_WainscotHallEast",
+            "V3_Sconce01_Fixture",
+            "V3_Fireplace",
+            "V3_StairScreen"
         };
         var missing = requiredNodes.Where(name => model.FindChild(name, true, false) is null).ToArray();
         var meshes = Descendants<MeshInstance3D>(model).ToArray();
@@ -2302,11 +2475,11 @@ public partial class GodotSmokeRunner : Node
             .ToHashSet(StringComparer.Ordinal);
         var requiredMaterialNames = new[]
         {
-            "M_Cinematic_Manor_Plaster",
-            "M_Cinematic_Manor_Floor",
-            "M_Cinematic_Manor_Wood",
-            "M_Cinematic_Manor_Rug",
-            "M_Cinematic_Manor_Brass"
+            "M_V3_Manor_Plaster",
+            "M_V3_Manor_Floor",
+            "M_V3_Manor_Wood",
+            "M_V3_Manor_Rug",
+            "M_V3_Manor_Brass"
         };
         var missingMaterials = requiredMaterialNames
             .Where(name => !materialNames.Contains(name))
@@ -2317,17 +2490,17 @@ public partial class GodotSmokeRunner : Node
                                                      material.RoughnessTexture is not null);
         var expectedHingePositions = new Dictionary<string, Vector3>(StringComparer.Ordinal)
         {
-            ["Door_Front_Hinge_L"] = new Vector3(-1.23f, 0f, -6.80f),
-            ["Door_Front_Hinge_R"] = new Vector3(1.23f, 0f, -6.80f),
-            ["Door_Room1_Hinge"] = new Vector3(-3.39f, 0f, 2.62f),
-            ["Door_Room2_Hinge"] = new Vector3(3.39f, 0f, 3.78f),
-            ["Door_Room3_Hinge"] = new Vector3(-3.39f, 0f, 11.42f),
-            ["Door_Room4_Hinge_L"] = new Vector3(-1.36f, 0f, 18.0f),
-            ["Door_Room4_Hinge_R"] = new Vector3(1.36f, 0f, 18.0f)
+            ["Door_Front_Hinge_L"] = new Vector3(-1.3f, 0f, -8f),
+            ["Door_Front_Hinge_R"] = new Vector3(1.3f, 0f, -8f),
+            ["Door_Room1_Hinge"] = new Vector3(-3.5f, 0f, 3.05f),
+            ["Door_Room2_Hinge"] = new Vector3(3.5f, 0f, 3.05f),
+            ["Door_Room3_Hinge"] = new Vector3(-3.5f, 0f, 9.45f),
+            ["Door_Room4_Hinge_L"] = new Vector3(1.4f, 0f, 12f),
+            ["Door_Room4_Hinge_R"] = new Vector3(-1.4f, 0f, 12f)
         };
         var misalignedHinges = expectedHingePositions
             .Where(expected => model.FindChild(expected.Key, true, false) is not Node3D hinge ||
-                               hinge.Position.DistanceTo(expected.Value) > 0.02f)
+                               hinge.GlobalPosition.DistanceTo(expected.Value) > 0.02f)
             .Select(expected => expected.Key)
             .ToArray();
         if (meshes.Length == 0 || missing.Length > 0 || missingMaterials.Length > 0 ||
@@ -2351,8 +2524,8 @@ public partial class GodotSmokeRunner : Node
         var mapper = new DreamMansionCoordinateMapper3D();
         var southWest = mapper.ToWorld(Vector2.Zero);
         var northEast = mapper.ToWorld(new Vector2(640f, 360f));
-        if (southWest.DistanceTo(new Vector3(-3.8f, 0f, -6.8f)) > 0.001f ||
-            northEast.DistanceTo(new Vector3(3.8f, 0f, 18f)) > 0.001f)
+        if (southWest.DistanceTo(new Vector3(-5f, 0f, -8f)) > 0.001f ||
+            northEast.DistanceTo(new Vector3(5f, 0f, 12f)) > 0.001f)
         {
             throw new InvalidOperationException(
                 $"Mansion coordinate bounds are invalid: {southWest} -> {northEast}.");
@@ -2379,13 +2552,13 @@ public partial class GodotSmokeRunner : Node
         var mapper = new DreamMansionCoordinateMapper3D();
         var routes = new[]
         {
-            (DreamEscapeIds.AreaClassroom, new Vector3(-2.2f, 0f, 3.2f), Vector3.Right,
+            (DreamEscapeIds.AreaClassroom, MansionLayout3D.RoomOneEntry, Vector3.Right,
                 $"area:{DreamEscapeIds.AreaClassroom}"),
-            (DreamEscapeIds.AreaMusic, new Vector3(2.2f, 0f, 3.2f), Vector3.Left,
+            (DreamEscapeIds.AreaMusic, MansionLayout3D.RoomTwoEntry, Vector3.Left,
                 "target.corridor.room_two_door"),
-            (DreamEscapeIds.AreaArchive, new Vector3(-2.2f, 0f, 13.2f), Vector3.Right,
+            (DreamEscapeIds.AreaArchive, MansionLayout3D.RoomThreeEntry, Vector3.Right,
                 "target.corridor.room_three_door"),
-            (DreamEscapeIds.AreaAuditorium, new Vector3(0f, 0f, 16.8f), Vector3.Forward,
+            (DreamEscapeIds.AreaAuditorium, MansionLayout3D.RoomFourEntry, Vector3.Forward,
                 "target.corridor.room_four_door")
         };
         var markerById = mansion.GetNode<Node3D>("InteractionMarkers").GetChildren()
@@ -2399,7 +2572,7 @@ public partial class GodotSmokeRunner : Node
             var actualWorld = mapper.ToWorld(route.StoredPosition);
             var markerPosition = markerById[markerId].GlobalPosition;
             if (actualWorld.DistanceTo(expectedWorld) > 0.001f ||
-                markerPosition.DistanceTo(expectedWorld) > 0.001f ||
+                markerPosition.DistanceTo(expectedWorld) <= markerById[markerId].InteractionRange + 0.1f ||
                 route.EntryFacing.DistanceTo(expectedFacing) > 0.001f ||
                 mansion.MansionVisual.IsBlocked(actualWorld))
             {
@@ -2449,7 +2622,7 @@ public partial class GodotSmokeRunner : Node
             roomOneRoute.StoredPosition.X,
             roomOneRoute.StoredPosition.Y);
         if (dream.CurrentAreaId != DreamEscapeIds.AreaCorridor ||
-            mansion.PlayerActor.GlobalPosition.DistanceTo(new Vector3(-2.2f, 0f, 3.2f)) > 0.001f)
+            mansion.PlayerActor.GlobalPosition.DistanceTo(MansionLayout3D.RoomOneEntry) > 0.001f)
         {
             throw new InvalidOperationException(
                 $"Classroom-to-mansion transition did not spawn outside room one: " +
@@ -2600,13 +2773,13 @@ public partial class GodotSmokeRunner : Node
             throw new InvalidOperationException("Dream mansion transition reset did not close its door and unlock input.");
         }
 
-        if (!visual.IsBlocked(new Vector3(0f, 0f, -6.54f)) ||
-            !visual.IsBlocked(new Vector3(-3.34f, 0f, 3.2f)) ||
+        if (!visual.IsBlocked(MansionLayout3D.FrontDoor) ||
+            !visual.IsBlocked(MansionLayout3D.RoomOneDoor) ||
             visual.IsBlocked(new Vector3(0f, 0f, 8.8f)))
         {
             throw new InvalidOperationException("Dream mansion deterministic collision probes failed.");
         }
-        mansion.PlayerActor.GlobalPosition = new Vector3(0f, 0f, -5.4f);
+        mansion.PlayerActor.GlobalPosition = new Vector3(0f, 0f, -6.6f);
         if (!mansion.PlayerActor.TestMove(
                 mansion.PlayerActor.GlobalTransform,
                 new Vector3(0f, 0f, -2f)))
@@ -2674,7 +2847,7 @@ public partial class GodotSmokeRunner : Node
                 DreamEscapeIds.AreaCorridor,
                 roomOneRoute.StoredPosition.X,
                 roomOneRoute.StoredPosition.Y);
-            mansion.PlayerActor.GlobalPosition = new Vector3(-2.2f, 0f, 3.2f);
+            mansion.PlayerActor.GlobalPosition = MansionLayout3D.RoomOneEntry;
             mansion.PlayerActor.SetFacingImmediate(Vector3.Right);
             rig.SetYawImmediate(0f);
             mansion.ResetExitTransition();
@@ -2692,6 +2865,7 @@ public partial class GodotSmokeRunner : Node
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new InvalidOperationException("Could not load dream root for front-door interaction smoke.");
         var dreamRoot = packed.Instantiate<DreamEscapeController>();
+        MarkPrologueStoriesRead(session);
         AddChild(dreamRoot);
         try
         {
@@ -2813,13 +2987,13 @@ public partial class GodotSmokeRunner : Node
             DreamEscapeIds.PuzzleRosterSlider,
             DreamEscapeIds.PuzzleTeacherDesk,
             DreamEscapeIds.PuzzleMapCabinet,
-            DreamEscapeIds.PuzzleTransomCache
+            DreamEscapeIds.PuzzleMapCabinet
         ]);
         visual.ApplyState(state);
         if (!visual.WindowCacheOpen || visual.ClockHandPickupVisible ||
             visual.BlackboardVariant != "revealed" || visual.ClockVariant != "restored" ||
             visual.RosterVariant != "aligned" || visual.TeacherDeskVariant != "open" ||
-            visual.MapCabinetVariant != "open" || visual.TransomCacheVariant != "open")
+            visual.MapCabinetVariant != "open" || visual.TransomCacheVariant != "closed")
         {
             throw new InvalidOperationException("Solved 3D classroom visual state is invalid.");
         }
@@ -2827,6 +3001,10 @@ public partial class GodotSmokeRunner : Node
 
     private static void ValidateClassroomArtPass(DreamAreaController3D classroom)
     {
+        var environment = classroom.GetNode<WorldEnvironment>("WorldEnvironment").Environment;
+        if (environment.AmbientLightSource != Godot.Environment.AmbientSource.Color ||
+            environment.AmbientLightSkyContribution != 0f)
+            throw new InvalidOperationException("Classroom ambient light must not depend on an absent sky.");
         var model = classroom.GetNode<Node3D>("ClassroomModel");
         var desks = Descendants<Node3D>(model)
             .Count(node => node.Name.ToString().StartsWith("StudentDeskGroup_", StringComparison.Ordinal));
@@ -2840,12 +3018,11 @@ public partial class GodotSmokeRunner : Node
             "TransomCache_Open",
             "Door_East_Hinge",
             "DoorV4_Leaf",
-            "FULL_Classroom_DeskHardware",
-            "FULL_Classroom_WindowHardware",
-            "FULL_Classroom_DoorMoulding",
-            "FULL_MapCabinet_Closed_Hardware",
-            "FULL_TeacherDesk_Closed_Lockset",
-            "FULL_Classroom_CeilingHardware"
+            "V6_WindowCache_Closed",
+            "V6_DoorFrame",
+            "V6_MapCabinet_Closed",
+            "V6_TeacherDesk_Closed",
+            "V6_ScheduleStand"
         };
         var missingDetails = requiredDetails
             .Where(name => model.FindChild(name, true, false) is null)
@@ -2859,7 +3036,7 @@ public partial class GodotSmokeRunner : Node
         var normalMapped = materials.Count(material => material.NormalTexture is not null);
         var ormMapped = materials.Count(material => material.OrmTexture is not null ||
                                                      material.RoughnessTexture is not null);
-        if (desks != 18 || missingDetails.Length > 0 ||
+        if (desks != 12 || missingDetails.Length > 0 ||
             textured == 0 || normalMapped == 0 || ormMapped == 0 ||
             materials.Any(material => material.TextureFilter !=
                 BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic))
@@ -2869,6 +3046,24 @@ public partial class GodotSmokeRunner : Node
                 $"missing={string.Join(',', missingDetails)} textured={textured} " +
                 $"normal={normalMapped} orm={ormMapped}.");
         }
+        var expectedPositions = ClassroomLayout3D.DeskPositions.ToArray();
+        for (var index = 0; index < expectedPositions.Length; index++)
+        {
+            var desk = (Node3D)model.FindChild($"StudentDeskGroup_{index + 1:00}", true, false);
+            var body = classroom.ClassroomVisual.GetNode<StaticBody3D>($"CollisionBodies/StudentDesk{index + 1:00}");
+            var expectedBody = desk.GlobalPosition + new Vector3(0f, 0.44f, 0.20f);
+            if (desk.GlobalPosition.DistanceTo(expectedPositions[index]) > 0.001f ||
+                body.GlobalPosition.DistanceTo(expectedBody) > 0.001f)
+                throw new InvalidOperationException($"Classroom v6 model/collision mismatch at desk {index + 1}.");
+        }
+        // Main routes must be connected with the player's radius, not just bare point geometry.
+        foreach (var x in new[] { -4.75f, 0f, 4.75f })
+        for (var z = -1.5f; z <= 3.7f; z += 0.1f)
+            if (classroom.ClassroomVisual.IsBlocked(new Vector3(x, 0f, z)))
+                throw new InvalidOperationException($"Classroom v6 main route blocked at {x}/{z}.");
+        for (var x = -4.75f; x <= 4.75f; x += 0.1f)
+            if (classroom.ClassroomVisual.IsBlocked(new Vector3(x, 0f, 3.7f)))
+                throw new InvalidOperationException($"Classroom v6 rear route blocked at {x}.");
     }
 
     private async Task ValidateThirdPersonCamera(
@@ -2996,18 +3191,18 @@ public partial class GodotSmokeRunner : Node
     {
         var player = classroom.PlayerActor;
         var visual = classroom.ClassroomVisual;
-        if (!visual.IsBlocked(new Vector3(0.85f, 0, 1.45f)) ||
-            visual.IsBlocked(new Vector3(-1.70f, 0, 2.20f)) ||
-            visual.IsBlocked(visual.ResolveSpawn(new Vector3(0.85f, 0, 1.45f))))
+        if (!visual.IsBlocked(new Vector3(2.25f, 0, 0.65f)) ||
+            visual.IsBlocked(new Vector3(0f, 0, 2.20f)) ||
+            visual.IsBlocked(visual.ResolveSpawn(new Vector3(2.25f, 0, 0.65f))))
         {
             throw new InvalidOperationException("3D classroom collision layout rejected deterministic probes.");
         }
 
         await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-        player.GlobalPosition = new Vector3(0.85f, 0, 4.05f);
+        player.GlobalPosition = new Vector3(2.25f, 0, 4.05f);
         if (!player.TestMove(player.GlobalTransform, new Vector3(0, 0, -1.7f)))
             throw new InvalidOperationException("3D physics probe crossed a student desk.");
-        player.GlobalPosition = new Vector3(-1.70f, 0, 4.05f);
+        player.GlobalPosition = new Vector3(0f, 0, 4.05f);
         if (player.TestMove(player.GlobalTransform, new Vector3(0, 0, -6.0f)))
             throw new InvalidOperationException("3D physics probe blocked a main aisle.");
         player.GlobalPosition = new Vector3(0.55f, 0, -2.15f);
@@ -3072,7 +3267,7 @@ public partial class GodotSmokeRunner : Node
             .ToHashSet(StringComparer.Ordinal) ?? [];
         if (model.Name != "DefaultCharacterModel" ||
             !animations.IsSupersetOf(["idle", "walk", "jog"]) ||
-            animationPlayer?.CurrentAnimation != "idle")
+            player.AnimationState != "idle")
         {
             throw new InvalidOperationException(
                 $"Default 3D character model is incomplete: node={model.Name} " +

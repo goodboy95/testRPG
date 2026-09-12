@@ -113,8 +113,6 @@ public sealed class DreamEscapeService(GameState game)
                 UnlockAreaWithKey(itemId, DreamEscapeIds.AreaArchive, DreamEscapeIds.PuzzleMusicAcousticWall,
                     "DREAM_FEEDBACK_ROOM_THREE_OPEN"),
             (DreamEscapeIds.ItemMaintenanceKey, "target.classroom.map_cabinet") => OpenMapCabinet(),
-            (DreamEscapeIds.ItemStageHook, "target.classroom.transom_cache") => OpenTransomCache(),
-            (DreamEscapeIds.ItemBenchClampKey, "target.music.piano_bench") => OpenPianoBenchCache(),
             (DreamEscapeIds.ItemCalibrationReel, "target.archive.recorder") =>
                 InstallRecorderPart(itemId, DreamEscapeIds.SlotArchiveRecorderReel,
                     "DREAM_FEEDBACK_TAPE_INSERTED"),
@@ -124,14 +122,13 @@ public sealed class DreamEscapeService(GameState game)
             (DreamEscapeIds.ItemRepairedFuse, "target.archive.recorder") =>
                 InstallRecorderPart(itemId, DreamEscapeIds.SlotArchiveRecorderFuse,
                     "DREAM_FEEDBACK_RECORDER_FUSE_INSTALLED"),
-            (DreamEscapeIds.ItemInspectionMirror, "target.archive.upper_vault") => OpenUpperVault(),
             (DreamEscapeIds.ItemRoomFourKey, "target.corridor.room_four_door") =>
-                UnlockAreaWithKey(itemId, DreamEscapeIds.AreaAuditorium, DreamEscapeIds.PuzzleArchiveEditingCounter,
+                UnlockAreaWithKey(itemId, DreamEscapeIds.AreaAuditorium, DreamEscapeIds.PuzzleArchiveWorkTimeline,
                     "DREAM_FEEDBACK_ROOM_FOUR_OPEN"),
-            (DreamEscapeIds.ItemCurtainCounterweight, "target.auditorium.line_set") =>
+            (DreamEscapeIds.ItemCurtainCounterweight, "target.auditorium.line_set" or "target.auditorium.projector") =>
                 InstallPart(itemId, DreamEscapeIds.SlotAuditoriumCurtainCounterweight,
                     "DREAM_FEEDBACK_CURTAIN_WEIGHT_INSTALLED"),
-            (DreamEscapeIds.ItemProjectorLens, "target.auditorium.projector") =>
+            (DreamEscapeIds.ItemProjectorLens, "target.auditorium.projector" or "target.auditorium.line_set") =>
                 InstallPart(itemId, DreamEscapeIds.SlotAuditoriumProjectorLens,
                     "DREAM_FEEDBACK_PROJECTOR_LENS_INSTALLED"),
             (DreamEscapeIds.ItemRestoredMasterTape, "target.auditorium.master_player") =>
@@ -178,8 +175,11 @@ public sealed class DreamEscapeService(GameState game)
 
     private DreamActionResult CompleteAutomaticItemTarget(string targetId, DreamActionResult fallback)
     {
+        if (targetId == "target.music.metronome" && HasSlots(DreamEscapeIds.SlotMusicMetronomeWeight) &&
+            State.SolvedPuzzles.Add(DreamEscapeIds.ProgressMetronomeReady))
+            return DreamActionResult.Success("DREAM_FEEDBACK_METRONOME_CALIBRATED");
         if (targetId == "target.archive.recorder" &&
-            !State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRecorderRebuild) &&
+            !HasSolved(DreamEscapeIds.PuzzleArchiveRecorderRebuild) &&
             HasSlots(DreamEscapeIds.SlotArchiveRecorderReel, DreamEscapeIds.SlotArchiveRecorderCrank,
                 DreamEscapeIds.SlotArchiveRecorderFuse))
         {
@@ -192,17 +192,16 @@ public sealed class DreamEscapeService(GameState game)
     public DreamActionResult Observe(string targetId)
     {
         RequireInProgress();
-        var targetArea = TargetArea(targetId);
-        if (targetArea is not null && State.CurrentAreaId != targetArea)
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_TARGET_NOT_HERE");
-
         var clueId = targetId switch
         {
             "target.classroom.maintenance_card" => DreamEscapeIds.ClueClassroomWindow,
             "target.classroom.morning_schedule" => DreamEscapeIds.ClueClassroomClock,
             "target.classroom.duty_note" => DreamEscapeIds.ClueClassroomDutyRoster,
+            "target.music.door_voice" => DreamEscapeIds.ClueDoorMapping,
+            "target.music.side_wave" => DreamEscapeIds.ClueMusicSideWave,
+            "target.auditorium.handoff_circuit" => DreamEscapeIds.ClueHandoffCircuit,
             "target.music.tempo_notice" => DreamEscapeIds.ClueMusicTempoNotice,
-            "target.music.fork_reference" => DreamEscapeIds.ClueMusicForkReference,
+            "target.music.fork_reference" => DreamEscapeIds.ClueMusicFrontWaves,
             "target.music.roll_template" => DreamEscapeIds.ClueMusicRollTemplate,
             "target.archive.registry_rule" => DreamEscapeIds.ClueArchiveRegistryRule,
             "target.archive.registry_choir" => DreamEscapeIds.ClueArchiveRegistryChoir,
@@ -210,26 +209,27 @@ public sealed class DreamEscapeService(GameState game)
             "target.archive.registry_art" => DreamEscapeIds.ClueArchiveRegistryArt,
             "target.archive.registry_track" => DreamEscapeIds.ClueArchiveRegistryTrack,
             "target.archive.fuse_route" => DreamEscapeIds.ClueArchiveFuseRoute,
-            "target.auditorium.line_set_notches" => DreamEscapeIds.ClueAuditoriumLineSetNotches,
-            "target.auditorium.projection_order" => DreamEscapeIds.ClueAuditoriumProjectionOrder,
-            "target.auditorium.tape_order" => DreamEscapeIds.ClueAuditoriumTapeOrder,
+            "target.auditorium.line_set_notches" => DreamEscapeIds.ClueStageFrontFrame,
+            "target.auditorium.projection_order" => DreamEscapeIds.ClueStageSideFrame,
+            "target.auditorium.tape_order" => DreamEscapeIds.ClueTapeSeams,
             _ => throw new ArgumentOutOfRangeException(nameof(targetId), targetId, "Unknown observation target.")
         };
 
-        if (clueId is DreamEscapeIds.ClueMusicTempoNotice or DreamEscapeIds.ClueMusicForkReference or
+        var targetArea = TargetArea(targetId);
+        if (targetArea is not null && State.CurrentAreaId != targetArea)
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_TARGET_NOT_HERE");
+
+        if (clueId is DreamEscapeIds.ClueMusicSideWave or DreamEscapeIds.ClueMusicTempoNotice or DreamEscapeIds.ClueMusicFrontWaves or
             DreamEscapeIds.ClueMusicRollTemplate && !State.XiaoyuJoined)
             return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
-        if (clueId == DreamEscapeIds.ClueMusicForkReference &&
+        if (clueId == DreamEscapeIds.ClueMusicFrontWaves &&
             !State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMusicCage))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_CAGE_CLOSED");
         if (clueId == DreamEscapeIds.ClueArchiveFuseRoute &&
-            !State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveSignalRegistry))
+            !State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRetrieval))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_ARCHIVE_DRAWER_CLOSED");
-        if (clueId == DreamEscapeIds.ClueAuditoriumProjectionOrder &&
-            !State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumLineSetBalance))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_CURTAIN_CLOSED");
-        if (clueId == DreamEscapeIds.ClueAuditoriumTapeOrder &&
-            !State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector))
+        if (clueId == DreamEscapeIds.ClueTapeSeams &&
+            !State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumStageAlignment))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_PROJECTOR_REWARD_CLOSED");
 
         return State.DiscoveredClues.Add(clueId)
@@ -248,6 +248,9 @@ public sealed class DreamEscapeService(GameState game)
         if (puzzleArea is not null && State.CurrentAreaId != puzzleArea)
             return DreamActionResult.NoChange("DREAM_FEEDBACK_TARGET_NOT_HERE");
 
+        if (DreamEscapeIds.PuzzlePrerequisites.GetValueOrDefault(puzzleId, [])
+            .Any(required => !State.SolvedPuzzles.Contains(required)))
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_PREREQUISITES_MISSING");
         return puzzleId switch
         {
             DreamEscapeIds.PuzzleWindowLatches => SubmitWindowLatches(answer),
@@ -255,25 +258,16 @@ public sealed class DreamEscapeService(GameState game)
             DreamEscapeIds.PuzzleRosterSlider => SubmitRosterSlider(answer),
             DreamEscapeIds.PuzzleTeacherDesk => SubmitTeacherDesk(answer),
             DreamEscapeIds.PuzzleMusicCage => SubmitMusicCage(answer),
-            DreamEscapeIds.PuzzleMusicMetronome => SubmitMusicMetronome(answer),
-            DreamEscapeIds.PuzzleMusicTuningForks => SubmitMusicTuningForks(answer),
+            DreamEscapeIds.PuzzleMusicChannelCalibration => SubmitMusicTuningForks(answer),
             DreamEscapeIds.PuzzleMusicPianoRoll => SubmitMusicPianoRoll(answer),
             DreamEscapeIds.PuzzleMusicAcousticWall => SubmitMusicAcousticWall(answer),
-            DreamEscapeIds.PuzzleMusicAttendanceReader => SubmitAttendance(answer),
-            DreamEscapeIds.PuzzleArchiveSignalRegistry => SubmitArchiveSignalRegistry(answer),
-            DreamEscapeIds.PuzzleArchiveDrawerRoute => SubmitArchiveDrawerRoute(answer),
-            DreamEscapeIds.PuzzleArchiveFuseRepair => SubmitFuseRepair(answer),
+            DreamEscapeIds.PuzzleMusicBackstagePhoto => SubmitBackstagePhoto(answer),
+            DreamEscapeIds.PuzzleArchiveRetrieval => SubmitArchiveRetrieval(answer),
             DreamEscapeIds.PuzzleArchiveRecorderRebuild => SubmitRecorderRebuild(answer),
-            DreamEscapeIds.PuzzleArchiveEditingCounter => SubmitEditingCounter(answer),
-            DreamEscapeIds.PuzzleAuditoriumLineSetBalance => SubmitLineSetBalance(answer),
-            DreamEscapeIds.PuzzleAuditoriumShadowProjector => SubmitShadowProjector(answer),
-            DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice => SubmitMasterTapeSplice(answer),
-            DreamEscapeIds.PuzzleAuditoriumLightConsole =>
-                SubmitFinalConsole(puzzleId, answer, ["3", "7", "2"], requireXiaoyu: true),
-            DreamEscapeIds.PuzzleAuditoriumSoundConsole =>
-                SubmitFinalConsole(puzzleId, answer, ["woodblock", "piano", "triangle", "handbell"]),
-            DreamEscapeIds.PuzzleAuditoriumBroadcastConsole =>
-                SubmitFinalConsole(puzzleId, answer, ["curtain", "clock", "bell", "register"]),
+            DreamEscapeIds.PuzzleArchiveWorkTimeline => SubmitWorkTimeline(answer),
+            DreamEscapeIds.PuzzleAuditoriumStageAlignment => SubmitStageAlignment(answer),
+            DreamEscapeIds.PuzzleAuditoriumTapeReconstruction => SubmitTapeReconstruction(answer),
+            DreamEscapeIds.PuzzleAuditoriumHandoffPlan => SubmitHandoffPlan(answer),
             _ => DreamActionResult.NoChange("DREAM_FEEDBACK_PUZZLE_NOT_SUBMITTABLE")
         };
     }
@@ -283,7 +277,7 @@ public sealed class DreamEscapeService(GameState game)
         RequireInProgress();
         if (State.CurrentAreaId != DreamEscapeIds.AreaAuditorium)
             return DreamActionResult.NoChange("DREAM_FEEDBACK_TARGET_NOT_HERE");
-        if (!State.XiaoyuJoined || !FinalConsolesSolved())
+        if (!State.XiaoyuJoined || !HandoffPlanned())
             return DreamActionResult.NoChange("DREAM_FEEDBACK_FINAL_PANELS_INCOMPLETE");
         return DreamActionResult.NoChange("DREAM_FEEDBACK_XIAOYU_READY");
     }
@@ -295,7 +289,7 @@ public sealed class DreamEscapeService(GameState game)
         RequireInProgress();
         if (State.CurrentAreaId != DreamEscapeIds.AreaAuditorium)
             return DreamActionResult.NoChange("DREAM_FEEDBACK_TARGET_NOT_HERE");
-        if (!State.XiaoyuJoined || !FinalConsolesSolved())
+        if (!State.XiaoyuJoined || !HandoffPlanned())
             return DreamActionResult.NoChange("DREAM_FEEDBACK_XIAOYU_NOT_READY");
         State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleExit);
         State.Status = DreamEscapeStatus.ExitOpened;
@@ -327,6 +321,19 @@ public sealed class DreamEscapeService(GameState game)
         game.Player.PositionX = 320f;
         game.Player.PositionY = 260f;
         return DreamActionResult.Success("DREAM_FEEDBACK_PIN_WAKE_COMPLETED");
+    }
+
+    public DreamActionResult CompleteStory(string eventId)
+    {
+        if (eventId != DreamPrologueCatalog.EventId("intro") &&
+            !DreamPrologueCatalog.Groups.Any(group => DreamPrologueCatalog.EventId(group.Id) == eventId))
+            throw new ArgumentOutOfRangeException(nameof(eventId), eventId, "Unknown prologue story.");
+        if (!DreamPrologueCatalog.StoryReady(eventId, State))
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_PREREQUISITES_MISSING");
+        var changed = new EventOutcomeService(game).Apply(eventId + ".complete",
+            [new NarrativeMutation { Command = "complete_event", Arguments = [eventId] }]);
+        return changed ? DreamActionResult.Success("DREAM_FEEDBACK_STORY_RECORDED")
+            : DreamActionResult.NoChange("DREAM_FEEDBACK_STORY_ALREADY_READ");
     }
 
     public IReadOnlyList<string> AvailableHintPuzzles() => !State.XiaoyuJoined
@@ -380,6 +387,7 @@ public sealed class DreamEscapeService(GameState game)
             return Wrong();
         State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleTeacherDesk);
         State.Items.Add(DreamEscapeIds.ItemRoomTwoKey);
+        State.DiscoveredClues.UnionWith([DreamEscapeIds.ClueProgramme, DreamEscapeIds.CluePreparationList]);
         return DreamActionResult.Success("DREAM_FEEDBACK_DESK_OPENED");
     }
 
@@ -401,31 +409,16 @@ public sealed class DreamEscapeService(GameState game)
         return DreamActionResult.Success("DREAM_FEEDBACK_XIAOYU_JOINED");
     }
 
-    private DreamActionResult SubmitMusicMetronome(IReadOnlyList<string> answer)
-    {
-        if (!State.XiaoyuJoined)
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
-        if (!HasSlots(DreamEscapeIds.SlotMusicMetronomeWeight))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_METRONOME_WEIGHT_MISSING");
-        if (!Matches(answer, "72"))
-            return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMusicMetronome);
-        State.DiscoveredClues.Add(DreamEscapeIds.ClueMusicBeatGlyphs);
-        return DreamActionResult.Success("DREAM_FEEDBACK_METRONOME_CALIBRATED");
-    }
-
     private DreamActionResult SubmitMusicTuningForks(IReadOnlyList<string> answer)
     {
-        if (!State.XiaoyuJoined)
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
-        if (!HasItems(DreamEscapeIds.ItemRubberMallet, DreamEscapeIds.ItemListeningCone))
+        if (!State.XiaoyuJoined) return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
+        if (!HasSlots(DreamEscapeIds.SlotMusicMetronomeWeight) ||
+            !HasItems(DreamEscapeIds.ItemRubberMallet, DreamEscapeIds.ItemListeningCone))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_TUNING_TOOLS_MISSING");
-        if (!Matches(answer, "A3", "C4", "E4", "A4"))
-            return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMusicTuningForks);
-        State.Items.Remove(DreamEscapeIds.ItemRubberMallet);
-        State.Items.Remove(DreamEscapeIds.ItemListeningCone);
-        State.DiscoveredClues.Add(DreamEscapeIds.ClueMusicGlyphPitchMap);
+        if (!Matches(answer, "woodblock", "piano", "triangle", "handbell")) return Wrong();
+        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMusicChannelCalibration);
+        State.Items.ExceptWith([DreamEscapeIds.ItemRubberMallet, DreamEscapeIds.ItemListeningCone]);
+        State.DiscoveredClues.Add(DreamEscapeIds.ClueMusicChannelMap);
         return DreamActionResult.Success("DREAM_FEEDBACK_TUNING_FORKS_CALIBRATED");
     }
 
@@ -441,7 +434,7 @@ public sealed class DreamEscapeService(GameState game)
         State.Items.Remove(DreamEscapeIds.ItemTornPianoRoll);
         State.Items.Remove(DreamEscapeIds.ItemWaxPatch);
         State.InstalledParts.Add(DreamEscapeIds.SlotMusicPianoRoll);
-        State.DiscoveredClues.Add(DreamEscapeIds.ClueMusicPitchInstrumentMap);
+        State.DiscoveredClues.Add(DreamEscapeIds.ClueMusicRepairedScore);
         return DreamActionResult.Success("DREAM_FEEDBACK_PIANO_ROLL_REPAIRED");
     }
 
@@ -449,8 +442,7 @@ public sealed class DreamEscapeService(GameState game)
     {
         if (!State.XiaoyuJoined)
             return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
-        if (!HasSolved(DreamEscapeIds.PuzzleMusicMetronome, DreamEscapeIds.PuzzleMusicTuningForks,
-                DreamEscapeIds.PuzzleMusicPianoRoll))
+        if (!HasSolved(DreamEscapeIds.PuzzleMusicChannelCalibration, DreamEscapeIds.PuzzleMusicPianoRoll))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_MUSIC_TRANSLATIONS");
         if (!Matches(answer, "woodblock", "piano", "triangle", "handbell"))
             return Wrong();
@@ -460,50 +452,47 @@ public sealed class DreamEscapeService(GameState game)
         return DreamActionResult.Success("DREAM_FEEDBACK_ACOUSTIC_WALL_OPENED");
     }
 
-    private DreamActionResult SubmitAttendance(IReadOnlyList<string> answer)
+    private DreamActionResult SubmitBackstagePhoto(IReadOnlyList<string> answer)
     {
         if (!HasItems(DreamEscapeIds.ItemClassPhotoNegative, DreamEscapeIds.ItemAttendanceOverlay,
                 DreamEscapeIds.ItemRedFilter))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_SEAT_COORDINATES");
-        if (!Matches(answer, "B2", "D1", "A3", "C4"))
+        if (!Matches(answer, "C4"))
             return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMusicAttendanceReader);
+        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleMusicBackstagePhoto);
         State.Items.ExceptWith([DreamEscapeIds.ItemClassPhotoNegative, DreamEscapeIds.ItemAttendanceOverlay,
             DreamEscapeIds.ItemRedFilter]);
-        State.DiscoveredClues.Add(DreamEscapeIds.ClueSeatCoordinates);
-        State.Items.UnionWith([DreamEscapeIds.ItemCalibrationReel, DreamEscapeIds.ItemRecorderCrank]);
+        State.DiscoveredClues.Add(DreamEscapeIds.ClueBackstagePosition);
+        State.Items.UnionWith([DreamEscapeIds.ItemCalibrationReel, DreamEscapeIds.ItemRecorderCrank,
+            DreamEscapeIds.ItemTapeFragmentMusic]);
         return DreamActionResult.Success("DREAM_FEEDBACK_ATTENDANCE_OPENED");
     }
 
-    private DreamActionResult SubmitArchiveSignalRegistry(IReadOnlyList<string> answer)
+    private DreamActionResult SubmitArchiveRetrieval(IReadOnlyList<string> answer)
     {
-        if (!Matches(answer, "choir", "broadcast", "art", "track"))
-            return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveSignalRegistry);
+        if (!HasItems(DreamEscapeIds.ItemArchiveIndexStrip))
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_ARCHIVE_INDEX_MISSING");
+        if (!Matches(answer, "C1", "A4", "D2", "B3")) return Wrong();
+        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveRetrieval);
+        State.Items.Remove(DreamEscapeIds.ItemArchiveIndexStrip);
         State.Items.UnionWith([DreamEscapeIds.ItemMaintenanceKey, DreamEscapeIds.ItemRedFilter,
-            DreamEscapeIds.ItemFuseTube]);
-        State.DiscoveredClues.Add(DreamEscapeIds.ClueMapTool);
+            DreamEscapeIds.ItemFuseTube, DreamEscapeIds.ItemCopperWire, DreamEscapeIds.ItemSplicingTape,
+            DreamEscapeIds.ItemTapeFragmentArchive]);
+        State.DiscoveredClues.UnionWith([DreamEscapeIds.ClueMapTool, DreamEscapeIds.ClueArchiveScope]);
         return DreamActionResult.Success("DREAM_FEEDBACK_SIGNAL_REGISTRY_OPENED");
     }
 
-    private DreamActionResult SubmitArchiveDrawerRoute(IReadOnlyList<string> answer)
+    public DreamActionResult AssembleFuse()
     {
-        if (!State.Items.Contains(DreamEscapeIds.ItemArchiveIndexStrip))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_ARCHIVE_INDEX_MISSING");
-        if (!Matches(answer, "C1", "A4", "D2", "B3"))
-            return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveDrawerRoute);
-        State.Items.UnionWith([DreamEscapeIds.ItemCopperWire, DreamEscapeIds.ItemSplicingTape]);
-        return DreamActionResult.Success("DREAM_FEEDBACK_ARCHIVE_ROUTE_OPENED");
-    }
-
-    private DreamActionResult SubmitFuseRepair(IReadOnlyList<string> answer)
-    {
-        if (!HasItems(DreamEscapeIds.ItemFuseTube, DreamEscapeIds.ItemCopperWire))
+        RequireInProgress();
+        if (State.CurrentAreaId != DreamEscapeIds.AreaArchive)
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_TARGET_NOT_HERE");
+        if (HasSolved(DreamEscapeIds.ProgressFuseAssembly))
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_PUZZLE_ALREADY_SOLVED");
+        if (!HasSolved(DreamEscapeIds.PuzzleArchiveRetrieval) ||
+            !HasItems(DreamEscapeIds.ItemFuseTube, DreamEscapeIds.ItemCopperWire))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_FUSE_PARTS_MISSING");
-        if (!Matches(answer, "left", "middle", "right"))
-            return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveFuseRepair);
+        State.SolvedPuzzles.Add(DreamEscapeIds.ProgressFuseAssembly);
         State.Items.ExceptWith([DreamEscapeIds.ItemFuseTube, DreamEscapeIds.ItemCopperWire]);
         State.Items.Add(DreamEscapeIds.ItemRepairedFuse);
         return DreamActionResult.Success("DREAM_FEEDBACK_FUSE_REPAIRED");
@@ -519,48 +508,44 @@ public sealed class DreamEscapeService(GameState game)
         if (answer.Count > 0 && !Matches(answer, "confirm"))
             return Wrong();
         State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveRecorderRebuild);
-        State.DiscoveredClues.Add(DreamEscapeIds.ClueArchiveEditingStops);
-        State.DiscoveredClues.Add(DreamEscapeIds.ClueBroadcastSequence);
+        State.DiscoveredClues.Add(DreamEscapeIds.ClueWorkTickets);
         return DreamActionResult.Success("DREAM_FEEDBACK_RECORDER_PLAYING");
     }
 
-    private DreamActionResult SubmitEditingCounter(IReadOnlyList<string> answer)
+    private DreamActionResult SubmitWorkTimeline(IReadOnlyList<string> answer)
     {
         if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRecorderRebuild))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_RECORDER_NOT_READY");
-        if (!Matches(answer, "12", "24", "31", "45"))
+        if (!Matches(answer, "open", "calibrate", "score", "backstage"))
             return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveEditingCounter);
+        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveWorkTimeline);
         State.Items.Remove(DreamEscapeIds.ItemArchiveIndexStrip);
         State.Items.Add(DreamEscapeIds.ItemRoomFourKey);
+        State.DiscoveredClues.Add(DreamEscapeIds.ClueWorkTimeline);
         return DreamActionResult.Success("DREAM_FEEDBACK_EDITING_COUNTER_OPENED");
     }
 
-    private DreamActionResult SubmitLineSetBalance(IReadOnlyList<string> answer)
+    private DreamActionResult SubmitStageAlignment(IReadOnlyList<string> answer)
     {
-        if (!HasSlots(DreamEscapeIds.SlotAuditoriumCurtainCounterweight))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_CURTAIN_WEIGHT_MISSING");
-        if (!Matches(answer, "3", "1", "4", "2"))
-            return Wrong();
-        return MarkSolved(DreamEscapeIds.PuzzleAuditoriumLineSetBalance,
-            "DREAM_FEEDBACK_LINE_SET_BALANCED");
+        if (!State.XiaoyuJoined) return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
+        if (!HasSlots(DreamEscapeIds.SlotAuditoriumCurtainCounterweight, DreamEscapeIds.SlotAuditoriumProjectorLens))
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_STAGE_PARTS_MISSING");
+        if (!DreamStageRules.Observe(answer).Aligned) return Wrong();
+        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
+        State.Items.Add(DreamEscapeIds.ItemMasterReelCore);
+        return DreamActionResult.Success("DREAM_FEEDBACK_LINE_SET_BALANCED");
     }
 
-    private DreamActionResult SubmitShadowProjector(IReadOnlyList<string> answer)
+    private DreamActionResult SubmitHandoffPlan(IReadOnlyList<string> answer)
     {
-        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumLineSetBalance))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_CURTAIN_CLOSED");
-        if (!HasSlots(DreamEscapeIds.SlotAuditoriumProjectorLens))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_PROJECTOR_LENS_MISSING");
-        if (!Matches(answer, "window", "figure", "bell"))
-            return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumShadowProjector);
-        State.Items.UnionWith([DreamEscapeIds.ItemStageHook, DreamEscapeIds.ItemBenchClampKey,
-            DreamEscapeIds.ItemInspectionMirror, DreamEscapeIds.ItemMasterReelCore]);
-        return DreamActionResult.Success("DREAM_FEEDBACK_PROJECTOR_OPENED");
+        if (!HasSlots(DreamEscapeIds.SlotAuditoriumMasterTape))
+            return DreamActionResult.NoChange("DREAM_FEEDBACK_MASTER_TAPE_NOT_PLAYING");
+        if (!State.XiaoyuJoined) return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
+        if (!Matches(answer, "position", "monitor", "lights", "release")) return Wrong();
+        return MarkSolved(DreamEscapeIds.PuzzleAuditoriumHandoffPlan, "DREAM_FEEDBACK_HANDOFF_PLANNED");
     }
 
-    private DreamActionResult SubmitMasterTapeSplice(IReadOnlyList<string> answer)
+    private DreamActionResult SubmitTapeReconstruction(IReadOnlyList<string> answer)
     {
         if (!HasItems(DreamEscapeIds.ItemTapeFragmentClassroom, DreamEscapeIds.ItemTapeFragmentMusic,
                 DreamEscapeIds.ItemTapeFragmentArchive, DreamEscapeIds.ItemSplicingTape,
@@ -568,7 +553,7 @@ public sealed class DreamEscapeService(GameState game)
             return DreamActionResult.NoChange("DREAM_FEEDBACK_TAPE_PARTS_MISSING");
         if (!Matches(answer, "classroom", "music", "archive"))
             return Wrong();
-        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice);
+        State.SolvedPuzzles.Add(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction);
         State.Items.ExceptWith([DreamEscapeIds.ItemTapeFragmentClassroom,
             DreamEscapeIds.ItemTapeFragmentMusic, DreamEscapeIds.ItemTapeFragmentArchive,
             DreamEscapeIds.ItemSplicingTape, DreamEscapeIds.ItemMasterReelCore]);
@@ -576,59 +561,18 @@ public sealed class DreamEscapeService(GameState game)
         return DreamActionResult.Success("DREAM_FEEDBACK_MASTER_TAPE_RESTORED");
     }
 
-    private DreamActionResult SubmitFinalConsole(string puzzleId, IReadOnlyList<string> answer,
-        IReadOnlyList<string> expected, bool requireXiaoyu = false)
-    {
-        if (!HasSlots(DreamEscapeIds.SlotAuditoriumMasterTape))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_MASTER_TAPE_NOT_PLAYING");
-        if (requireXiaoyu && !State.XiaoyuJoined)
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_NEED_XIAOYU");
-        if (!answer.SequenceEqual(expected, StringComparer.Ordinal))
-            return Wrong();
-        return MarkSolved(puzzleId, "DREAM_FEEDBACK_FINAL_PANEL_SOLVED");
-    }
-
     private DreamActionResult OpenMapCabinet()
     {
-        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveSignalRegistry))
+        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRetrieval))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_MAP_TOOL_NOT_READY");
         var result = SolveWithItem(DreamEscapeIds.PuzzleMapCabinet, DreamEscapeIds.ItemMaintenanceKey, null,
             "DREAM_FEEDBACK_MAP_CABINET_OPENED");
         if (result.Changed)
-            State.Items.UnionWith([DreamEscapeIds.ItemClassPhotoNegative, DreamEscapeIds.ItemAttendanceOverlay]);
-        return result;
-    }
-
-    private DreamActionResult OpenTransomCache()
-    {
-        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_TRANSOM_TOOL_NOT_READY");
-        var result = SolveWithItem(DreamEscapeIds.PuzzleTransomCache, DreamEscapeIds.ItemStageHook, null,
-            "DREAM_FEEDBACK_TRANSOM_CACHE_OPENED");
-        if (result.Changed)
-            State.Items.Add(DreamEscapeIds.ItemTapeFragmentClassroom);
-        return result;
-    }
-
-    private DreamActionResult OpenPianoBenchCache()
-    {
-        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_BENCH_TOOL_NOT_READY");
-        var result = SolveWithItem(DreamEscapeIds.PuzzleMusicPianoBenchCache,
-            DreamEscapeIds.ItemBenchClampKey, null, "DREAM_FEEDBACK_PIANO_BENCH_OPENED");
-        if (result.Changed)
-            State.Items.Add(DreamEscapeIds.ItemTapeFragmentMusic);
-        return result;
-    }
-
-    private DreamActionResult OpenUpperVault()
-    {
-        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector))
-            return DreamActionResult.NoChange("DREAM_FEEDBACK_VAULT_TOOL_NOT_READY");
-        var result = SolveWithItem(DreamEscapeIds.PuzzleArchiveUpperVault,
-            DreamEscapeIds.ItemInspectionMirror, null, "DREAM_FEEDBACK_UPPER_VAULT_OPENED");
-        if (result.Changed)
-            State.Items.Add(DreamEscapeIds.ItemTapeFragmentArchive);
+        {
+            State.Items.UnionWith([DreamEscapeIds.ItemClassPhotoNegative, DreamEscapeIds.ItemAttendanceOverlay,
+                DreamEscapeIds.ItemTapeFragmentClassroom]);
+            State.DiscoveredClues.Add(DreamEscapeIds.CluePhotoDuty);
+        }
         return result;
     }
 
@@ -641,7 +585,7 @@ public sealed class DreamEscapeService(GameState game)
 
     private DreamActionResult InstallMasterTape()
     {
-        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice))
+        if (!State.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction))
             return DreamActionResult.NoChange("DREAM_FEEDBACK_MASTER_TAPE_NOT_READY");
         return InstallPart(DreamEscapeIds.ItemRestoredMasterTape,
             DreamEscapeIds.SlotAuditoriumMasterTape, "DREAM_FEEDBACK_MASTER_TAPE_PLAYING");
@@ -720,10 +664,7 @@ public sealed class DreamEscapeService(GameState game)
         return null;
     }
 
-    private bool FinalConsolesSolved() => HasSolved(
-        DreamEscapeIds.PuzzleAuditoriumLightConsole,
-        DreamEscapeIds.PuzzleAuditoriumSoundConsole,
-        DreamEscapeIds.PuzzleAuditoriumBroadcastConsole);
+    private bool HandoffPlanned() => HasSolved(DreamEscapeIds.PuzzleAuditoriumHandoffPlan);
 
     private bool HasSolved(params string[] puzzleIds) => puzzleIds.All(State.SolvedPuzzles.Contains);
     private bool HasItems(params string[] itemIds) => itemIds.All(State.Items.Contains);

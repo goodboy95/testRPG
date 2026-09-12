@@ -1,0 +1,6 @@
+~ start
+主角: 开门、校准、传谱，最后还留在侧台。四张票的勾记都一样。 [ID:DREAM_V6_STORY_TIMELINE_001]
+林晓雨: 清单上的最后一项，一直没被划掉。 [ID:DREAM_V6_STORY_TIMELINE_002]
+主角: 至少现在，我们能看懂那个人在做什么了。 [ID:DREAM_V6_STORY_TIMELINE_003]
+do Narrative.Execute("complete_event", "dream.prologue.timeline")
+=> END

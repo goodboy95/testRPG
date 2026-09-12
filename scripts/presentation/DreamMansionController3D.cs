@@ -25,6 +25,8 @@ public partial class DreamMansionController3D : WorldArea3D, IDreamAreaRuntime,
     {
         _session = GetNode<GameSession>("/root/GameSession");
         _visual = GetNode<DreamMansionVisual3D>("MansionVisual");
+        foreach (var marker in GetNode<Node3D>("InteractionMarkers").GetChildren().OfType<InteractionMarker3D>())
+            marker.Position = MansionLayout3D.MarkerPositions[marker.TargetId];
         base._Ready();
         var dream = _session.State.DreamEscape
             ?? throw new InvalidOperationException("3D dream mansion loaded without dream state.");
@@ -37,6 +39,12 @@ public partial class DreamMansionController3D : WorldArea3D, IDreamAreaRuntime,
             _session.MoveDreamToArea(AreaId, resolvedStored.X, resolvedStored.Y);
         }
         Player.GlobalPosition = resolvedWorld;
+        var companion = GetNode<DreamCompanion3D>("XiaoyuCompanion");
+        companion.FollowPositionResolver = _visual.ResolveSpawn;
+        companion.FollowStepResolver = _visual.AdvanceCompanion;
+        companion.FollowPositionIsBlocked = _visual.IsBlocked;
+        companion.RoutedMotionPaused = () => _session.Modal.IsBlocked || _doorTransitionPlaying;
+        companion.RefreshImmediate();
         CameraRig.SnapToTarget();
         Player.Moved += OnPlayerMoved;
         var protagonistTexture = ResourceLoader.Load<Texture2D>(

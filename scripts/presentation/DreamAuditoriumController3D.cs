@@ -7,10 +7,8 @@ namespace TownRpg.Presentation;
 public partial class DreamAuditoriumController3D : WorldArea3D, IDreamAreaRuntime,
     IDreamAreaExitTransition, IDreamAreaTransitionPose3D, IDreamAreaTransientPresentation
 {
-    private static readonly Vector3 LeftLeverCompanionPosition = new(-6.75f, 0f, -1.25f);
-    private readonly AreaCoordinateMapper3D _coordinateMapper = new(
-        new Rect2(16f, 54f, 608f, 272f),
-        new Rect2(-8.5f, -5.5f, 17f, 11f));
+    private static readonly Vector3 LeftLeverCompanionPosition = AuditoriumLayout3D.LeftLeverCompanion;
+    private readonly AreaCoordinateMapper3D _coordinateMapper = AuditoriumLayout3D.Mapper;
     private GameSession _session = null!;
     private DreamAuditoriumVisual3D _visual = null!;
     private DreamCompanion3D _companion = null!;
@@ -29,6 +27,9 @@ public partial class DreamAuditoriumController3D : WorldArea3D, IDreamAreaRuntim
     {
         _session = GetNode<GameSession>("/root/GameSession");
         _visual = GetNode<DreamAuditoriumVisual3D>("AuditoriumVisual");
+        foreach (var marker in GetNode<Node3D>("InteractionMarkers").GetChildren().OfType<InteractionMarker3D>())
+            marker.Position = AuditoriumLayout3D.MarkerPositions.TryGetValue(marker.TargetId, out var position)
+                ? position : throw new InvalidOperationException($"Unknown auditorium marker '{marker.TargetId}'.");
         base._Ready();
         _companion = GetNode<DreamCompanion3D>("XiaoyuCompanion");
         var dream = _session.State.DreamEscape
@@ -48,6 +49,13 @@ public partial class DreamAuditoriumController3D : WorldArea3D, IDreamAreaRuntim
         if (protagonistTexture is not null)
             Player.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(protagonistTexture));
         _visual.ApplyState(dream);
+        _companion.ConfigureBillboardHeight(1.6f);
+        _companion.UseRoutedMotion = true;
+        _companion.FollowPositionResolver = _visual.ResolveSpawn;
+        _companion.FollowStepResolver = _visual.AdvanceCompanion;
+        _companion.FollowPositionIsBlocked = _visual.IsBlocked;
+        _companion.RoutedMotionPaused = () => _session.Modal.IsBlocked;
+        _companion.RefreshImmediate(force: true);
         _doorClosedYaw = _visual.DoorHinge.Rotation.Y;
         ApplySettings(_session.State.Settings);
     }
@@ -75,7 +83,10 @@ public partial class DreamAuditoriumController3D : WorldArea3D, IDreamAreaRuntim
     public void ApplyTransientState(DreamAreaTransientState state)
     {
         _visual.ApplyTransientState(state);
-        _companion.SetHeldPose(state.XiaoyuHoldingExitLever, LeftLeverCompanionPosition);
+        var stagePreview = state.PreviewPuzzleId == DreamEscapeIds.PuzzleAuditoriumStageAlignment;
+        _companion.SetHeldPose(state.XiaoyuHoldingExitLever || stagePreview,
+            stagePreview ? AuditoriumLayout3D.SideObservation : LeftLeverCompanionPosition,
+            stagePreview ? "observe" : "hold", stagePreview ? Vector3.Left : Vector3.Forward);
     }
 
     protected override bool IsMarkerActive(InteractionMarker3D marker)
@@ -84,31 +95,27 @@ public partial class DreamAuditoriumController3D : WorldArea3D, IDreamAreaRuntim
         return marker.TargetId switch
         {
             "observe:target.auditorium.line_set_notches" =>
-                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueAuditoriumLineSetNotches),
+                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueStageFrontFrame),
             "pickup:dream.curtain_counterweight" =>
                 !dream.SolvedPuzzles.Contains(DreamEscapeIds.PickupCurtainCounterweight),
             "target.auditorium.line_set" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumLineSetBalance),
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumStageAlignment),
             "observe:target.auditorium.projection_order" =>
-                dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumLineSetBalance) &&
-                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueAuditoriumProjectionOrder),
+                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueStageSideFrame),
             "pickup:dream.projector_lens" =>
                 !dream.SolvedPuzzles.Contains(DreamEscapeIds.PickupProjectorLens),
             "target.auditorium.projector" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector),
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumStageAlignment),
             "observe:target.auditorium.tape_order" =>
-                dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector) &&
-                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueAuditoriumTapeOrder),
-            "puzzle:auditorium_master_tape_splice" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice),
+                dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumStageAlignment) &&
+                !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueTapeSeams),
+            "puzzle:auditorium_tape_reconstruction" =>
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction),
             "target.auditorium.master_player" =>
                 !dream.InstalledParts.Contains(DreamEscapeIds.SlotAuditoriumMasterTape),
-            "puzzle:auditorium_light_console" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumLightConsole),
-            "puzzle:auditorium_sound_console" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumSoundConsole),
-            "puzzle:auditorium_broadcast_console" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumBroadcastConsole),
+            "observe:target.auditorium.handoff_circuit" => true,
+            "puzzle:auditorium_handoff_plan" =>
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumHandoffPlan),
             _ => true
         };
     }

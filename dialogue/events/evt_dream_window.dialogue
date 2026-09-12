@@ -1,0 +1,4 @@
+~ start
+主角: 暗格里放的都是维护用品。有人把准备工作做得很细。 [ID:DREAM_V6_STORY_WINDOW_001]
+do Narrative.Execute("complete_event", "dream.prologue.window")
+=> END

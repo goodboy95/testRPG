@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dtevuedaklnw5"
+path="res://.godot/imported/evt_dream_calibration.dialogue-1a7919a59f14b2f4e27e8799737e881f.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_calibration.dialogue"
+dest_files=["res://.godot/imported/evt_dream_calibration.dialogue-1a7919a59f14b2f4e27e8799737e881f.tres"]
+
+[params]
+
+defaults=true

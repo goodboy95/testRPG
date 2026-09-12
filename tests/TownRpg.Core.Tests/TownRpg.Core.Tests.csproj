@@ -20,5 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\TownRpg.Core\TownRpg.Core.csproj" />
     <Compile Include="..\..\scripts\application\ModalGate.cs" Link="Application\ModalGate.cs" />
+    <Compile Include="..\..\scripts\presentation\CharacterLocomotion.cs" Link="Presentation\CharacterLocomotion.cs" />
+    <Compile Include="..\..\scripts\presentation\CompanionMotionState.cs" Link="Presentation\CompanionMotionState.cs" />
+    <Compile Include="..\..\scripts\presentation\SubtitlePagination.cs" Link="Presentation\SubtitlePagination.cs" />
   </ItemGroup>
 </Project>

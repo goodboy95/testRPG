@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 2,
+  "status": "cinematic-full-runtime",
+  "sampleOnly": false,
+  "runtimeDefault": true,
+  "previousRuntimeAsset": "art/blender/dream_late_rooms/dream-archive-room-v1.blend",
+  "blenderVersion": "5.2.0 LTS",
+  "sourceFile": "art/blender/dream_late_rooms/dream-archive-room-v2.blend",
+  "runtimeGlbFile": "assets/generated/dream_escape/3d/dream-archive-room-v2.glb",
+  "sourceSha256": "c31a608c1c306f3504e111003cd1fb027d16c74ca6445199e7b2590eafdbf319",
+  "runtimeGlbSha256": "606660d2567a12c365f9e3e2cb1efabf8d4099cf03ed697f3c6a0dcd8c2c4fa5",
+  "runtimeGlbBytes": 32433952,
+  "geometry": {
+    "objectCount": 72,
+    "meshObjectCount": 53,
+    "maximumVisibleMeshCount": 53,
+    "uniqueMeshCount": 53,
+    "triangleCount": 90240,
+    "materialCount": 13,
+    "materials": [
+      "ArchiveV2_Brass",
+      "ArchiveV2_Ceramic",
+      "ArchiveV2_Glass",
+      "ArchiveV2_Ink",
+      "ArchiveV2_Iron",
+      "ArchiveV2_Lamp",
+      "ArchiveV2_Nickel",
+      "ArchiveV2_Oak",
+      "ArchiveV2_Paper",
+      "ArchiveV2_Plaster",
+      "ArchiveV2_Rubber",
+      "ArchiveV2_Sage",
+      "ArchiveV2_Terrazzo"
+    ],
+    "packedOrReferencedImages": [
+      "oak_veneer_01_arm_2k.jpg",
+      "oak_veneer_01_diff_2k.jpg",
+      "oak_veneer_01_nor_gl_2k.jpg",
+      "painted_plaster_wall_arm_2k.jpg",
+      "painted_plaster_wall_diff_2k.jpg",
+      "painted_plaster_wall_nor_gl_2k.jpg",
+      "terrazzo_tiles_arm_2k.jpg",
+      "terrazzo_tiles_diff_2k.jpg",
+      "terrazzo_tiles_nor_gl_2k.jpg"
+    ],
+    "missingExternalFiles": []
+  },
+  "textureMemoryEstimateMiB": 192.0,
+  "lightingDecision": "Color ambient, south window light and practical task lights; no SSAO",
+  "exportProfile": {
+    "format": "GLB",
+    "animations": false,
+    "cameras": false,
+    "lights": false,
+    "lookdevCollectionExcluded": true,
+    "runtimeDependsOnBlender": false
+  },
+  "limits": {
+    "triangles": 180000,
+    "visibleMeshes": 220,
+    "materials": 24,
+    "glbBytes": 62914560
+  },
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ],
+  "layoutVersion": 2,
+  "layoutSource": "scripts/presentation/ArchiveRoomLayout3D.cs",
+  "layoutSha256": "9f7ff1262228d2ad2877b51ac57b0c265c9891b1085d0cc5f610865a080fc354",
+  "layout": {
+    "Width": 14.0,
+    "Depth": 12.0,
+    "Height": 4.2,
+    "WallThickness": 0.2,
+    "DoorWidth": 1.6,
+    "DoorHeight": 2.6,
+    "MainAisleWidth": 2.8,
+    "SecondaryAisleWidth": 1.5,
+    "ExitHinge": [
+      6.98,
+      0.0,
+      3.4
+    ],
+    "Entry": [
+      4.5,
+      0.0,
+      4.2
+    ],
+    "RecorderCompanion": [
+      4.2,
+      0.0,
+      2.2
+    ],
+    "WestStacksPosition": [
+      -6.5,
+      1.35,
+      -1.4
+    ],
+    "WestStacksSize": [
+      0.8,
+      2.7,
+      7.2
+    ],
+    "NorthStacksPosition": [
+      -3.1,
+      1.35,
+      -5.5
+    ],
+    "NorthStacksSize": [
+      5.2,
+      2.7,
+      0.8
+    ],
+    "SouthCabinetPosition": [
+      -5.3,
+      1.1,
+      5.3
+    ],
+    "SouthCabinetSize": [
+      2.4,
+      2.2,
+      0.8
+    ],
+    "RegistryTablePosition": [
+      -2.5,
+      0.4,
+      0.0
+    ],
+    "RegistryTableSize": [
+      2.2,
+      0.8,
+      1.2
+    ],
+    "DrawerMatrixPosition": [
+      -2.5,
+      0.65,
+      -3.2
+    ],
+    "DrawerMatrixSize": [
+      2.2,
+      1.3,
+      0.8
+    ],
+    "RepairBenchPosition": [
+      5.8,
+      0.4,
+      -2.4
+    ],
+    "RepairBenchSize": [
+      1.6,
+      0.8,
+      1.6
+    ],
+    "RecorderBenchPosition": [
+      5.8,
+      0.4,
+      1.0
+    ],
+    "RecorderBenchSize": [
+      1.6,
+      0.8,
+      1.8
+    ],
+    "TimelineTablePosition": [
+      0.0,
+      0.4,
+      5.4
+    ],
+    "TimelineTableSize": [
+      2.6,
+      0.8,
+      0.9
+    ],
+    "IndexTablePosition": [
+      -3.1,
+      0.4,
+      3.3
+    ],
+    "IndexTableSize": [
+      1.4,
+      0.8,
+      0.9
+    ],
+    "RouteTablePosition": [
+      2.7,
+      0.4,
+      -5.4
+    ],
+    "RouteTableSize": [
+      2.4,
+      0.8,
+      0.9
+    ]
+  },
+  "graybox": false,
+  "visualAcceptance": "pending-human-review"
+}

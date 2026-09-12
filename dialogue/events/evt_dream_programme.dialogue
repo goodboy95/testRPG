@@ -1,0 +1,5 @@
+~ start
+主角: 节目单只写台前，背面却补了好几件事。 [ID:DREAM_V6_STORY_PROGRAMME_001]
+主角: “侧台的事，我来。”这张清单没有署名。 [ID:DREAM_V6_STORY_PROGRAMME_002]
+do Narrative.Execute("complete_event", "dream.prologue.programme")
+=> END

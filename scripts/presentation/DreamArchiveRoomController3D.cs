@@ -7,9 +7,7 @@ namespace TownRpg.Presentation;
 public partial class DreamArchiveRoomController3D : WorldArea3D, IDreamAreaRuntime,
     IDreamAreaExitTransition, IDreamAreaTransitionPose3D, IDreamAreaTransientPresentation
 {
-    private readonly AreaCoordinateMapper3D _coordinateMapper = new(
-        new Rect2(16f, 54f, 608f, 272f),
-        new Rect2(-5.5f, -4f, 11f, 8f));
+    private readonly AreaCoordinateMapper3D _coordinateMapper = ArchiveRoomLayout3D.Mapper;
     private GameSession _session = null!;
     private DreamArchiveVisual3D _visual = null!;
     private DreamCompanion3D _companion = null!;
@@ -29,6 +27,9 @@ public partial class DreamArchiveRoomController3D : WorldArea3D, IDreamAreaRunti
     {
         _session = GetNode<GameSession>("/root/GameSession");
         _visual = GetNode<DreamArchiveVisual3D>("ArchiveVisual");
+        foreach (var marker in GetNode<Node3D>("InteractionMarkers").GetChildren().OfType<InteractionMarker3D>())
+            marker.Position = ArchiveRoomLayout3D.MarkerPositions.TryGetValue(marker.TargetId, out var position)
+                ? position : throw new InvalidOperationException($"Unknown archive marker '{marker.TargetId}'.");
         base._Ready();
         _companion = GetNode<DreamCompanion3D>("XiaoyuCompanion");
         var dream = _session.State.DreamEscape
@@ -49,6 +50,13 @@ public partial class DreamArchiveRoomController3D : WorldArea3D, IDreamAreaRunti
             Player.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(protagonistTexture));
         _visual.ApplyState(dream);
         _recorderKnown = dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRecorderRebuild);
+        _companion.ConfigureBillboardHeight(1.6f);
+        _companion.UseRoutedMotion = true;
+        _companion.FollowPositionResolver = _visual.ResolveSpawn;
+        _companion.FollowStepResolver = _visual.AdvanceCompanion;
+        _companion.FollowPositionIsBlocked = _visual.IsBlocked;
+        _companion.RoutedMotionPaused = () => _session.Modal.IsBlocked;
+        _companion.RefreshImmediate(force: true);
         _doorClosedYaw = _visual.DoorHinge.Rotation.Y;
         ApplySettings(_session.State.Settings);
     }
@@ -73,7 +81,7 @@ public partial class DreamArchiveRoomController3D : WorldArea3D, IDreamAreaRunti
         _visual.ApplyState(dream);
         _companion.RefreshImmediate();
         if (recorderSolved && !_recorderKnown)
-            _companion.PlayScriptedPose(new Vector3(3.2f, 0f, 2.15f), 1.35d);
+            _companion.PlayScriptedPose(ArchiveRoomLayout3D.RecorderCompanion, 1.5d, "operate", Vector3.Right);
         _recorderKnown = recorderSolved;
     }
 
@@ -94,23 +102,19 @@ public partial class DreamArchiveRoomController3D : WorldArea3D, IDreamAreaRunti
                 !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueArchiveRegistryArt),
             "observe:target.archive.registry_track" =>
                 !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueArchiveRegistryTrack),
-            "puzzle:archive_signal_registry" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveSignalRegistry),
+            "puzzle:archive_retrieval" =>
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRetrieval),
             "pickup:dream.archive_index_strip" =>
                 !dream.SolvedPuzzles.Contains(DreamEscapeIds.PickupArchiveIndexStrip),
-            "puzzle:archive_drawer_route" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveDrawerRoute),
             "observe:target.archive.fuse_route" =>
-                dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveSignalRegistry) &&
+                dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRetrieval) &&
                 !dream.DiscoveredClues.Contains(DreamEscapeIds.ClueArchiveFuseRoute),
-            "puzzle:archive_fuse_repair" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveFuseRepair),
+            "assembly:archive_fuse" =>
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.ProgressFuseAssembly),
             "target.archive.recorder" =>
                 !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveRecorderRebuild),
-            "puzzle:archive_editing_counter" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveEditingCounter),
-            "target.archive.upper_vault" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveUpperVault),
+            "puzzle:archive_work_timeline" =>
+                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleArchiveWorkTimeline),
             "hint:xiaoyu" => dream.XiaoyuJoined,
             _ => true
         };

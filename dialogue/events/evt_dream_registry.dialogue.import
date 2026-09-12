@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dyebbdbrek1ml"
+path="res://.godot/imported/evt_dream_registry.dialogue-608fe13ff5bb6cba5ba7887a0cd46597.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_registry.dialogue"
+dest_files=["res://.godot/imported/evt_dream_registry.dialogue-608fe13ff5bb6cba5ba7887a0cd46597.tres"]
+
+[params]
+
+defaults=true

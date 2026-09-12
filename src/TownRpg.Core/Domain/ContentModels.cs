@@ -74,6 +74,8 @@ public sealed class ProgressionState
     public static int ExperienceForNextLevel(int level) => 40 + (level * 20);
 }
 
+public enum SubtitleBackground { SoftShadow, None, HighContrast }
+
 public sealed class PlayerSettings
 {
     public const int DefaultWindowWidth = 1280;
@@ -81,6 +83,11 @@ public sealed class PlayerSettings
 
     public float TextSpeed { get; set; } = 1f;
     public float FontScale { get; set; } = 1f;
+    // Null preserves the text preference of saves created before separate subtitle settings.
+    public float? SubtitleFontScale { get; set; }
+    public SubtitleBackground SubtitleBackground { get; set; } = SubtitleBackground.SoftShadow;
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float EffectiveSubtitleFontScale => SubtitleFontScale ?? FontScale;
     public float CameraLookSensitivity { get; set; } = 1f;
     public bool ReduceFlashing { get; set; } = true;
     public bool VibrationEnabled { get; set; } = true;

@@ -5,8 +5,8 @@
 ```text
 town-rpg/
 ├─ art/
-│  ├─ blender/dream_classroom/  第一室 MVP、历史 v2/v3/v4 与当前电影式运行时 v5 权威源；由 .gdignore 排除运行时导入
-│  ├─ blender/dream_manor/      洋房室内外 v1、当前电影式内廊 v2 Blend、PBR 贴图和 manifest 生产源；由 .gdignore 排除运行时导入
+│  ├─ blender/dream_classroom/  第一室 MVP、历史 v2/v3/v4/v5 与当前写实旧教室 v6 权威源；由 .gdignore 排除运行时导入
+│  ├─ blender/dream_manor/      洋房室内外 v1、历史内廊 v2、当前宽前厅/短内廊 v3 Blend、PBR 贴图和 manifest 生产源；由 .gdignore 排除运行时导入
 │  ├─ blender/dream_late_rooms/ 第三室档案室 v1 与第四室礼堂 v1 权威 Blend 源；由 .gdignore 排除运行时导入
 │  ├─ blender/environment-cinematic-samples/ Poly Haven CC0 的项目化 2K 样板材质
 │  ├─ blender/characters/       官方 CC0 Human Base 派生源、v1 未绑定技术样模与 v2 静态候选制作源；均不由当前场景加载
@@ -17,8 +17,8 @@ town-rpg/
 │  └─ sources/cc0/polyhaven/    采用的 Poly Haven 原始 2K 贴图、缩略图、逐文件哈希与许可证清单
 ├─ assets/generated/
 │  ├─ characters/3d/            主角 v2 未绑定静态 GLB/manifest；已过技术检查但 `runtimeReady=false`，当前场景不加载
-│  ├─ dream_escape/             34 件目录图标、半身/四向素材、谜题特写与梦境离线 WAV
-│  │  ├─ 3d/                    第一室 MVP/v2/v3/v4/当前 v5、洋房 v1/当前内廊 v2、第三室 v1、第四室 v1 GLB 及 manifest；洋房外观 v1 仅离线
+│  ├─ dream_escape/             31 件目录图标、半身/四向素材、谜题特写与梦境离线 WAV
+│  │  ├─ 3d/                    第一室 MVP/v2/v3/v4/v5/当前 v6、洋房 v1/当前内廊 v2、第三室 v1、第四室 v1 GLB 及 manifest；洋房外观 v1 仅离线
 │  │  ├─ audio/                 第二室确定性自制环境、72 BPM、音叉和声学墙 WAV；运行时不生成
 │  │  ├─ pixel/                 第一室共享图块、机关、环境动效、主角/晓雨 4×4 行走表及清单
 │  │  └─ experimental/          第一室原图实验源图、运行时背景、四层遮挡图集及清单
@@ -50,7 +50,11 @@ town-rpg/
 ├─ tests/TownRpg.Core.Tests/    规则、存档、内容完整性测试
 ├─ tests/mc-model-test-runtime/ 本机非商业主角 GLB/纹理镜像；由 Git 与 Windows 导出排除，缺失时回退 billboard
 └─ doc/                         设计、工程、模块和生产交接文档
-   └─ design/dream-escape-v2.md 90–120 分钟、34 道具/28 谜题的设计冻结；第一、第二室已实现，其余仍为计划
+   └─ design/dream-escape-v4.md 内容版本 6、12 组谜题、31 道具与一次回访；v2/v3 为历史
 ```
 
 本项目没有 Web、外部 API、数据库或 SQL schema，因此不建立 `doc/api/`、Web 自测或 `sql/`。
+
+`[已实现]` 音乐室 v2 源位于 `art/blender/dream_music/`，运行时 GLB/manifest 位于 `assets/generated/dream_escape/3d/`；共享布局为 `scripts/presentation/MusicRoomLayout3D.cs`。制作与本机评审脚本为 `scripts/tools/remodel_music_v2.py` 和 `review_music_v2.py`；专项入口为 `scenes/testing/MusicV2Probe.tscn`，字号矩阵复用 `DreamThoughtProbe.tscn -- --music-only`。
+
+`[已实现·仅本机]` `tests/xiaoyu-model-runtime/` 是林晓雨流萤外观镜像；`outputs/character-motion-v3/` 保存双角色制作源/审计/对照。两者均被本地 Git 与导出排除，模型缺失回退 billboard。

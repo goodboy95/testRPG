@@ -1,0 +1,6 @@
+~ start
+主角: 四拍后还有一处留白，等的是侧台信号。 [ID:DREAM_V6_STORY_SCORE_001]
+林晓雨: 台前都演完了，台下的人还不能走。 [ID:DREAM_V6_STORY_SCORE_002]
+主角: 这个勾记，我在教室清单上见过。 [ID:DREAM_V6_STORY_SCORE_003]
+do Narrative.Execute("complete_event", "dream.prologue.score")
+=> END

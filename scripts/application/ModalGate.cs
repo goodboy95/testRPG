@@ -5,6 +5,7 @@ public sealed class ModalGate
     private readonly Dictionary<string, int> _owners = new(StringComparer.Ordinal);
 
     public bool IsBlocked => _owners.Count > 0;
+    public bool HasOwner(string owner) => _owners.ContainsKey(owner);
 
     public IDisposable Acquire(string owner)
     {

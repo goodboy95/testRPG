@@ -15,5 +15,6 @@
     <Compile Remove="tests/**/*.cs" />
     <Compile Remove="work/**/*.cs" />
     <Compile Remove="outputs/**/*.cs" />
+    <Compile Remove="addons/dialogue_manager/example_balloon/**/*.cs" />
   </ItemGroup>
 </Project>

@@ -12,7 +12,7 @@ flowchart TD
     Content["JSON / .dialogue / 本地化"] --> Repository["ContentRepository"]
     Repository --> Presentation
     Presentation --> Session["GameSession\n组合根与唯一会话"]
-    Dialogue["Dialogue Manager 3.10.4\n计划接入"] --> Bridge["NarrativeBridge"]
+    Dialogue["Dialogue Manager 3.10.4\n序章已接入"] --> Bridge["NarrativeBridge"]
     Bridge --> Session
     Session --> Services["TownRpg.Core.Services"]
     Services --> State["唯一 GameState"]
@@ -44,9 +44,11 @@ flowchart TD
 | `Inventory` / `Progression` | 金钱、物品、1–10 级经验。 |
 | `DreamEscape`（可选） | 梦境状态、区域坐标、独立物品、谜题、开放区、线索、提示等级和晓雨加入状态；旧存档为 `null`。 |
 | 完成集合 | 已完成事件、已应用结果、已读对白。 |
-| `Settings` | 文本速度、字号、闪烁、震动、高对比、故事模式、窗口尺寸、全屏和镜头速度。 |
+| `Settings` | 文本速度、菜单字号、独立字幕字号与背景、闪烁、震动、高对比、故事模式、窗口尺寸、全屏和镜头速度。 |
 
 禁止把 `Node`、Signal、`Vector2` 或插件对象加入这些类型。玩家坐标在 DTO 中拆为两个 `float`。
+
+`[已实现]` 字幕设置以可选字段兼容旧档：`SubtitleFontScale=null` 继承旧 `FontScale`，`SubtitleBackground` 默认柔影。界面首次改变菜单倍率时保存原字幕倍率，随后两者独立；非法倍率和背景枚举在读档时失败。未改变 SaveEnvelope v1 或内容版本 6。布局、字幕分页、焦点和淡入继续由表现层持有，见 [电影感 UI 样板](ui-cinematic-samples.md)。
 
 ## 状态写入与原子性
 
@@ -120,13 +122,15 @@ sequenceDiagram
 
 `DreamAreaSpawnCatalog` 按来源区域与目标区域选择换场出生点和默认面向。新游戏和普通读档不使用这条覆盖规则：前者仍采用第一室 `(448, 214)`，后者恢复实际保存位置。第一室、第二室与洋房之间的 3D→3D 换场把镜头相对于出口门的水平夹角转换到目标门，2D↔3D 使用目标门默认朝向；第三、第四室门内安全点与最近交互焦点保持超过 48 像素，避免入场自动选中。该入口姿态、镜头 yaw 和门动画进度全部是临时表现状态，不进入存档。
 
-当前第一室场景引用 12×9×4 米的电影式 v5 教室 GLB，洋房场景引用电影式 v2 完整可玩内廊 GLB；第二室使用约 11×8×4 米的程序化 PBR 音乐教室。三个区域在 Godot 场景层使用 Filmic、实时冷暖灯和两个 ReflectionProbe，但光照与反射不进入 Core。第二室四个 WAV 由确定性离线脚本生成并记录 provenance，运行时只加载文件，不合成音频；声音关闭时仍可依赖图形、音高与乐器名完成全部机关。`PlayerController3D` 优先动态加载本机非商业 `tests/mc-model-test-runtime/caelus-pbr-test.glb`，驱动 `idle/walk/jog`、实际位移朝向和近镜头隐藏；资源不存在或结构无效时使用 Fixed-Y 二维角色 billboard。该本机目录由 Git 排除，`export_presets.cfg` 也排除 `tests/*`，因此发布包只保留安全回退。v2/v3/v4 教室与 v1 洋房内廊继续作为历史/离线对照，完整洋房外观 v1 GLB不进入场景树。基于 Blender 官方 CC0 Human Base 的主角 v1 静态 GLB 只是未过视觉门槛的技术样模。原画式主角 v2 与 v1 分开保留，其静态 GLB/manifest 已通过尺寸、预算、结构和只读复导出检查，但 manifest 明确为 `runtimeReady=false`，仍等待负责人视觉确认；本机 `mc_model` 覆盖不改变 v2 的审批状态，也不替代正式可分发主角资产。
+当前第一室场景引用 12×9×4 米的写实旧教室 v6 GLB，洋房场景引用宽前厅与短内廊 v3 GLB；第二室使用 12×10×4 米音乐教室 v2 GLB，含解锁可进入的东北器材间。三个区域在 Godot 场景层使用 Filmic 和两个 ReflectionProbe；第一室使用西窗日光与 Color 环境光，洋房 v3 也明确使用 Color 环境光、侧窗透光与暖灯，音乐室 v2 使用 Color 环境光、西窗日光与工作灯，光照与反射不进入 Core。第二室四个 WAV 由确定性离线脚本生成并记录 provenance，运行时只加载文件，不合成音频；声音关闭时仍可依赖图形、波形与乐器名完成全部机关。`PlayerController3D` 优先动态加载本机非商业 `tests/mc-model-test-runtime/caelus-pbr-test.glb`，通过独立 `CharacterLocomotion` 与 `CharacterAnimationDriver` 驱动 `idle/walk/jog` 连续混合、可取消转身、Shift 慢走和近镜头隐藏（见[主角移动与动作](character-motion.md)）；这些状态均不持久化；资源不存在或结构无效时使用 Fixed-Y 二维角色 billboard。2026-09-12 起晓雨也动态加载本机 `tests/xiaoyu-model-runtime/xiaoyu-motion-v3.glb`；两位角色共用驱动但独立保存相位、动画资源副本与临时姿态。`CompanionMotionState` 只管理跟随加减速、姿态请求/到位/计时；`ModalGate.HasOwner` 只用于区分录音机结果对白与取消短姿态的其他模态。输入锁只停止移动，动画在模态期间继续，失焦和重载复位。该本机目录由 Git 排除，`export_presets.cfg` 也排除 `tests/*`，因此发布包只保留安全回退。v2/v3/v4/v5 教室与 v1/v2 洋房内廊继续作为历史/离线对照，完整洋房外观 v1 GLB不进入场景树。基于 Blender 官方 CC0 Human Base 的主角 v1 静态 GLB 只是未过视觉门槛的技术样模。原画式主角 v2 与 v1 分开保留，其静态 GLB/manifest 已通过尺寸、预算、结构和只读复导出检查，但 manifest 明确为 `runtimeReady=false`，仍等待负责人视觉确认；本机 `mc_model` 覆盖不改变 v2 的审批状态，也不替代正式可分发主角资产。
 
-梦境存档继续只保存旧二维 `PositionX/Y`。第一室在表现层把固定存档矩形 `Rect2(16,178,608,152)` 映射到 11.4×8.4 米 X/Z 活动区；第二室把 `Rect2(16,54,608,272)` 映射到 10.5×7.5 米活动区，从洋房进入使用 `(50.7,288.7)` 的西南门内点；洋房把存档 X `0…640` 映射到世界 Z `-6.8…18`，存档 Y `0…360` 映射到世界 X `-3.8…3.8`。`CreateDreamPrologue()` 只为新游戏显式使用第一室 `(448, 214)` 的安全出生点；从洋房返回第一室使用 `(592.4,305.8)`。若恢复坐标位于新家具或门障碍内，则解析最近安全点并保存修正。镜头 yaw、SpringArm 长度、当前焦点、门动画进度、晓雨位置和角色动画帧均为临时表现状态。
+梦境存档继续只保存旧二维 `PositionX/Y`。第一室在表现层把固定存档矩形 `Rect2(16,178,608,152)` 映射到 11.4×8.4 米 X/Z 活动区；第二室把 `Rect2(16,54,608,272)` 映射到 11.36×9.36 米活动区，从洋房进入使用 `MusicRoomLayout3D.Entry=(-3.35,0,3.6)` 推算的存档坐标；洋房把存档 X `0…640` 映射到世界 Z `-8…12`，存档 Y `0…360` 映射到世界 X `-5…5`。`CreateDreamPrologue()` 只为新游戏显式使用第一室 `(448, 214)` 的安全出生点；从洋房返回第一室使用 `(592.4,305.8)`。若恢复坐标位于新家具或门障碍内，则解析最近安全点并保存修正。镜头 yaw、SpringArm 长度、当前焦点、门动画进度、晓雨位置和角色动画帧均为临时表现状态。
 
-`DreamEscapeState.ContentVersion=4` 区分完整四室规则；`DiscoveredPuzzles` 控制晓雨加入后的提示可见性，`InstalledParts` 保存 11 个稳定槽位 ID。Core 的 `PuzzleInputClues` 目录提供“谜题→外部输入线索”映射及缺失查询，只控制面板说明和三级提示，不阻止正确答案提交；结构前置、安装件、区域开放和协作要求仍由服务判定。机关视觉只由这些 Core 集合派生，Godot 不持有第二份安装或开关状态。缺少内容版本或版本低于 4 的进行中梦境存档明确拒绝；已完成且梦境背包为空的终态和无梦境 Legacy 存档不受影响。
+`DreamEscapeState.ContentVersion=6` 是当前序章 v4 的内容版本；`DiscoveredPuzzles` 控制晓雨加入后的求助可见性，`InstalledParts` 保存 11 个稳定槽位 ID。Core 的 `PuzzleInputClues` 目录提供“谜题→外部输入线索”映射与缺失查询，供 `DreamThoughtRules` 选择已知材料回想，不额外阻止正确答案提交；结构前置、安装件、区域开放和协作要求仍由服务判定。较旧版本的进行中及 ExitOpened 梦境档要求重开；真正完成且背包为空的终态和无梦境 Legacy 档兼容。
 
-礼堂双侧出口的“晓雨正在按住左侧机关”只属于当前 `DreamEscapeController` 的临时协作姿态：离开礼堂、重建场景或完成出口时清零，不写入 `DreamEscapeState`，也不复用退役的 `dream.auditorium.left_lever`。Core 仍负责验证晓雨加入和三块控制台完成；表现层只有在临时姿态成立后才调用出口结算。
+`DreamThoughtRules.Select` 只读当前状态、交互上下文和结果，返回知识完备度及本地化候选；失败白名单排除成功、重复和技术结果。`DreamEscapeController` 负责姓名呈现、同次操作单条反馈和候选轮换；轮换不持久化、不推进求助等级。19 个机关的主动求助仍由 `AdvanceHint` 管理等级，文本改为观察方向、材料联系和局部建议。规则与知识证明见[角色提示](puzzle-feedback.md)。
+
+礼堂双侧出口的“晓雨正在按住左侧机关”和当前返听/灯光进度属于 `DreamEscapeController` 的临时协作状态：关闭机关、进入其他模态、离房或重载时清零，不写入 `DreamEscapeState`。Core 验证晓雨加入和持久交接排演；表现层只有在当前实例完成就位、返听、收光后才调用右侧出口结算。失败独白不修改这些条件。
 
 当前独立世界场景只有旧宅和车站分区；河岸、学校档案室、商店活动和废弃铁路主要通过事件段落或同一车站地图上的交互点表现。完整版本扩图时继续保持“常驻应用壳 + 可替换世界子场景”。
 
@@ -157,16 +161,11 @@ sequenceDiagram
 
 ## Dialogue Manager 边界
 
-`[计划]` 正式集成固定为 Dialogue Manager v3.10.4，并放在 `res://addons/dialogue_manager/`。当前八个 `.dialogue` 文件已经按 `Narrative.Execute("command", "arg"...)` 和 `Narrative.Evaluate(...)` 编写，但插件目录不存在，实际游戏仍运行 `MainController` 中的硬编码演示对白。
+`[已实现]` 插件 v3.10.4 位于 `addons/dialogue_manager/`，来源及扫描/引用循环/可空兼容补丁写在 `TOWN_RPG_VENDOR.md`。`DreamStoryPlayer` 按事件 catalog 的 dialoguePath/startTitle 遍历正式序章；`DialoguePanel` 负责阅读，插件不拥有业务状态。13 段序章只含一个完成命令，使用 MutationBehaviour.Skip 遍历，抵达 END 后由 DreamEscapeService.CompleteStory 验证资格并通过 EventOutcomeService 原子提交。取消不结算，完成幂等，读档重播未完成交流。
 
-接入时：
+`[计划]` 八个 Legacy 文件仍为逐条命令，MainController 的旧演示流程尚未迁移。扩展它们时须将选择结果映射到预定义 outcome，禁止照搬序章“只提交完成”的适配器而漏掉真实结果。
 
-1. 保留 Autoload 名 `Narrative`；若继续暴露反射方法，使用固定参数重载，避免 C# `params string[]` 无法被插件正确展开。
-2. 用插件加载 `EventDefinition.dialoguePath` 和 `startTitle`，替换演示编排。
-3. 插件不得保存事实、关系、承诺、暴露或路线变量。
-4. 用 `eventId + outcomeId` 查询 C# 预定义 mutation，或在桥内缓冲并一次调用 `EventOutcomeService.Apply`；提交成功后才完成事件。
-5. 迁移现有逐条 `Narrative.Execute` 调用，不能保留“执行到一半即可存档”的状态。
-6. 插件异常或取消时不标记事件完成，允许玩家重新交互。
+`DreamPrologueCatalog` 将 19 个节点归为 12 组，不保存第二份进度；`DreamStageRules` 共享双视角预览与判定。实际交接步骤、晓雨站位和按压只在表现层，通过 DreamAreaTransientState 传递；关闭、其他模态、离房和重载清零。内容版本 6 拒绝旧版进行中与 ExitOpened 存档，仅保留真正完成空包终态与 Legacy 兼容。详见[序章 v4](../design/dream-escape-v4.md)。
 
 ## 扩展点与高风险区
 
@@ -179,3 +178,19 @@ sequenceDiagram
 ## 不适用架构
 
 项目没有前后端、Controller、数据库、远程 API 或运行时生成服务。`doc/api/`、`sql/schema.sql`、服务发现和 Web E2E 流程均不适用。
+
+## UI 表现层边界（2026-09-08）
+
+`[已实现]` `UiStyles` 管理字体、语义色、纸面主题和可关闭的动效；`ManagementMenuShell`、`ArchiveReader`、`PaperDocument` 管理导航与独立阅读；`PuzzleWorkspace`、`DreamPuzzleDiagram`、`PuzzleHitButton` 管理机关编辑和图形命中，机关内不再嵌入关联资料。`Submitted`／`PreviewChanged`／`Closed` 继续接入既有会话判定与临时协作复位。
+
+`[固定约束]` 页签、拖动、焦点、选择、撤销历史和独白轮换均为表现层状态，不进入 DTO，也不复制谜题答案。`ModalGate` 仍拥有世界输入阻断；纸片/时钟/值日表手势取消不提交。具体组件与输入规范见 [UI/UX](ui-ux.md)。
+
+第一室 v6 新增 `ClassroomLayout3D` 桌阵常量，Blender 制作读取相同坐标并由 Godot 检查碰撞一致性。`DreamCompanion3D` 的安全落点／移动回调由各区分别配置；第一室在 `DreamClassroomVisual3D` 内按安全点连接绕行；缓存、路线与跟随位置不进入 Core 或存档。详见[第一室 v6](classroom-remodel-v6.md)。
+
+`[已实现]` 大厅 v3 的 `MansionLayout3D` 集中维护 10×8 米前厅、7×12 米内廊、门位、家具、楼梯禁入区及安全点。Blender 生成器读取这些定义；Godot 的碰撞与标记使用同一来源。矩形存档映射后必须检查实际复合区域，修正内廊收窄处与家具中的旧位置并保存。`GroundWaypointNavigator3D` 为大厅实例提供静态障碍绕行，晓雨通过既有回调接入；路径、相对镜头朝向与门动画不持久化。见[大厅 v3](manor-remodel-v3.md)。
+
+`[已实现]` 音乐室 v2 由 `MusicRoomLayout3D` 向 Blender、Godot 标记、分阶段碰撞和寻路提供同源布局。先恢复开门状态，再修正旧档落点；门完成后重建寻路实例。2026-09-12 起 `DreamCompanion3D` 在五区统一使用连续路线，正常同行不因距离过远瞬移，介绍模态结束后出门，校准关闭后走回；必要观察不等待动画。详见[音乐室 v2](music-remodel-v2.md)。
+
+`[已实现]` `ArchiveRoomLayout3D`／`AuditoriumLayout3D` 分别拥有 14×12×4.2 米档案室和 22×16×7.5 米礼堂的布局。Blender 读取同一布局文件，Godot 使用其碰撞、标记、门轴、旧位置映射与晓雨路径。`LateRoomLayout` 负责平面障碍/安全点，`GroundWaypointNavigator3D` 缓存静态连通关系；路径、预览、按压与门动画均不进入 Core。详见[档案室 v2](archive-remodel-v2.md)与[礼堂 v2](auditorium-remodel-v2.md)。
+
+`[已实现·仅测试]` `GameSession.UseTestSavePath` 仅在显式 `--prologue-e2e` 标志下接受项目 `outputs/` 内的 JSON 路径，并用可释放租约恢复默认值。`HasRecoverableSave`、临时写入、主档轮转、备份恢复及读档统一使用有效路径。正式路径仍为 `user://save-slot-1.json`，未增加设置或存档字段。完整输入测试不调用 `SuppressPersistence`，真实写盘并比较重载前后进度；大头针分支只恢复此前实际获得的文件字节。

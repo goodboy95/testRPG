@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://cy30ylip8dtc6"
+path="res://.godot/imported/evt_dream_handoff.dialogue-86798c76f2c6cd45aa1f246e4d419bc5.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_handoff.dialogue"
+dest_files=["res://.godot/imported/evt_dream_handoff.dialogue-86798c76f2c6cd45aa1f246e4d419bc5.tres"]
+
+[params]
+
+defaults=true

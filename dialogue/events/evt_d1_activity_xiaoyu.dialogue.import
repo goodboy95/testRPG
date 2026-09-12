@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dxq37vmonc2sj"
+path="res://.godot/imported/evt_d1_activity_xiaoyu.dialogue-e64ef1f3617cd6550e157beb2fad513d.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_d1_activity_xiaoyu.dialogue"
+dest_files=["res://.godot/imported/evt_d1_activity_xiaoyu.dialogue-e64ef1f3617cd6550e157beb2fad513d.tres"]
+
+[params]
+
+defaults=true

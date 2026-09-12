@@ -2,6 +2,68 @@
   "schemaVersion": 1,
   "assets": [
     {
+      "id": "xiaoyu_local_motion_v3",
+      "status": "implemented-local-only",
+      "sourceFile": "assets\\流萤建模\\星穹铁道—流萤·春日手信.pmx",
+      "sourceSha256": "7ba2a884babc3cf856edb8863e391e3c6830725fbf51e3d2aecfda0ec119fbf7",
+      "gameFile": "tests/xiaoyu-model-runtime/xiaoyu-motion-v3.glb",
+      "gameSha256": "38546c75fc61a7263edb9b889fb392bc49a29f9da21e0c3cee0d5b9103b26d27",
+      "generator": "Offline Blender 5.2.0 LTS / existing MMD Tools 4.5.13",
+      "model": "User-supplied PMX; no generative model",
+      "generatedAt": "2026-09-12",
+      "localOnly": true,
+      "redistributable": false,
+      "commercialUseAllowed": false,
+      "exportAllowed": false,
+      "licenseBasis": "User-provided assets/流萤建模/使用规则.txt; copyright miHoYo, model editor 流云景; project use restricted to local noncommercial preview",
+      "referenceImages": [],
+      "prompt": "N/A; deterministic offline skeletal animation authoring",
+      "postprocessing": [
+        "Preserve source; normalize runtime scale",
+        "Bake foot and arm IK at 30 FPS",
+        "Author idle, gait, pivots and five gestures; bake restrained hair/garment motion",
+        "GLB four-weight skin export; no rigid-body simulation or root motion"
+      ],
+      "technical": {
+        "heightMeters": 1.6,
+        "triangles": 32030,
+        "bones": 279,
+        "clipCount": 12
+      },
+      "localManifest": "outputs/character-motion-v3/xiaoyu-manifest.json"
+    },
+    {
+      "id": "caelus_local_motion_v3",
+      "status": "implemented-local-only",
+      "sourceFile": "outputs\\mc-model-motion-v2\\caelus-motion-v2.blend",
+      "sourceSha256": "66e080542270aa5030305f97281e8a5ba5003673ff7ed11edc79e96716f80948",
+      "gameFile": "tests/mc-model-test-runtime/caelus-pbr-test.glb",
+      "gameSha256": "25bc31ceef08d726dd5e6bad69da85956ad2af4bdfab2d022e1f5585ee55b723",
+      "generator": "Offline Blender 5.2.0 LTS / existing MMD Tools 4.5.13",
+      "model": "User-supplied PMX; no generative model",
+      "generatedAt": "2026-09-12",
+      "localOnly": true,
+      "redistributable": false,
+      "commercialUseAllowed": false,
+      "exportAllowed": false,
+      "licenseBasis": "Existing mc_model local-only restriction retained",
+      "referenceImages": [],
+      "prompt": "N/A; deterministic offline skeletal animation authoring",
+      "postprocessing": [
+        "Preserve source; normalize runtime scale",
+        "Bake foot and arm IK at 30 FPS",
+        "Author idle, gait, pivots and five gestures; bake restrained hair/garment motion",
+        "GLB four-weight skin export; no rigid-body simulation or root motion"
+      ],
+      "technical": {
+        "heightMeters": 1.699989,
+        "triangles": 29120,
+        "bones": 278,
+        "clipCount": 12
+      },
+      "localManifest": "outputs/character-motion-v3/caelus-manifest.json"
+    },
+    {
       "id": "town_style_anchor_dusk",
       "sourceFile": "town-style-anchor-source.png",
       "gameFile": "title-town-dusk.png",
@@ -767,6 +829,354 @@
       "licenseUrl": "https://polyhaven.com/license",
       "postprocessing": ["Built the complete 18x13x7.5 metre auditorium with audience banks, stage, backstage fly rail, projection zone, splice bench, three consoles and two-sided exit machinery", "Applied the adopted painted_plaster_wall, beige_wall_001, old_mosaic_floor, black_oak_veneer, oak_veneer_01 and rust_coarse_01 diffuse, OpenGL normal and ARM map families; retained a restrained project-authored dark seat fabric to avoid a false high-contrast pattern", "Exported 47378260 bytes with 142 mesh objects and a 16432-triangle upper bound; GLB SHA-256 7a82c48265a6fac3e9a1a7b0e1c1840802d5851d3f88a612bc511dafdeb0f2ac", "Fresh read-only export matched the adopted GLB; missing external files 0", "Godot owns collision, interaction markers, transient line-set/lever previews, Filmic lighting and three ReflectionProbe nodes; no LightmapGI or runtime Blender dependency"],
       "prompt": "Authoring specification: cinematic semi-realistic old school auditorium with a south entrance, central audience aisle, north stage and curtain, side projection and fly-rail zones, splice bench, three control consoles and dual exit mechanisms; preserve the 18x13 metre gameplay layout and stable state roots, with no readable answer decoration or false interactions."
+    },
+    {
+      "id": "dream_classroom_cinematic_runtime_v6",
+      "sourceFile": "art/blender/dream_classroom/classroom-art-pass-v6.blend",
+      "gameFile": "dream_escape/3d/classroom-art-pass-v6.glb",
+      "status": "adopted-runtime-default",
+      "generator": "Blender source-preserving remodeling, shared meshes, physical-size UV projection and glTF 2.0 export",
+      "model": "Blender 5.2.0 LTS",
+      "generatedAt": "2026-09-09",
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-cinematic-target-v5.png",
+        "outputs/classroom-v5-full-runtime/01-view-blackboard.png"
+      ],
+      "referenceSources": [
+        "art/blender/dream_classroom/classroom-art-pass-v5.blend",
+        "scripts/presentation/ClassroomLayout3D.cs",
+        "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"
+      ],
+      "license": "Project-authored geometry and adopted Poly Haven CC0 materials; no purchased assets or local mc_model content",
+      "parameters": {
+        "roomMetres": [
+          12,
+          9,
+          4
+        ],
+        "desks": 12,
+        "desktopMetres": 0.75,
+        "chairSeatMetres": 0.44,
+        "renderer": "Godot 4.6.3 Compatibility",
+        "script": "scripts/tools/remodel_classroom_v6.py"
+      },
+      "sourceSha256": "198c33f8559282e3c9f6512ceb89052c2097c2a97d1260f8a0eb7c7593d84b60",
+      "runtimeGlbSha256": "312a92588433a97fd32db9a1d6b37d8e72f4cb0d985e5923094cc40797b8e346",
+      "postprocessing": [
+        "Preserved the v5 source; rebuilt desks, teacher desk, cabinet panels, door, latches, clock, notice stand and ceiling fixtures in v6",
+        "Packed adopted materials, projected UVs in metre scale, linked twelve desk instances and excluded Lookdev characters/lights/cameras",
+        "Godot owns collision, clues, state selection, neutral fill and the two reflection probes; no runtime generation"
+      ],
+      "prompt": "Authoring specification approved 2026-09-09: realistic old East Asian classroom with twelve wood-and-steel desks, pale plaster, faded green dado, terrazzo floor and gentle west-window daylight. Preserve the 12x9x4 metre shell, east door, three west window bays and all current puzzle semantics; keep central aisle >=2.4m and side/rear main aisles >=1.2m."
+    },
+{
+  "id": "dream_manor_hall_runtime_v3",
+  "sourceFile": "art/blender/dream_manor/dream-manor-hall-v3.blend",
+  "gameFile": "dream_escape/3d/dream-manor-hall-v3.glb",
+  "status": "adopted-runtime-default",
+  "generator": "Blender Python procedural offline modeling",
+  "model": "Blender 5.2.0 LTS",
+  "date": "2026-09-09",
+  "script": "scripts/tools/remodel_manor_v3.py",
+  "prompt": "Approved 10x8x6.6m foyer, 7x12x4.2m hall, closed scenic return stair, Arts and Crafts old house, warm lamps and readable cool shadows. Four rooms in unchanged story order; front door remains locked.",
+  "referenceImages": [
+    "art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png"
+  ],
+  "reusedDecorativeImage": {
+    "file": "art/blender/dream_manor/textures-v3/landscape-painting.png",
+    "sha256": "510d2b6754ed527355b37941dc61d2d27d892dd9d32718197a076e1fce5d08d1",
+    "origin": "Existing offline sample from build_environment_material_textures.py, landscape(), random seed 10103. Copied unchanged; no new raster generation."
+  },
+  "parameters": {
+    "layoutSource": "scripts/presentation/MansionLayout3D.cs",
+    "layoutVersion": 3,
+    "seed": 0,
+    "realtimeGeneration": false
+  },
+  "postprocessing": [
+    "metric planar UV projection",
+    "applied mesh modifiers",
+    "packed CC0 PBR textures",
+    "GLB export without characters, cameras or lights"
+  ],
+  "sourceSha256": "487e2aef155f91df3352ebd42601f175c9240fde65556587ad263e24f410f714",
+  "runtimeGlbSha256": "a8b78a7cdabccf590539992d9d663b2428c30f76e6473554455ce1689eecd8dd",
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "old_mosaic_floor",
+      "assetUrl": "https://polyhaven.com/a/old_mosaic_floor",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "902e128679cb1fa2edcc33683e128350f668abca7d950970ae474c03b451edbf",
+        "normal": "2c0bc58bfda87fd56cfeba8c99fed396571be5bb52c7fdf2d50ec742fc1f4d80",
+        "arm": "14a5b62fbc76cfd30a1e5f514ff618c936be29a3efa9e4775564adad479ebd64"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "rust_coarse_01",
+      "assetUrl": "https://polyhaven.com/a/rust_coarse_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "5b8801674fa53ff1b6f7853300f50aa7a1b31e69278554803bd957fe9fa7e392",
+        "normal": "495d3c87da059827ffaf49dae59f967cb3e0b187f4426ab0a47088c3fa83e50b",
+        "arm": "22f10597662e8d5268f79960d23c4a03790a2083f9f05d0680c3535152b26843"
+      }
+    },
+    {
+      "id": "beige_wall_001",
+      "assetUrl": "https://polyhaven.com/a/beige_wall_001",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e",
+        "normal": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
+        "arm": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431"
+      }
+    },
+    {
+      "id": "black_oak_veneer",
+      "assetUrl": "https://polyhaven.com/a/black_oak_veneer",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "d2653c9cf8e05171ba2256c92315cf39fe230482b433a6a9c02cf26ef566624c",
+        "normal": "1d4c099204ad713b47a9e10799de7e31623f0ce7c5fab18712b339ba9760a80a",
+        "arm": "9084ea54de3a19368868501ec1e0c7b633ded32bb8e824301e9999f4374adb2c"
+      }
+    },
+    {
+      "id": "fabric_pattern_07",
+      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+        "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+        "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
     }
   ]
+},
+{
+  "id": "dream_music_room_runtime_v2",
+  "sourceFile": "art/blender/dream_music/music-room-art-pass-v2.blend",
+  "gameFile": "dream_escape/3d/music-room-art-pass-v2.glb",
+  "status": "adopted-runtime-default",
+  "generator": "Blender Python offline procedural modeling",
+  "model": "Blender 5.2.0 LTS",
+  "date": "2026-09-09",
+  "script": "scripts/tools/remodel_music_v2.py",
+  "prompt": "Approved 12x10x4m old school music classroom; six timber and steel chairs, real upright piano, four-instrument calibration, 3.2m equipment room with traversable unlocked door, school joinery and readable west daylight.",
+  "referenceImages": [
+    "outputs/music-room-3d-review/01-entry-overview.png"
+  ],
+  "styleReferences": [
+    "doc/engineering/classroom-remodel-v6.md"
+  ],
+  "parameters": {
+    "layoutSource": "scripts/presentation/MusicRoomLayout3D.cs",
+    "layoutVersion": 2,
+    "seed": 0,
+    "runtimeGeneration": false
+  },
+  "postprocessing": [
+    "per-component metric UVs",
+    "applied bevels",
+    "packed adopted CC0 PBR textures",
+    "GLB with stable state anchors; no characters, animations, cameras or lights"
+  ],
+  "sourceSha256": "c4f199750ef62811f0745266f22f8885f541d9b1662ccfbea01219b3bc2bd8a8",
+  "runtimeGlbSha256": "2d4a66863242a23d327424c3da61fc4a4f0f4b8f3371fd55ed012b99eae3b696",
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ]
+},
+{
+  "id": "dream_archive_room_runtime_v2",
+  "sourceFile": "art/blender/dream_late_rooms/dream-archive-room-v2.blend",
+  "gameFile": "dream_escape/3d/dream-archive-room-v2.glb",
+  "status": "adopted-runtime-default",
+  "generator": "Blender Python offline procedural modeling",
+  "model": "5.2.0 LTS",
+  "date": "2026-09-10",
+  "script": "scripts/tools/remodel_archive_v2.py",
+  "prompt": "Approved 14x12x4.2m school archive and recording repair room; west and north filing, central retrieval table, east repair and reel recorder, south timeline, real joinery and supported documents. Preserve 13 interaction IDs.",
+  "referenceImages": [
+    "outputs/late-rooms-v2/before"
+  ],
+  "parameters": {
+    "layoutSource": "scripts/presentation/ArchiveRoomLayout3D.cs",
+    "layoutVersion": 2,
+    "seed": 0,
+    "runtimeGeneration": false
+  },
+  "postprocessing": [
+    "metric UVs",
+    "applied bevels",
+    "packed adopted CC0 textures",
+    "stable physical state anchors; no character or animation data"
+  ],
+  "sourceSha256": "c31a608c1c306f3504e111003cd1fb027d16c74ca6445199e7b2590eafdbf319",
+  "runtimeGlbSha256": "606660d2567a12c365f9e3e2cb1efabf8d4099cf03ed697f3c6a0dcd8c2c4fa5",
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ]
+},
+{
+  "id": "dream_auditorium_runtime_v2",
+  "sourceFile": "art/blender/dream_late_rooms/dream-auditorium-room-v2.blend",
+  "gameFile": "dream_escape/3d/dream-auditorium-room-v2.glb",
+  "status": "adopted-runtime-default",
+  "generator": "Blender Python offline procedural modeling",
+  "model": "5.2.0 LTS",
+  "date": "2026-09-10",
+  "script": "scripts/tools/remodel_auditorium_v2.py",
+  "prompt": "Approved 22x16x7.5m old school auditorium, 32 linked upholstered seats, continuous ground-level central and side work aisles, scenic raised stage with pleated curtain, physical fly rail, shadow discs, tape splicing and cooperation controls. Preserve 15 interaction IDs.",
+  "referenceImages": [
+    "outputs/late-rooms-v2/before/auditorium"
+  ],
+  "parameters": {
+    "layoutSource": "scripts/presentation/AuditoriumLayout3D.cs",
+    "layoutVersion": 2,
+    "seed": 0,
+    "runtimeGeneration": false
+  },
+  "postprocessing": [
+    "metric UVs",
+    "applied bevels",
+    "32 seats share one mesh",
+    "packed adopted CC0 PBR textures",
+    "stable physical state anchors; no character or animation data"
+  ],
+  "sourceSha256": "4352fe1228ff4f3746979d519e5400afa11c23e0345d22c5e024a1164bfafcc6",
+  "runtimeGlbSha256": "f0d5b0323769dd9da1e66800b4417918ff169228064145fb05c4038f1a894263",
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "fabric_pattern_07",
+      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+        "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+        "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ]
+}
+]
 }

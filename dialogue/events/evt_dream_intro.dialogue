@@ -1,0 +1,5 @@
+~ start
+主角: 这不是我认识的教室。 [ID:DREAM_V6_STORY_INTRO_001]
+主角: 窗边有维护用的纸卡。先看看这里留下了什么。 [ID:DREAM_V6_STORY_INTRO_002]
+do Narrative.Execute("complete_event", "dream.prologue.intro")
+=> END

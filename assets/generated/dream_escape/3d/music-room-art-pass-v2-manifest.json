@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 2,
+  "status": "cinematic-full-runtime",
+  "sampleOnly": false,
+  "runtimeDefault": true,
+  "previousRuntimeAsset": "art/blender/dream_music/history/music-room-procedural-v1.cs.txt",
+  "blenderVersion": "5.2.0 LTS",
+  "sourceFile": "art/blender/dream_music/music-room-art-pass-v2.blend",
+  "runtimeGlbFile": "assets/generated/dream_escape/3d/music-room-art-pass-v2.glb",
+  "sourceSha256": "c4f199750ef62811f0745266f22f8885f541d9b1662ccfbea01219b3bc2bd8a8",
+  "runtimeGlbSha256": "2d4a66863242a23d327424c3da61fc4a4f0f4b8f3371fd55ed012b99eae3b696",
+  "runtimeGlbBytes": 30024224,
+  "geometry": {
+    "objectCount": 85,
+    "meshObjectCount": 68,
+    "maximumVisibleMeshCount": 68,
+    "uniqueMeshCount": 68,
+    "triangleCount": 58544,
+    "materialCount": 15,
+    "materials": [
+      "M_MusicV2_Brass",
+      "M_MusicV2_DarkGreen",
+      "M_MusicV2_Glass",
+      "M_MusicV2_GreenPaint",
+      "M_MusicV2_Ivory",
+      "M_MusicV2_Lamp",
+      "M_MusicV2_Nickel",
+      "M_MusicV2_Paper",
+      "M_MusicV2_PianoFinish",
+      "M_MusicV2_Plaster",
+      "M_MusicV2_Rubber",
+      "M_MusicV2_Steel",
+      "M_MusicV2_Terrazzo",
+      "M_MusicV2_Wood",
+      "M_MusicV2_WornEdge"
+    ],
+    "packedOrReferencedImages": [
+      "oak_veneer_01_arm_2k.jpg",
+      "oak_veneer_01_diff_2k.jpg",
+      "oak_veneer_01_nor_gl_2k.jpg",
+      "painted_plaster_wall_arm_2k.jpg",
+      "painted_plaster_wall_diff_2k.jpg",
+      "painted_plaster_wall_nor_gl_2k.jpg",
+      "terrazzo_tiles_arm_2k.jpg",
+      "terrazzo_tiles_diff_2k.jpg",
+      "terrazzo_tiles_nor_gl_2k.jpg"
+    ],
+    "missingExternalFiles": []
+  },
+  "textureMemoryEstimateMiB": 192.0,
+  "lightingDecision": "Color ambient, west daylight, practical task lamps, two ReflectionProbes; no SSAO or GI dependency",
+  "exportProfile": {
+    "format": "GLB",
+    "animations": false,
+    "cameras": false,
+    "lights": false,
+    "lookdevCollectionExcluded": true,
+    "runtimeDependsOnBlender": false
+  },
+  "limits": {
+    "triangles": 180000,
+    "visibleMeshes": 220,
+    "materials": 24,
+    "glbBytes": 62914560
+  },
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ],
+  "layoutVersion": 2,
+  "layoutSource": "scripts/presentation/MusicRoomLayout3D.cs",
+  "layoutSha256": "c7ddd35f687d78212456234e8f74dc2c155aee2e9e36b5d5962c9374dbc263b4",
+  "layout": {
+    "Width": 12.0,
+    "Depth": 10.0,
+    "Height": 4.0,
+    "WallThickness": 0.2,
+    "ClearanceRadius": 0.32,
+    "DoorWidth": 1.4,
+    "DoorHeight": 2.55,
+    "EquipmentWest": 2.8,
+    "EquipmentSouth": -1.8,
+    "MainAisleWidth": 3.0,
+    "ExitDoor": [
+      -6.0,
+      0.0,
+      3.55
+    ],
+    "ExitHinge": [
+      -5.98,
+      0.0,
+      2.85
+    ],
+    "Entry": [
+      -3.35,
+      0.0,
+      3.6
+    ],
+    "EquipmentDoor": [
+      4.35,
+      0.0,
+      -1.8
+    ],
+    "EquipmentHinge": [
+      5.05,
+      0.0,
+      -1.8
+    ],
+    "BeforeJoin": [
+      4.2,
+      0.0,
+      -3.15
+    ],
+    "SideObservation": [
+      3.45,
+      0.0,
+      -3.85
+    ],
+    "EquipmentExit": [
+      4.35,
+      0.0,
+      -0.65
+    ],
+    "PianoPosition": [
+      0.0,
+      0.65,
+      4.48
+    ],
+    "PianoSize": [
+      1.62,
+      1.3,
+      0.82
+    ],
+    "BenchPosition": [
+      0.0,
+      0.26,
+      3.42
+    ],
+    "BenchSize": [
+      0.9,
+      0.52,
+      0.46
+    ],
+    "PartsTrayPosition": [
+      -1.65,
+      0.4,
+      4.4
+    ],
+    "PartsTraySize": [
+      0.58,
+      0.8,
+      0.6
+    ],
+    "RollDeskPosition": [
+      2.8,
+      0.4,
+      4.25
+    ],
+    "RollDeskSize": [
+      1.85,
+      0.8,
+      0.95
+    ],
+    "ScoreDeskPosition": [
+      -4.35,
+      0.4,
+      -4.3
+    ],
+    "ScoreDeskSize": [
+      1.65,
+      0.8,
+      0.95
+    ],
+    "ToolsDeskPosition": [
+      -1.5,
+      0.4,
+      -4.3
+    ],
+    "ToolsDeskSize": [
+      2.6,
+      0.8,
+      0.85
+    ],
+    "CalibrationDeskPosition": [
+      1.45,
+      0.4,
+      -3.5
+    ],
+    "CalibrationDeskSize": [
+      1.85,
+      0.8,
+      0.85
+    ],
+    "PhotoCabinetPosition": [
+      -5.57,
+      0.95,
+      -0.45
+    ],
+    "PhotoCabinetSize": [
+      0.7,
+      1.9,
+      1.15
+    ],
+    "AcousticCabinetPosition": [
+      5.57,
+      1.15,
+      1.25
+    ],
+    "AcousticCabinetSize": [
+      0.72,
+      2.3,
+      2.6
+    ],
+    "EquipmentShelfPosition": [
+      5.62,
+      1.1,
+      -3.6
+    ],
+    "EquipmentShelfSize": [
+      0.6,
+      2.2,
+      2.3
+    ],
+    "ChairSize": [
+      0.58,
+      0.85,
+      0.58
+    ],
+    "Chair01": [
+      -3.7,
+      0.425,
+      -1.1
+    ],
+    "Chair02": [
+      -2.4,
+      0.425,
+      -1.1
+    ],
+    "Chair03": [
+      -3.7,
+      0.425,
+      0.4
+    ],
+    "Chair04": [
+      -2.4,
+      0.425,
+      0.4
+    ],
+    "Chair05": [
+      -3.7,
+      0.425,
+      1.9
+    ],
+    "Chair06": [
+      -2.4,
+      0.425,
+      1.9
+    ]
+  },
+  "graybox": false,
+  "visualAcceptance": "pending-human-review"
+}

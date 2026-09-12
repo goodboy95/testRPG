@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/presentation/DreamArchiveRoomController3D.cs" id="1_controller"]
-[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/dream-archive-room-v1.glb" id="2_model"]
+[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/dream-archive-room-v2.glb" id="2_model"]
 [ext_resource type="Script" path="res://scripts/presentation/DreamArchiveVisual3D.cs" id="3_visual"]
 [ext_resource type="Script" path="res://scripts/presentation/ThirdPersonCameraRig.cs" id="4_camera"]
 [ext_resource type="Script" path="res://scripts/presentation/InteractionMarker3D.cs" id="5_marker"]
@@ -11,16 +11,13 @@
 [sub_resource type="Environment" id="Environment_archive"]
 background_mode = 1
 background_color = Color(0.014, 0.024, 0.029, 1)
-ambient_light_source = 3
-ambient_light_color = Color(0.17, 0.25, 0.28, 1)
-ambient_light_energy = 1.08
+ambient_light_source = 2
+ambient_light_color = Color(0.62, 0.67, 0.69, 1)
+ambient_light_energy = 0.58
+ambient_light_sky_contribution = 0.0
 reflected_light_source = 2
 tonemap_mode = 2
-tonemap_exposure = 2.05
-ssao_enabled = true
-ssao_radius = 1.25
-ssao_intensity = 1.3
-ssao_power = 1.1
+tonemap_exposure = 1.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_camera"]
 radius = 0.16
@@ -42,22 +39,22 @@ environment = SubResource("Environment_archive")
 
 [node name="WindowLight" type="DirectionalLight3D" parent="."]
 rotation_degrees = Vector3(-52, -24, 0)
-light_color = Color(0.48, 0.62, 0.67, 1)
-light_energy = 1.05
+light_color = Color(0.78, 0.86, 0.94, 1)
+light_energy = 0.80
 shadow_enabled = true
 directional_shadow_max_distance = 22.0
 
 [node name="RegistryLight" type="OmniLight3D" parent="."]
-position = Vector3(0, 2.6, -0.2)
-light_color = Color(1, 0.62, 0.30, 1)
-light_energy = 1.05
+position = Vector3(-2.5, 3.2, 0)
+light_color = Color(1, 0.86, 0.66, 1)
+light_energy = 0.80
 omni_range = 5.2
 shadow_enabled = true
 
 [node name="BoothLight" type="OmniLight3D" parent="."]
-position = Vector3(3.3, 2.3, 2.2)
-light_color = Color(0.25, 0.52, 0.58, 1)
-light_energy = 1.15
+position = Vector3(5.2, 2.7, 0.4)
+light_color = Color(1, 0.83, 0.61, 1)
+light_energy = 0.75
 omni_range = 4.0
 
 [node name="ArchiveReflectionProbe" type="ReflectionProbe" parent="."]
@@ -96,91 +93,79 @@ current = true
 position = Vector3(5.25, 0, 3)
 script = ExtResource("5_marker")
 TargetId = "area:dream.corridor"
-Prompt = "返回洋房内廊"
+Prompt = "DREAM_V6_TARGET_AREA_DREAM_CORRIDOR"
 
 [node name="RegistryRule" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-5.35, 0, -2.8)
 script = ExtResource("5_marker")
 TargetId = "observe:target.archive.registry_rule"
-Prompt = "阅读广播档案登记规则"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_ARCHIVE_REGISTRY_RULE"
 
 [node name="RegistryChoir" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-3.75, 0, -3.65)
 script = ExtResource("5_marker")
 TargetId = "observe:target.archive.registry_choir"
-Prompt = "查看合唱档案印章"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_ARCHIVE_REGISTRY_CHOIR"
 
 [node name="RegistryBroadcast" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(3.55, 0, 2.55)
 script = ExtResource("5_marker")
 TargetId = "observe:target.archive.registry_broadcast"
-Prompt = "查看广播档案印章"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_ARCHIVE_REGISTRY_BROADCAST"
 
 [node name="RegistryArt" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-4.65, 0, 0.25)
 script = ExtResource("5_marker")
 TargetId = "observe:target.archive.registry_art"
-Prompt = "查看美术档案印章"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_ARCHIVE_REGISTRY_ART"
 
 [node name="RegistryTrack" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(4.2, 0, -3.15)
 script = ExtResource("5_marker")
 TargetId = "observe:target.archive.registry_track"
-Prompt = "查看田径档案印章"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_ARCHIVE_REGISTRY_TRACK"
 
 [node name="SignalRegistry" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(0, 0, -1.15)
 script = ExtResource("5_marker")
-TargetId = "puzzle:archive_signal_registry"
-Prompt = "操作广播档案登记台"
+TargetId = "puzzle:archive_retrieval"
+Prompt = "DREAM_V6_TARGET_PUZZLE_ARCHIVE_RETRIEVAL"
 
 [node name="IndexStrip" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-1.8, 0, 2.8)
 script = ExtResource("5_marker")
 TargetId = "pickup:dream.archive_index_strip"
-Prompt = "拾取档案索引条"
-
-[node name="DrawerRoute" type="Marker3D" parent="InteractionMarkers"]
-position = Vector3(-3.0, 0, 1.0)
-script = ExtResource("5_marker")
-TargetId = "puzzle:archive_drawer_route"
-Prompt = "连接抽屉矩阵"
+Prompt = "DREAM_V6_TARGET_PICKUP_DREAM_ARCHIVE_INDEX_STRIP"
 
 [node name="FuseRoute" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(1.6, 0, -3.75)
 script = ExtResource("5_marker")
 TargetId = "observe:target.archive.fuse_route"
-Prompt = "查看保险丝线路图"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_ARCHIVE_FUSE_ROUTE"
 
 [node name="FuseBench" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(4.25, 0, -1.15)
 script = ExtResource("5_marker")
-TargetId = "puzzle:archive_fuse_repair"
-Prompt = "修复陶瓷保险丝"
+TargetId = "assembly:archive_fuse"
+Prompt = "DREAM_V6_TARGET_ASSEMBLY_ARCHIVE_FUSE"
 
 [node name="Recorder" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(2.35, 0, 1.55)
 script = ExtResource("5_marker")
 TargetId = "target.archive.recorder"
-Prompt = "检查并重建旧录音机"
+Prompt = "DREAM_V6_TARGET_TARGET_ARCHIVE_RECORDER"
 
 [node name="EditingCounter" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(0, 0, 3.0)
 script = ExtResource("5_marker")
-TargetId = "puzzle:archive_editing_counter"
-Prompt = "操作剪辑计数器"
-
-[node name="UpperVault" type="Marker3D" parent="InteractionMarkers"]
-position = Vector3(-4.1, 0, 3.0)
-script = ExtResource("5_marker")
-TargetId = "target.archive.upper_vault"
-Prompt = "检查高柜背锁"
+TargetId = "puzzle:archive_work_timeline"
+Prompt = "DREAM_V6_TARGET_PUZZLE_ARCHIVE_WORK_TIMELINE"
 
 [node name="XiaoyuHint" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(0.8, 0, 1.45)
 script = ExtResource("5_marker")
 TargetId = "hint:xiaoyu"
-Prompt = "和林晓雨一起想想"
+Prompt = "DREAM_V6_TARGET_HINT_XIAOYU"
 
 [node name="Player" type="CharacterBody3D" parent="."]
 motion_mode = 1

@@ -35,6 +35,12 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDr
             _session.MoveDreamToArea(AreaId, resolvedStored.X, resolvedStored.Y);
         }
         Player.GlobalPosition = resolvedWorld;
+        var companion = GetNode<DreamCompanion3D>("XiaoyuCompanion");
+        companion.FollowPositionResolver = _visual.ResolveSpawn;
+        companion.FollowStepResolver = _visual.AdvanceCompanion;
+        companion.FollowPositionIsBlocked = _visual.IsBlocked;
+        companion.RoutedMotionPaused = () => _session.Modal.IsBlocked || _doorTransitionPlaying;
+        companion.RefreshImmediate();
         CameraRig.SnapToTarget();
         Player.Moved += OnPlayerMoved;
         var protagonistTexture = ResourceLoader.Load<Texture2D>(
@@ -84,8 +90,6 @@ public partial class DreamAreaController3D : WorldArea3D, IDreamAreaRuntime, IDr
             "puzzle:teacher_desk" => !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleTeacherDesk),
             "target.classroom.map_cabinet" =>
                 !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleMapCabinet),
-            "target.classroom.transom_cache" =>
-                !dream.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleTransomCache),
             _ => true
         };
     }

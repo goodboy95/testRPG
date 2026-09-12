@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bygp3r4bx81ql"
+path="res://.godot/imported/evt_d1_activity_shen.dialogue-01a1baacb515a1291113fcf7775c8558.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_d1_activity_shen.dialogue"
+dest_files=["res://.godot/imported/evt_d1_activity_shen.dialogue-01a1baacb515a1291113fcf7775c8558.tres"]
+
+[params]
+
+defaults=true

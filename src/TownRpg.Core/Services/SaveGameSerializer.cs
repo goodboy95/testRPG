@@ -123,7 +123,10 @@ public static class SaveGameSerializer
             game.Progression.Level is < 1 or > 10 ||
             game.Progression.Experience < 0 ||
             game.Settings.TextSpeed is < 0.5f or > 3f ||
-            game.Settings.FontScale is < 0.75f or > 2f ||
+            !float.IsFinite(game.Settings.FontScale) || game.Settings.FontScale is < 0.75f or > 2f ||
+            (game.Settings.SubtitleFontScale is { } subtitleScale &&
+                (!float.IsFinite(subtitleScale) || subtitleScale is < 0.75f or > 2f)) ||
+            !Enum.IsDefined(game.Settings.SubtitleBackground) ||
             game.Settings.CameraLookSensitivity is < 0.5f or > 1.5f ||
             !ValidWindowSizes.Contains((game.Settings.WindowWidth, game.Settings.WindowHeight)))
         {

@@ -7,14 +7,14 @@ namespace TownRpg.Core.Tests;
 public sealed class DreamEscapeServiceTests
 {
     [Fact]
-    public void NewDream_UsesContentVersionFiveAndOnlyStartsWithPin()
+    public void NewDream_UsesContentVersionSixAndOnlyStartsWithPin()
     {
         var state = GameState.CreateDreamPrologue();
 
-        Assert.Equal(5, state.DreamEscape!.ContentVersion);
+        Assert.Equal(6, state.DreamEscape!.ContentVersion);
         Assert.Equal([DreamEscapeIds.ItemPin], state.DreamEscape.Items);
-        Assert.Equal(28, DreamEscapeIds.Puzzles.Count);
-        Assert.Equal(34, DreamEscapeIds.Items.Count);
+        Assert.Equal(19, DreamEscapeIds.Puzzles.Count);
+        Assert.Equal(31, DreamEscapeIds.Items.Count);
         Assert.Equal(11, DreamEscapeIds.InstalledPartSlots.Count);
         Assert.DoesNotContain(RetiredDreamEscapeIds.PuzzleRoomTwoDoor, DreamEscapeIds.Puzzles);
         Assert.DoesNotContain(RetiredDreamEscapeIds.PuzzleArchiveClubOrder, DreamEscapeIds.Puzzles);
@@ -24,11 +24,12 @@ public sealed class DreamEscapeServiceTests
     }
 
     [Fact]
-    public void SignalRegistry_UsesFiveNewSpatialRecordsAndWrongOrderIsSideEffectFree()
+    public void RegistryRetrieval_UsesSpatialRecordsAndIndexAndWrongOrderIsSideEffectFree()
     {
         var (state, service) = NewService();
         state.DreamEscape!.UnlockedAreas.Add(DreamEscapeIds.AreaArchive);
         Move(service, DreamEscapeIds.AreaArchive);
+        service.Pickup(DreamEscapeIds.ItemArchiveIndexStrip);
 
         foreach (var target in new[]
                  {
@@ -38,33 +39,37 @@ public sealed class DreamEscapeServiceTests
                  })
             Assert.True(service.Observe(target).Changed);
 
-        Assert.Empty(service.MissingInputClues(DreamEscapeIds.PuzzleArchiveSignalRegistry));
+        Assert.Empty(service.MissingInputClues(DreamEscapeIds.PuzzleArchiveRetrieval));
         var before = Fingerprint(state.DreamEscape);
-        Assert.False(service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveSignalRegistry,
-            "broadcast", "choir", "art", "track").Changed);
+        Assert.False(service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRetrieval,
+            "A4", "C1", "D2", "B3").Changed);
         Assert.Equal(before, Fingerprint(state.DreamEscape));
-        Assert.True(service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveSignalRegistry,
-            "choir", "broadcast", "art", "track").Changed);
+        Assert.True(service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRetrieval,
+            "C1", "A4", "D2", "B3").Changed);
     }
 
     [Fact]
-    public void LineSetBalance_RequiresInstalledWeightAndUsesFourNotchHeights()
+    public void StageAlignment_RequiresBothInstalledPartsAndBothViews()
     {
         var (state, service) = NewService();
         state.DreamEscape!.UnlockedAreas.Add(DreamEscapeIds.AreaAuditorium);
+        state.DreamEscape.XiaoyuJoined = true;
+        state.DreamEscape.SolvedPuzzles.Add(DreamEscapeIds.PuzzleArchiveWorkTimeline);
         Move(service, DreamEscapeIds.AreaAuditorium);
 
-        Assert.False(service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumLineSetBalance,
-            "3", "1", "4", "2").Changed);
+        Assert.False(service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumStageAlignment,
+            "3", "1", "4", "2", "window", "figure", "bell").Changed);
         state.DreamEscape.Items.Add(DreamEscapeIds.ItemCurtainCounterweight);
         Assert.True(service.UseItem(DreamEscapeIds.ItemCurtainCounterweight,
             "target.auditorium.line_set").Changed);
+        state.DreamEscape.Items.Add(DreamEscapeIds.ItemProjectorLens);
+        service.UseAvailableItems("target.auditorium.line_set");
         var before = Fingerprint(state.DreamEscape);
-        Assert.False(service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumLineSetBalance,
+        Assert.False(service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumStageAlignment,
             "3", "1", "2", "4").Changed);
         Assert.Equal(before, Fingerprint(state.DreamEscape));
-        Assert.True(service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumLineSetBalance,
-            "3", "1", "4", "2").Changed);
+        Assert.True(service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumStageAlignment,
+            "3", "1", "4", "2", "window", "figure", "bell").Changed);
     }
 
     [Fact]
@@ -115,9 +120,9 @@ public sealed class DreamEscapeServiceTests
         {
             var result = branch switch
             {
-                "metronome" => service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicMetronome, "72"),
+                "metronome" => service.UseAvailableItems("target.music.metronome"),
                 "forks" => service.SubmitPuzzle(
-                    DreamEscapeIds.PuzzleMusicTuningForks, "A3", "C4", "E4", "A4"),
+                    DreamEscapeIds.PuzzleMusicChannelCalibration, "woodblock", "piano", "triangle", "handbell"),
                 "roll" => service.SubmitPuzzle(
                     DreamEscapeIds.PuzzleMusicPianoRoll, "2", "4", "1", "3"),
                 _ => throw new ArgumentOutOfRangeException(nameof(branch), branch, null)
@@ -128,7 +133,7 @@ public sealed class DreamEscapeServiceTests
         Assert.True(service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicAcousticWall,
             "woodblock", "piano", "triangle", "handbell").Changed);
         Assert.DoesNotContain(DreamEscapeIds.ClueMusicTempoNotice, state.DreamEscape!.DiscoveredClues);
-        Assert.DoesNotContain(DreamEscapeIds.ClueMusicForkReference, state.DreamEscape.DiscoveredClues);
+        Assert.DoesNotContain(DreamEscapeIds.ClueMusicFrontWaves, state.DreamEscape.DiscoveredClues);
         Assert.DoesNotContain(DreamEscapeIds.ClueMusicRollTemplate, state.DreamEscape.DiscoveredClues);
     }
 
@@ -148,17 +153,18 @@ public sealed class DreamEscapeServiceTests
         service.UseItem(DreamEscapeIds.ItemRoomThreeKey, "target.corridor.room_three_door");
         Move(service, DreamEscapeIds.AreaArchive);
         Assert.False(service.Observe("target.archive.fuse_route").Changed);
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveSignalRegistry, "choir", "broadcast", "art", "track");
+        service.Pickup(DreamEscapeIds.ItemArchiveIndexStrip);
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRetrieval, "C1", "A4", "D2", "B3");
         Assert.True(service.Observe("target.archive.fuse_route").Changed);
     }
 
     [Fact]
-    public void FullTwentyEightPuzzleChain_UsesTwoBacktracksAndOpensExit()
+    public void FullTwelveGroupChain_UsesOneBacktrackAndOpensExit()
     {
         var (state, service) = NewService();
         CompleteDream(service);
 
-        Assert.Equal(28, state.DreamEscape!.SolvedPuzzles.Count(DreamEscapeIds.Puzzles.Contains));
+        Assert.Equal(19, state.DreamEscape!.SolvedPuzzles.Count(DreamEscapeIds.Puzzles.Contains));
         Assert.Equal(DreamEscapeStatus.ExitOpened, state.DreamEscape.Status);
         Assert.True(state.DreamEscape.UnlockedAreas.SetEquals(DreamEscapeIds.Areas));
         Assert.False(service.OpenExit().Changed);
@@ -169,7 +175,13 @@ public sealed class DreamEscapeServiceTests
     {
         var (state, service) = NewService();
         var seen = new HashSet<string>(state.DreamEscape!.Items, StringComparer.Ordinal);
-        void Track() => seen.UnionWith(state.DreamEscape!.Items);
+        void Track()
+        {
+            seen.UnionWith(state.DreamEscape!.Items);
+            var checkpoint = SaveGameSerializer.Serialize(state);
+            var restored = SaveGameSerializer.Deserialize(checkpoint);
+            Assert.Equal(checkpoint, SaveGameSerializer.Serialize(restored));
+        }
 
         Move(service, DreamEscapeIds.AreaClassroom);
         service.SubmitPuzzle(DreamEscapeIds.PuzzleWindowLatches, "up", "down", "middle"); Track();
@@ -190,29 +202,29 @@ public sealed class DreamEscapeServiceTests
         service.UseItem(DreamEscapeIds.ItemRoomThreeKey, "target.corridor.room_three_door");
         Move(service, DreamEscapeIds.AreaArchive);
         service.Pickup(DreamEscapeIds.ItemArchiveIndexStrip); Track();
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveSignalRegistry, "choir", "broadcast", "art", "track"); Track();
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveDrawerRoute, "C1", "A4", "D2", "B3"); Track();
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveFuseRepair, "left", "middle", "right"); Track();
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRetrieval, "C1", "A4", "D2", "B3"); Track();
+        service.AssembleFuse(); Track();
         Assert.Contains(DreamEscapeIds.ItemRepairedFuse, state.DreamEscape.Items);
         Move(service, DreamEscapeIds.AreaClassroom);
         service.UseItem(DreamEscapeIds.ItemMaintenanceKey, "target.classroom.map_cabinet"); Track();
         Move(service, DreamEscapeIds.AreaMusic);
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicAttendanceReader, "B2", "D1", "A3", "C4"); Track();
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicBackstagePhoto, "C4"); Track();
         Move(service, DreamEscapeIds.AreaArchive);
         service.UseItem(DreamEscapeIds.ItemCalibrationReel, "target.archive.recorder");
         service.UseItem(DreamEscapeIds.ItemRecorderCrank, "target.archive.recorder");
         service.UseItem(DreamEscapeIds.ItemRepairedFuse, "target.archive.recorder");
         service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRecorderRebuild, "confirm");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveEditingCounter, "12", "24", "31", "45"); Track();
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveWorkTimeline, "open", "calibrate", "score", "backstage"); Track();
+        Assert.True(state.DreamEscape.Items.IsSupersetOf([DreamEscapeIds.ItemTapeFragmentClassroom,
+            DreamEscapeIds.ItemTapeFragmentMusic, DreamEscapeIds.ItemTapeFragmentArchive]));
         Move(service, DreamEscapeIds.AreaCorridor);
         service.UseItem(DreamEscapeIds.ItemRoomFourKey, "target.corridor.room_four_door");
         Move(service, DreamEscapeIds.AreaAuditorium);
         service.Pickup(DreamEscapeIds.ItemCurtainCounterweight);
         service.Pickup(DreamEscapeIds.ItemProjectorLens); Track();
         SolveProjector(service); Track();
-        CompleteSecondBacktrack(service); Track();
         Move(service, DreamEscapeIds.AreaAuditorium);
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice,
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction,
             "classroom", "music", "archive"); Track();
         Assert.Contains(DreamEscapeIds.ItemRestoredMasterTape, state.DreamEscape.Items);
         service.UseItem(DreamEscapeIds.ItemRestoredMasterTape, "target.auditorium.master_player"); Track();
@@ -235,7 +247,7 @@ public sealed class DreamEscapeServiceTests
         Assert.Contains(DreamEscapeIds.ItemRepairedFuse, state.DreamEscape!.Items);
         service.UseItem(DreamEscapeIds.ItemRepairedFuse, "target.archive.recorder");
         Assert.True(service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRecorderRebuild, "confirm").Changed);
-        Assert.Contains(DreamEscapeIds.ClueArchiveEditingStops, state.DreamEscape.DiscoveredClues);
+        Assert.Contains(DreamEscapeIds.ClueWorkTickets, state.DreamEscape.DiscoveredClues);
     }
 
     [Fact]
@@ -393,7 +405,7 @@ public sealed class DreamEscapeServiceTests
     }
 
     [Fact]
-    public void SaveRoundTrip_PreservesV5CluesSlotsAndProgress()
+    public void SaveRoundTrip_PreservesV6CluesSlotsAndProgress()
     {
         var (state, service) = NewService();
         Move(service, DreamEscapeIds.AreaClassroom);
@@ -405,7 +417,7 @@ public sealed class DreamEscapeServiceTests
 
         var restored = SaveGameSerializer.Deserialize(SaveGameSerializer.Serialize(state));
 
-        Assert.Equal(5, restored.DreamEscape!.ContentVersion);
+        Assert.Equal(6, restored.DreamEscape!.ContentVersion);
         Assert.Contains(DreamEscapeIds.ClueClassroomWindow, restored.DreamEscape.DiscoveredClues);
         Assert.Contains(DreamEscapeIds.SlotClassroomClockHand, restored.DreamEscape.InstalledParts);
         Assert.Contains(DreamEscapeIds.PuzzleClockRestore, restored.DreamEscape.DiscoveredPuzzles);
@@ -488,16 +500,12 @@ public sealed class DreamEscapeServiceTests
         service.Pickup(DreamEscapeIds.ItemCurtainCounterweight);
         service.Pickup(DreamEscapeIds.ItemProjectorLens);
         SolveProjector(service);
-        CompleteSecondBacktrack(service);
         Move(service, DreamEscapeIds.AreaAuditorium);
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice,
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction,
             "classroom", "music", "archive");
         service.UseItem(DreamEscapeIds.ItemRestoredMasterTape, "target.auditorium.master_player");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumLightConsole, "3", "7", "2");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumSoundConsole,
-            "woodblock", "piano", "triangle", "handbell");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumBroadcastConsole,
-            "curtain", "clock", "bell", "register");
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumHandoffPlan,
+            "position", "monitor", "lights", "release");
         service.PrepareLeftLever();
         service.OpenExit();
     }
@@ -513,9 +521,9 @@ public sealed class DreamEscapeServiceTests
         service.UseItem(DreamEscapeIds.ItemRoomThreeKey, "target.corridor.room_three_door");
         Move(service, DreamEscapeIds.AreaArchive);
         service.Pickup(DreamEscapeIds.ItemArchiveIndexStrip);
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveSignalRegistry, "choir", "broadcast", "art", "track");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveDrawerRoute, "C1", "A4", "D2", "B3");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveFuseRepair, "left", "middle", "right");
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRetrieval, "C1", "A4", "D2", "B3");
+
+        service.AssembleFuse();
     }
 
     private static void CompleteFirstBacktrack(DreamEscapeService service)
@@ -523,7 +531,7 @@ public sealed class DreamEscapeServiceTests
         Move(service, DreamEscapeIds.AreaClassroom);
         service.UseItem(DreamEscapeIds.ItemMaintenanceKey, "target.classroom.map_cabinet");
         Move(service, DreamEscapeIds.AreaMusic);
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicAttendanceReader, "B2", "D1", "A3", "C4");
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicBackstagePhoto, "C4");
     }
 
     private static void RebuildRecorderAndOpenAuditorium(DreamEscapeService service)
@@ -533,27 +541,16 @@ public sealed class DreamEscapeServiceTests
         service.UseItem(DreamEscapeIds.ItemRecorderCrank, "target.archive.recorder");
         service.UseItem(DreamEscapeIds.ItemRepairedFuse, "target.archive.recorder");
         service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveRecorderRebuild, "confirm");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveEditingCounter, "12", "24", "31", "45");
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleArchiveWorkTimeline, "open", "calibrate", "score", "backstage");
         Move(service, DreamEscapeIds.AreaCorridor);
         service.UseItem(DreamEscapeIds.ItemRoomFourKey, "target.corridor.room_four_door");
     }
 
     private static void SolveProjector(DreamEscapeService service)
     {
-        service.UseItem(DreamEscapeIds.ItemCurtainCounterweight, "target.auditorium.line_set");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumLineSetBalance, "3", "1", "4", "2");
-        service.UseItem(DreamEscapeIds.ItemProjectorLens, "target.auditorium.projector");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumShadowProjector, "window", "figure", "bell");
-    }
-
-    private static void CompleteSecondBacktrack(DreamEscapeService service)
-    {
-        Move(service, DreamEscapeIds.AreaClassroom);
-        service.UseItem(DreamEscapeIds.ItemStageHook, "target.classroom.transom_cache");
-        Move(service, DreamEscapeIds.AreaMusic);
-        service.UseItem(DreamEscapeIds.ItemBenchClampKey, "target.music.piano_bench");
-        Move(service, DreamEscapeIds.AreaArchive);
-        service.UseItem(DreamEscapeIds.ItemInspectionMirror, "target.archive.upper_vault");
+        service.UseAvailableItems("target.auditorium.line_set");
+        Assert.True(service.SubmitPuzzle(DreamEscapeIds.PuzzleAuditoriumStageAlignment,
+            "3", "1", "4", "2", "window", "figure", "bell").Changed);
     }
 
     private static void SolveClassroom(DreamEscapeService service, bool observeClues = true)
@@ -596,8 +593,8 @@ public sealed class DreamEscapeServiceTests
     private static void SolveMusic(DreamEscapeService service)
     {
         service.UseItem(DreamEscapeIds.ItemMetronomeWeight, "target.music.metronome");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicMetronome, "72");
-        service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicTuningForks, "A3", "C4", "E4", "A4");
+        service.UseAvailableItems("target.music.metronome");
+        service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicChannelCalibration, "woodblock", "piano", "triangle", "handbell");
         service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicPianoRoll, "2", "4", "1", "3");
         service.SubmitPuzzle(DreamEscapeIds.PuzzleMusicAcousticWall,
             "woodblock", "piano", "triangle", "handbell");

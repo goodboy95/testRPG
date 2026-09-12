@@ -12,6 +12,298 @@ public sealed class ContentIntegrityTests
 {
     private const int ExpectedSchemaVersion = 1;
 
+    [Fact]
+    public void ArchiveV2ExportsItsActualLayoutAndPhysicalStateAnchors()
+    {
+        ValidateLateRoomV2Asset("archive", "ArchiveRoomLayout3D", "DreamArchiveRoom", 14, 12,
+            ["ArchiveRoom", "WindowGlass", "WestStacks", "NorthStacks", "SouthCabinet", "RegistryTable", "DrawerMatrix",
+             "RepairBench", "RecorderBench", "TimelineTable", "IndexTable", "RouteTable", "Registry_Solved", "Drawer_Open",
+             "Drawer_Closed", "Fuse_Repaired", "Recorder_Reel", "Recorder_Reel_Right", "Recorder_Crank", "Recorder_Fuse",
+             "Recorder_Running", "Timeline_Sorted", "Timeline_Unsorted", "Pickup_IndexStrip", "RegistryRulePaper", "ChoirRecordPaper",
+             "BroadcastRecordPaper", "ArtRecordPaper", "TrackRecordPaper", "FuseRoutePaper"], 180000, 220, 24, 60);
+    }
+
+    [Fact]
+    public void AuditoriumV2ExportsLinkedSeatingAndPhysicalStateAnchors()
+    {
+        ValidateLateRoomV2Asset("auditorium", "AuditoriumLayout3D", "DreamAuditorium", 22, 16,
+            ["AuditoriumRoom", "WindowGlass", "Stage", "Proscenium", "MainCurtain", "StageScreen", "StageExitClosed", "Exit_Open",
+             "Projector", "FlyRail", "SpliceBench", "MasterPlayer", "LightConsole", "SoundConsole", "BroadcastConsole", "SideStand",
+             "Projection_Clue", "Projector_Lens", "Projector_Solved", "Tape_Order", "Tape_Unspliced", "Splice_Reel", "Master_Tape",
+             "Master_Player_Light", "Light_Ready", "Sound_Ready", "Broadcast_Ready", "Left_Lever_Held", "Left_Handle", "Right_Handle",
+             "Pickup_Counterweight", "Pickup_Lens", "Installed_Counterweight", "FrontFramePlate", "HandoffCircuitPlate"], 260000, 320, 32, 80);
+        var bytes = File.ReadAllBytes(ProjectPath("assets/generated/dream_escape/3d/dream-auditorium-room-v2.glb"));
+        using var document = JsonDocument.Parse(bytes.AsMemory(20, BitConverter.ToInt32(bytes, 12)));
+        var nodes = document.RootElement.GetProperty("nodes").EnumerateArray().ToArray();
+        var seats = nodes.Where(n => n.TryGetProperty("name", out var name) && Regex.IsMatch(name.GetString()!, "^Seat[0-9]{2}$")).ToArray();
+        Assert.Equal(32, seats.Length);
+        Assert.Single(seats.Select(n => n.GetProperty("mesh").GetInt32()).Distinct());
+        Assert.Equal(4, nodes.Count(n => n.TryGetProperty("name", out var name) && Regex.IsMatch(name.GetString()!, "^Line_Weight[0-3]$")));
+        Assert.Equal(3, nodes.Count(n => n.TryGetProperty("name", out var name) && Regex.IsMatch(name.GetString()!, "^Projector_Disc[0-2]$")));
+    }
+
+    private static void ValidateLateRoomV2Asset(string room, string layout, string sceneName, float width, float depth,
+        string[] required, int maximumTriangles, int maximumMeshes, int maximumMaterials, int maximumMiB)
+    {
+        var asset = $"assets/generated/dream_escape/3d/dream-{room}-room-v2";
+        var bytes = File.ReadAllBytes(ProjectPath(asset + ".glb"));
+        Assert.Equal(0x46546C67u, BitConverter.ToUInt32(bytes, 0));
+        Assert.Equal(2u, BitConverter.ToUInt32(bytes, 4));
+        Assert.InRange(bytes.Length, 1, maximumMiB * 1024 * 1024);
+        using var document = JsonDocument.Parse(bytes.AsMemory(20, BitConverter.ToInt32(bytes, 12)));
+        var root = document.RootElement;
+        var nodes = root.GetProperty("nodes").EnumerateArray().ToArray();
+        var byName = nodes.Where(n => n.TryGetProperty("name", out _)).ToDictionary(n => n.GetProperty("name").GetString()!);
+        foreach (var name in required.Concat(["Room_Floor", "Room_Ceiling", "RoomFixtures"])) Assert.Contains(name, byName.Keys);
+        Assert.DoesNotContain(byName.Keys, name => Regex.IsMatch(name, "(?i)caelus|protagonist|armature|xiaoyu"));
+        foreach (var name in new[] { "skins", "animations", "cameras" }) Assert.False(root.TryGetProperty(name, out _));
+        using var manifest = JsonDocument.Parse(File.ReadAllText(ProjectPath(asset + "-manifest.json")));
+        var data = manifest.RootElement;
+        Assert.False(data.GetProperty("graybox").GetBoolean());
+        Assert.Equal(2, data.GetProperty("layoutVersion").GetInt32());
+        Assert.Equal(Sha256File(ProjectPath($"scripts/presentation/{layout}.cs")), data.GetProperty("layoutSha256").GetString());
+        Assert.Equal(Sha256File(ProjectPath(asset + ".glb")), data.GetProperty("runtimeGlbSha256").GetString());
+        Assert.Equal(Sha256File(ProjectPath(data.GetProperty("sourceFile").GetString()!)), data.GetProperty("sourceSha256").GetString());
+        var geometry = data.GetProperty("geometry");
+        var accessors = root.GetProperty("accessors").EnumerateArray().ToArray();
+        var meshes = root.GetProperty("meshes").EnumerateArray().ToArray();
+        var triangles = meshes.Select(m => m.GetProperty("primitives").EnumerateArray().Sum(p => accessors[p.GetProperty("indices").GetInt32()].GetProperty("count").GetInt32() / 3)).ToArray();
+        var total = nodes.Where(n => n.TryGetProperty("mesh", out _)).Sum(n => triangles[n.GetProperty("mesh").GetInt32()]);
+        Assert.Equal(geometry.GetProperty("triangleCount").GetInt32(), total);
+        Assert.InRange(total, 1, maximumTriangles);
+        var meshCount = nodes.Count(n => n.TryGetProperty("mesh", out _));
+        Assert.Equal(geometry.GetProperty("meshObjectCount").GetInt32(), meshCount);
+        Assert.InRange(meshCount, 1, maximumMeshes);
+        Assert.Equal(geometry.GetProperty("materialCount").GetInt32(), root.GetProperty("materials").GetArrayLength());
+        Assert.InRange(root.GetProperty("materials").GetArrayLength(), 1, maximumMaterials);
+        var floorMesh = meshes[byName["Room_Floor"].GetProperty("mesh").GetInt32()];
+        var floorPositions = accessors[floorMesh.GetProperty("primitives")[0].GetProperty("attributes").GetProperty("POSITION").GetInt32()];
+        var min = floorPositions.GetProperty("min").EnumerateArray().Select(n => n.GetSingle()).ToArray();
+        var max = floorPositions.GetProperty("max").EnumerateArray().Select(n => n.GetSingle()).ToArray();
+        Assert.InRange(max[0] - min[0], width - .002f, width + .002f);
+        Assert.InRange(max[2] - min[2], depth - .002f, depth + .002f);
+        var scene = File.ReadAllText(ProjectPath($"scenes/dream/{sceneName}.tscn"));
+        Assert.Contains($"dream-{room}-room-v2.glb", scene);
+        Assert.Contains("ambient_light_source = 2", scene);
+        Assert.DoesNotContain("ssao_enabled = true", scene);
+        Assert.Equal(6, DreamEscapeState.CurrentContentVersion);
+    }
+
+    [Fact]
+    public void MusicV2ExportsItsActualLayoutAndPersistentStateAnchors()
+    {
+        const string asset = "assets/generated/dream_escape/3d/music-room-art-pass-v2";
+        var bytes = File.ReadAllBytes(ProjectPath(asset + ".glb"));
+        Assert.Equal(0x46546C67u, BitConverter.ToUInt32(bytes, 0));
+        Assert.Equal(2u, BitConverter.ToUInt32(bytes, 4));
+        using var document = JsonDocument.Parse(bytes.AsMemory(20, BitConverter.ToInt32(bytes, 12)));
+        var root = document.RootElement;
+        var nodes = root.GetProperty("nodes").EnumerateArray().ToArray();
+        var byName = nodes.Where(node => node.TryGetProperty("name", out _)).ToDictionary(node => node.GetProperty("name").GetString()!);
+        foreach (var name in new[] { "MusicRoom", "Room_Floor", "Room_Ceiling", "Wall_West", "WindowGlass", "EquipmentWalls",
+            "Door_West_Hinge", "EquipmentDoorHinge", "EquipmentDoorGlass", "DoorNumberPlate", "Piano", "PianoBench", "CalibrationInstruments",
+            "Score_Revealed", "Metronome_Weight", "Metronome_Solved", "Calibration_Solved", "Roll_Installed", "Acoustic_Solved", "Photo_Solved",
+            "Pickup_Mallet", "Pickup_Cone", "Pickup_Weight", "Pickup_Roll", "Pickup_Wax", "FrontWaveTraces", "SideWaveTrace" })
+            Assert.Contains(name, byName.Keys);
+        Assert.Equal(6, byName.Keys.Count(name => Regex.IsMatch(name, "^Chair0[1-6]$")));
+        Assert.DoesNotContain(byName.Keys, name => Regex.IsMatch(name, "(?i)caelus|protagonist|armature|xiaoyu"));
+        Assert.False(root.TryGetProperty("skins", out _));
+        Assert.False(root.TryGetProperty("animations", out _));
+        Assert.False(root.TryGetProperty("cameras", out _));
+        Assert.DoesNotMatch("\"texCoord\"\\s*:\\s*-", root.GetRawText());
+        using var manifest = JsonDocument.Parse(File.ReadAllText(ProjectPath(asset + "-manifest.json")));
+        var data = manifest.RootElement;
+        Assert.False(data.GetProperty("graybox").GetBoolean());
+        Assert.Equal(2, data.GetProperty("layoutVersion").GetInt32());
+        Assert.Equal(Sha256File(ProjectPath("scripts/presentation/MusicRoomLayout3D.cs")), data.GetProperty("layoutSha256").GetString());
+        Assert.Equal(Sha256File(ProjectPath(asset + ".glb")), data.GetProperty("runtimeGlbSha256").GetString());
+        Assert.Equal(Sha256File(ProjectPath(data.GetProperty("sourceFile").GetString()!)), data.GetProperty("sourceSha256").GetString());
+        var geometry = data.GetProperty("geometry");
+        var accessors = root.GetProperty("accessors").EnumerateArray().ToArray();
+        var meshes = root.GetProperty("meshes").EnumerateArray().ToArray();
+        var triangles = meshes.Select(mesh => mesh.GetProperty("primitives").EnumerateArray()
+            .Sum(p => accessors[p.GetProperty("indices").GetInt32()].GetProperty("count").GetInt32() / 3)).ToArray();
+        Assert.Equal(geometry.GetProperty("triangleCount").GetInt32(), nodes.Where(n => n.TryGetProperty("mesh", out _)).Sum(n => triangles[n.GetProperty("mesh").GetInt32()]));
+        Assert.Equal(geometry.GetProperty("meshObjectCount").GetInt32(), nodes.Count(n => n.TryGetProperty("mesh", out _)));
+        Assert.Equal(geometry.GetProperty("materialCount").GetInt32(), root.GetProperty("materials").GetArrayLength());
+        foreach (var (name, key) in new[] { ("Door_West_Hinge", "ExitHinge"), ("EquipmentDoorHinge", "EquipmentHinge") })
+        {
+            var actual = byName[name].GetProperty("translation").EnumerateArray().Select(n => n.GetSingle()).ToArray();
+            var expected = data.GetProperty("layout").GetProperty(key).EnumerateArray().Select(n => n.GetSingle()).ToArray();
+            for (var i = 0; i < 3; i++) Assert.InRange(Math.Abs(actual[i] - expected[i]), 0, .002f);
+        }
+        var floorMesh = meshes[byName["Room_Floor"].GetProperty("mesh").GetInt32()];
+        var floorPositions = accessors[floorMesh.GetProperty("primitives")[0].GetProperty("attributes").GetProperty("POSITION").GetInt32()];
+        var min = floorPositions.GetProperty("min").EnumerateArray().Select(n => n.GetSingle()).ToArray();
+        var max = floorPositions.GetProperty("max").EnumerateArray().Select(n => n.GetSingle()).ToArray();
+        Assert.InRange(max[0] - min[0], 11.999f, 12.001f);
+        Assert.InRange(max[2] - min[2], 9.999f, 10.001f);
+        var scene = File.ReadAllText(ProjectPath("scenes/dream/DreamMusicRoom.tscn"));
+        Assert.Contains("music-room-art-pass-v2.glb", scene);
+        Assert.Contains("ambient_light_source = 2", scene);
+        Assert.DoesNotContain("ssao_enabled = true", scene);
+        Assert.Equal(6, DreamEscapeState.CurrentContentVersion);
+    }
+
+    [Fact]
+    public void ManorV3ExportsItsActualLayoutAndOnlyEnvironmentAssets()
+    {
+        var bytes = File.ReadAllBytes(ProjectPath("assets/generated/dream_escape/3d/dream-manor-hall-v3.glb"));
+        Assert.Equal(0x46546C67u, BitConverter.ToUInt32(bytes, 0));
+        Assert.Equal(2u, BitConverter.ToUInt32(bytes, 4));
+        using var document = JsonDocument.Parse(bytes.AsMemory(20, BitConverter.ToInt32(bytes, 12)));
+        var root = document.RootElement;
+        var nodes = root.GetProperty("nodes").EnumerateArray().ToArray();
+        var byName = nodes.Where(node => node.TryGetProperty("name", out _))
+            .ToDictionary(node => node.GetProperty("name").GetString()!);
+        foreach (var anchor in new[] { "DreamManorHall", "Room_Floor", "Room_Ceiling", "V3_PortalJoinery",
+            "Door_Front_Hinge_L", "Door_Front_Hinge_R", "Door_Room1_Hinge", "Door_Room2_Hinge",
+            "Door_Room3_Hinge", "Door_Room4_Hinge_L", "Door_Room4_Hinge_R", "ReservedModule_A", "ReservedModule_B",
+            "V3_StairStructure", "V3_StairScreen", "V3_Fireplace", "V3_ChairSouth", "V3_ChairNorth" })
+            Assert.Contains(anchor, byName.Keys);
+        Assert.DoesNotContain(byName.Keys, name => name.Contains("Protagonist", StringComparison.OrdinalIgnoreCase) ||
+            name.Contains("Caelus", StringComparison.OrdinalIgnoreCase) || name.Contains("Armature", StringComparison.OrdinalIgnoreCase));
+        Assert.False(root.TryGetProperty("skins", out _));
+        Assert.False(root.TryGetProperty("animations", out _));
+        Assert.False(root.TryGetProperty("cameras", out _));
+        Assert.DoesNotMatch("\"texCoord\"\\s*:\\s*-", root.GetRawText());
+
+        using var manifest = JsonDocument.Parse(File.ReadAllText(ProjectPath("assets/generated/dream_escape/3d/dream-manor-hall-v3-manifest.json")));
+        var data = manifest.RootElement;
+        var geometry = data.GetProperty("geometry");
+        var accessors = root.GetProperty("accessors").EnumerateArray().ToArray();
+        var meshes = root.GetProperty("meshes").EnumerateArray().ToArray();
+        var trianglesByMesh = meshes.Select(mesh => mesh.GetProperty("primitives").EnumerateArray()
+            .Sum(primitive => accessors[primitive.GetProperty("indices").GetInt32()].GetProperty("count").GetInt32() / 3)).ToArray();
+        Assert.Equal(geometry.GetProperty("triangleCount").GetInt32(), nodes.Where(node => node.TryGetProperty("mesh", out _))
+            .Sum(node => trianglesByMesh[node.GetProperty("mesh").GetInt32()]));
+        Assert.Equal(geometry.GetProperty("meshObjectCount").GetInt32(), nodes.Count(node => node.TryGetProperty("mesh", out _)));
+        Assert.Equal(geometry.GetProperty("materialCount").GetInt32(), root.GetProperty("materials").GetArrayLength());
+        Assert.Equal(3, data.GetProperty("layoutVersion").GetInt32());
+        Assert.Equal(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(ProjectPath("scripts/presentation/MansionLayout3D.cs")))).ToLowerInvariant(),
+            data.GetProperty("layoutSha256").GetString());
+        var expected = new Dictionary<string, float[]>
+        {
+            ["Door_Front_Root"] = [0, 0, -8], ["Door_Room1_Root"] = [-3.5f, 0, 2.4f],
+            ["Door_Room2_Root"] = [3.5f, 0, 2.4f], ["Door_Room3_Root"] = [-3.5f, 0, 8.8f],
+            ["Door_Room4_Root"] = [0, 0, 12]
+        };
+        foreach (var (name, position) in expected)
+        {
+            var actual = byName[name].GetProperty("translation").EnumerateArray().Select(n => n.GetSingle()).ToArray();
+            for (var i = 0; i < 3; i++) Assert.InRange(Math.Abs(actual[i] - position[i]), 0, .002f);
+        }
+        var scene = File.ReadAllText(ProjectPath("scenes/dream/DreamCorridor.tscn"));
+        Assert.Contains("dream-manor-hall-v3.glb", scene);
+        Assert.DoesNotContain("dream-manor-exterior", scene);
+        Assert.DoesNotContain("ssao_enabled = true", scene);
+        Assert.Equal(6, DreamEscapeState.CurrentContentVersion);
+    }
+
+    [Fact]
+    public void ClassroomV6ExportsSharedDesksAndPreservesStateAnchors()
+    {
+        var bytes = File.ReadAllBytes(ProjectPath("assets/generated/dream_escape/3d/classroom-art-pass-v6.glb"));
+        Assert.Equal(0x46546C67u, BitConverter.ToUInt32(bytes, 0));
+        Assert.Equal(2u, BitConverter.ToUInt32(bytes, 4));
+        using var document = JsonDocument.Parse(bytes.AsMemory(20, BitConverter.ToInt32(bytes, 12)));
+        var nodes = document.RootElement.GetProperty("nodes").EnumerateArray()
+            .Where(node => node.TryGetProperty("name", out _))
+            .ToDictionary(node => node.GetProperty("name").GetString()!);
+        Assert.Equal(12, nodes.Keys.Count(name => name.StartsWith("StudentDeskGroup_", StringComparison.Ordinal)));
+        var meshIndices = Enumerable.Range(1, 12).Select(index =>
+            nodes[$"StudentDeskArt_{index:00}"].GetProperty("mesh").GetInt32()).Distinct();
+        Assert.Single(meshIndices);
+        foreach (var anchor in new[] { "Door_East_Hinge", "WindowCache_Closed", "WindowCache_Open",
+            "ClockHand_Pickup", "Blackboard_Blank", "Blackboard_Revealed", "Clock_Missing", "Clock_HandOnly",
+            "Clock_KeyOnly", "Clock_Ready", "Clock_Restored", "Roster_Missing", "Roster_Inserted", "Roster_Aligned",
+            "TeacherDesk_Closed", "TeacherDesk_Open", "MapCabinet_Closed", "MapCabinet_Open", "V6_ScheduleStand" })
+            Assert.Contains(anchor, nodes.Keys);
+        Assert.DoesNotContain("ProtagonistRoot", nodes.Keys);
+        var meshes = document.RootElement.GetProperty("meshes").EnumerateArray().ToArray();
+        var accessors = document.RootElement.GetProperty("accessors").EnumerateArray().ToArray();
+        var trianglesByMesh = meshes.Select(mesh => mesh.GetProperty("primitives").EnumerateArray()
+            .Sum(primitive => accessors[primitive.GetProperty("indices").GetInt32()].GetProperty("count").GetInt32() / 3)).ToArray();
+        var actualTriangles = nodes.Values.Where(node => node.TryGetProperty("mesh", out _))
+            .Sum(node => trianglesByMesh[node.GetProperty("mesh").GetInt32()]);
+        using var manifest = JsonDocument.Parse(File.ReadAllText(ProjectPath("assets/generated/dream_escape/3d/classroom-art-pass-v6-manifest.json")));
+        var geometry = manifest.RootElement.GetProperty("geometry");
+        Assert.Equal(geometry.GetProperty("triangleCount").GetInt32(), actualTriangles);
+        Assert.Equal(geometry.GetProperty("meshObjectCount").GetInt32(), nodes.Values.Count(node => node.TryGetProperty("mesh", out _)));
+        // A missing source UV previously produced an invalid glTF texCoord=-1 material variant.
+        Assert.DoesNotMatch("\"texCoord\"\\s*:\\s*-", document.RootElement.GetRawText());
+        var positions = Enumerable.Range(1, 12).Select(index =>
+            nodes[$"StudentDeskGroup_{index:00}"].GetProperty("translation").EnumerateArray()
+                .Select(value => value.GetSingle()).ToArray()).ToArray();
+        Assert.All(positions, position => Assert.Equal(0f, position[1]));
+        Assert.True(positions.Min(p => Math.Abs(p[0])) * 2f - .82f >= 2.4f);
+        Assert.True(5.7f - positions.Max(p => Math.Abs(p[0])) - .41f >= 1.2f);
+        Assert.True(4.2f - positions.Max(p => p[2]) - .71f >= 1.2f);
+        Assert.Contains("DREAM_V6_WORLD_BLACKBOARD_ORDER", ReadLocalizationRows().Select(row => row.Key));
+    }
+
+    [Fact]
+    public void RemadeUiReferencesHaveNonemptyChineseTranslations()
+    {
+        var translations = ReadLocalizationRows().ToDictionary(row => row.Key, row => row.Value);
+        var files = Directory.GetFiles(ProjectPath("scripts/presentation"), "*.cs");
+        var keys = files.SelectMany(file => Regex.Matches(File.ReadAllText(file), "\"(UI_[A-Z0-9_]+)\"")
+            .Select(match => match.Groups[1].Value)).Distinct().ToArray();
+        Assert.True(keys.Length >= 70);
+        foreach (var key in keys) Assert.True(translations.TryGetValue(key, out var text) && !string.IsNullOrWhiteSpace(text), key);
+    }
+
+    [Fact]
+    public void PrologueV6HasEveryRecordPromptHintAndOnlyAtomicCompletionStories()
+    {
+        var localization = ReadLocalizationRows().ToDictionary(row => row.Key, row => row.Value);
+        foreach (Match match in Regex.Matches(File.ReadAllText(ProjectPath("src/TownRpg.Core/Services/DreamEscapeService.cs")), "\"(DREAM_FEEDBACK_[A-Z0-9_]+)\""))
+            Assert.Contains(match.Groups[1].Value, localization.Keys);
+        foreach (var id in DreamEscapeIds.Clues) Assert.Contains(DreamPrologueCatalog.TextKey(id), localization.Keys);
+        foreach (var id in DreamEscapeIds.Puzzles)
+        {
+            Assert.Contains(DreamPrologueCatalog.TextKey(id) + "_NAME", localization.Keys);
+            Assert.Contains(DreamPrologueCatalog.TextKey(id) + "_PROMPT", localization.Keys);
+            for (var level = 1; level <= 3; level++)
+                Assert.Contains("DREAM_HINT_" + id.Replace("dream.", "", StringComparison.Ordinal).Replace('.', '_').ToUpperInvariant() + "_" + level, localization.Keys);
+        }
+        var expected = new[] { "intro" }.Concat(DreamPrologueCatalog.Groups.Select(group => group.Id))
+            .Select(DreamPrologueCatalog.EventId).ToHashSet();
+        var events = LoadCatalog<EventCatalog>("data/events.json").Events.Where(e => e.Id.StartsWith("dream.prologue.")).ToArray();
+        Assert.True(expected.SetEquals(events.Select(e => e.Id)));
+        foreach (var entry in events)
+        {
+            var path = ResolveResourcePath(entry.DialoguePath);
+            var command = Assert.Single(ReadMutationCalls(path));
+            Assert.Equal("complete_event", command.Command);
+            Assert.Equal(entry.Id, Assert.Single(command.Arguments));
+            Assert.DoesNotContain(File.ReadAllLines(path), line => line.TrimStart().StartsWith("- "));
+        }
+        foreach (var path in Directory.EnumerateFiles(ProjectPath("scripts/presentation"), "Dream*.cs")
+                     .Concat(Directory.EnumerateFiles(ProjectPath("scenes/dream"), "*.tscn")))
+            foreach (Match match in Regex.Matches(File.ReadAllText(path), "\"(DREAM_V6_[A-Z0-9_]+)\""))
+                Assert.Contains(match.Groups[1].Value, localization.Keys);
+    }
+
+    [Fact]
+    public void CharacterThoughtsAndActiveHintsAreLocalizedWithoutCompleteAnswers()
+    {
+        var texts = ReadLocalizationRows().ToDictionary(row => row.Key, row => row.Value);
+        foreach (var key in DreamThoughtRules.AllTextKeys)
+            Assert.True(texts.TryGetValue(key, out var text) && !string.IsNullOrWhiteSpace(text), key);
+        foreach (var id in DreamEscapeIds.Puzzles)
+        {
+            var prefix = "DREAM_HINT_" + id.Replace("dream.", "", StringComparison.Ordinal).Replace('.', '_').ToUpperInvariant();
+            var hints = Enumerable.Range(1, 3).Select(level => texts[prefix + "_" + level]).ToArray();
+            Assert.All(hints, text => Assert.StartsWith("林晓雨：“", text));
+            var prose = Regex.Replace(texts[DreamPrologueCatalog.TextKey(id) + "_PROMPT"] + string.Concat(hints), @"[\s、，/＝=→]+", "");
+            foreach (var answer in new[] { "372", "1423", "2413", "3142", "C1A4D2B3", "上下中", "木鱼钢琴三角铁手铃" })
+                Assert.DoesNotContain(answer, prose);
+        }
+        foreach (var group in DreamThoughtRules.AllTextKeys.GroupBy(key => key[..^1]))
+            Assert.Equal(2, group.Select(key => texts[key]).Distinct().Count());
+    }
+
     private static readonly Lazy<string> ProjectRoot = new(FindProjectRoot);
 
     private static readonly Regex MutationRegex = new(
@@ -49,7 +341,7 @@ public sealed class ContentIntegrityTests
         Assert.NotEmpty(characters.Characters);
         Assert.NotEmpty(schedules.Entries);
         Assert.NotEmpty(events.Events);
-        Assert.Equal(34, items.Items.Count);
+        Assert.Equal(31, items.Items.Count);
 
         AssertUnique(characters.Characters.Select(character => character.Id), "character ID");
         AssertUnique(events.Events.Select(definition => definition.Id), "event ID");
@@ -365,6 +657,10 @@ public sealed class ContentIntegrityTests
         var errors = new List<string>();
         var requiredResources = new[]
         {
+            "assets/fonts/source-han-sans/SourceHanSansSC-Regular.otf",
+            "assets/fonts/source-han-sans/SourceHanSansSC-Medium.otf",
+            "assets/fonts/source-han-sans/LICENSE.txt",
+            "scenes/testing/CinematicUiProbe.tscn",
             "scenes/app/Main.tscn",
             "scenes/world/OldHouse.tscn",
             "scenes/world/StationQuarter.tscn",
@@ -405,11 +701,16 @@ public sealed class ContentIntegrityTests
             "assets/generated/dream_escape/auditorium-control-board.png",
             "assets/generated/dream_escape/3d/dream-manor-hall-v1.glb",
             "assets/generated/dream_escape/3d/dream-manor-hall-v2.glb",
+            "assets/generated/dream_escape/3d/dream-manor-hall-v3.glb",
+            "assets/generated/dream_escape/3d/dream-manor-hall-v3-manifest.json",
+            "art/blender/dream_manor/dream-manor-hall-v3.blend",
+            "scripts/presentation/MansionLayout3D.cs",
+            "scripts/tools/remodel_manor_v3.py",
             "assets/generated/dream_escape/3d/dream-manor-exterior-v1.glb",
             "assets/generated/dream_escape/3d/dream-manor-v1-manifest.json",
             "assets/generated/dream_escape/3d/dream-manor-hall-v2-manifest.json",
-            "assets/generated/dream_escape/3d/classroom-art-pass-v5.glb",
-            "assets/generated/dream_escape/3d/classroom-art-pass-v5-manifest.json",
+            "assets/generated/dream_escape/3d/classroom-art-pass-v6.glb",
+            "assets/generated/dream_escape/3d/classroom-art-pass-v6-manifest.json",
             "assets/generated/dream_escape/3d/dream-archive-room-v1.glb",
             "assets/generated/dream_escape/3d/dream-archive-room-v1-manifest.json",
             "assets/generated/dream_escape/3d/dream-auditorium-v1.glb",
@@ -494,8 +795,8 @@ public sealed class ContentIntegrityTests
         }
 
         ValidateCinematicRuntimeManifest(
-            "assets/generated/dream_escape/3d/classroom-art-pass-v5-manifest.json",
-            expectedRuntimeFile: "assets/generated/dream_escape/3d/classroom-art-pass-v5.glb",
+            "assets/generated/dream_escape/3d/classroom-art-pass-v6-manifest.json",
+            expectedRuntimeFile: "assets/generated/dream_escape/3d/classroom-art-pass-v6.glb",
             maximumTriangles: 150_000,
             maximumVisibleMeshes: 200,
             maximumMaterials: 24,
@@ -516,13 +817,31 @@ public sealed class ContentIntegrityTests
             maximumBytes: 60L * 1024L * 1024L,
             errors);
         ValidateCinematicRuntimeManifest(
-            "assets/generated/dream_escape/3d/dream-manor-hall-v2-manifest.json",
-            expectedRuntimeFile: "assets/generated/dream_escape/3d/dream-manor-hall-v2.glb",
+            "assets/generated/dream_escape/3d/dream-manor-hall-v3-manifest.json",
+            expectedRuntimeFile: "assets/generated/dream_escape/3d/dream-manor-hall-v3.glb",
             maximumTriangles: 180_000,
             maximumVisibleMeshes: 220,
             maximumMaterials: 24,
             maximumBytes: 60L * 1024L * 1024L,
             errors);
+
+        ValidateCinematicRuntimeManifest(
+            "assets/generated/dream_escape/3d/music-room-art-pass-v2-manifest.json",
+            expectedRuntimeFile: "assets/generated/dream_escape/3d/music-room-art-pass-v2.glb",
+            maximumTriangles: 180_000,
+            maximumVisibleMeshes: 220,
+            maximumMaterials: 24,
+            maximumBytes: 60L * 1024L * 1024L,
+            errors);
+
+        ValidateCinematicRuntimeManifest(
+            "assets/generated/dream_escape/3d/dream-archive-room-v2-manifest.json",
+            "assets/generated/dream_escape/3d/dream-archive-room-v2.glb",
+            180_000, 220, 24, 60L * 1024L * 1024L, errors);
+        ValidateCinematicRuntimeManifest(
+            "assets/generated/dream_escape/3d/dream-auditorium-room-v2-manifest.json",
+            "assets/generated/dream_escape/3d/dream-auditorium-room-v2.glb",
+            260_000, 320, 32, 80L * 1024L * 1024L, errors);
 
         var provenancePath = ProjectPath("assets/generated/provenance.json");
         if (File.Exists(provenancePath))
@@ -542,10 +861,13 @@ public sealed class ContentIntegrityTests
                     "dream_manor_3d_source_v1",
                     "dream_manor_hall_runtime_v1",
                     "dream_manor_exterior_review_v1",
-                    "dream_classroom_cinematic_runtime_v5",
+                    "dream_classroom_cinematic_runtime_v6",
                     "dream_manor_hall_cinematic_runtime_v2",
+                    "dream_manor_hall_runtime_v3",
                     "dream_archive_room_3d_runtime_v1",
-                    "dream_auditorium_3d_runtime_v1"
+                    "dream_auditorium_3d_runtime_v1",
+                    "dream_archive_room_runtime_v2",
+                    "dream_auditorium_runtime_v2"
                 }.Where(id => !ids.Contains(id)).ToArray();
                 if (missingProvenance.Length > 0)
                 {
@@ -639,74 +961,36 @@ public sealed class ContentIntegrityTests
 
     private static IReadOnlyList<LocalizationRow> ReadLocalizationRows()
     {
-        var lines = File.ReadAllLines(ProjectPath("localization/zh_CN.csv"));
-        if (lines.Length == 0)
+        using var parser = new Microsoft.VisualBasic.FileIO.TextFieldParser(ProjectPath("localization/zh_CN.csv"));
+        parser.SetDelimiters(",");
+        parser.HasFieldsEnclosedInQuotes = true;
+        parser.TrimWhiteSpace = false;
+        var header = parser.ReadFields();
+        if (header is null)
         {
             throw new InvalidDataException("localization/zh_CN.csv is empty.");
         }
 
-        var header = ParseCsvLine(lines[0]);
-        if (header.Count != 2 || header[0] != "keys" || header[1] != "zh_CN")
+        if (header.Length != 2 || header[0] != "keys" || header[1] != "zh_CN")
         {
             throw new InvalidDataException(
                 "localization/zh_CN.csv must start with the header 'keys,zh_CN'.");
         }
 
         var rows = new List<LocalizationRow>();
-        for (var index = 1; index < lines.Length; index++)
+        while (!parser.EndOfData)
         {
-            var fields = ParseCsvLine(lines[index]);
-            if (fields.Count != 2)
+            var fields = parser.ReadFields()!;
+            if (fields.Length != 2)
             {
                 throw new InvalidDataException(
-                    $"localization/zh_CN.csv:{index + 1} must contain exactly two columns.");
+                    $"localization/zh_CN.csv:{parser.LineNumber} must contain exactly two columns.");
             }
 
             rows.Add(new LocalizationRow(fields[0], fields[1]));
         }
 
         return rows;
-    }
-
-    private static IReadOnlyList<string> ParseCsvLine(string line)
-    {
-        var fields = new List<string>();
-        var current = new StringBuilder();
-        var inQuotes = false;
-
-        for (var index = 0; index < line.Length; index++)
-        {
-            var character = line[index];
-            if (character == '"')
-            {
-                if (inQuotes && index + 1 < line.Length && line[index + 1] == '"')
-                {
-                    current.Append('"');
-                    index++;
-                }
-                else
-                {
-                    inQuotes = !inQuotes;
-                }
-            }
-            else if (character == ',' && !inQuotes)
-            {
-                fields.Add(current.ToString());
-                current.Clear();
-            }
-            else
-            {
-                current.Append(character);
-            }
-        }
-
-        if (inQuotes)
-        {
-            throw new InvalidDataException("Localization CSV contains an unterminated quoted field.");
-        }
-
-        fields.Add(current.ToString());
-        return fields;
     }
 
     private static IReadOnlyList<string> ReadEventDisplayNameKeys()

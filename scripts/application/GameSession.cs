@@ -8,6 +8,8 @@ namespace TownRpg.Application;
 public partial class GameSession : Node
 {
     public const string SavePath = "user://save-slot-1.json";
+    private string? _testSavePath;
+    private string EffectiveSavePath => _testSavePath ?? SavePath;
 
     public GameState State { get; private set; } = GameState.CreateVerticalSlice();
     public ContentRepository Content { get; } = new();
@@ -25,8 +27,8 @@ public partial class GameSession : Node
     {
         get
         {
-            var saveAbsolute = ProjectSettings.GlobalizePath(SavePath);
-            return GodotFileAccess.FileExists(SavePath) ||
+            var saveAbsolute = ProjectSettings.GlobalizePath(EffectiveSavePath);
+            return GodotFileAccess.FileExists(EffectiveSavePath) ||
                    GodotFileAccess.FileExists(saveAbsolute + ".bak");
         }
     }
@@ -97,6 +99,23 @@ public partial class GameSession : Node
         return new PersistenceSuppressionLease(this);
     }
 
+    // Only the explicit engine acceptance runner can redirect persistence. No setting or save field is added.
+    internal IDisposable UseTestSavePath(string path)
+    {
+        if (!OS.GetCmdlineUserArgs().Contains("--prologue-e2e"))
+            throw new InvalidOperationException("A test save path requires the prologue acceptance runner flag.");
+        if (_testSavePath is not null)
+            throw new InvalidOperationException("A test save path is already active.");
+        var outputRoot = Path.GetFullPath(ProjectSettings.GlobalizePath("res://outputs")) + Path.DirectorySeparatorChar;
+        var candidate = Path.GetFullPath(ProjectSettings.GlobalizePath(path));
+        if (!candidate.StartsWith(outputRoot, StringComparison.OrdinalIgnoreCase) ||
+            !string.Equals(Path.GetExtension(candidate), ".json", StringComparison.OrdinalIgnoreCase))
+            throw new ArgumentException("Acceptance saves must be JSON files below this project's outputs directory.", nameof(path));
+        Directory.CreateDirectory(Path.GetDirectoryName(candidate)!);
+        _testSavePath = candidate;
+        return new TestSavePathLease(this);
+    }
+
     public DreamActionResult MoveDreamToArea(string areaId, float x, float y) =>
         ApplyDreamAction(() => DreamEscape.MoveToArea(areaId, x, y));
 
@@ -130,6 +149,11 @@ public partial class GameSession : Node
     public DreamActionResult CompletePinWake() =>
         ApplyDreamAction(DreamEscape.CompletePinWake);
 
+    public DreamActionResult AssembleDreamFuse() => ApplyDreamAction(DreamEscape.AssembleFuse);
+
+    public DreamActionResult CompleteDreamStory(string eventId) =>
+        ApplyDreamAction(() => DreamEscape.CompleteStory(eventId));
+
     private void WriteSave()
     {
         if (_persistenceSuppressionCount > 0)
@@ -138,7 +162,7 @@ public partial class GameSession : Node
         }
 
         var json = SaveGameSerializer.Serialize(State);
-        var temporaryPath = SavePath + ".tmp";
+        var temporaryPath = EffectiveSavePath + ".tmp";
         using (var file = GodotFileAccess.Open(temporaryPath, GodotFileAccess.ModeFlags.Write))
         {
             if (file is null)
@@ -158,7 +182,7 @@ public partial class GameSession : Node
             }
         }
 
-        var saveAbsolute = ProjectSettings.GlobalizePath(SavePath);
+        var saveAbsolute = ProjectSettings.GlobalizePath(EffectiveSavePath);
         var temporaryAbsolute = ProjectSettings.GlobalizePath(temporaryPath);
         var backupAbsolute = saveAbsolute + ".bak";
         if (GodotFileAccess.FileExists(backupAbsolute))
@@ -169,7 +193,7 @@ public partial class GameSession : Node
             }
         }
 
-        var hadSave = GodotFileAccess.FileExists(SavePath);
+        var hadSave = GodotFileAccess.FileExists(EffectiveSavePath);
         if (hadSave && DirAccess.RenameAbsolute(saveAbsolute, backupAbsolute) != Error.Ok)
         {
             throw new IOException("Could not rotate the previous save file.");
@@ -199,9 +223,9 @@ public partial class GameSession : Node
     public bool TryLoad(out string error)
     {
         error = string.Empty;
-        var saveAbsolute = ProjectSettings.GlobalizePath(SavePath);
+        var saveAbsolute = ProjectSettings.GlobalizePath(EffectiveSavePath);
         var backupAbsolute = saveAbsolute + ".bak";
-        if (!GodotFileAccess.FileExists(SavePath) && GodotFileAccess.FileExists(backupAbsolute))
+        if (!GodotFileAccess.FileExists(EffectiveSavePath) && GodotFileAccess.FileExists(backupAbsolute))
         {
             if (DirAccess.RenameAbsolute(backupAbsolute, saveAbsolute) != Error.Ok)
             {
@@ -210,7 +234,7 @@ public partial class GameSession : Node
             }
         }
 
-        if (!GodotFileAccess.FileExists(SavePath))
+        if (!GodotFileAccess.FileExists(EffectiveSavePath))
         {
             error = "没有找到存档。";
             return false;
@@ -218,7 +242,7 @@ public partial class GameSession : Node
 
         try
         {
-            using var file = GodotFileAccess.Open(SavePath, GodotFileAccess.ModeFlags.Read);
+            using var file = GodotFileAccess.Open(EffectiveSavePath, GodotFileAccess.ModeFlags.Read);
             if (file is null)
             {
                 error = "存档文件存在，但无法打开。";
@@ -257,6 +281,17 @@ public partial class GameSession : Node
             SaveCheckpoint();
         }
         return result;
+    }
+
+    private sealed class TestSavePathLease(GameSession session) : IDisposable
+    {
+        private bool _disposed;
+        public void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+            session._testSavePath = null;
+        }
     }
 
     private sealed class PersistenceSuppressionLease(GameSession session) : IDisposable

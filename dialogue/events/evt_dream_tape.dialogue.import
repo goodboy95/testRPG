@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://uufymx30gkhf"
+path="res://.godot/imported/evt_dream_tape.dialogue-04b318f36e8d792c85f6487dfe466a2a.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_tape.dialogue"
+dest_files=["res://.godot/imported/evt_dream_tape.dialogue-04b318f36e8d792c85f6487dfe466a2a.tres"]
+
+[params]
+
+defaults=true

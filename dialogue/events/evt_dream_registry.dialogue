@@ -1,0 +1,6 @@
+~ start
+主角: 节目单和工作登记写的范围不一样。这里还记了开门、调拍和送谱。 [ID:DREAM_V6_STORY_REGISTRY_001]
+林晓雨: 难怪只照着节目单找，总觉得少了一块。 [ID:DREAM_V6_STORY_REGISTRY_002]
+主角: 合影放在教室地图柜，灯箱在音乐室。我们沿路核对一次。 [ID:DREAM_V6_STORY_REGISTRY_003]
+do Narrative.Execute("complete_event", "dream.prologue.registry")
+=> END

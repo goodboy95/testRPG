@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://cedlbyei13qph"
+path="res://.godot/imported/evt_dream_morning.dialogue-db259486f3af99aa402ee35031e0a544.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_morning.dialogue"
+dest_files=["res://.godot/imported/evt_dream_morning.dialogue-db259486f3af99aa402ee35031e0a544.tres"]
+
+[params]
+
+defaults=true

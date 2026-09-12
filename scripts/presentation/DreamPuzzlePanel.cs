@@ -1,5 +1,6 @@
 using Godot;
 using TownRpg.Application;
+using TownRpg.Core.Domain;
 
 namespace TownRpg.Presentation;
 
@@ -8,233 +9,175 @@ public partial class DreamPuzzlePanel : Control
     public event Action<string, string[]>? Submitted;
     public event Action<string, string[]>? PreviewChanged;
     public event Action<string>? Closed;
-
     private GameSession _session = null!;
     private IDisposable? _modalLease;
-    private Label _title = null!;
-    private Label _prompt = null!;
+    private PuzzleWorkspace _workspace = null!;
     private Label _answer = null!;
+    private Label _description = null!;
+    private DreamPuzzleDiagram _diagram = null!;
     private GridContainer _choices = null!;
+    private GridContainer _slots = null!;
+    private ScrollContainer _choicesScroll = null!;
+    private HBoxContainer _viewTabs = null!;
+    private Button _observe = null!;
+    private Button _arrange = null!;
     private Button _submit = null!;
-    private string _puzzleId = string.Empty;
-
+    private Button _undo = null!;
+    private string _puzzleId = "";
     private int _expectedLength;
     private bool _allowRepeats;
     private bool _numericInput;
+    private bool _showObservation;
+    private int _selectedSlot = -1;
     private readonly List<string> _tokens = [];
+    private readonly List<string[]> _history = [];
+    private readonly List<PuzzleHitButton> _slotButtons = [];
     private readonly Dictionary<string, Button> _choiceButtons = new(StringComparer.Ordinal);
-
-    public override void _ExitTree()
-    {
-        _modalLease?.Dispose();
-        _modalLease = null;
-    }
-
+    public IReadOnlyList<string> PreviewTokens => _tokens.ToArray();
+    public PuzzleWorkspace Workspace => _workspace;
     public override void _Ready()
     {
         _session = GetNode<GameSession>("/root/GameSession");
-        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        Visible = false;
-
-        var shade = new ColorRect { Color = new Color("050b13d9") };
-        shade.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        AddChild(shade);
-
-        var frame = new PanelContainer
-        {
-            Position = new Vector2(72, 38),
-            Size = new Vector2(496, 284)
-        };
-        frame.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("192b38fa"), 9));
-        AddChild(frame);
-
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 7);
-        frame.AddChild(column);
-        _title = new Label();
-        _title.AddThemeFontSizeOverride("font_size", 21);
-        _title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(_title);
-        _prompt = new Label
-        {
-            AutowrapMode = TextServer.AutowrapMode.WordSmart,
-            CustomMinimumSize = new Vector2(450, 42)
-        };
-        column.AddChild(_prompt);
-        _answer = new Label
-        {
-            Text = "尚未输入",
-            HorizontalAlignment = HorizontalAlignment.Center,
-            CustomMinimumSize = new Vector2(450, 32)
-        };
-        _answer.AddThemeStyleboxOverride("normal", UiStyles.Panel(new Color("0e1924e8"), 5));
-        column.AddChild(_answer);
-        _choices = new GridContainer { Columns = 5 };
-        column.AddChild(_choices);
-
-        var actions = new HBoxContainer();
-        actions.AddThemeConstantOverride("separation", 8);
-        column.AddChild(actions);
-        var clear = UiStyles.Button("清除");
-        clear.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        clear.Pressed += ClearAnswer;
-        actions.AddChild(clear);
-        var undo = UiStyles.Button("撤销一项");
-        undo.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        undo.Pressed += UndoLast;
-        actions.AddChild(undo);
-        var cancel = UiStyles.Button("取消");
-        cancel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        cancel.Pressed += ClosePanel;
-        actions.AddChild(cancel);
-        _submit = UiStyles.Button("确认排列");
-        _submit.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _submit.Pressed += SubmitAnswer;
-        actions.AddChild(_submit);
+        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); Visible = false;
+        _workspace = new PuzzleWorkspace(); AddChild(_workspace);
+        _description = UiStyles.Wrapped(""); UiStyles.Font(_description, 11); _workspace.Work.AddChild(_description);
+        _answer = UiStyles.Wrapped(""); UiStyles.Font(_answer, 11); _answer.AddThemeColorOverride("font_color", UiStyles.Muted); _workspace.Work.AddChild(_answer);
+        _viewTabs = new HBoxContainer(); _workspace.Work.AddChild(_viewTabs);
+        _observe = UiStyles.Button(UiText.Get("UI_COOP_OBSERVATIONS")); _arrange = UiStyles.Button(UiText.Get("UI_ALIGNMENT"));
+        foreach (var b in new[] { _observe, _arrange }) { b.ToggleMode = true; UiStyles.Font(b, 11); _viewTabs.AddChild(b); }
+        _observe.Pressed += () => { _showObservation = true; Layout(); };
+        _arrange.Pressed += () => { _showObservation = false; Layout(); _choiceButtons.Values.FirstOrDefault(b => !b.Disabled)?.GrabFocus(); };
+        _diagram = new DreamPuzzleDiagram { Mode = DreamMechanismMode.ChannelCalibration, Values = [0], CustomMinimumSize = new Vector2(0, 70) };
+        _workspace.Work.AddChild(_diagram);
+        _slots = new GridContainer { Columns = 4 }; _slots.AddThemeConstantOverride("h_separation", 6); _workspace.Work.AddChild(_slots);
+        _choicesScroll = UiStyles.Scroll(_workspace.Work);
+        _choices = new GridContainer { Columns = 4, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _choices.AddThemeConstantOverride("h_separation", 6); _choices.AddThemeConstantOverride("v_separation", 4); _choicesScroll.AddChild(_choices);
+        AddAction(UiText.Get("UI_RESET"), ClearAnswer); _undo = AddAction(UiText.Get("UI_UNDO"), UndoLast); AddAction(UiText.Get("UI_BACK"), ClosePanel);
+        _workspace.Footer.AddSpacer(false);
+        _submit = UiStyles.Button(UiText.Get("UI_CONFIRM")); _submit.Name = "PuzzleConfirm"; UiStyles.Primary(_submit);
+        _submit.Pressed += SubmitAnswer; _workspace.Footer.AddChild(_submit);
     }
-
-    public override void _UnhandledInput(InputEvent inputEvent)
+    private Button AddAction(string label, Action action)
     {
-        if (!Visible) return;
-        if (inputEvent.IsActionPressed("ui_cancel"))
-        {
-            GetViewport().SetInputAsHandled();
-            ClosePanel();
-            return;
-        }
-        if (inputEvent is InputEventKey { Pressed: true, Echo: false } keyEvent)
-        {
-            if (keyEvent.Keycode == Key.Backspace)
-            {
-                GetViewport().SetInputAsHandled();
-                UndoLast();
-                return;
-            }
-            var digit = keyEvent.Unicode is >= (uint)'0' and <= (uint)'9'
-                ? ((char)keyEvent.Unicode).ToString()
-                : string.Empty;
-            if (_numericInput && !string.IsNullOrEmpty(digit) && _choiceButtons.ContainsKey(digit))
-            {
-                GetViewport().SetInputAsHandled();
-                AddToken(digit);
-            }
-            return;
-        }
-        if (inputEvent is InputEventJoypadButton { Pressed: true, ButtonIndex: JoyButton.X })
-        {
-            GetViewport().SetInputAsHandled();
-            UndoLast();
-        }
+        var button = UiStyles.Button(label); UiStyles.Font(button, 11); button.Pressed += action; _workspace.Footer.AddChild(button); return button;
     }
-
-    public void Open(
-        string puzzleId,
-        string title,
-        string prompt,
-        IReadOnlyList<(string Token, string Label)> choices,
-        int expectedLength,
-        bool allowRepeats = false)
+    public void Open(string puzzleId, string title, string prompt, IReadOnlyList<(string Token, string Label)> choices, int expectedLength, bool allowRepeats = false)
     {
-        _puzzleId = puzzleId;
-        _expectedLength = expectedLength;
-        _allowRepeats = allowRepeats;
-        _numericInput = choices.All(choice => choice.Token.Length == 1 && char.IsAsciiDigit(choice.Token[0]));
-        _title.Text = title;
-        _prompt.Text = prompt;
-        _tokens.Clear();
-        _choiceButtons.Clear();
-        foreach (var child in _choices.GetChildren())
+        _puzzleId = puzzleId; _expectedLength = expectedLength; _allowRepeats = allowRepeats;
+        _numericInput = choices.All(c => c.Token.Length == 1 && char.IsAsciiDigit(c.Token[0]));
+        _workspace.Heading.Text = title; _selectedSlot = -1; _showObservation = false; _tokens.Clear(); _history.Clear();
+        // This is the girl's live observation, not a reference-document shortcut.
+        _description.Text = puzzleId == DreamEscapeIds.PuzzleMusicCage &&
+            _session.State.DreamEscape!.DiscoveredClues.Contains(DreamEscapeIds.ClueDoorMapping)
+            ? DreamPrologueText.Clue(DreamEscapeIds.ClueDoorMapping) : prompt;
+        _diagram.SideObserved = _session.State.DreamEscape!.DiscoveredClues.Contains(DreamEscapeIds.ClueMusicSideWave);
+        _diagram.Configure(false); _diagram.QueueRedraw();
+        _choiceButtons.Clear(); UiStyles.Clear(_choices); UiStyles.Clear(_slots); _slotButtons.Clear();
+        for (var i = 0; i < expectedLength; i++)
         {
-            child.QueueFree();
+            var slot = i;
+            var b = new PuzzleHitButton { Name = "AnswerSlot" + i, Slot = i, DragOwner = this, ToggleMode = true,
+                SizeFlagsHorizontal = SizeFlags.ExpandFill, CustomMinimumSize = new Vector2(0, 48),
+                AutowrapMode = TextServer.AutowrapMode.WordSmart };
+            UiStyles.Font(b, 11); b.AddThemeStyleboxOverride("normal", UiStyles.Panel(UiStyles.Surface));
+            b.Pressed += () => SelectSlot(slot); b.SwapRequested += SwapSlots; _slots.AddChild(b); _slotButtons.Add(b);
         }
-
-        Button? first = null;
         foreach (var choice in choices)
         {
-            var button = UiStyles.Button(choice.Label);
-            button.CustomMinimumSize = new Vector2(82, 32);
-            var token = choice.Token;
-            button.Pressed += () => AddToken(token);
-            _choices.AddChild(button);
-            _choiceButtons[token] = button;
-            first ??= button;
+            var button = UiStyles.Button(choice.Label); button.Name = "Choice_" + choice.Token.Replace('.', '_');
+            button.CustomMinimumSize = new Vector2(0, 30); button.AutowrapMode = TextServer.AutowrapMode.WordSmart;
+            button.SizeFlagsHorizontal = SizeFlags.ExpandFill; UiStyles.Font(button, _numericInput ? 14 : 12);
+            var token = choice.Token; button.Pressed += () => AddToken(token); _choices.AddChild(button); _choiceButtons.Add(token, button);
         }
-
-        UpdateAnswer();
-        _modalLease?.Dispose();
-        _modalLease = _session.Modal.Acquire("dream-puzzle");
-        Visible = true;
-        first?.GrabFocus();
+        _modalLease?.Dispose(); _modalLease = _session.Modal.Acquire("dream-puzzle");
+        Visible = true; UpdateAnswer(); Layout(); UiStyles.FadeIn(this); _choiceButtons.Values.FirstOrDefault()?.GrabFocus();
     }
-
-    public void ClosePanel()
+    public override void _Process(double delta) { if (Visible) Layout(); }
+    private void Layout()
     {
-        var closedPuzzle = _puzzleId;
-        Visible = false;
-        _puzzleId = string.Empty;
-        _tokens.Clear();
-        _modalLease?.Dispose();
-        _modalLease = null;
-        if (!string.IsNullOrEmpty(closedPuzzle)) Closed?.Invoke(closedPuzzle);
+        var calibration = _puzzleId == DreamEscapeIds.PuzzleMusicChannelCalibration;
+        var separate = calibration && UiStyles.Scale(this) >= 1.2f;
+        _viewTabs.Visible = separate;
+        _diagram.Visible = calibration && (!separate || _showObservation);
+        _diagram.SizeFlagsVertical = separate ? SizeFlags.ExpandFill : SizeFlags.Fill;
+        _slots.Visible = !separate || !_showObservation; _choicesScroll.Visible = _slots.Visible;
+        _observe.ButtonPressed = _showObservation; _arrange.ButtonPressed = !_showObservation;
+        _slots.Columns = Math.Min(4, _expectedLength);
+        _choices.Columns = _numericInput ? 5 : _workspace.Work.Size.X < 400 ? 2 : 4;
     }
-
+    private void SelectSlot(int slot)
+    {
+        if (slot >= _tokens.Count) { _selectedSlot = -1; UpdateAnswer(); return; }
+        if (_selectedSlot < 0) _selectedSlot = slot;
+        else { SwapSlots(_selectedSlot, slot); _selectedSlot = -1; }
+        UpdateAnswer();
+    }
+    private void SwapSlots(int first, int second)
+    {
+        if (first < 0 || second < 0 || first >= _tokens.Count || second >= _tokens.Count || first == second) return;
+        _history.Add(_tokens.ToArray()); (_tokens[first], _tokens[second]) = (_tokens[second], _tokens[first]); _selectedSlot = -1; UpdateAnswer();
+        UiStyles.FadeIn(_slots);
+    }
     private void AddToken(string token)
     {
-        if (_tokens.Count >= _expectedLength)
-        {
-            return;
-        }
-        _tokens.Add(token);
-        UpdateAnswer();
+        if (_tokens.Count >= _expectedLength || (!_allowRepeats && _tokens.Contains(token, StringComparer.Ordinal))) return;
+        _history.Add(_tokens.ToArray()); _tokens.Add(token); _selectedSlot = -1; UpdateAnswer();
         if (_tokens.Count == _expectedLength) _submit.GrabFocus();
     }
-
     private void ClearAnswer()
     {
-        _tokens.Clear();
-        UpdateAnswer();
+        if (_tokens.Count == 0) return; _history.Add(_tokens.ToArray()); _tokens.Clear(); _selectedSlot = -1; UpdateAnswer();
     }
-
     private void UndoLast()
     {
-        if (_tokens.Count == 0) return;
-        var removed = _tokens[^1];
-        _tokens.RemoveAt(_tokens.Count - 1);
-        UpdateAnswer();
-        if (_choiceButtons.TryGetValue(removed, out var button) && !button.Disabled)
-            Callable.From(button.GrabFocus).CallDeferred();
+        if (_history.Count == 0) return;
+        _tokens.Clear(); _tokens.AddRange(_history[^1]); _history.RemoveAt(_history.Count - 1); _selectedSlot = -1; UpdateAnswer();
+        _choiceButtons.Values.FirstOrDefault(b => !b.Disabled)?.GrabFocus();
     }
-
     private void UpdateAnswer()
     {
-        _answer.Text = _tokens.Count == 0
-            ? _numericInput
-                ? $"请选择 {_expectedLength} 位数字（可直接按数字键）"
-                : $"请选择 {_expectedLength} 项"
-            : string.Join("　→　", _tokens.Select(DisplayToken));
-        _submit.Disabled = _tokens.Count != _expectedLength;
-        foreach (var (token, button) in _choiceButtons)
-            button.Disabled = !_allowRepeats && _tokens.Contains(token, StringComparer.Ordinal);
-        if (!string.IsNullOrEmpty(_puzzleId)) PreviewChanged?.Invoke(_puzzleId, _tokens.ToArray());
+        _answer.Text = _tokens.Count == 0 ? UiText.Get(_numericInput ? "UI_NUMBER_HELP" : "UI_SEQUENCE_HELP") :
+            UiText.Get("UI_SEQUENCE_PROGRESS", _tokens.Count, _expectedLength);
+        for (var i = 0; i < _slotButtons.Count; i++)
+        {
+            var b = _slotButtons[i]; b.Text = (i + 1).ToString("00") + "\n" + (i < _tokens.Count ? _choiceButtons[_tokens[i]].Text : "—");
+            b.TooltipText = UiText.Get("UI_SLOT", i + 1) + (i < _tokens.Count ? " · " + _choiceButtons[_tokens[i]].Text : "");
+            b.Draggable = i < _tokens.Count; b.ButtonPressed = _selectedSlot == i;
+        }
+        _submit.Disabled = _tokens.Count != _expectedLength; _undo.Disabled = _history.Count == 0;
+        foreach (var (token, button) in _choiceButtons) button.Disabled = !_allowRepeats && _tokens.Contains(token, StringComparer.Ordinal);
+        if (_puzzleId.Length > 0) PreviewChanged?.Invoke(_puzzleId, _tokens.ToArray());
     }
-
-    private static string DisplayToken(string token) => token switch
-    {
-        "woodblock" => "木鱼", "piano" => "钢琴", "triangle" => "三角铁", "handbell" => "手铃",
-        "choir" => "合唱", "broadcast" => "广播", "art" => "美术", "track" => "田径",
-        "curtain" => "窗帘", "clock" => "时钟", "bell" => "校铃", "register" => "点名册",
-        _ => token
-    };
-
     private void SubmitAnswer()
     {
-        if (_tokens.Count != _expectedLength)
+        if (_tokens.Count != _expectedLength) return;
+        var puzzleId = _puzzleId; var answer = _tokens.ToArray(); ClosePanel(); Submitted?.Invoke(puzzleId, answer);
+    }
+    public void ClosePanel()
+    {
+        var puzzleId = _puzzleId; UiStyles.ReleaseFocus(this);
+        Visible = false; _puzzleId = ""; _tokens.Clear(); _history.Clear(); _selectedSlot = -1;
+        _modalLease?.Dispose(); _modalLease = null; if (puzzleId.Length > 0) Closed?.Invoke(puzzleId);
+    }
+    public override void _Input(InputEvent e)
+    {
+        if (!Visible) return;
+        if (e.IsActionPressed("ui_cancel"))
         {
+            GetViewport().SetInputAsHandled();
+            if (_selectedSlot >= 0) { _selectedSlot = -1; UpdateAnswer(); } else ClosePanel();
             return;
         }
-        var puzzleId = _puzzleId;
-        var answer = _tokens.ToArray();
-        ClosePanel();
-        Submitted?.Invoke(puzzleId, answer);
+        if (_showObservation) return;
+        if (e is InputEventKey { Pressed: true, Echo: false } key)
+        {
+            if (key.Keycode == Key.Backspace) { GetViewport().SetInputAsHandled(); UndoLast(); return; }
+            var digit = key.Unicode is >= (uint)'0' and <= (uint)'9' ? ((char)key.Unicode).ToString() : "";
+            if (_numericInput && _choiceButtons.ContainsKey(digit)) { GetViewport().SetInputAsHandled(); AddToken(digit); }
+        }
+        else if (e is InputEventJoypadButton { Pressed: true, ButtonIndex: JoyButton.X })
+        { GetViewport().SetInputAsHandled(); UndoLast(); }
     }
+    public override void _ExitTree() { _modalLease?.Dispose(); _modalLease = null; }
 }

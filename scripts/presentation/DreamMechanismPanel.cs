@@ -1,245 +1,199 @@
 using Godot;
 using TownRpg.Application;
 using TownRpg.Core.Domain;
+using TownRpg.Core.Services;
 
 namespace TownRpg.Presentation;
 
-public enum DreamMechanismMode
-{
-    WindowLatches,
-    Clock,
-    Roster,
-    LineSetBalance
-}
+public enum DreamMechanismMode { WindowLatches, Clock, Roster, StageAlignment, PaperRoll, PhotoOverlay, ChannelCalibration }
 
 public partial class DreamMechanismPanel : Control
 {
     public event Action<string, string[]>? Submitted;
     public event Action<string, string[]>? PreviewChanged;
     public event Action<string>? Closed;
-
     private GameSession _session = null!;
     private IDisposable? _modalLease;
-    private Label _title = null!;
-    private Label _prompt = null!;
-    private HBoxContainer _controls = null!;
+    private PuzzleWorkspace _workspace = null!;
+    private DreamPuzzleDiagram _diagram = null!;
+    private Label _feedback = null!;
+    private Label _help = null!;
+    private HBoxContainer _views = null!;
+    private ScrollContainer _feedbackScroll = null!;
     private Button _submit = null!;
-    private string _puzzleId = string.Empty;
+    private Button _undo = null!;
+    private Button _front = null!;
+    private Button _side = null!;
+    private string _puzzleId = "";
     private DreamMechanismMode _mode;
-    private readonly List<Button> _valueButtons = [];
     private readonly List<int[]> _history = [];
     private int[] _indices = [];
-
-    private static readonly string[][] WindowValues =
-    [
-        ["上", "中", "下"], ["上", "中", "下"], ["上", "中", "下"]
-    ];
-    private static readonly string[][] ClockValues =
-    [
-        Enumerable.Range(1, 12).Select(value => value.ToString()).ToArray(),
-        ["00", "15", "30", "45"]
-    ];
-    private static readonly string[][] RosterValues =
-    [
-        ["左二档", "左一档", "中央", "右一档", "右二档"],
-        ["第1项", "第2项", "第3项", "第4项", "第5项"]
-    ];
-    private static readonly string[][] LineSetValues =
-    [
-        ["1", "2", "3", "4"], ["1", "2", "3", "4"],
-        ["1", "2", "3", "4"], ["1", "2", "3", "4"]
-    ];
+    private int[] _initial = [];
+    private int[]? _gestureStart;
+    private int _selectedPiece = -1;
+    public IReadOnlyList<string> PreviewTokens => CurrentAnswer();
+    public PuzzleWorkspace Workspace => _workspace;
 
     public override void _Ready()
     {
         _session = GetNode<GameSession>("/root/GameSession");
-        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        Visible = false;
-        AddChild(new ColorRect { Color = new Color("050b13d9"), LayoutMode = 1,
-            AnchorsPreset = (int)LayoutPreset.FullRect, AnchorRight = 1, AnchorBottom = 1 });
-
-        var frame = new PanelContainer { Position = new Vector2(82, 47), Size = new Vector2(476, 266) };
-        frame.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("192b38fa"), 9));
-        AddChild(frame);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 10);
-        frame.AddChild(column);
-        _title = new Label();
-        _title.AddThemeFontSizeOverride("font_size", 21);
-        _title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(_title);
-        _prompt = new Label { AutowrapMode = TextServer.AutowrapMode.WordSmart,
-            CustomMinimumSize = new Vector2(440, 44) };
-        column.AddChild(_prompt);
-        _controls = new HBoxContainer { Alignment = BoxContainer.AlignmentMode.Center,
-            CustomMinimumSize = new Vector2(440, 74) };
-        _controls.AddThemeConstantOverride("separation", 12);
-        column.AddChild(_controls);
-
-        var actions = new HBoxContainer();
-        actions.AddThemeConstantOverride("separation", 8);
-        column.AddChild(actions);
-        foreach (var (label, action) in new (string, Action)[]
-                 { ("重置", ResetValues), ("撤销", Undo), ("取消", ClosePanel) })
+        SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); Visible = false;
+        _workspace = new PuzzleWorkspace(); AddChild(_workspace);
+        _help = UiStyles.Wrapped(""); UiStyles.Font(_help, 11); _help.AddThemeColorOverride("font_color", UiStyles.Muted); _workspace.Work.AddChild(_help);
+        _views = new HBoxContainer(); _workspace.Work.AddChild(_views);
+        _front = UiStyles.Button(UiText.Get("UI_FRONT_VIEW")); _front.ToggleMode = true;
+        _side = UiStyles.Button(UiText.Get("UI_SIDE_VIEW")); _side.ToggleMode = true;
+        _views.AddChild(_front); _views.AddChild(_side); UiStyles.Font(_front, 11); UiStyles.Font(_side, 11);
+        _front.Pressed += () => ShowSide(false); _side.Pressed += () => ShowSide(true);
+        _diagram = new DreamPuzzleDiagram { SizeFlagsVertical = SizeFlags.ExpandFill, CustomMinimumSize = new Vector2(0, 90) };
+        _workspace.Work.AddChild(_diagram);
+        _diagram.Activated += Activate;
+        _diagram.SwapRequested += SwapPieces;
+        _diagram.ValueRequested += SetValue;
+        _diagram.GestureStarted += () => _gestureStart = (int[])_indices.Clone();
+        _diagram.GestureEnded += commit =>
         {
-            var button = UiStyles.Button(label);
-            button.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-            button.Pressed += action;
-            actions.AddChild(button);
-        }
-        _submit = UiStyles.Button("确认");
-        _submit.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _submit.Pressed += Submit;
-        actions.AddChild(_submit);
+            if (_gestureStart is null) return;
+            if (!commit) _indices = _gestureStart;
+            else if (!_indices.SequenceEqual(_gestureStart)) _history.Add(_gestureStart);
+            _gestureStart = null; Refresh();
+        };
+        _feedbackScroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, CustomMinimumSize = new Vector2(0, 44) };
+        _workspace.Work.AddChild(_feedbackScroll);
+        _feedback = UiStyles.Wrapped(""); UiStyles.Font(_feedback, 11); _feedbackScroll.AddChild(_feedback);
+        AddAction(UiText.Get("UI_RESET"), ResetValues);
+        _undo = AddAction(UiText.Get("UI_UNDO"), Undo);
+        AddAction(UiText.Get("UI_BACK"), ClosePanel);
+        _workspace.Footer.AddSpacer(false);
+        _submit = UiStyles.Button(UiText.Get("UI_CONFIRM")); _submit.Name = "MechanismConfirm"; UiStyles.Primary(_submit);
+        _submit.Pressed += Submit; _workspace.Footer.AddChild(_submit);
     }
-
-    public override void _UnhandledInput(InputEvent inputEvent)
+    private Button AddAction(string label, Action action)
     {
-        if (!Visible) return;
-        if (inputEvent.IsActionPressed("ui_cancel"))
-        {
-            GetViewport().SetInputAsHandled();
-            ClosePanel();
-        }
-        else if (inputEvent is InputEventKey { Pressed: true, Echo: false, Keycode: Key.Backspace } ||
-                 inputEvent is InputEventJoypadButton { Pressed: true, ButtonIndex: JoyButton.X })
-        {
-            GetViewport().SetInputAsHandled();
-            Undo();
-        }
+        var button = UiStyles.Button(label); UiStyles.Font(button, 11); button.Pressed += action; _workspace.Footer.AddChild(button); return button;
     }
-
     public void Open(string puzzleId, DreamMechanismMode mode)
     {
-        _puzzleId = puzzleId;
-        _mode = mode;
-        var windowPrompt = _session.State.DreamEscape!.DiscoveredClues
-            .Contains(DreamEscapeIds.ClueClassroomWindow)
-                ? "维护卡记录：从左到右，磨损示意位于上段—下段—中段。逐个调整三只窗扣，使位置与记录对应。"
-                : "逐个调整三只窗扣。关联记录尚未收集；可在教室另一处的课桌区域寻找维护资料。";
-        (_title.Text, _prompt.Text) = mode switch
+        _puzzleId = puzzleId; _mode = mode; _selectedPiece = -1; _gestureStart = null; _history.Clear();
+        _initial = mode switch
         {
-            DreamMechanismMode.WindowLatches => ("窗扣暗格", windowPrompt),
-            DreamMechanismMode.Clock => ("旧时钟", "调整时针和分钟刻度，使时钟恢复到观察到的时刻。"),
-            DreamMechanismMode.Roster => ("值日表滑片", "先让透明滑片与破损边对齐，再确认红圈落在哪一项。"),
-            DreamMechanismMode.LineSetBalance => ("幕布吊杆配平",
-                "依次调整 A、B、C、D 四组配重档位，使它们与后台磨损刻度一致。"),
-            _ => throw new ArgumentOutOfRangeException(nameof(mode))
+            DreamMechanismMode.WindowLatches => [1, 1, 1], DreamMechanismMode.Clock => [0, 0], DreamMechanismMode.Roster => [0, 0],
+            DreamMechanismMode.StageAlignment => [0, 0, 0, 0, 0, 0, 0], DreamMechanismMode.PaperRoll => [0, 1, 2, 3],
+            DreamMechanismMode.PhotoOverlay => [0, 0, 0, 0], _ => []
         };
-        _indices = mode switch
+        _indices = (int[])_initial.Clone();
+        _workspace.Heading.Text = DreamPrologueText.Puzzle(puzzleId);
+        _help.Text = UiText.Get(mode switch
         {
-            DreamMechanismMode.WindowLatches => [1, 1, 1],
-            DreamMechanismMode.Clock => [0, 0],
-            DreamMechanismMode.Roster => [0, 0],
-            DreamMechanismMode.LineSetBalance => [0, 0, 0, 0],
-            _ => []
-        };
-        _history.Clear();
-        RebuildControls();
-        _modalLease?.Dispose();
-        _modalLease = _session.Modal.Acquire("dream-mechanism");
-        Visible = true;
-        _valueButtons.FirstOrDefault()?.GrabFocus();
+            DreamMechanismMode.WindowLatches => "UI_LATCH_HELP", DreamMechanismMode.Clock => "UI_CLOCK_HELP",
+            DreamMechanismMode.Roster => "UI_ROSTER_HELP", DreamMechanismMode.PaperRoll => "UI_DRAG_SWAP",
+            DreamMechanismMode.PhotoOverlay => "UI_PHOTO_HELP", _ => "UI_STAGE_HELP"
+        });
+        _diagram.Mode = mode; _diagram.Values = _indices;
+        _diagram.SideObserved = _session.State.DreamEscape!.DiscoveredClues.Contains(DreamEscapeIds.ClueStageSideFrame);
+        _diagram.ShowSideView = false; _diagram.Configure();
+        _views.Visible = mode == DreamMechanismMode.StageAlignment; _front.ButtonPressed = true; _side.ButtonPressed = false;
+        _feedbackScroll.Visible = mode is DreamMechanismMode.StageAlignment or DreamMechanismMode.PhotoOverlay;
+        _modalLease?.Dispose(); _modalLease = _session.Modal.Acquire("dream-mechanism");
+        Visible = true; UiStyles.FadeIn(this); Refresh(); _diagram.FirstControl?.GrabFocus();
     }
-
-    public void ClosePanel()
+    private void ShowSide(bool side)
     {
-        var closedPuzzle = _puzzleId;
-        Visible = false;
-        _puzzleId = string.Empty;
-        _history.Clear();
-        _modalLease?.Dispose();
-        _modalLease = null;
-        if (!string.IsNullOrEmpty(closedPuzzle)) Closed?.Invoke(closedPuzzle);
+        _diagram.ShowSideView = side; _front.ButtonPressed = !side; _side.ButtonPressed = side; _diagram.Refresh();
     }
-
-    public override void _ExitTree()
+    public override void _Process(double delta)
     {
-        _modalLease?.Dispose();
-        _modalLease = null;
+        if (Visible) _help.Visible = _mode != DreamMechanismMode.StageAlignment || UiStyles.Scale(this) < 1.4f;
     }
-
-    private string[][] Values => _mode switch
+    private void Activate(int index)
     {
-        DreamMechanismMode.WindowLatches => WindowValues,
-        DreamMechanismMode.Clock => ClockValues,
-        DreamMechanismMode.Roster => RosterValues,
-        DreamMechanismMode.LineSetBalance => LineSetValues,
-        _ => []
-    };
-
-    private void RebuildControls()
-    {
-        foreach (var child in _controls.GetChildren()) child.QueueFree();
-        _valueButtons.Clear();
-        for (var index = 0; index < _indices.Length; index++)
+        if (_mode == DreamMechanismMode.PaperRoll)
         {
-            var controlIndex = index;
-            var button = UiStyles.Button(string.Empty);
-            button.CustomMinimumSize = new Vector2(
-                _mode is DreamMechanismMode.WindowLatches or DreamMechanismMode.LineSetBalance ? 96 : 160, 58);
-            button.Pressed += () => Cycle(controlIndex);
-            _controls.AddChild(button);
-            _valueButtons.Add(button);
+            if (_selectedPiece < 0) { _selectedPiece = index; Refresh(); }
+            else { SwapPieces(_selectedPiece, index); _selectedPiece = -1; Refresh(); }
+            return;
         }
-        UpdateLabels();
+        if (_mode == DreamMechanismMode.Roster && index > 0) { SetValue(1, index - 1); return; }
+        if (_mode == DreamMechanismMode.PhotoOverlay && index >= 3) { SetValue(3, index - 3); return; }
+        var length = _mode switch
+        {
+            DreamMechanismMode.WindowLatches => 3, DreamMechanismMode.Clock => index == 0 ? 12 : 4,
+            DreamMechanismMode.Roster => 5, DreamMechanismMode.StageAlignment => index < 4 ? 4 : 3,
+            DreamMechanismMode.PhotoOverlay => 2, _ => 1
+        };
+        SetValue(index, (_indices[index] + 1) % length);
     }
-
-    private void Cycle(int index)
+    private void SetValue(int index, int value)
     {
-        _history.Add((int[])_indices.Clone());
-        _indices[index] = (_indices[index] + 1) % Values[index].Length;
-        UpdateLabels();
+        if (!Visible || index < 0 || index >= _indices.Length || _indices[index] == value) return;
+        if (_gestureStart is null) _history.Add((int[])_indices.Clone());
+        _indices[index] = value; Refresh();
     }
-
+    private void SwapPieces(int first, int second)
+    {
+        if (_mode != DreamMechanismMode.PaperRoll || first == second || first < 0 || second < 0 || first >= 4 || second >= 4) return;
+        _history.Add((int[])_indices.Clone()); (_indices[first], _indices[second]) = (_indices[second], _indices[first]);
+        _selectedPiece = -1; _diagram.AnimateSnap(); Refresh();
+    }
     private void ResetValues()
     {
-        _history.Add((int[])_indices.Clone());
-        Array.Fill(_indices, 0);
-        UpdateLabels();
+        _diagram.CancelGesture(); if (_indices.SequenceEqual(_initial)) return;
+        _history.Add((int[])_indices.Clone()); _indices = (int[])_initial.Clone(); _selectedPiece = -1; Refresh();
     }
-
     private void Undo()
     {
-        if (_history.Count == 0) return;
-        _indices = _history[^1];
-        _history.RemoveAt(_history.Count - 1);
-        UpdateLabels();
+        _diagram.CancelGesture(); _selectedPiece = -1;
+        if (_history.Count > 0) { _indices = _history[^1]; _history.RemoveAt(_history.Count - 1); }
+        Refresh();
     }
-
-    private void UpdateLabels()
+    private void Refresh()
     {
-        for (var index = 0; index < _valueButtons.Count; index++)
+        _diagram.Values = _indices.ToArray(); _diagram.SelectedPiece = _selectedPiece; _diagram.Refresh();
+        _undo.Disabled = _history.Count == 0;
+        _submit.Disabled = _mode == DreamMechanismMode.PhotoOverlay && _indices.Take(3).Any(value => value == 0);
+        _feedback.Text = "";
+        if (_mode == DreamMechanismMode.StageAlignment)
         {
-            var prefix = _mode switch
-            {
-                DreamMechanismMode.WindowLatches => $"窗扣 {index + 1}",
-                DreamMechanismMode.Clock when index == 0 => "小时",
-                DreamMechanismMode.Clock => "分钟",
-                DreamMechanismMode.Roster when index == 0 => "滑片位置",
-                DreamMechanismMode.LineSetBalance => $"{(char)('A' + index)} 组",
-                _ => "红圈项目"
-            };
-            _valueButtons[index].Text = $"{prefix}\n{Values[index][_indices[index]]}";
+            var observation = DreamStageRules.Observe(CurrentAnswer());
+            _feedback.Text = DreamPrologueText.Format("DREAM_V6_UI_MECHANISMPANEL_053", Mark(observation.UpperFrame), Mark(observation.LowerFrame), Mark(observation.Rails), Mark(observation.Image));
+            _feedback.Text += _diagram.SideObserved ? DreamPrologueText.Format("DREAM_V6_UI_MECHANISMPANEL_054", Mark(observation.SideMark)) : DreamPrologueText.Get("DREAM_V6_UI_MECHANISMPANEL_055");
         }
+        else if (_mode == DreamMechanismMode.PhotoOverlay)
+            _feedback.Text = DreamPrologueText.Get(_indices.Take(3).All(value => value == 1) ? "DREAM_V6_UI_MECHANISMPANEL_056" : "DREAM_V6_UI_MECHANISMPANEL_057");
         if (!string.IsNullOrEmpty(_puzzleId)) PreviewChanged?.Invoke(_puzzleId, CurrentAnswer());
     }
-
+    private static string Mark(bool value) => DreamPrologueText.Get(value ? "DREAM_V6_UI_MECHANISMPANEL_059" : "DREAM_V6_UI_MECHANISMPANEL_060");
+    private string[] CurrentAnswer() => _mode switch
+    {
+        DreamMechanismMode.WindowLatches => _indices.Select(i => new[] { "up", "middle", "down" }[i]).ToArray(),
+        DreamMechanismMode.Clock when _indices.Length == 2 => [(_indices[0] + 1).ToString(), (_indices[1] * 15).ToString("00")],
+        DreamMechanismMode.Roster when _indices.Length == 2 => [new[] { "left2", "left", "center", "right", "right2" }[_indices[0]], (_indices[1] + 1).ToString()],
+        DreamMechanismMode.StageAlignment => _indices.Take(4).Select(v => (v + 1).ToString()).Concat(_indices.Skip(4).Select(v => new[] { "window", "figure", "bell" }[v])).ToArray(),
+        DreamMechanismMode.PaperRoll => _indices.Select(v => (v + 1).ToString()).ToArray(),
+        DreamMechanismMode.PhotoOverlay when _indices.Length == 4 => [new[] { "A3", "B2", "C4", "D1" }[_indices[3]]],
+        _ => []
+    };
     private void Submit()
     {
-        var answer = CurrentAnswer();
-        var puzzle = _puzzleId;
-        ClosePanel();
-        Submitted?.Invoke(puzzle, answer);
+        if (_submit.Disabled) return; var answer = CurrentAnswer(); var puzzle = _puzzleId; ClosePanel(); Submitted?.Invoke(puzzle, answer);
     }
-
-    private string[] CurrentAnswer() => _mode switch
+    public void ClosePanel()
+    {
+        _diagram.CancelGesture(); var puzzle = _puzzleId;
+        UiStyles.ReleaseFocus(this); Visible = false; _puzzleId = ""; _selectedPiece = -1; _history.Clear();
+        _modalLease?.Dispose(); _modalLease = null; if (puzzle.Length > 0) Closed?.Invoke(puzzle);
+    }
+    public override void _Input(InputEvent input)
+    {
+        if (!Visible) return;
+        if (input.IsActionPressed("ui_cancel"))
         {
-            DreamMechanismMode.WindowLatches => _indices.Select(index => new[] { "up", "middle", "down" }[index]).ToArray(),
-            DreamMechanismMode.Clock => [Values[0][_indices[0]], Values[1][_indices[1]]],
-            DreamMechanismMode.Roster => [new[] { "left2", "left", "center", "right", "right2" }[_indices[0]],
-                (_indices[1] + 1).ToString()],
-            DreamMechanismMode.LineSetBalance => _indices.Select((value, index) => Values[index][value]).ToArray(),
-            _ => []
-        };
+            GetViewport().SetInputAsHandled();
+            if (_selectedPiece >= 0) { _selectedPiece = -1; Refresh(); } else ClosePanel();
+        }
+        else if (input is InputEventKey { Pressed: true, Echo: false, Keycode: Key.Backspace } ||
+                 input is InputEventJoypadButton { Pressed: true, ButtonIndex: JoyButton.X })
+        { GetViewport().SetInputAsHandled(); Undo(); }
+    }
+    public override void _ExitTree() { _modalLease?.Dispose(); _modalLease = null; }
 }

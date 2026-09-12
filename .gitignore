@@ -20,8 +20,15 @@ exports/
 *.log
 
 # Local packaging, validation and delivery artifacts
-/outputs/
+/outputs/*
+!/outputs/.gdignore
 /work/
 
 # Blender rotating backups are local authoring artifacts.
 *.blend1
+
+# Local-only licensed character sources and runtime mirrors; never distribute.
+/mc_model/
+/assets/流萤建模/
+/tests/mc-model-test-runtime/
+/tests/xiaoyu-model-runtime/

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bflue5po234s2"
+path="res://.godot/imported/evt_dream_meeting.dialogue-3a1c8d0be713793fc78e6d6ab8294bac.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_meeting.dialogue"
+dest_files=["res://.godot/imported/evt_dream_meeting.dialogue-3a1c8d0be713793fc78e6d6ab8294bac.tres"]
+
+[params]
+
+defaults=true

@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://nd5sxgvwhcbq"
+path="res://.godot/imported/evt_dream_photo.dialogue-1c648310ed61f09a5f1cbf65c26dd091.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_dream_photo.dialogue"
+dest_files=["res://.godot/imported/evt_dream_photo.dialogue-1c648310ed61f09a5f1cbf65c26dd091.tres"]
+
+[params]
+
+defaults=true

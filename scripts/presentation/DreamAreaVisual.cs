@@ -35,7 +35,8 @@ public interface IDreamAreaTransitionPose3D
 public sealed record DreamAreaTransientState(
     bool XiaoyuHoldingExitLever,
     string? PreviewPuzzleId = null,
-    IReadOnlyList<string>? PreviewValues = null);
+    IReadOnlyList<string>? PreviewValues = null,
+    int HandoffStep = 0);
 
 public interface IDreamAreaTransientPresentation
 {

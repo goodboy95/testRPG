@@ -130,7 +130,8 @@ def summarize(kind: str) -> dict:
         triangles += len(mesh.loop_triangles)
         evaluated.to_mesh_clear()
     materials = sorted({slot.material.name for obj in meshes for slot in obj.material_slots if slot.material})
-    images = sorted({node.image.name for material in bpy.data.materials if material.use_nodes
+    source_materials = [bpy.data.materials[name] for name in materials]
+    images = sorted({node.image.name for material in source_materials if material.use_nodes
                      for node in material.node_tree.nodes if node.type == "TEX_IMAGE" and node.image})
     missing_external = []
     for item in bpy.data.images:
@@ -177,8 +178,8 @@ def validate_source(kind: str, root: Path) -> tuple[dict, dict]:
     if (scene.get("sampleOnly") is not False or scene.get("runtimeDefault") is not True or
             scene.get("fullScene") is not True or scene.get("visualDirectionApproved") is not True):
         raise RuntimeError("Approved full-scene status metadata is missing or unsafe")
-    if kind == "classroom" and scene.get("studentDeskSharedMeshCount") != 18:
-        raise RuntimeError("The full classroom no longer records 18 shared student-desk meshes")
+    if kind == "classroom" and scene.get("studentDeskSharedMeshCount") != spec.get("deskCount", 18):
+        raise RuntimeError("The classroom shared student-desk count does not match its export profile")
     names = set(bpy.data.objects.keys())
     missing = sorted(set(spec["required"]) - names)
     if missing:
@@ -201,6 +202,14 @@ def validate_source(kind: str, root: Path) -> tuple[dict, dict]:
     return summary, {"limits": limits, "sourceAssets": source_assets}
 
 
+def texture_memory_mib(kind: str) -> float:
+    materials = {slot.material for obj in export_objects(kind) if obj.type == "MESH"
+                 for slot in obj.material_slots if slot.material and slot.material.use_nodes}
+    images = {node.image for material in materials for node in material.node_tree.nodes
+              if node.type == "TEX_IMAGE" and node.image}
+    return round(sum(image.size[0] * image.size[1] * 4 * 4 / 3 for image in images) / 1024**2, 2)
+
+
 def write_manifest(kind: str, root: Path, summary: dict, metadata: dict) -> dict:
     spec = SPECS[kind]
     source = root / spec["source"]
@@ -218,7 +227,7 @@ def write_manifest(kind: str, root: Path, summary: dict, metadata: dict) -> dict
         "runtimeGlbSha256": sha256(glb),
         "runtimeGlbBytes": glb.stat().st_size,
         "geometry": summary,
-        "textureMemoryEstimateMiB": spec["textureMemoryMiB"],
+        "textureMemoryEstimateMiB": texture_memory_mib(kind) if spec.get("deskCount") == 12 or spec.get("actualTextureMemory") else spec["textureMemoryMiB"],
         "lightingDecision": "AO/cavity plus shadowed realtime lights and ReflectionProbe; LightmapGI remains a post-approval feasibility gate",
         "exportProfile": {"format": "GLB", "animations": False, "cameras": False, "lights": False,
                           "lookdevCollectionExcluded": True, "runtimeDependsOnBlender": False},

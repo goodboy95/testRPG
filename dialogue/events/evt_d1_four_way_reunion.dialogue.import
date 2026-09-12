@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dd2si76d7llkc"
+path="res://.godot/imported/evt_d1_four_way_reunion.dialogue-62bca6f6a76fef82ea1bcdf07cdb6edf.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_d1_four_way_reunion.dialogue"
+dest_files=["res://.godot/imported/evt_d1_four_way_reunion.dialogue-62bca6f6a76fef82ea1bcdf07cdb6edf.tres"]
+
+[params]
+
+defaults=true

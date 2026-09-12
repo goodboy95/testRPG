@@ -44,7 +44,7 @@ public abstract partial class DreamLateRoomVisual3D : Node3D
             green.EmissionEnergyMultiplier = settings.HighContrastPrompts ? 4.2f : 2.5f;
     }
 
-    public bool IsBlocked(Vector3 position)
+    public virtual bool IsBlocked(Vector3 position)
     {
         if (!WalkableBounds.HasPoint(new Vector2(position.X, position.Z))) return true;
         return CollisionSpecs.Where(spec => spec.Furniture || spec.Name.Contains("Barrier", StringComparison.Ordinal))
@@ -56,7 +56,7 @@ public abstract partial class DreamLateRoomVisual3D : Node3D
             });
     }
 
-    public Vector3 ResolveSpawn(Vector3 requested)
+    public virtual Vector3 ResolveSpawn(Vector3 requested)
     {
         requested.Y = 0f;
         if (!IsBlocked(requested)) return requested;

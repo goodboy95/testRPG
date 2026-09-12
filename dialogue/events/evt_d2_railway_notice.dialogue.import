@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://ddj2fug6bsadr"
+path="res://.godot/imported/evt_d2_railway_notice.dialogue-60e60a40909625865721e9f9d3684431.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_d2_railway_notice.dialogue"
+dest_files=["res://.godot/imported/evt_d2_railway_notice.dialogue-60e60a40909625865721e9f9d3684431.tres"]
+
+[params]
+
+defaults=true

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://scripts/presentation/DreamAuditoriumController3D.cs" id="1_controller"]
-[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/dream-auditorium-v1.glb" id="2_model"]
+[ext_resource type="PackedScene" path="res://assets/generated/dream_escape/3d/dream-auditorium-room-v2.glb" id="2_model"]
 [ext_resource type="Script" path="res://scripts/presentation/DreamAuditoriumVisual3D.cs" id="3_visual"]
 [ext_resource type="Script" path="res://scripts/presentation/ThirdPersonCameraRig.cs" id="4_camera"]
 [ext_resource type="Script" path="res://scripts/presentation/InteractionMarker3D.cs" id="5_marker"]
@@ -11,16 +11,13 @@
 [sub_resource type="Environment" id="Environment_auditorium"]
 background_mode = 1
 background_color = Color(0.012, 0.019, 0.026, 1)
-ambient_light_source = 3
-ambient_light_color = Color(0.14, 0.20, 0.27, 1)
-ambient_light_energy = 1.02
+ambient_light_source = 2
+ambient_light_sky_contribution = 0.0
+ambient_light_color = Color(0.59, 0.64, 0.71, 1)
+ambient_light_energy = 0.46
 reflected_light_source = 2
 tonemap_mode = 2
-tonemap_exposure = 2.1
-ssao_enabled = true
-ssao_radius = 1.4
-ssao_intensity = 1.35
-ssao_power = 1.12
+tonemap_exposure = 1.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_camera"]
 radius = 0.16
@@ -41,22 +38,22 @@ script = ExtResource("3_visual")
 environment = SubResource("Environment_auditorium")
 
 [node name="StageLight" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-48, 12, 0)
-light_color = Color(0.40, 0.52, 0.65, 1)
-light_energy = 1.05
+rotation_degrees = Vector3(-43, -65, 0)
+light_color = Color(0.75, 0.83, 0.94, 1)
+light_energy = 0.85
 shadow_enabled = true
 directional_shadow_max_distance = 30.0
 
 [node name="WarmStageFill" type="OmniLight3D" parent="."]
-position = Vector3(0, 4.5, -4.7)
-light_color = Color(1, 0.52, 0.26, 1)
+position = Vector3(0, 5.8, -4.0)
+light_color = Color(1, 0.79, 0.57, 1)
 light_energy = 1.25
-omni_range = 8.0
+omni_range = 12.0
 shadow_enabled = true
 
 [node name="ConsoleFill" type="OmniLight3D" parent="."]
-position = Vector3(0, 2.6, 4.2)
-light_color = Color(0.25, 0.48, 0.62, 1)
+position = Vector3(0, 4.2, 5.2)
+light_color = Color(1, 0.85, 0.68, 1)
 light_energy = 1.15
 omni_range = 8.5
 
@@ -101,91 +98,91 @@ current = true
 position = Vector3(0, 0, 5.55)
 script = ExtResource("5_marker")
 TargetId = "area:dream.corridor"
-Prompt = "返回洋房内廊"
+Prompt = "DREAM_V6_TARGET_AREA_DREAM_CORRIDOR"
 
 [node name="LineSetNotches" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-6.8, 0, -3.2)
 script = ExtResource("5_marker")
 TargetId = "observe:target.auditorium.line_set_notches"
-Prompt = "查看幕布配重磨损尺"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_AUDITORIUM_LINE_SET_NOTCHES"
 
 [node name="Counterweight" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-6.2, 0, -1.8)
 script = ExtResource("5_marker")
 TargetId = "pickup:dream.curtain_counterweight"
-Prompt = "拾取幕布配重"
+Prompt = "DREAM_V6_TARGET_PICKUP_DREAM_CURTAIN_COUNTERWEIGHT"
 
 [node name="LineSet" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(7.0, 0, -3.1)
 script = ExtResource("5_marker")
 TargetId = "target.auditorium.line_set"
-Prompt = "调整幕布吊杆配重"
+Prompt = "DREAM_V6_TARGET_TARGET_AUDITORIUM_LINE_SET"
 
 [node name="ProjectionOrder" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(0, 0, -4.2)
 script = ExtResource("5_marker")
 TargetId = "observe:target.auditorium.projection_order"
-Prompt = "调查幕后的投影轮廓"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_AUDITORIUM_PROJECTION_ORDER"
 
 [node name="ProjectorLens" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-7.0, 0, -4.4)
 script = ExtResource("5_marker")
 TargetId = "pickup:dream.projector_lens"
-Prompt = "拾取放映镜头"
+Prompt = "DREAM_V6_TARGET_PICKUP_DREAM_PROJECTOR_LENS"
 
 [node name="Projector" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-6.7, 0, -2.8)
 script = ExtResource("5_marker")
 TargetId = "target.auditorium.projector"
-Prompt = "操作影盘放映机"
+Prompt = "DREAM_V6_TARGET_TARGET_AUDITORIUM_PROJECTOR"
 
 [node name="TapeOrder" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-5.0, 0, -4.2)
 script = ExtResource("5_marker")
 TargetId = "observe:target.auditorium.tape_order"
-Prompt = "查看母带登记卡"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_AUDITORIUM_TAPE_ORDER"
 
 [node name="SpliceBench" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(5.2, 0, -0.9)
 script = ExtResource("5_marker")
-TargetId = "puzzle:auditorium_master_tape_splice"
-Prompt = "在接带台拼接母带"
+TargetId = "puzzle:auditorium_tape_reconstruction"
+Prompt = "DREAM_V6_TARGET_PUZZLE_AUDITORIUM_TAPE_RECONSTRUCTION"
 
 [node name="MasterPlayer" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(6.25, 0, 1.6)
 script = ExtResource("5_marker")
 TargetId = "target.auditorium.master_player"
-Prompt = "检查母带播放器"
+Prompt = "DREAM_V6_TARGET_TARGET_AUDITORIUM_MASTER_PLAYER"
 
 [node name="LightConsole" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-6.0, 0, 3.85)
 script = ExtResource("5_marker")
-TargetId = "puzzle:auditorium_light_console"
-Prompt = "操作灯光控制台"
+TargetId = "observe:target.auditorium.handoff_circuit"
+Prompt = "DREAM_V6_TARGET_OBSERVE_TARGET_AUDITORIUM_HANDOFF_CIRCUIT"
 
 [node name="SoundConsole" type="Marker3D" parent="InteractionMarkers"]
-position = Vector3(0, 0, 3.75)
+position = Vector3(0, 0, 3.85)
 script = ExtResource("5_marker")
-TargetId = "puzzle:auditorium_sound_console"
-Prompt = "操作声道控制台"
+TargetId = "action:handoff_monitor"
+Prompt = "DREAM_V6_TARGET_ACTION_HANDOFF_MONITOR"
 
 [node name="BroadcastConsole" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(6.0, 0, 3.85)
 script = ExtResource("5_marker")
-TargetId = "puzzle:auditorium_broadcast_console"
-Prompt = "操作广播控制台"
+TargetId = "puzzle:auditorium_handoff_plan"
+Prompt = "DREAM_V6_TARGET_PUZZLE_AUDITORIUM_HANDOFF_PLAN"
 
 [node name="LeftLever" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(-7.0, 0, -1.0)
 script = ExtResource("5_marker")
 TargetId = "action:left_lever"
-Prompt = "请晓雨按住舞台左侧机关"
+Prompt = "DREAM_V6_TARGET_ACTION_LEFT_LEVER"
 
 [node name="RightMasterSwitch" type="Marker3D" parent="InteractionMarkers"]
 position = Vector3(7.0, 0, -1.0)
 script = ExtResource("5_marker")
 TargetId = "action:open_exit"
-Prompt = "操作右侧总闸"
+Prompt = "DREAM_V6_TARGET_ACTION_OPEN_EXIT"
 
 [node name="Player" type="CharacterBody3D" parent="."]
 motion_mode = 1

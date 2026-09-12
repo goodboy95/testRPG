@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 2,
+  "status": "cinematic-full-runtime",
+  "sampleOnly": false,
+  "runtimeDefault": true,
+  "previousRuntimeAsset": "assets/generated/dream_escape/3d/dream-manor-hall-v2.glb",
+  "blenderVersion": "5.2.0 LTS",
+  "sourceFile": "art/blender/dream_manor/dream-manor-hall-v3.blend",
+  "runtimeGlbFile": "assets/generated/dream_escape/3d/dream-manor-hall-v3.glb",
+  "sourceSha256": "487e2aef155f91df3352ebd42601f175c9240fde65556587ad263e24f410f714",
+  "runtimeGlbSha256": "a8b78a7cdabccf590539992d9d663b2428c30f76e6473554455ce1689eecd8dd",
+  "runtimeGlbBytes": 28373164,
+  "geometry": {
+    "objectCount": 86,
+    "meshObjectCount": 62,
+    "maximumVisibleMeshCount": 62,
+    "uniqueMeshCount": 62,
+    "triangleCount": 129386,
+    "materialCount": 15,
+    "materials": [
+      "M_V3_Manor_Brass",
+      "M_V3_Manor_Ceramic",
+      "M_V3_Manor_Floor",
+      "M_V3_Manor_Glass",
+      "M_V3_Manor_Iron",
+      "M_V3_Manor_LampGlass",
+      "M_V3_Manor_Painting",
+      "M_V3_Manor_Paper",
+      "M_V3_Manor_Plaster",
+      "M_V3_Manor_Rug",
+      "M_V3_Manor_RugBorder",
+      "M_V3_Manor_RugInlay",
+      "M_V3_Manor_Stone",
+      "M_V3_Manor_Upholstery",
+      "M_V3_Manor_Wood"
+    ],
+    "packedOrReferencedImages": [
+      "beige_wall_001_arm_2k.jpg",
+      "beige_wall_001_diff_2k.jpg",
+      "beige_wall_001_nor_gl_2k.jpg",
+      "black_oak_veneer_arm_2k.jpg",
+      "black_oak_veneer_diff_2k.jpg",
+      "black_oak_veneer_nor_gl_2k.jpg",
+      "fabric_pattern_07_arm_2k.jpg",
+      "fabric_pattern_07_nor_gl_2k.jpg",
+      "landscape-painting.png",
+      "old_mosaic_floor_arm_2k.jpg",
+      "old_mosaic_floor_diff_2k.jpg",
+      "old_mosaic_floor_nor_gl_2k.jpg"
+    ],
+    "missingExternalFiles": []
+  },
+  "textureMemoryEstimateMiB": 238.67,
+  "lightingDecision": "Color ambient with zero sky contribution, warm practical lights, cool neutral fill, two ReflectionProbes; no SSAO or LightmapGI",
+  "exportProfile": {
+    "format": "GLB",
+    "animations": false,
+    "cameras": false,
+    "lights": false,
+    "lookdevCollectionExcluded": true,
+    "runtimeDependsOnBlender": false
+  },
+  "limits": {
+    "triangles": 180000,
+    "visibleMeshes": 220,
+    "materials": 24,
+    "glbBytes": 62914560
+  },
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "old_mosaic_floor",
+      "assetUrl": "https://polyhaven.com/a/old_mosaic_floor",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "902e128679cb1fa2edcc33683e128350f668abca7d950970ae474c03b451edbf",
+        "normal": "2c0bc58bfda87fd56cfeba8c99fed396571be5bb52c7fdf2d50ec742fc1f4d80",
+        "arm": "14a5b62fbc76cfd30a1e5f514ff618c936be29a3efa9e4775564adad479ebd64"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "rust_coarse_01",
+      "assetUrl": "https://polyhaven.com/a/rust_coarse_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "5b8801674fa53ff1b6f7853300f50aa7a1b31e69278554803bd957fe9fa7e392",
+        "normal": "495d3c87da059827ffaf49dae59f967cb3e0b187f4426ab0a47088c3fa83e50b",
+        "arm": "22f10597662e8d5268f79960d23c4a03790a2083f9f05d0680c3535152b26843"
+      }
+    },
+    {
+      "id": "beige_wall_001",
+      "assetUrl": "https://polyhaven.com/a/beige_wall_001",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e",
+        "normal": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
+        "arm": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431"
+      }
+    },
+    {
+      "id": "black_oak_veneer",
+      "assetUrl": "https://polyhaven.com/a/black_oak_veneer",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "d2653c9cf8e05171ba2256c92315cf39fe230482b433a6a9c02cf26ef566624c",
+        "normal": "1d4c099204ad713b47a9e10799de7e31623f0ce7c5fab18712b339ba9760a80a",
+        "arm": "9084ea54de3a19368868501ec1e0c7b633ded32bb8e824301e9999f4374adb2c"
+      }
+    },
+    {
+      "id": "fabric_pattern_07",
+      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+        "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+        "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ],
+  "layoutVersion": 3,
+  "layoutSource": "scripts/presentation/MansionLayout3D.cs",
+  "layoutSha256": "9588e9fa22a0744b6df558d43ba759d15041938b347103fdd6c095733c0b75f3",
+  "layout": {
+    "FoyerWidth": 10.0,
+    "FoyerDepth": 8.0,
+    "FoyerHeight": 6.6,
+    "HallWidth": 7.0,
+    "HallDepth": 12.0,
+    "HallHeight": 4.2,
+    "WallThickness": 0.2,
+    "SingleDoorWidth": 1.3,
+    "SingleDoorHeight": 2.55,
+    "FrontDoorWidth": 2.6,
+    "FrontDoorHeight": 3.05,
+    "DoubleDoorWidth": 2.8,
+    "DoubleDoorHeight": 2.75,
+    "ClearanceRadius": 0.32,
+    "FrontDoor": [
+      0.0,
+      0.0,
+      -8.0
+    ],
+    "RoomOneDoor": [
+      -3.5,
+      0.0,
+      2.4
+    ],
+    "RoomTwoDoor": [
+      3.5,
+      0.0,
+      2.4
+    ],
+    "RoomThreeDoor": [
+      -3.5,
+      0.0,
+      8.8
+    ],
+    "RoomFourDoor": [
+      0.0,
+      0.0,
+      12.0
+    ],
+    "RoomOneEntry": [
+      -1.6,
+      0.0,
+      4.0
+    ],
+    "RoomTwoEntry": [
+      1.6,
+      0.0,
+      4.0
+    ],
+    "RoomThreeEntry": [
+      -1.6,
+      0.0,
+      7.2
+    ],
+    "RoomFourEntry": [
+      0.0,
+      0.0,
+      9.0
+    ],
+    "FireplacePosition": [
+      -4.56,
+      1.15,
+      -4.2
+    ],
+    "FireplaceSize": [
+      0.88,
+      2.3,
+      2.2
+    ],
+    "ChairSouthPosition": [
+      -2.75,
+      0.55,
+      -5.8
+    ],
+    "ChairNorthPosition": [
+      -2.75,
+      0.55,
+      -2.45
+    ],
+    "ChairSize": [
+      1.12,
+      1.1,
+      1.02
+    ],
+    "SideTablePosition": [
+      -2.95,
+      0.32,
+      -4.15
+    ],
+    "SideTableSize": [
+      0.66,
+      0.64,
+      0.66
+    ],
+    "ConsolePosition": [
+      3.65,
+      0.48,
+      -7.2
+    ],
+    "ConsoleSize": [
+      1.8,
+      0.96,
+      0.62
+    ],
+    "BenchPosition": [
+      3.08,
+      0.57,
+      6.6
+    ],
+    "BenchSize": [
+      0.64,
+      1.14,
+      1.84
+    ],
+    "StairPosition": [
+      3.7,
+      2.6,
+      -3.3
+    ],
+    "StairSize": [
+      2.4,
+      5.2,
+      4.6
+    ]
+  },
+  "visualAcceptance": "pending-human-review",
+  "exteriorCompatibility": "Historical exterior v1 is not dimensionally representative of interior v3 and is not loaded."
+}

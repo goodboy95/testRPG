@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dnowqm1pnbkqk"
+path="res://.godot/imported/evt_d1_activity_zhou.dialogue-8995dac17ca815021f96d3a64640d294.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_d1_activity_zhou.dialogue"
+dest_files=["res://.godot/imported/evt_d1_activity_zhou.dialogue-8995dac17ca815021f96d3a64640d294.tres"]
+
+[params]
+
+defaults=true

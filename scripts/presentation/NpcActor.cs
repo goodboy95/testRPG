@@ -36,7 +36,7 @@ public partial class NpcActor : Node2D
             HorizontalAlignment = HorizontalAlignment.Center,
             MouseFilter = Control.MouseFilterEnum.Ignore
         };
-        label.AddThemeFontSizeOverride("font_size", 10);
+        UiStyles.Font(label, 10);
         label.AddThemeFontOverride("font", UiStyles.CreateFont());
         label.AddThemeColorOverride("font_color", Colors.White);
         label.AddThemeColorOverride("font_shadow_color", new Color(0, 0, 0, 0.9f));

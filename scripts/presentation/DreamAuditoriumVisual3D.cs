@@ -5,38 +5,18 @@ namespace TownRpg.Presentation;
 
 public partial class DreamAuditoriumVisual3D : DreamLateRoomVisual3D
 {
-    private static readonly CollisionSpec[] Specs =
-    [
-        new("Floor", new Vector3(0f, -0.09f, 0f), new Vector3(18f, 0.18f, 13f), false),
-        new("Ceiling", new Vector3(0f, 7.41f, 0f), new Vector3(18f, 0.18f, 13f), false),
-        new("WallNorth", new Vector3(0f, 3.75f, -6.5f), new Vector3(18.2f, 7.5f, 0.20f), false),
-        new("WallEast", new Vector3(9f, 3.75f, 0f), new Vector3(0.20f, 7.5f, 13f), false),
-        new("WallWest", new Vector3(-9f, 3.75f, 0f), new Vector3(0.20f, 7.5f, 13f), false),
-        new("WallSouthWest", new Vector3(-4.9f, 3.75f, 6.5f), new Vector3(8.2f, 7.5f, 0.20f), false),
-        new("WallSouthEast", new Vector3(4.9f, 3.75f, 6.5f), new Vector3(8.2f, 7.5f, 0.20f), false),
-        new("DoorTop", new Vector3(0f, 5.15f, 6.5f), new Vector3(1.8f, 4.7f, 0.20f), false),
-        new("DoorBarrier", new Vector3(0f, 1.25f, 6.36f), new Vector3(1.8f, 2.5f, 0.24f), false),
-        new("StageBack", new Vector3(0f, 1.0f, -5.75f), new Vector3(12f, 2.0f, 1.2f), true),
-        new("SeatBankWest", new Vector3(-4.6f, 0.55f, 1.45f), new Vector3(3.2f, 1.1f, 3.3f), true),
-        new("SeatBankEast", new Vector3(4.6f, 0.55f, 1.45f), new Vector3(3.2f, 1.1f, 3.3f), true),
-        new("Projector", new Vector3(-7.65f, 1.25f, -3.9f), new Vector3(1.6f, 2.5f, 2.0f), true),
-        new("FlyRail", new Vector3(7.65f, 1.2f, -3.9f), new Vector3(1.4f, 2.4f, 3.2f), true),
-        new("LightConsole", new Vector3(-6.6f, 0.75f, 4.65f), new Vector3(2.2f, 1.5f, 1.2f), true),
-        new("SoundConsole", new Vector3(0f, 0.75f, 4.4f), new Vector3(2.4f, 1.5f, 0.8f), true),
-        new("BroadcastConsole", new Vector3(6.6f, 0.75f, 4.65f), new Vector3(2.2f, 1.5f, 1.2f), true),
-        new("SpliceBench", new Vector3(5.7f, 0.72f, -0.2f), new Vector3(2.2f, 1.44f, 1.4f), true),
-        new("MasterPlayer", new Vector3(6.9f, 1.1f, 1.6f), new Vector3(1.4f, 2.2f, 1.1f), true),
-        new("LeftLever", new Vector3(-7.4f, 0.85f, -1.0f), new Vector3(1.0f, 1.7f, 1.0f), true),
-        new("RightSwitch", new Vector3(7.4f, 0.85f, -1.0f), new Vector3(1.0f, 1.7f, 1.0f), true)
-    ];
-
-    private static readonly Vector3[] Waypoints =
-    [
-        new(0f, 0f, 5.55f), new(-2f, 0f, 5.2f), new(2f, 0f, 5.2f),
-        new(-2.2f, 0f, 3.1f), new(2.2f, 0f, 3.1f), new(0f, 0f, 1.4f),
-        new(-2.3f, 0f, -0.8f), new(2.3f, 0f, -0.8f), new(-5.8f, 0f, -2.2f),
-        new(5.8f, 0f, -2.2f), new(0f, 0f, -3.8f)
-    ];
+    private static readonly CollisionSpec[] Specs = AuditoriumLayout3D.Collisions
+        .Select(s => new CollisionSpec(s.Name, s.Position, s.Size, s.Furniture)).ToArray();
+    private static readonly Vector3[] Waypoints = AuditoriumLayout3D.Waypoints();
+    private GroundWaypointNavigator3D? _navigator;
+    private readonly List<Node3D> _discs = [];
+    private Node3D _installedCounterweight = null!;
+    private Node3D _unsplicedTape = null!;
+    private Node3D _exitClosed = null!;
+    private Node3D _leftHandle = null!;
+    private Node3D _rightHandle = null!;
+    public Vector3 AdvanceCompanion(Vector3 current, Vector3 desired, float distance) =>
+        (_navigator ??= new GroundWaypointNavigator3D(Waypoints, IsBlocked, ResolveSpawn)).Advance(current, desired, distance);
 
     private readonly List<Node3D> _lineWeights = [];
     private Node3D _doorHinge = null!;
@@ -60,7 +40,9 @@ public partial class DreamAuditoriumVisual3D : DreamLateRoomVisual3D
 
     protected override IReadOnlyList<CollisionSpec> CollisionSpecs => Specs;
     protected override IReadOnlyList<Vector3> SafeWaypoints => Waypoints;
-    public override Rect2 WalkableBounds => new(-8.5f, -5.5f, 17f, 11f);
+    public override Rect2 WalkableBounds => AuditoriumLayout3D.WalkableBounds;
+    public override bool IsBlocked(Vector3 position) => AuditoriumLayout3D.IsBlocked(position);
+    public override Vector3 ResolveSpawn(Vector3 requested) => AuditoriumLayout3D.ResolveSpawn(requested);
     public override Node3D DoorHinge => _doorHinge;
 
     public bool CurtainRaised => _lineSetSolved;
@@ -75,31 +57,32 @@ public partial class DreamAuditoriumVisual3D : DreamLateRoomVisual3D
 
     public override void _Process(double delta)
     {
-        if (_masterTape.Visible)
-            _masterTape.Rotation = new Vector3(_masterTape.Rotation.X,
-                _masterTape.Rotation.Y + (float)delta * 2.2f, _masterTape.Rotation.Z);
-        if (_projectorSolved.Visible)
-            _projectorSolved.Rotation = new Vector3(_projectorSolved.Rotation.X,
-                _projectorSolved.Rotation.Y + (float)delta * 0.8f, _projectorSolved.Rotation.Z);
+        if (_masterTape.Visible) _masterTape.RotateX((float)delta * 2.2f);
     }
 
     public override void ApplyState(DreamEscapeState state)
     {
-        _lineSetSolved = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumLineSetBalance);
+        _lineSetSolved = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
         ApplyLineValues(_lineSetSolved ? [3, 1, 4, 2] : [1, 1, 1, 1]);
-        _curtain.Position = new Vector3(0f, _lineSetSolved ? 5.25f : 2.65f, -5.68f);
-        _projectionClue.Visible = _lineSetSolved;
+        _curtain.Scale = new Vector3(1, _lineSetSolved ? .18f : 1, 1);
+        ApplyDiscs(_lineSetSolved ? [0, 1, 2] : [0, 0, 0]);
+        _installedCounterweight.Visible = state.InstalledParts.Contains(DreamEscapeIds.SlotAuditoriumCurtainCounterweight) || _lineSetSolved;
+        _projectionClue.Visible = true;
         _lens.Visible = state.InstalledParts.Contains(DreamEscapeIds.SlotAuditoriumProjectorLens) ||
-                        state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector);
-        _projectorSolved.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumShadowProjector);
+                        state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
+        _projectorSolved.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumStageAlignment);
         _tapeOrder.Visible = _projectorSolved.Visible;
-        _spliceReel.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumMasterTapeSplice);
+        _spliceReel.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction);
         _masterTape.Visible = state.InstalledParts.Contains(DreamEscapeIds.SlotAuditoriumMasterTape);
         _masterPlayerLight.Visible = _masterTape.Visible;
-        _lightConsole.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumLightConsole);
-        _soundConsole.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumSoundConsole);
-        _broadcastConsole.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumBroadcastConsole);
+        _spliceReel.Visible &= !_masterTape.Visible;
+        _unsplicedTape.Visible = !state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumTapeReconstruction);
+        _lightConsole.Visible = state.Status == DreamEscapeStatus.ExitOpened;
+        _soundConsole.Visible = state.Status == DreamEscapeStatus.ExitOpened;
+        _broadcastConsole.Visible = state.SolvedPuzzles.Contains(DreamEscapeIds.PuzzleAuditoriumHandoffPlan);
         _exitOpen.Visible = state.Status == DreamEscapeStatus.ExitOpened;
+        _exitClosed.Visible = !_exitOpen.Visible;
+        _rightHandle.RotationDegrees = new(_exitOpen.Visible ? -35 : 0, 0, 0);
         _counterweightPickup.Visible = !state.SolvedPuzzles.Contains(DreamEscapeIds.PickupCurtainCounterweight);
         _lensPickup.Visible = !state.SolvedPuzzles.Contains(DreamEscapeIds.PickupProjectorLens);
     }
@@ -107,68 +90,83 @@ public partial class DreamAuditoriumVisual3D : DreamLateRoomVisual3D
     public override void ApplyTransientState(DreamAreaTransientState state)
     {
         _leftLeverLight.Visible = state.XiaoyuHoldingExitLever;
-        if (_lineSetSolved) return;
-        if (state.PreviewPuzzleId == DreamEscapeIds.PuzzleAuditoriumLineSetBalance &&
-            state.PreviewValues is { Count: 4 } values)
+        _leftHandle.RotationDegrees = new(state.XiaoyuHoldingExitLever ? -35 : 0, 0, 0);
+        if (!_exitOpen.Visible)
         {
-            ApplyLineValues(values.Select(value => int.TryParse(value, out var parsed) ? parsed : 1).ToArray());
+            _soundConsole.Visible = state.HandoffStep >= 2;
+            _lightConsole.Visible = state.HandoffStep >= 3;
+        }
+        if (_lineSetSolved) return;
+        if (state.PreviewPuzzleId == DreamEscapeIds.PuzzleAuditoriumStageAlignment &&
+            state.PreviewValues is { Count: 7 } values)
+        {
+            ApplyLineValues(values.Take(4).Select(value => int.TryParse(value, out var parsed) ? parsed : 1).ToArray());
+            ApplyDiscs(values.Skip(4).Select(value => value switch { "figure" => 1, "bell" => 2, _ => 0 }).ToArray());
         }
         else
         {
             ApplyLineValues([1, 1, 1, 1]);
+            ApplyDiscs([0, 0, 0]);
         }
     }
 
     protected override void BuildRoom()
     {
-        _doorHinge = new Node3D { Name = "Door_South_Hinge", Position = new Vector3(-0.9f, 0f, 6.38f) };
-        Geometry.AddChild(_doorHinge);
-        AddBox(_doorHinge, "DoorLeaf", new Vector3(0.9f, 1.25f, 0f),
-            new Vector3(1.8f, 2.5f, 0.12f), "oak");
+        var model = GetNode<Node3D>("../AuditoriumModel");
+        ConfigureMeshes(model);
+        Node3D Required(string name) => model.FindChild(name, true, false) as Node3D
+            ?? throw new InvalidOperationException($"Auditorium v2 node missing: {name}");
+        _doorHinge = Required("Door_South_Hinge");
+        _curtain = Required("MainCurtain");
+        _projectionClue = Required("Projection_Clue");
+        _lens = Required("Projector_Lens");
+        _projectorSolved = Required("Projector_Solved");
+        _tapeOrder = Required("Tape_Order");
+        _spliceReel = Required("Splice_Reel");
+        _masterTape = Required("Master_Tape");
+        _masterPlayerLight = Required("Master_Player_Light");
+        _lightConsole = Required("Light_Ready");
+        _soundConsole = Required("Sound_Ready");
+        _broadcastConsole = Required("Broadcast_Ready");
+        _leftLeverLight = Required("Left_Lever_Held");
+        _leftLeverLight.Visible = false;
+        _exitOpen = Required("Exit_Open");
+        _exitClosed = Required("StageExitClosed");
+        _counterweightPickup = Required("Pickup_Counterweight");
+        _lensPickup = Required("Pickup_Lens");
+        _installedCounterweight = Required("Installed_Counterweight");
+        _unsplicedTape = Required("Tape_Unspliced");
+        _leftHandle = Required("Left_Handle");
+        _rightHandle = Required("Right_Handle");
+        for (var i = 0; i < 4; i++) _lineWeights.Add(Required($"Line_Weight{i}"));
+        for (var i = 0; i < 3; i++) _discs.Add(Required($"Projector_Disc{i}"));
+        Label("FrontPlateTitle", "DREAM_V6_TARGET_OBSERVE_TARGET_AUDITORIUM_LINE_SET_NOTCHES", new(0, .79f, -3.944f), 0, 19);
+        Label("SidePlateTitle", "DREAM_V6_TARGET_OBSERVE_TARGET_AUDITORIUM_PROJECTION_ORDER", new(-7.251f, 1.51f, -7.1f), -90, 16);
+    }
 
-        _curtain = AddBox(Geometry, "MainCurtain", new Vector3(0f, 2.65f, -5.68f),
-            new Vector3(11.5f, 5.1f, 0.18f), "curtain");
-        for (var index = 0; index < 4; index++)
+    private void ApplyDiscs(IReadOnlyList<int> values)
+    {
+        for (var i = 0; i < _discs.Count; i++) _discs[i].RotationDegrees = new(values[i] * 120, 0, 0);
+    }
+
+    private void Label(string name, string key, Vector3 p, float yaw, int size) => Geometry.AddChild(new Label3D
+    {
+        Name = name, Text = UiText.Get(key), Position = p, RotationDegrees = new(0, yaw, 0),
+        Font = UiStyles.CinematicFont, FontSize = size, PixelSize = .002f, Modulate = new Color("303a32"),
+        OutlineSize = 0, CastShadow = GeometryInstance3D.ShadowCastingSetting.Off
+    });
+
+    private static void ConfigureMeshes(Node node)
+    {
+        if (node is MeshInstance3D mesh)
         {
-            AddCylinder(Geometry, $"LineSetCable{index}", new Vector3(6.9f + index * 0.35f, 4.6f, -4.7f),
-                0.025f, 4.8f, "metal");
-            _lineWeights.Add(AddBox(Geometry, $"LineSetWeight{index}",
-                new Vector3(6.9f + index * 0.35f, 2.2f, -4.7f),
-                new Vector3(0.22f, 0.44f, 0.30f), "brass"));
+            for (var i = 0; i < mesh.GetSurfaceOverrideMaterialCount(); i++)
+                if (mesh.GetActiveMaterial(i) is BaseMaterial3D material)
+                    material.TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic;
+            if (mesh.Name.ToString().Contains("Glass", StringComparison.Ordinal))
+                mesh.CastShadow = GeometryInstance3D.ShadowCastingSetting.Off;
         }
-
-        _projectionClue = AddLabel("ProjectionSilhouettes", "▦      人      🔔",
-            new Vector3(0f, 3.45f, -5.52f), Vector3.Zero, 84, new Color("e8d9b4"));
-        _lensPickup = AddCylinder(Geometry, "ProjectorLensPickup", new Vector3(-7.0f, 0.25f, -4.4f),
-            0.25f, 0.18f, "amber_glow", new Vector3(90f, 0f, 0f));
-        _lens = AddCylinder(Geometry, "InstalledProjectorLens", new Vector3(-6.85f, 1.45f, -3.55f),
-            0.32f, 0.22f, "glass", new Vector3(90f, 0f, 0f));
-        _projectorSolved = AddCylinder(Geometry, "ProjectorDiscsAligned",
-            new Vector3(-7.35f, 1.55f, -3.95f), 0.62f, 0.14f, "green_glow",
-            new Vector3(90f, 0f, 0f));
-        _tapeOrder = AddLabel("MasterTapeOrder", "教室  →  音乐  →  档案",
-            new Vector3(-7.20f, 2.25f, -3.20f), new Vector3(0f, 35f, 0f), 28,
-            new Color("e8d9b4"));
-
-        _counterweightPickup = AddBox(Geometry, "CurtainCounterweightPickup",
-            new Vector3(-6.2f, 0.30f, -1.8f), new Vector3(0.42f, 0.60f, 0.36f), "amber_glow");
-        _spliceReel = AddCylinder(Geometry, "SplicedMasterReel", new Vector3(5.7f, 1.18f, -0.55f),
-            0.48f, 0.12f, "green_glow", new Vector3(90f, 0f, 0f));
-        _masterTape = AddCylinder(Geometry, "InstalledMasterTape", new Vector3(6.65f, 1.55f, 1.0f),
-            0.44f, 0.13f, "brass", new Vector3(90f, 0f, 0f));
-        _masterPlayerLight = AddBox(Geometry, "MasterPlayerWhiteNoise", new Vector3(6.45f, 1.0f, 1.0f),
-            new Vector3(0.08f, 0.45f, 0.80f), "green_glow");
-
-        _lightConsole = AddBox(Geometry, "LightConsoleSolved", new Vector3(-6.6f, 1.28f, 4.05f),
-            new Vector3(1.55f, 0.10f, 0.28f), "green_glow");
-        _soundConsole = AddBox(Geometry, "SoundConsoleSolved", new Vector3(0f, 1.28f, 4.05f),
-            new Vector3(1.65f, 0.10f, 0.28f), "green_glow");
-        _broadcastConsole = AddBox(Geometry, "BroadcastConsoleSolved", new Vector3(6.6f, 1.28f, 4.05f),
-            new Vector3(1.55f, 0.10f, 0.28f), "green_glow");
-        _leftLeverLight = AddBox(Geometry, "LeftLeverHeld", new Vector3(-7.0f, 1.25f, -1.0f),
-            new Vector3(0.12f, 0.85f, 0.55f), "amber_glow", new Vector3(0f, 0f, -26f));
-        _exitOpen = AddBox(Geometry, "ExitOpenGlow", new Vector3(0f, 2.5f, -6.30f),
-            new Vector3(3.2f, 4.8f, 0.08f), "green_glow");
+        foreach (var child in node.GetChildren()) ConfigureMeshes(child);
     }
 
     private void ApplyLineValues(IReadOnlyList<int> values)
@@ -177,7 +175,7 @@ public partial class DreamAuditoriumVisual3D : DreamLateRoomVisual3D
         for (var index = 0; index < _lineWeights.Count; index++)
         {
             var position = _lineWeights[index].Position;
-            position.Y = 2.65f - _lineValues[index] * 0.48f;
+            position.Y = AuditoriumLayout3D.WeightMinimumHeight + (_lineValues[index] - 1) * AuditoriumLayout3D.WeightStep;
             _lineWeights[index].Position = position;
         }
     }

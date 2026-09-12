@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://c274i2w80arig"
+path="res://.godot/imported/evt_d2_first_anomaly.dialogue-c85017359108025915bf15dd826d8d8c.tres"
+
+[deps]
+
+source_file="res://dialogue/events/evt_d2_first_anomaly.dialogue"
+dest_files=["res://.godot/imported/evt_d2_first_anomaly.dialogue-c85017359108025915bf15dd826d8d8c.tres"]
+
+[params]
+
+defaults=true

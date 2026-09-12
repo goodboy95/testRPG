@@ -220,7 +220,7 @@ public partial class MainController : Node
             Size = new Vector2(610, 18),
             HorizontalAlignment = HorizontalAlignment.Right
         };
-        _inputHint.AddThemeFontSizeOverride("font_size", 10);
+        UiStyles.Font(_inputHint, 10);
         _inputHint.AddThemeColorOverride("font_color", new Color("d2d8dc"));
         _hud.AddChild(_inputHint);
 
@@ -231,7 +231,7 @@ public partial class MainController : Node
             Visible = false
         };
         _debugLabel.AddThemeStyleboxOverride("normal", UiStyles.Panel(new Color("0b111be4"), 4));
-        _debugLabel.AddThemeFontSizeOverride("font_size", 10);
+        UiStyles.Font(_debugLabel, 10);
         _hud.AddChild(_debugLabel);
 
         _toast = new Label
@@ -277,165 +277,55 @@ public partial class MainController : Node
     private void ShowTitle()
     {
         Input.MouseMode = Input.MouseModeEnum.Visible;
-        CloseCompletion();
-        DisconnectWorld();
-        DisconnectDream();
-        foreach (var child in _worldHost.GetChildren())
-        {
-            child.QueueFree();
-        }
-
-        _world = null;
-        _hud.Visible = false;
+        CloseCompletion(); DisconnectWorld(); DisconnectDream();
+        foreach (var child in _worldHost.GetChildren()) child.QueueFree();
+        _world = null; _hud.Visible = false;
         _titleLease ??= _session.Modal.Acquire("title");
-        _titleScreen?.QueueFree();
-        _titleScreen = NewScreen("TitleScreen");
-
-        var texture = ResourceLoader.Load<Texture2D>("res://assets/generated/title-town-dusk.png");
-        if (texture is not null)
-        {
-            var background = new TextureRect
-            {
-                Texture = texture,
-                ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-                StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered
-            };
-            background.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-            _titleScreen.AddChild(background);
-        }
-
-        var shade = new ColorRect { Color = new Color("07101b8f") };
-        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        _titleScreen.AddChild(shade);
-
-        var panel = new PanelContainer
-        {
-            Position = new Vector2(38, 53),
-            Size = new Vector2(292, 290)
-        };
-        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("182536e9"), 10));
-        _titleScreen.AddChild(panel);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 8);
-        panel.AddChild(column);
-        var title = new Label { Text = "雾山旧轨" };
-        title.AddThemeFontSizeOverride("font_size", 32);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(title);
-        var subtitle = new Label
-        {
-            Text = "一个关于信任、旧铁路与夏日回声的剧情生活 RPG",
-            AutowrapMode = TextServer.AutowrapMode.WordSmart,
-            CustomMinimumSize = new Vector2(250, 44)
-        };
-        column.AddChild(subtitle);
-        var newGame = UiStyles.Button("开始新游戏");
-        newGame.Disabled = !string.IsNullOrEmpty(_session.InitializationError);
-        newGame.Pressed += ShowNameEntry;
-        column.AddChild(newGame);
-        var continueGame = UiStyles.Button("继续");
-        continueGame.Disabled = !string.IsNullOrEmpty(_session.InitializationError) ||
-                                !_session.HasRecoverableSave;
-        continueGame.Pressed += ContinueGame;
-        column.AddChild(continueGame);
-        var titleActions = new HBoxContainer();
-        titleActions.AddThemeConstantOverride("separation", 6);
-        column.AddChild(titleActions);
-        var settings = UiStyles.Button("显示设置");
-        settings.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        settings.Pressed += () =>
-        {
-            if (_titleScreen is not null) _titleScreen.Visible = false;
-            OpenSettings(true);
-        };
-        titleActions.AddChild(settings);
-        var quit = UiStyles.Button("退出游戏");
-        quit.Name = "TitleQuit";
-        quit.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        quit.Pressed += AskQuit;
-        titleActions.AddChild(quit);
-        var note = new Label
-        {
-            Text = "当前构建：四室旧校舍序章机制版",
-            AutowrapMode = TextServer.AutowrapMode.WordSmart
-        };
-        note.AddThemeFontSizeOverride("font_size", 11);
-        note.AddThemeColorOverride("font_color", new Color("b9d1c5"));
-        column.AddChild(note);
-        _titleStatus = new Label
-        {
-            Text = string.IsNullOrEmpty(_session.InitializationError)
-                ? string.Empty
-                : $"内容校验失败，新游戏已禁用：{_session.InitializationError}",
-            AutowrapMode = TextServer.AutowrapMode.WordSmart,
-            CustomMinimumSize = new Vector2(250, 30)
-        };
-        _titleStatus.AddThemeFontSizeOverride("font_size", 10);
-        _titleStatus.AddThemeColorOverride("font_color", new Color("ef9a8d"));
-        column.AddChild(_titleStatus);
-        newGame.GrabFocus();
+        _titleScreen?.QueueFree(); _titleScreen = NewScreen("TitleScreen");
+        var background = new TextureRect { Texture = ResourceLoader.Load<Texture2D>("res://assets/generated/title-town-dusk.png"),
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered };
+        background.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect); _titleScreen.AddChild(background);
+        _titleScreen.AddChild(UiStyles.GradientShade(true));
+        var panel = new PanelContainer { Position = new Vector2(24, 24), Size = new Vector2(320, 312) };
+        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(Colors.Transparent)); _titleScreen.AddChild(panel);
+        var column = new VBoxContainer(); column.AddThemeConstantOverride("separation", 10); panel.AddChild(column);
+        var title = new Label { Text = "雾山旧轨" }; UiStyles.Heading(title, 32); column.AddChild(title);
+        var subtitle = UiStyles.Wrapped(UiText.Get("UI_TITLE_SUBTITLE")); UiStyles.Font(subtitle, 11);
+        subtitle.AddThemeColorOverride("font_color", UiStyles.Muted); column.AddChild(subtitle);
+        var scroll = UiStyles.Scroll(column);
+        var menu = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; menu.AddThemeConstantOverride("separation", 5); scroll.AddChild(menu);
+        var newGame = UiStyles.Button("开始新游戏"); newGame.Alignment = HorizontalAlignment.Left;
+        newGame.Disabled = !string.IsNullOrEmpty(_session.InitializationError); newGame.Pressed += ShowNameEntry; menu.AddChild(newGame);
+        var continueGame = UiStyles.Button("继续"); continueGame.Alignment = HorizontalAlignment.Left;
+        continueGame.Disabled = !string.IsNullOrEmpty(_session.InitializationError) || !_session.HasRecoverableSave; continueGame.Pressed += ContinueGame; menu.AddChild(continueGame);
+        var settings = UiStyles.Button(UiText.Get("UI_SETTINGS")); settings.Alignment = HorizontalAlignment.Left;
+        settings.Pressed += () => { if (_titleScreen is not null) _titleScreen.Visible = false; OpenSettings(true); }; menu.AddChild(settings);
+        var quit = UiStyles.Button("退出游戏"); quit.Name = "TitleQuit"; quit.Alignment = HorizontalAlignment.Left; quit.Pressed += AskQuit; menu.AddChild(quit);
+        _titleStatus = UiStyles.Wrapped(string.IsNullOrEmpty(_session.InitializationError) ? "" : $"内容校验失败，新游戏已禁用：{_session.InitializationError}");
+        UiStyles.Font(_titleStatus, 11); _titleStatus.AddThemeColorOverride("font_color", new Color("e7ab96")); menu.AddChild(_titleStatus);
+        newGame.GrabFocus(); UiStyles.FadeIn(panel);
     }
 
     private void ShowNameEntry()
     {
-        _titleScreen?.QueueFree();
-        _titleScreen = NewScreen("NameEntry");
-        var shade = new ColorRect { Color = new Color("0e1826f0") };
-        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        _titleScreen.AddChild(shade);
-        var frame = new PanelContainer
-        {
-            Position = new Vector2(165, 62),
-            Size = new Vector2(310, 238)
-        };
-        frame.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("1d2a3af2"), 10));
-        _titleScreen.AddChild(frame);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 8);
-        frame.AddChild(column);
-        var title = new Label { Text = "写下这个暑假的称呼" };
-        title.AddThemeFontSizeOverride("font_size", 21);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(title);
-        column.AddChild(new Label { Text = "姓名（默认：小岚，最多 8 个字符）" });
-        var name = new LineEdit { Text = "小岚", MaxLength = 16 };
-        column.AddChild(name);
-        column.AddChild(new Label { Text = "他人如何称呼你" });
-        var titleChoice = new OptionButton();
-        titleChoice.AddItem("同学");
-        titleChoice.AddItem("朋友");
-        titleChoice.AddItem("前辈");
-        column.AddChild(titleChoice);
-        var error = new Label();
-        error.AddThemeColorOverride("font_color", new Color("ef9a8d"));
-        column.AddChild(error);
-        var buttons = new HBoxContainer();
-        column.AddChild(buttons);
-        var back = UiStyles.Button("返回");
-        back.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        back.Pressed += ShowTitle;
-        buttons.AddChild(back);
-        var begin = UiStyles.Button("开始暑假");
-        begin.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        _titleScreen?.QueueFree(); _titleScreen = NewScreen("NameEntry");
+        var shade = new ColorRect { Color = UiStyles.Background }; shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect); _titleScreen.AddChild(shade);
+        var surface = new UiModalSurface { BaseSize = new Vector2(496, 320), ScaleHeight = false }; _titleScreen.AddChild(surface);
+        surface.Heading.Text = UiText.Get("UI_NAME_HEADING"); var column = surface.Body;
+        column.AddChild(UiStyles.Wrapped(UiText.Get("UI_NAME_LABEL")));
+        var name = new LineEdit { Text = "小岚", MaxLength = 16, CustomMinimumSize = new Vector2(0, 32) }; column.AddChild(name);
+        column.AddChild(UiStyles.Wrapped(UiText.Get("UI_ADDRESS_LABEL")));
+        var titleChoice = new OptionButton(); foreach (var item in new[] { "同学", "朋友", "前辈" }) titleChoice.AddItem(item); column.AddChild(titleChoice);
+        var error = UiStyles.Wrapped(""); error.AddThemeColorOverride("font_color", new Color("e7ab96")); UiStyles.Font(error, 11); column.AddChild(error);
+        var back = UiStyles.Button(UiText.Get("UI_BACK")); back.Pressed += ShowTitle; surface.Footer.AddChild(back); surface.Footer.AddSpacer(false);
+        var begin = UiStyles.Button("开始暑假"); UiStyles.Primary(begin);
         begin.Pressed += () =>
         {
-            var trimmed = name.Text.Trim();
-            if (string.IsNullOrWhiteSpace(trimmed))
-            {
-                trimmed = "小岚";
-            }
-
-            if (new StringInfo(trimmed).LengthInTextElements > 8)
-            {
-                error.Text = "姓名请控制在 8 个字符以内。";
-                return;
-            }
-
+            var trimmed = string.IsNullOrWhiteSpace(name.Text) ? "小岚" : name.Text.Trim();
+            if (new StringInfo(trimmed).LengthInTextElements > 8) { error.Text = UiText.Get("UI_NAME_ERROR"); return; }
             _ = StartNewGameAsync(trimmed, titleChoice.GetItemText(titleChoice.Selected));
         };
-        buttons.AddChild(begin);
-        name.GrabFocus();
-        name.SelectAll();
+        surface.Footer.AddChild(begin); name.GrabFocus(); name.SelectAll();
     }
 
     private async Task StartNewGameAsync(string playerName, string playerTitle)
@@ -480,7 +370,7 @@ public partial class MainController : Node
             LoadDream();
             if (dream.Status == DreamEscapeStatus.ExitOpened)
             {
-                ShowDreamMechanicsComplete();
+                _ = _dream!.FinishOpenedExitAsync();
             }
             else
             {
@@ -1111,112 +1001,25 @@ public partial class MainController : Node
         ShowToast("已撤退到安全地点。准备好后仍可重试，剧情不会锁死。");
     }
 
-    private void ShowSliceComplete()
-    {
-        CloseCompletion();
-        _completionScreen = NewScreen("SliceComplete");
-        _completionLease = _session.Modal.Acquire("slice-complete");
-        var shade = new ColorRect { Color = new Color("07101bdf") };
-        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        _completionScreen.AddChild(shade);
-        var panel = new PanelContainer { Position = new Vector2(135, 73), Size = new Vector2(370, 214) };
-        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("1c2b3af2"), 10));
-        _completionScreen.AddChild(panel);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 9);
-        panel.AddChild(column);
-        var title = new Label { Text = "垂直切片完成" };
-        title.AddThemeFontSizeOverride("font_size", 25);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(title);
-        column.AddChild(new Label
-        {
-            Text = "你建立的关系、兑现的承诺，以及是否让能力暴露，都已写入同一份世界状态。接下来的谨慎/救援分歧将在正式内容阶段读取这些结果。",
-            AutowrapMode = TextServer.AutowrapMode.WordSmart,
-            CustomMinimumSize = new Vector2(330, 82)
-        });
-        var keepExploring = UiStyles.Button("继续在镇上查看手册");
-        keepExploring.Pressed += () =>
-        {
-            CloseCompletion();
-        };
-        column.AddChild(keepExploring);
-        var titleButton = UiStyles.Button("返回标题");
-        titleButton.Pressed += () =>
-        {
-            CloseCompletion();
-            ShowTitle();
-        };
-        column.AddChild(titleButton);
-        keepExploring.GrabFocus();
-    }
+    private void ShowSliceComplete() => ShowCompletionLayout("SliceComplete", "slice-complete", "垂直切片完成", UiText.Get("UI_COMPLETE_LEGACY"), true);
+    private void ShowDreamMechanicsComplete() => ShowCompletionLayout("DreamMechanicsComplete", "dream-mechanics-complete", "出口已开启", UiText.Get("UI_COMPLETE_DREAM"));
+    private void ShowPinCompletion() => ShowCompletionLayout("PinCompletion", "pin-complete", "你睁开了眼",
+        "针尖的疼痛让旧校舍骤然碎开。你在旧宅的床上醒来——刚才只是一场梦。梦里拿到的东西已经全部消失，那条尚未弄清的信息也没能留下。");
 
-    private void ShowDreamMechanicsComplete()
+    private void ShowCompletionLayout(string name, string owner, string title, string text, bool returnToWorld = false)
     {
-        CloseCompletion();
-        _completionScreen = NewScreen("DreamMechanicsComplete");
-        _completionLease = _session.Modal.Acquire("dream-mechanics-complete");
-        var shade = new ColorRect { Color = new Color("061019ed") };
-        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        _completionScreen.AddChild(shade);
-        var panel = new PanelContainer { Position = new Vector2(112, 64), Size = new Vector2(416, 232) };
-        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("172b39fa"), 10));
-        _completionScreen.AddChild(panel);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 10);
-        panel.AddChild(column);
-        var title = new Label { Text = "出口已开启" };
-        title.AddThemeFontSizeOverride("font_size", 26);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(title);
-        column.AddChild(new Label
+        CloseCompletion(); _completionScreen = NewScreen(name); _completionLease = _session.Modal.Acquire(owner);
+        var shade = new ColorRect { Color = new Color(UiStyles.Background, .97f) };
+        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect); _completionScreen.AddChild(shade);
+        var surface = new UiModalSurface { BaseSize = new Vector2(520, 298) }; _completionScreen.AddChild(surface);
+        surface.Heading.Text = title; surface.Body.AddChild(UiStyles.Wrapped(text));
+        if (returnToWorld)
         {
-            Text = "四室密室的第一阶段机制到此完成。正式逃出、出口后的信息、现实承接与纸条奖励尚未加入；本构建不会用占位内容替代它们。",
-            AutowrapMode = TextServer.AutowrapMode.WordSmart,
-            CustomMinimumSize = new Vector2(376, 86)
-        });
-        var titleButton = UiStyles.Button("返回标题");
-        titleButton.Pressed += () =>
-        {
-            CloseCompletion();
-            ShowTitle();
-        };
-        column.AddChild(titleButton);
-        titleButton.GrabFocus();
-    }
-
-    private void ShowPinCompletion()
-    {
-        CloseCompletion();
-        _completionScreen = NewScreen("PinCompletion");
-        _completionLease = _session.Modal.Acquire("pin-complete");
-        var shade = new ColorRect { Color = new Color("07101bf0") };
-        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        _completionScreen.AddChild(shade);
-        var panel = new PanelContainer { Position = new Vector2(112, 67), Size = new Vector2(416, 226) };
-        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("1b2c3af8"), 10));
-        _completionScreen.AddChild(panel);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 10);
-        panel.AddChild(column);
-        var title = new Label { Text = "你睁开了眼" };
-        title.AddThemeFontSizeOverride("font_size", 25);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(title);
-        column.AddChild(new Label
-        {
-            Text = "针尖的疼痛让旧校舍骤然碎开。你在旧宅的床上醒来——刚才只是一场梦。梦里拿到的东西已经全部消失，那条尚未弄清的信息也没能留下。",
-            AutowrapMode = TextServer.AutowrapMode.WordSmart,
-            CustomMinimumSize = new Vector2(376, 94)
-        });
-        var titleButton = UiStyles.Button("返回标题");
-        titleButton.Pressed += () =>
-        {
-            CloseCompletion();
-            ShowTitle();
-        };
-        column.AddChild(titleButton);
-        titleButton.GrabFocus();
+            var explore = UiStyles.Button("继续在镇上查看手册"); explore.Pressed += CloseCompletion; surface.Footer.AddChild(explore);
+        }
+        surface.Footer.AddSpacer(false);
+        var back = UiStyles.Button("返回标题"); back.Pressed += () => { CloseCompletion(); ShowTitle(); }; surface.Footer.AddChild(back);
+        UiStyles.Primary(back); back.GrabFocus();
     }
 
     private void OpenJournal()
@@ -1244,229 +1047,121 @@ public partial class MainController : Node
     {
         if (_pauseScreen is not null) return;
         Input.MouseMode = Input.MouseModeEnum.Visible;
-        _pauseLease ??= _session.Modal.Acquire("pause");
-        _pauseScreen = NewScreen("PauseMenu");
-        var shade = new ColorRect { Color = new Color("000000a8") };
-        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        _pauseScreen.AddChild(shade);
-        var panel = new PanelContainer { Position = new Vector2(200, 34), Size = new Vector2(240, 292) };
-        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("1c2b3af2"), 10));
-        _pauseScreen.AddChild(panel);
-        var column = new VBoxContainer();
-        column.AddThemeConstantOverride("separation", 7);
-        panel.AddChild(column);
-        var title = new Label { Text = "暂停" };
-        title.AddThemeFontSizeOverride("font_size", 23);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        column.AddChild(title);
-        var resume = UiStyles.Button("继续");
-        resume.Name = "PauseResume";
-        resume.Pressed += ClosePause;
-        column.AddChild(resume);
+        _pauseLease ??= _session.Modal.Acquire("pause"); _pauseScreen = NewScreen("PauseMenu");
+        _pauseScreen.AddChild(UiStyles.GradientShade(true));
+        var panel = new PanelContainer { Position = new Vector2(18, 14), Size = new Vector2(292, 332) };
+        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color(UiStyles.Background, .92f))); _pauseScreen.AddChild(panel);
+        var column = new VBoxContainer(); column.AddThemeConstantOverride("separation", 10); panel.AddChild(column);
+        var title = new Label { Text = "暂停" }; UiStyles.Heading(title, 24); column.AddChild(title);
+        var scroll = UiStyles.Scroll(column);
+        var menu = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; menu.AddThemeConstantOverride("separation", 6); scroll.AddChild(menu);
+        var resume = UiStyles.Button("继续"); resume.Name = "PauseResume"; resume.Alignment = HorizontalAlignment.Left; resume.Pressed += ClosePause; menu.AddChild(resume);
         if (_dream is not null)
         {
-            var autosaveNote = new Label
-            {
-                Text = "梦境会在每次有效操作后保存。",
-                AutowrapMode = TextServer.AutowrapMode.WordSmart
-            };
-            autosaveNote.AddThemeFontSizeOverride("font_size", 10);
-            autosaveNote.AddThemeColorOverride("font_color", new Color("b9d1c5"));
-            column.AddChild(autosaveNote);
+            var note = UiStyles.Wrapped(UiText.Get("UI_PAUSE_NOTE")); UiStyles.Font(note, 11); note.AddThemeColorOverride("font_color", UiStyles.Muted); menu.AddChild(note);
         }
         else
         {
-            var save = UiStyles.Button("保存");
-            save.Pressed += () =>
+            var save = UiStyles.Button("保存"); save.Pressed += () =>
             {
-                ClosePause();
-                try
-                {
-                    _session.Save();
-                    ShowToast("已保存。对话和战斗中不能手动保存。");
-                }
-                catch (Exception exception)
-                {
-                    ShowToast($"保存失败：{exception.Message}");
-                }
-            };
-            column.AddChild(save);
-            var load = UiStyles.Button("载入");
-            load.Pressed += () =>
+                ClosePause(); try { _session.Save(); ShowToast("已保存。对话和战斗中不能手动保存。"); } catch (Exception e) { ShowToast($"保存失败：{e.Message}"); }
+            }; menu.AddChild(save);
+            var load = UiStyles.Button("载入"); load.Pressed += () =>
             {
-                ClosePause();
-                if (_session.TryLoad(out var error))
-                {
-                    ApplySettingsVisuals();
-                    LoadWorld(_session.State.Player.LocationId);
-                    ShowToast("存档已载入。");
-                }
-                else
-                {
-                    ShowToast(error);
-                }
-            };
-            column.AddChild(load);
-            var unstick = UiStyles.Button("脱离卡住：回安全点");
-            unstick.Pressed += () =>
-            {
-                ClosePause();
-                _world?.MovePlayerToSafePoint();
-                ShowToast("已回到当前区域的安全点。");
-            };
-            column.AddChild(unstick);
+                ClosePause(); if (_session.TryLoad(out var error)) { ApplySettingsVisuals(); LoadWorld(_session.State.Player.LocationId); ShowToast("存档已载入。"); } else ShowToast(error);
+            }; menu.AddChild(load);
+            var unstick = UiStyles.Button("脱离卡住：回安全点"); unstick.Pressed += () => { ClosePause(); _world?.MovePlayerToSafePoint(); ShowToast("已回到当前区域的安全点。"); }; menu.AddChild(unstick);
         }
-        var settings = UiStyles.Button("显示与辅助设置");
-        settings.Name = "PauseSettings";
-        settings.Pressed += () => OpenSettings();
-        column.AddChild(settings);
-
-        var exitRow = new HBoxContainer();
-        exitRow.AddThemeConstantOverride("separation", 6);
-        column.AddChild(exitRow);
-        var titleButton = UiStyles.Button("返回标题");
-        titleButton.Name = "PauseReturnTitle";
-        titleButton.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        titleButton.Pressed += () =>
-        {
-            ClosePause();
-            ShowTitle();
-        };
-        exitRow.AddChild(titleButton);
-        var quit = UiStyles.Button("退出游戏");
-        quit.Name = "PauseQuit";
-        quit.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
-        quit.Pressed += AskQuit;
-        exitRow.AddChild(quit);
-        resume.GrabFocus();
+        var settings = UiStyles.Button("显示与辅助设置"); settings.Name = "PauseSettings"; settings.Alignment = HorizontalAlignment.Left;
+        settings.Pressed += () => OpenSettings(); menu.AddChild(settings);
+        menu.AddChild(new HSeparator());
+        var titleButton = UiStyles.Button("返回标题"); titleButton.Name = "PauseReturnTitle"; titleButton.Alignment = HorizontalAlignment.Left;
+        titleButton.Pressed += () => { ClosePause(); ShowTitle(); }; menu.AddChild(titleButton);
+        var quit = UiStyles.Button("退出游戏"); quit.Name = "PauseQuit"; quit.Alignment = HorizontalAlignment.Left; quit.Pressed += AskQuit; menu.AddChild(quit);
+        resume.GrabFocus(); UiStyles.FadeIn(panel);
     }
 
     private void OpenSettings(bool returnToTitle = false)
     {
-        Input.MouseMode = Input.MouseModeEnum.Visible;
-        _settingsReturnToTitle = returnToTitle;
-        _pauseScreen?.QueueFree();
-        _pauseScreen = NewScreen("SettingsMenu");
-        var shade = new ColorRect { Color = new Color("000000b8") };
-        shade.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
-        _pauseScreen.AddChild(shade);
-        var panel = new PanelContainer { Position = new Vector2(60, 12), Size = new Vector2(520, 336) };
-        panel.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("1c2b3af2"), 10));
-        _pauseScreen.AddChild(panel);
-        var rootColumn = new VBoxContainer();
-        rootColumn.AddThemeConstantOverride("separation", 5);
-        panel.AddChild(rootColumn);
-        var title = new Label { Text = "显示与辅助设置" };
-        title.AddThemeFontSizeOverride("font_size", 21);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        rootColumn.AddChild(title);
-        var scroll = new ScrollContainer
-        {
-            SizeFlagsVertical = Control.SizeFlags.ExpandFill,
-            HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled
-        };
-        rootColumn.AddChild(scroll);
-        var column = new VBoxContainer
-        {
-            CustomMinimumSize = new Vector2(478, 0),
-            SizeFlagsHorizontal = Control.SizeFlags.ExpandFill
-        };
-        column.AddThemeConstantOverride("separation", 3);
-        scroll.AddChild(column);
+        Input.MouseMode = Input.MouseModeEnum.Visible; _settingsReturnToTitle = returnToTitle;
+        _pauseScreen?.QueueFree(); _pauseScreen = NewScreen("SettingsMenu");
+        var shell = new ManagementMenuShell { Name = "SettingsShell" }; _pauseScreen.AddChild(shell);
+        shell.SetTitle(UiText.Get("UI_SETTINGS")); shell.SetGamepad(_usingGamepad); shell.CloseRequested += ReturnFromSettings;
+        shell.SetPages([
+            new("display", UiText.Get("UI_DISPLAY"), "", () => true, BuildDisplaySettings),
+            new("controls", UiText.Get("UI_CONTROLS"), "", () => true, BuildControlSettings),
+            new("accessibility", UiText.Get("UI_ACCESSIBILITY"), "", () => true, BuildAccessibilitySettings)
+        ], "display");
+        shell.FocusContent();
+    }
 
-        var fontScale = AddOptionRow(column, "字号", ["100%", "125%", "150%"]);
-        fontScale.Selected = _session.State.Settings.FontScale switch { >= 1.5f => 2, >= 1.25f => 1, _ => 0 };
-        fontScale.ItemSelected += index =>
-        {
-            _session.State.Settings.FontScale = index switch { 2 => 1.5f, 1 => 1.25f, _ => 1f };
-            _session.NotifyChanged();
-            ApplySettingsVisuals();
-        };
-
-        var textSpeed = AddOptionRow(column, "自动播放速度", ["舒缓", "标准", "快速"]);
-        textSpeed.Selected = _session.State.Settings.TextSpeed switch { >= 1.5f => 2, <= 0.75f => 0, _ => 1 };
-        textSpeed.ItemSelected += index =>
-        {
-            _session.State.Settings.TextSpeed = index switch { 2 => 1.5f, 0 => 0.75f, _ => 1f };
-            _session.NotifyChanged();
-        };
-
-        var resolution = AddOptionRow(column, "窗口分辨率", ["1280×720", "1600×900", "1920×1080"]);
-        resolution.Selected = DisplaySettingsController.PresetIndex(
-            _session.State.Settings.WindowWidth,
-            _session.State.Settings.WindowHeight);
+    private static ScrollContainer SettingsPage(out VBoxContainer column)
+    {
+        var scroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true };
+        column = new VBoxContainer { SizeFlagsHorizontal = Control.SizeFlags.ExpandFill }; column.AddThemeConstantOverride("separation", 12); scroll.AddChild(column); return scroll;
+    }
+    private Control BuildDisplaySettings()
+    {
+        var scroll = SettingsPage(out var column);
+        var resolution = AddOptionRow(column, "窗口分辨率", ["1280×720", "1600×900", "1920×1080"]); resolution.Name = "SettingsResolution";
+        resolution.Selected = DisplaySettingsController.PresetIndex(_session.State.Settings.WindowWidth, _session.State.Settings.WindowHeight);
         resolution.Disabled = _session.State.Settings.BorderlessFullscreen;
         resolution.ItemSelected += index =>
         {
-            var size = DisplaySettingsController.WindowedPresets[(int)index];
-            _session.State.Settings.WindowWidth = size.X;
-            _session.State.Settings.WindowHeight = size.Y;
-            _session.NotifyChanged();
-            if (!_session.State.Settings.BorderlessFullscreen)
-                DisplaySettingsController.Apply(_session.State.Settings);
-        };
-
-        var cameraSpeed = AddOptionRow(column, "镜头速度", ["慢", "标准", "快"]);
-        cameraSpeed.Selected = _session.State.Settings.CameraLookSensitivity switch
-        {
-            >= 1.2f => 2,
-            <= 0.8f => 0,
-            _ => 1
-        };
-        cameraSpeed.ItemSelected += index =>
-        {
-            _session.State.Settings.CameraLookSensitivity = index switch { 2 => 1.35f, 0 => 0.65f, _ => 1f };
-            _session.NotifyChanged();
-            ApplySettingsVisuals();
-        };
-
-        var story = AddToggle(column, "故事模式（战斗不损失意志）", _session.State.Settings.StoryMode);
-        story.Toggled += enabled =>
-        {
-            _session.State.Settings.StoryMode = enabled;
-            _session.NotifyChanged();
-        };
-        var contrast = AddToggle(column, "高对比交互提示", _session.State.Settings.HighContrastPrompts);
-        contrast.Toggled += enabled =>
-        {
-            _session.State.Settings.HighContrastPrompts = enabled;
-            _session.NotifyChanged();
-            ApplySettingsVisuals();
-        };
-        var flashing = AddToggle(column, "减少闪烁（本切片默认无闪烁）", _session.State.Settings.ReduceFlashing);
-        flashing.Toggled += enabled =>
-        {
-            _session.State.Settings.ReduceFlashing = enabled;
-            _session.NotifyChanged();
-            ApplySettingsVisuals();
-        };
-        var vibration = AddToggle(column, "手柄震动", _session.State.Settings.VibrationEnabled);
-        vibration.Toggled += enabled =>
-        {
-            _session.State.Settings.VibrationEnabled = enabled;
-            _session.NotifyChanged();
+            var size = DisplaySettingsController.WindowedPresets[(int)index]; _session.State.Settings.WindowWidth = size.X; _session.State.Settings.WindowHeight = size.Y;
+            _session.NotifyChanged(); if (!_session.State.Settings.BorderlessFullscreen) DisplaySettingsController.Apply(_session.State.Settings);
         };
         var fullscreen = AddToggle(column, "无边框全屏", _session.State.Settings.BorderlessFullscreen);
-        fullscreen.Toggled += enabled =>
+        fullscreen.Toggled += enabled => { _session.State.Settings.BorderlessFullscreen = enabled; resolution.Disabled = enabled; _session.NotifyChanged(); DisplaySettingsController.Apply(_session.State.Settings); };
+        var fontScale = AddOptionRow(column, UiText.Get("UI_MENU_FONT_SCALE"), ["100%", "125%", "150%", "200%"]); fontScale.Name = "SettingsFontScale";
+        fontScale.Selected = FontScaleIndex(_session.State.Settings.FontScale);
+        fontScale.ItemSelected += index =>
         {
-            _session.State.Settings.BorderlessFullscreen = enabled;
-            resolution.Disabled = enabled;
-            _session.NotifyChanged();
-            DisplaySettingsController.Apply(_session.State.Settings);
+            // Freeze an inherited old subtitle preference before changing only menu text.
+            _session.State.Settings.SubtitleFontScale ??= _session.State.Settings.FontScale;
+            _session.State.Settings.FontScale = FontScaleValue(index); _session.NotifyChanged(); ApplySettingsVisuals();
         };
-        var note = new Label
-        {
-            Text = "键盘同时支持 WASD 与方向键；完整按键重映射将在引擎验收后接入。",
-            AutowrapMode = TextServer.AutowrapMode.WordSmart
-        };
-        note.AddThemeFontSizeOverride("font_size", 10);
-        note.AddThemeColorOverride("font_color", new Color("b9d1c5"));
-        column.AddChild(note);
-        var back = UiStyles.Button(returnToTitle ? "返回标题" : "返回暂停菜单");
-        back.Name = "SettingsBack";
-        back.Pressed += ReturnFromSettings;
-        rootColumn.AddChild(back);
-        fontScale.GrabFocus();
+        var subtitleScale = AddOptionRow(column, UiText.Get("UI_SUBTITLE_FONT_SCALE"), ["100%", "125%", "150%", "200%"]);
+        subtitleScale.Name = "SettingsSubtitleFontScale";
+        subtitleScale.Selected = FontScaleIndex(_session.State.Settings.EffectiveSubtitleFontScale);
+        subtitleScale.ItemSelected += index =>
+        { _session.State.Settings.SubtitleFontScale = FontScaleValue(index); _session.NotifyChanged(); ApplySettingsVisuals(); };
+        var background = AddOptionRow(column, UiText.Get("UI_SUBTITLE_BACKGROUND"),
+            [UiText.Get("UI_SUBTITLE_SHADOW"), UiText.Get("UI_SUBTITLE_NONE"), UiText.Get("UI_SUBTITLE_CONTRAST")]);
+        background.Name = "SettingsSubtitleBackground";
+        background.Selected = (int)_session.State.Settings.SubtitleBackground;
+        background.ItemSelected += index =>
+        { _session.State.Settings.SubtitleBackground = (SubtitleBackground)index; _session.NotifyChanged(); };
+        column.AddChild(UiStyles.Wrapped(UiText.Get("UI_SUBTITLE_PREVIEW")));
+        column.AddChild(new SubtitleSettingsPreview());
+        return scroll;
+    }
+    private static int FontScaleIndex(float scale) => scale switch { >= 2f => 3, >= 1.5f => 2, >= 1.25f => 1, _ => 0 };
+    private static float FontScaleValue(long index) => index switch { 3 => 2f, 2 => 1.5f, 1 => 1.25f, _ => 1f };
+    private Control BuildControlSettings()
+    {
+        var scroll = SettingsPage(out var column);
+        var camera = AddOptionRow(column, "镜头速度", ["慢", "标准", "快"]);
+        camera.Selected = _session.State.Settings.CameraLookSensitivity switch { >= 1.2f => 2, <= .8f => 0, _ => 1 };
+        camera.ItemSelected += index => { _session.State.Settings.CameraLookSensitivity = index switch { 2 => 1.35f, 0 => .65f, _ => 1f }; _session.NotifyChanged(); ApplySettingsVisuals(); };
+        var vibration = AddToggle(column, "手柄震动", _session.State.Settings.VibrationEnabled);
+        vibration.Toggled += enabled => { _session.State.Settings.VibrationEnabled = enabled; _session.NotifyChanged(); };
+        var note = UiStyles.Wrapped(UiText.Get("UI_CONTROL_REFERENCE")); UiStyles.Font(note, 12); column.AddChild(note);
+        return scroll;
+    }
+    private Control BuildAccessibilitySettings()
+    {
+        var scroll = SettingsPage(out var column);
+        var speed = AddOptionRow(column, "自动播放速度", ["舒缓", "标准", "快速"]);
+        speed.Selected = _session.State.Settings.TextSpeed switch { >= 1.5f => 2, <= .75f => 0, _ => 1 };
+        speed.ItemSelected += index => { _session.State.Settings.TextSpeed = index switch { 2 => 1.5f, 0 => .75f, _ => 1f }; _session.NotifyChanged(); };
+        var story = AddToggle(column, "故事模式（战斗不损失意志）", _session.State.Settings.StoryMode);
+        story.Toggled += enabled => { _session.State.Settings.StoryMode = enabled; _session.NotifyChanged(); };
+        var contrast = AddToggle(column, "高对比交互提示", _session.State.Settings.HighContrastPrompts);
+        contrast.Toggled += enabled => { _session.State.Settings.HighContrastPrompts = enabled; _session.NotifyChanged(); ApplySettingsVisuals(); };
+        var motion = AddToggle(column, UiText.Get("UI_REDUCE_MOTION"), _session.State.Settings.ReduceFlashing);
+        motion.Toggled += enabled => { _session.State.Settings.ReduceFlashing = enabled; _session.NotifyChanged(); ApplySettingsVisuals(); };
+        return scroll;
     }
 
     private static OptionButton AddOptionRow(VBoxContainer column, string labelText, IReadOnlyList<string> items)
@@ -1498,7 +1193,7 @@ public partial class MainController : Node
             return;
         }
 
-        _uiRoot.Theme.DefaultFontSize = Mathf.RoundToInt(14 * _session.State.Settings.FontScale);
+        UiStyles.ApplyScale(_uiRoot, _session.State.Settings.FontScale);
         _promptLabel?.AddThemeStyleboxOverride("normal", UiStyles.Panel(
             _session.State.Settings.HighContrastPrompts ? new Color("000000ff") : new Color("1a2638e5"), 5));
         _dream?.ApplySettings(_session.State.Settings);

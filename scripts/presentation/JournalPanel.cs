@@ -8,127 +8,54 @@ namespace TownRpg.Presentation;
 public partial class JournalPanel : Control
 {
     public event Action? Closed;
-
-    private RichTextLabel _body = null!;
-    private Button _close = null!;
-
+    private ManagementMenuShell _shell = null!;
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var shade = new ColorRect { Color = new Color(0, 0, 0, 0.62f) };
-        shade.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        AddChild(shade);
-
-        var frame = new PanelContainer();
-        frame.SetAnchorsPreset(LayoutPreset.Center);
-        frame.Position = new Vector2(-250, -155);
-        frame.Size = new Vector2(500, 310);
-        frame.AddThemeStyleboxOverride("panel", UiStyles.Panel(new Color("222d3ef2"), 10));
-        AddChild(frame);
-
-        var layout = new VBoxContainer();
-        frame.AddChild(layout);
-        var titleRow = new HBoxContainer();
-        layout.AddChild(titleRow);
-        var title = new Label { Text = "事实手册" };
-        title.AddThemeFontSizeOverride("font_size", 20);
-        title.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        titleRow.AddChild(title);
-        titleRow.AddSpacer(false);
-        _close = UiStyles.Button("关闭 [J]");
-        _close.Pressed += () => Closed?.Invoke();
-        titleRow.AddChild(_close);
-
-        _body = new RichTextLabel
-        {
-            BbcodeEnabled = true,
-            CustomMinimumSize = new Vector2(470, 250),
-            ScrollActive = true
-        };
-        layout.AddChild(_body);
-        Visible = false;
+        _shell = new ManagementMenuShell(); AddChild(_shell); _shell.SetTitle(UiText.Get("UI_JOURNAL"));
+        _shell.CloseRequested += () => Closed?.Invoke(); Visible = false;
     }
-
     public void Open(GameSession session, string dialogueHistory)
     {
         var state = session.State;
-        var lines = new List<string>
+        var entries = new List<ArchiveEntry>();
+        Add("risk", "UI_RISK", [ExposureLabel(state.World.Exposure)]);
+        var relation = new List<string>();
+        foreach (var npc in new[] { CharacterIds.AbilityHolder, CharacterIds.KnowledgeFriend, CharacterIds.TokenHolder, CharacterIds.Shopkeeper })
         {
-            $"[font_size=18][color=#b9d1c5]第 {state.World.Day} 日　{FormatTime(state.World.MinuteOfDay)}[/color][/font_size]",
-            $"[b]关注风险：[/b]{ExposureLabel(state.World.Exposure)}",
-            "",
-            "[font_size=17][b]人物关系[/b][/font_size]"
-        };
-
-        foreach (var npcId in new[]
-                 {
-                     CharacterIds.AbilityHolder,
-                     CharacterIds.KnowledgeFriend,
-                     CharacterIds.TokenHolder,
-                     CharacterIds.Shopkeeper
-                 })
-        {
-            var relationship = state.Relationships.FirstOrDefault(item =>
-                item.SourceId == npcId && item.TargetId == CharacterIds.Protagonist);
-            lines.Add(relationship is null
-                ? $"• {WorldSceneController.CharacterName(npcId)}　好感：陌生　信赖：戒备"
-                : $"• {WorldSceneController.CharacterName(npcId)}　好感：{relationship.AffinityLabel}　信赖：{relationship.TrustLabel}");
+            var r = state.Relationships.FirstOrDefault(x => x.SourceId == npc && x.TargetId == CharacterIds.Protagonist);
+            relation.Add(r is null ? $"{WorldSceneController.CharacterName(npc)}\n好感：陌生　信赖：戒备" :
+                $"{WorldSceneController.CharacterName(npc)}\n好感：{r.AffinityLabel}　信赖：{r.TrustLabel}");
         }
-
-        lines.AddRange(["", "[font_size=17][b]已知作息[/b][/font_size]"]);
-        var scheduleService = new ScheduleService(session.Content.Schedules.Entries);
-        foreach (var npcId in state.Investigation.KnownScheduleEntries.OrderBy(id => id, StringComparer.Ordinal))
+        Add("people", "UI_PEOPLE", relation);
+        var schedules = new List<string>();
+        var service = new ScheduleService(session.Content.Schedules.Entries);
+        foreach (var id in state.Investigation.KnownScheduleEntries.OrderBy(x => x, StringComparer.Ordinal))
         {
-            var current = scheduleService.Current(npcId, state.World);
-            var next = current ?? scheduleService.NextVisible(npcId, state.World);
-            lines.Add(next is null
-                ? $"• {WorldSceneController.CharacterName(npcId)}：目前没有已知的下一时段。"
-                : $"• {WorldSceneController.CharacterName(npcId)}：第 {next.Day ?? state.World.Day} 日 {FormatTime(next.StartMinute)}–{FormatTime(next.EndMinute)}，{LocationLabel(next.LocationId)}。");
+            var next = service.Current(id, state.World) ?? service.NextVisible(id, state.World);
+            schedules.Add(next is null ? $"{WorldSceneController.CharacterName(id)}：目前没有已知的下一时段。" :
+                $"{WorldSceneController.CharacterName(id)}\n第 {next.Day ?? state.World.Day} 日 {FormatTime(next.StartMinute)}–{FormatTime(next.EndMinute)}，{LocationLabel(next.LocationId)}。");
         }
-        if (state.Investigation.KnownScheduleEntries.Count == 0)
+        Add("schedules", "UI_SCHEDULES", schedules);
+        Add("promises", "UI_PROMISES", state.Promises.Select(p => $"{p.Description}\n{PromiseLabel(p.Status)}"));
+        Add("facts", "UI_FACTS", state.World.Facts.Select(FactLabel));
+        Add("evidence", "UI_EVIDENCE", state.World.Evidence.Select(EvidenceLabel));
+        Add("leads", "UI_LEADS", state.Investigation.Leads.Select(LeadLabel));
+        Add("timeline", "UI_TIMELINE", state.Investigation.Timeline.Select(e => $"第 {e.Day} 日　{TimelineLabel(e.TextKey)}"));
+        Add("history", "UI_DIALOGUE_HISTORY", string.IsNullOrWhiteSpace(dialogueHistory) ? [] : [dialogueHistory]);
+        _shell.SetTitle(UiText.Get("UI_JOURNAL") + $"　·　第 {state.World.Day} 日");
+        _shell.SetPages([new ManagementPage("journal", UiText.Get("UI_JOURNAL"), "", () => true,
+            () => new ArchiveReader { Entries = entries }, c => ((ArchiveReader)c).SelectionControl)]);
+        Visible = true; _shell.FocusContent();
+        void Add(string id, string titleKey, IEnumerable<string> lines)
         {
-            lines.Add("• 第一次交谈后，会逐步记下对方的常见去处。");
+            var text = string.Join("\n\n", lines);
+            entries.Add(new ArchiveEntry("journal." + id, $"第 {state.World.Day} 日 {FormatTime(state.World.MinuteOfDay)}", UiText.Get(titleKey),
+                text.Length == 0 ? UiText.Get("UI_JOURNAL_EMPTY") : text));
         }
-
-        lines.AddRange(["", "[font_size=17][b]承诺[/b][/font_size]"]);
-        if (state.Promises.Count == 0)
-        {
-            lines.Add("• 尚未作出重要承诺。");
-        }
-        else
-        {
-            lines.AddRange(state.Promises.Select(promise =>
-                $"• {promise.Description}　[{PromiseLabel(promise.Status)}]"));
-        }
-
-        lines.AddRange(["", "[font_size=17][b]已确认事实与调查方向[/b][/font_size]"]);
-        lines.AddRange(state.World.Facts.Select(fact => $"• {FactLabel(fact)}"));
-        lines.AddRange(state.Investigation.Leads.Select(lead => $"→ {LeadLabel(lead)}"));
-        lines.AddRange(state.World.Evidence.Select(evidence => $"◆ 证据：{EvidenceLabel(evidence)}"));
-        if (state.World.Facts.Count == 0 && state.Investigation.Leads.Count == 0)
-        {
-            lines.Add("• 先在镇上走走，与熟人聊聊。");
-        }
-
-        lines.AddRange(["", "[font_size=17][b]时间线[/b][/font_size]"]);
-        foreach (var entry in state.Investigation.Timeline)
-        {
-            lines.Add($"第 {entry.Day} 日　{TimelineLabel(entry.TextKey)}");
-        }
-
-        if (!string.IsNullOrWhiteSpace(dialogueHistory))
-        {
-            lines.AddRange(["", "[font_size=17][b]近期对话[/b][/font_size]", dialogueHistory]);
-        }
-
-        _body.Text = string.Join("\n", lines);
-        Visible = true;
     }
-
-    public void ClosePanel() => Visible = false;
-
-    public void SetGamepadPrompts(bool useGamepad) =>
-        _close.Text = useGamepad ? "关闭 [Y]" : "关闭 [J]";
+    public void ClosePanel() { UiStyles.ReleaseFocus(this); Visible = false; }
+    public void SetGamepadPrompts(bool useGamepad) => _shell.SetGamepad(useGamepad);
 
     private static string FormatTime(int minute) => $"{minute / 60:00}:{minute % 60:00}";
 
