@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/generated/village/3d/village-v2.glb" id="1"]
+[ext_resource type="PackedScene" path="res://assets/generated/village/terrain-sample-v1/terrain.tscn" id="2"]
+
+[node name="VillageTerrainAuthoring" type="Node3D"]
+
+[node name="VillageReference" parent="." instance=ExtResource("1")]
+metadata/_edit_lock_ = true
+
+[node name="Terrain" parent="VillageReference/VillageV1"]
+visible = false
+
+[node name="Terrain3D" parent="." instance=ExtResource("2")]
+
+[editable path="VillageReference"]

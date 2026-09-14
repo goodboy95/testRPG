@@ -46,7 +46,15 @@ public partial class PrologueE2EProbe : Node
         {
             var next = Find<Button>().FirstOrDefault(b => b.Name == "DialogueContinue" && b.IsVisibleInTree());
             if (next is not null) { await Click(next); quiet = 0; }
-            else { await Frames(2); if (++quiet > 15) return; }
+            else
+            {
+                await Frames(2);
+                if (Find<Control>().Any(c=>c.Name=="WakeFade" && !c.IsQueuedForDeletion()) ||
+                    Dream.Status is DreamEscapeStatus.CompletedEscape or DreamEscapeStatus.CompletedPin &&
+                    (Session.State.VillageExploration?.WakeIntroductionComplete != true || Session.Modal.IsBlocked))
+                { quiet=0;continue; }
+                if (++quiet > 15) return;
+            }
         }
         throw new InvalidOperationException("Dialogue did not settle.");
     }
@@ -88,7 +96,17 @@ public partial class PrologueE2EProbe : Node
     }
     private async Task Walk(string id)
     {
-        _step=id; var area=Area;var player=area.GetNode<PlayerController3D>("Player");var rig=area.GetNode<ThirdPersonCameraRig>("ThirdPersonCameraRig");
+        _step=id;
+        if (Input.MouseMode != Input.MouseModeEnum.Captured)
+        {
+            // A departing camera can release the cursor after an area transition. Use the same
+            // click-to-recapture path available to the player before driving captured mouse motion.
+            GetWindow().GrabFocus();await Frames(2);
+            Input.ParseInputEvent(new InputEventMouseButton { ButtonIndex=MouseButton.Left,Pressed=true });
+            Input.ParseInputEvent(new InputEventMouseButton { ButtonIndex=MouseButton.Left,Pressed=false });await Frames(2);
+            Require(Input.MouseMode==Input.MouseModeEnum.Captured,"Pointer did not recapture before "+id);
+        }
+        var area=Area;var player=area.GetNode<PlayerController3D>("Player");var rig=area.GetNode<ThirdPersonCameraRig>("ThirdPersonCameraRig");
         var marker=area.GetNode<Node3D>("InteractionMarkers").GetChildren().OfType<InteractionMarker3D>().Single(m=>m.TargetId==id);
         var blocked=Blocked(area);var goal=new Vector3(marker.GlobalPosition.X,0,marker.GlobalPosition.Z);
         Require(!blocked(goal),"Target is blocked: "+id);
@@ -97,7 +115,7 @@ public partial class PrologueE2EProbe : Node
             var previous=player.GlobalPosition;var stuck=0;
             for(var frame=0;player.GlobalPosition.DistanceTo(waypoint)>.13f;frame++)
             {
-                Require(frame<1800 && stuck<90,$"Walking stuck at {player.GlobalPosition} toward {waypoint}; input={player.InputEnabled} modal={Session.Modal.IsBlocked}");
+                Require(frame<1800 && stuck<90,$"Walking stuck at {player.GlobalPosition} toward {waypoint}; input={player.InputEnabled} modal={Session.Modal.IsBlocked} mouse={Input.MouseMode} yaw={rig.YawDegrees}");
                 var direction=waypoint-player.GlobalPosition; var yaw=Mathf.RadToDeg(Mathf.Atan2(-direction.X,-direction.Z));
                 var delta=Mathf.Wrap(yaw-rig.YawDegrees,-180f,180f);
                 Input.ParseInputEvent(new InputEventMouseMotion { ScreenRelative=new(-delta/(rig.MouseDegreesPerPixel*rig.LookSensitivity),0) });
@@ -143,12 +161,12 @@ public partial class PrologueE2EProbe : Node
         Require(fingerprint==Fingerprint(),"Pin cancel changed progress");
         await KeyPress(Key.I);await Click(Named("Item_dream_pin"));await Click(TextButton(DreamPrologueText.Get("DREAM_V6_UI_INVENTORYPANEL_004")));
         await Click(dialog.GetOkButton());await Frames(30);await Settle();
-        Require(Dream.Status==DreamEscapeStatus.CompletedPin && Dream.Items.Count==0 && Session.State.Player.LocationId=="old_house","Pin did not finish cleanly");
-        Require(Find<Control>().Any(c=>c.Name=="PinCompletion"&&c.IsVisibleInTree()),"Pin completion missing");
+        Require(Dream.Status==DreamEscapeStatus.CompletedPin && Dream.Items.Count==0 && Session.State.Player.LocationId==VillageExplorationState.HomeLocation,"Pin did not finish cleanly");
+        Require(_main.VillageRuntime is { IsInterior:true } && Session.State.VillageExploration!.WakeIntroductionComplete,"Pin wake missing");
         File.Copy(_save,Path.Combine(_output,"pin-"+area+".json"),true);
-        await Click(TextButton("返回标题"));await Frames(15);await Click(TextButton("继续"));await Frames(30);
+        await Title();await Frames(15);await Click(TextButton("继续"));await Frames(60);await Settle();
         Require(Dream.Status==DreamEscapeStatus.CompletedPin && Dream.Items.Count==0,"Pin terminal reload failed");
-        await Click(TextButton("返回标题"));await Frames(15);File.WriteAllBytes(_save,earned);
+        await Title();await Frames(15);File.WriteAllBytes(_save,earned);
         await Click(TextButton("继续"));await Frames(40);await Settle();Require(fingerprint==Fingerprint(),"Earned branch restoration failed");_pins++;Log("pin cancel/confirm/terminal-reload "+area);
     }
     public override void _Ready()=>CallDeferred(MethodName.Run);
@@ -158,12 +176,12 @@ public partial class PrologueE2EProbe : Node
         try
         {
             Require(OS.GetCmdlineUserArgs().Contains("--prologue-e2e"),"Missing acceptance flag");
-            _output=ProjectSettings.GlobalizePath("res://outputs/late-rooms-v2/prologue-e2e/"+DateTime.Now.ToString("yyyyMMdd-HHmmss"));Directory.CreateDirectory(_output);_save=Path.Combine(_output,"save.json");
+            _output=ProjectSettings.GlobalizePath("res://outputs/village-wake/prologue-e2e/"+DateTime.Now.ToString("yyyyMMdd-HHmmss"));Directory.CreateDirectory(_output);_save=Path.Combine(_output,"save.json");
             string? Hash(string p)=>File.Exists(p)?Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))):null;
             var formalPath=ProjectSettings.GlobalizePath(GameSession.SavePath);formal=new[]{formalPath,formalPath+".bak",formalPath+".tmp"}.ToDictionary(p=>p,Hash);
             try{Session.UseTestSavePath(formalPath);throw new InvalidOperationException("Unsafe save path accepted");}catch(ArgumentException){}
             saveLease=Session.UseTestSavePath(_save);_main=ResourceLoader.Load<PackedScene>("res://scenes/app/Main.tscn").Instantiate<MainController>();AddChild(_main);await Frames(20);
-            await Click(TextButton("开始新游戏"));await Click(TextButton("开始暑假"));await Frames(20);
+            await Click(TextButton("开始新游戏"));await Click(TextButton("开始游戏"));await Frames(20);
             var reminder=Find<AcceptDialog>().Single(d=>d.Name=="EntryControlReminder");await Click(reminder.GetOkButton());await Frames(10);
             var events=Session.State.CompletedEvents.Count;await KeyPress(Key.Escape);Require(Session.State.CompletedEvents.Count==events,"Canceled intro committed an event");await Settle();
             await PinBranch();
@@ -213,12 +231,12 @@ public partial class PrologueE2EProbe : Node
             Require(actor.GlobalPosition.DistanceTo(position)<.01f&&actor.Velocity.Length()<.001f,"Lost focus retained movement");KeyState(Key.W,false);GetTree().Root.PropagateNotification((int)NotificationWMWindowFocusIn);await Frames();
             Log("cooperation reset by inventory and room return; synthetic focus clears movement");
             await Interact("action:left_lever",true);await Interact("action:handoff_monitor",true);await Interact("observe:target.auditorium.handoff_circuit",true);await Interact("action:open_exit",true);
-            Require(Dream.Status==DreamEscapeStatus.ExitOpened,"Exit not opened");Require(Session.State.CompletedEvents.Count(e=>e.StartsWith("dream."))==13,"Expected 13 prologue events");
+            Require(Dream.Status==DreamEscapeStatus.CompletedEscape,"Escape did not wake");Require(Session.State.CompletedEvents.Count(e=>e.StartsWith("dream."))==13,"Expected 13 prologue events");
             Require(Session.State.World.Facts.Count==0&&Session.State.World.Evidence.Count==0&&Session.State.Investigation.Leads.Count==0,"Dream leaked into waking investigation");
-            Require(Find<Control>().Any(c=>c.Name=="DreamMechanicsComplete"&&c.IsVisibleInTree()),"Exit completion page missing");
-            File.Copy(_save,Path.Combine(_output,"exit-opened.json"),true);var completed=Fingerprint();await Click(TextButton("返回标题"));await Frames(15);await Click(TextButton("继续"));await Frames(40);await Settle();
-            Require(completed==Fingerprint()&&Find<Control>().Any(c=>c.Name=="DreamMechanicsComplete"&&c.IsVisibleInTree()),"Exit reload did not restore completion");_reloads++;
-            await Click(TextButton("返回标题"));await Frames(10);Require(TextButton("开始新游戏").IsVisibleInTree(),"No title after completion");
+            Require(_main.VillageRuntime is {IsInterior:true} && Session.State.VillageExploration!.WakeIntroductionComplete,"Escape wake missing");
+            File.Copy(_save,Path.Combine(_output,"completed-escape.json"),true);var completed=Fingerprint();await Title();await Frames(15);await Click(TextButton("继续"));await Frames(60);await Settle();
+            Require(completed==Fingerprint()&&_main.VillageRuntime is {IsInterior:true},"Exit reload did not restore completion");_reloads++;
+            await Title();await Frames(10);Require(TextButton("开始新游戏").IsVisibleInTree(),"No title after completion");
             foreach(var pair in formal)Require(Hash(pair.Key)==pair.Value,"Formal save changed: "+pair.Key);
             Log($"PROLOGUE_E2E_PASS walks={_walks} meters={_meters:F2} clicks={_clicks} reloads={_reloads} pins={_pins} events=13 keyboard_mouse joypad isolated_save");
             File.WriteAllText(Path.Combine(_output,"report.json"),JsonSerializer.Serialize(new{status="PASS",input="synthetic keyboard Enter/F/W + captured mouse motion + joypad A/B/X/D-pad; real physics",walks=_walks,meters=_meters,activations=_clicks,reloads=_reloads,pinBranches=_pins,events=13,formalSaveAndBackupAndTemporaryUnchanged=true,saves=_saves,limitations="No human blind test, physical raw mouse delta, real Xbox, target GPU or export acceptance."},new JsonSerializerOptions{WriteIndented=true}));

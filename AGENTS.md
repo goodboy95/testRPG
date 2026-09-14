@@ -2,6 +2,26 @@
 
 本文件适用于根目录及全部子目录。任何人或自动化代理修改项目之前都必须先阅读本文件，再从 [doc/README.md](doc/README.md) 进入详细交接文档。
 
+## 按任务找文档
+
+| 要做的工作 | 直接入口 |
+| --- | --- |
+| 找所有文档、专项工程与验收 | [项目概览](README.md)、[分类索引与交接首页](doc/README.md)、[项目结构](doc/structure.md) |
+| 世界观、人物与剧情红线 | [剧情圣经](doc/design/story-bible.md) |
+| 第一章任务、场景与章末事件 | [第一章细案](doc/design/chapter-one.md) |
+| 村庄赶路、地形与贴图优化 | [分批优化计划](doc/design/village-optimization.md)、[地形样板](doc/engineering/village-terrain-sample.md)、[地形验收](doc/production/village-terrain-validation.md)、[赶路验收](doc/production/village-travel-validation.md) |
+| 村庄建筑、院落与外景建模设计 | [村庄外景细案](doc/design/village-exterior.md)、[第一批建模 v2](doc/engineering/village-v2.md) |
+| 章节推进、第二章接口与历史替代 | [剧情流程](doc/design/story-flow.md) |
+| 玩法、时间、战斗与成长 | [游戏设计](doc/design/game-design.md) |
+| 梦境醒来、村庄正式存档与恢复 | [正式村庄探索](doc/engineering/village-wake.md) |
+| 当前能运行什么 | [当前实现](doc/engineering/current-implementation.md) |
+| 模块边界、状态与存档 | [架构](doc/engineering/architecture.md) |
+| 写事件、对白、角色与资源 | [内容制作规范](doc/engineering/content-authoring.md) |
+| 构建、测试、人工验收与发布 | [测试与发布](doc/production/testing-release.md) |
+| 下一步工作与接入门槛 | [交接路线图](doc/production/roadmap-handoff.md) |
+
+第一章详细正文只维护在细案中；各入口保留摘要。场景、UI、角色动作、资产和历史资料从交接首页分类索引进入，至多两次点击可达。文档设计不代表已经接入游戏。
+
 ## 项目约束
 
 - 项目名：town-rpg
@@ -21,9 +41,9 @@ Web、数据库、外部微服务、HTTP/gRPC、域名、监听端口、反向�
 
 1. 可执行测试和当前源码决定“现在实际怎样运行”。
 2. 本文件决定技术、范围和剧情红线。
-3. `doc/design/story-bible.md` 决定既定世界观、人物动机和幕后真相。
+3. `doc/design/story-bible.md` 决定当前世界观、人物边界和已确认的叙事方向；未定真相不得自行补成固定设定。
 4. `doc/engineering/architecture.md` 决定模块边界与状态所有权。
-5. `doc/design/story-flow.md` 中的 `[可调整草案]` 是制作建议，不是已实现事实。
+5. `doc/design/story-flow.md` 保存章节概要，`doc/design/chapter-one.md` 保存第一章细案；其中 `[可调整草案]` 是制作建议，不是已实现事实。
 
 文档统一使用四种状态标签：
 
@@ -33,6 +53,46 @@ Web、数据库、外部微服务、HTTP/gRPC、域名、监听端口、反向�
 - `[可调整草案]`：接手者可调整，但要保持固定约束和前后因果。
 
 禁止用“已经完成”描述只存在于剧情大纲或 Core 枚举中的功能。
+
+## 醒后剧情方向（2026-09-13 确认，09-14 更新地点）
+
+- `[固定约束]` 主角一直在村中生活，在附近读高中；父母两年前外出务工后失踪，独居且由村中长辈照应，课余帮村民做事挣钱。父母真相有意留白，不预定为主线。
+- `[计划]` 保留近现代青春奇幻冒险、人物基础与梦境序章；前两章村庄及周边，之后逐渐游历。第一章为周六正常日常委托，第二章周日早上收到下午返校通知，上午可继续剩余事项；学校事件与后续主线留白。
+- `[固定约束]` 主角先独自完成两件短活，前中期主动邀请沈砚；晓雨第一章现实不出场、不同行或远程指导。同村但不熟、梦中首次深入合作的关系基础不变。
+- `[固定约束]` 广场任务板、村长代管酬金与日常收件箱构成委托入口。三条必要任务链均交差后登记取旧工具箱；支线和领钱不影响解锁。玩家不看到主支线分类、任务链或完成比例；报酬用于装备、治疗物品，无生活费扣款或收入门槛。
+- `[计划]` 主路径含两处普通动物情境战，可撤退重试；另有切磋和独立支线链。周六按剧情阶段推进，探索不耗尽当天，关键事项有中断恢复路径。
+- `[固定约束]` 工具箱前没有异常。章末取回彭师傅早年遗失在外地的箱子，他否认委托；正常核实后没有有效调查方向，留下疑惑即实质结章。可继续支线或回家睡觉进入周日。不填入求救对象、秘密日记、组织标记或父母线索；来源有意留白。
+- `[可调整草案]` 委托、配角、物件、场景和战斗细节见[第一章细案](doc/design/chapter-one.md)。09-12 的暑假返乡、乔姨求助信入口与章末解决新困难已由本轮替代；旧公司、绑架和七日封印终局仍只作[历史素材](doc/design/story-bible-legacy.md)。
+- `[固定约束]` 前述剧情设计轮只改 Markdown。程序、数据、存档、梦境机关、稳定 ID、内容版本 6 不变；当前仍止于 `ExitOpened`／`CompletedPin`，第一章和第二章均未接入。详见[剧情流程](doc/design/story-flow.md)。
+
+## 村庄与森林制作方向（2026-09-14 负责人已确认）
+
+- `[固定约束]` 第一章在村庄与附近森林活动；村内没有敌对遭遇，自愿陪练保留。林缘劳作链的送饭、取物与山猴遭遇均在森林入口以内；野猪遭遇、取箱与现场复查均在森林。
+- `[计划]` 主角去活动室门前邀请沈砚；森林小屋取代旧北坡铁路附屋的取箱安排。既有铁路附屋保留为普通村景，森林小屋的来源与铁路没有预定联系。
+- `[固定约束]` 先完成村庄外景设计文档，模型与游戏暂不修改。保留主角家、溪流、双桥及主路骨架，采用自然生活感，重点地点详设、全村 24 栋分级；普通建筑只设计外观与院落。森林、森林小屋、动物与 NPC 建模另行安排。
+- `[计划]` 外景细案统一见[村庄外景设计](doc/design/village-exterior.md)；三批依次为广场／两铺、活动室／任务院落／溪边、一般建筑／旧站／植被与森林出口接近段。没有新增公共 API、类型、存档字段或运行时 ID。
+
+## 村庄第一批外景建模（2026-09-14 后续授权）
+
+- `[已实现]` 第一批广场、杂货铺、木器为主的修理铺已制作为独立村庄 v2 并接入漫游预览；新增物件仅静态外观与碰撞，任务和第一章仍未接入。此前“先文档、暂不改模型”是上一轮边界，本轮已获负责人建模授权。
+- `[固定约束]` v1、住宅源、24 栋建筑位置体量、地形路桥、Core、存档与内容版本 6 保留。默认预览使用 v2，`--village-v1` 显式回归。v2 人工修改后用 `export`，禁止用 `build` 覆盖手工精修。制作与实际验证见[村庄 v2](doc/engineering/village-v2.md)与[验收](doc/production/village-v2-validation.md)。
+
+## 醒来与村庄正式接入（2026-09-14 后续授权）
+
+- `[已实现]` 正常解谜和大头针刺醒经床边短过渡进入周六住宅／村庄自由探索；两路分别为 CompletedEscape／CompletedPin。第一章委托、居民、森林及第二章未接入。
+- `[固定约束]` 本轮获准修改正式路由、Core 可选现实状态、存档兼容与醒来字幕；此前“止于 ExitOpened／独立预览／存档不变”为当轮边界。SaveEnvelope v1、梦境内容版本 6、旧版未完成梦境重开与 Legacy 路由保留。
+- `[已实现]` 正式保存位置、朝向、镜头和门灯，独立预览不访问存档；不新增奖励、关系、现实调查线索、菜单跳过或睡眠。模型资产未重建，说明见[正式村庄探索](doc/engineering/village-wake.md)及[本轮验收](doc/production/village-wake-validation.md)。
+
+## 村庄赶路优化（2026-09-14 后续授权）
+
+- `[已实现]` 村庄 v2 正式探索与独立预览室外速度为 4.2 米/秒；住宅、梦境、显式 v1 回归仍为 3.1，Shift 慢走为 1.4。该调整属于场景表现层，不改动画原始速度基准或存档。
+- `[固定约束]` 本轮保留建筑道路、地形、镜头与模型资产，不新增快跑操作、体力、设置项、任务或时间推进。地形插件和贴图只列入[后续计划](doc/design/village-optimization.md)，尚未制作；验证见[本轮记录](doc/production/village-travel-validation.md)。
+
+## Terrain3D 地形样板（2026-09-14 后续授权）
+
+- `[已实现]` Terrain3D 1.0.2 已安装，家门外道路、广场边缘和南桥西岸三处样板进入独立 `VillageTerrainPreview.tscn`；四区域承载基础地面，三处精修。样板制作轮未切换正式入口；负责人随后确认“看着不错，可以覆盖”，当前正式村庄与默认 v2 预览已采用这版地形。
+- `[固定约束]` 本轮已获插件安装、地表素材及样板表现层接入授权，先前“未安装、地形不修改”为赶路轮边界。Godot 4.6.3／Compatibility、Core、存档、内容版本 6、旧 Blend/GLB 与建筑路桥保留；不接任务、森林或建筑新材质。
+- 原生区域和材质为后续编辑源；初始化工具拒绝覆盖既有文件。制作、备份和实际检查见[地形样板](doc/engineering/village-terrain-sample.md)及[样板验收](doc/production/village-terrain-validation.md)、[正式采用验收](doc/production/village-terrain-adoption.md)。负责人已确认本版外观；真实设备手感与目标硬件验收仍单列。原 v2 地面使用独立预览 `--village-original-terrain` 回归，v1 原入口不变；不覆盖原 Blend/GLB，不改 Core/存档格式。
 
 ## 技术基线
 
@@ -46,12 +106,12 @@ Web、数据库、外部微服务、HTTP/gRPC、域名、监听端口、反向�
 
 详细数据流和边界见 [架构文档](doc/engineering/architecture.md)。
 
-完整剧透和角色关系以 [剧情圣经](doc/design/story-bible.md) 为准。
+当前叙事方向与角色关系以 [剧情圣经](doc/design/story-bible.md) 为准；历史稿不覆盖现行决策。
 
 ## 内容与资产规则
 
 - 稳定 ID 使用小写英文、数字、点和下划线；发布后不得复用旧 ID 表示新含义。
-- `Facts` 是已确认事实，`Evidence` 是可用于揭露公司的证据，`Leads` 是可调查方向，三者不得混用。
+- `Facts` 是已确认事实，`Evidence` 是可向他人出示以支持说法的证据，`Leads` 是可调查方向，三者不得混用；揭露公司是旧版证据用途，不限定新剧情。
 - 新角色、日程或事件必须同步 JSON、本地化、对白、资源引用和内容完整性测试。
 - 每个事件使用独立 `.dialogue` 文件、唯一静态文本 ID，并且恰好执行一次对应 `complete_event`。
 - 未知状态键、对白命令、参数数量、跳转、角色引用或本地化键必须在构建检查中失败，不能静默忽略。
@@ -127,3 +187,7 @@ GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=21 items=31
 截至 2026-09-10：`[已实现]` 第三、第四室 v2：档案室 14×12×4.2 米、13 标记／20 碰撞；礼堂 22×16×7.5 米、15 标记／56 碰撞、32 座共享网格，抬高舞台仅景观。两份共享布局统一建模、碰撞、门轴、安全落点与晓雨连续绕行；使用独立 v2 Blend／GLB，v1 保留历史，禁止旧构建器覆盖。只读复验分别使用 `remodel_archive_v2.py check`、`remodel_auditorium_v2.py check`。Core／存档格式／答案／剧情／内容版本 6 不变，当前 145 项测试（143＋2 项实际 GLB／布局检查）。完整输入序章到 `ExitOpened` 完成页通过，含 6 处隔离真实存读档、四室大头针分支、13 个事件与中断恢复；九场景及 UI 回归、三分辨率场景 117 图与字号/独立字幕 144 图通过。测试存档仅在显式 `--prologue-e2e` 下注入项目 `outputs/`，正式路径不变。详情见[档案室](doc/engineering/archive-remodel-v2.md)、[礼堂](doc/engineering/auditorium-remodel-v2.md)和[验收](doc/production/late-rooms-v2-validation.md)。档案室加载曾记录约 16 秒，独立复测约 0.99 秒，原始数据保留，目标硬件冷启动与性能仍待验收；自动通关不代表负责人视觉确认、真实 Xbox/raw delta、听音、盲测或导出通过。本机角色及截图限制不变。
 
 截至 2026-09-12：`[已实现·仅本机非商业]` 双角色动作 v3：林晓雨使用 `assets/流萤建模` 的流萤“春日手信”外观（隐藏剑、1.6 米），玩家保留现有 mc_model；每人 12 段动画，五区平滑跟随、实际位移步频、到位后协作与模态待机/交互已接入。Core/存档/剧情/答案/内容版本 6 不变，测试 151（145＋6 项表现层规则）。九场景、五区专项、完整输入通关与图形记录见[双角色动作](doc/engineering/character-motion.md)和[验收](doc/production/character-motion-v3-validation.md)。原 PMX、制作源、镜像及含角色画面均只限本机，不得提交、推送、分发或导出；缺失时保留 billboard。玩家静态候选 v2 未继续开发；人工自然度、真实输入设备、目标硬件和导出仍待验收。
+
+截至 2026-09-12：`[已实现]` 主角家 3D v1 独立漫游：12×9×3.2 米平房、15×18 米院地、两卧一厅与独立厨卫，五处房门和六组灯可操作；`HomeLayout3D` 统一 Blender 几何与 Godot 碰撞/门轴/安全点。入口为 `scenes/testing/HomePreview.tscn`，状态仅属于当前实例，不写正式存档，没有晓雨或剧情线索；醒后剧情尚未接入，正式新游戏、Legacy、梦境结算和内容版本 6 不变。独立源为 `art/blender/home/home-v1.blend`，GLB/manifest 位于 `assets/generated/home/3d/`；用 `build_home_v1.py check` 只读复验，灰模仅写入 `work/home-v1-graybox/`。155 项测试（151＋4）、零警告 Debug 构建、九场景回归及住宅 179 项图形专项通过，三分辨率 84 张截图与加载耗时见[实现](doc/engineering/home-v1.md)和[验收](doc/production/home-v1-validation.md)。负责人视觉确认、真实 Xbox/raw delta、目标硬件冷启动和导出仍待验收；本机角色与含角色截图的限制不变。
+
+截至 2026-09-12：`[已实现]` 村庄 3D v1 独立漫游：24 栋建筑（18 住宅＋6 公用/铁路建筑）、两桥、溪岸与旧站回环，院路连续，住宅正门淡入淡出往返既有室内。`VillageLayout3D` 统一地形网格、建筑、道路、桥面和碰撞，角色可选地形移动默认关闭，仅村庄开启；预览缓存住宅临时门灯状态，重置释放，不写正式存档，不接入居民/对白/任务或醒后剧情。独立源 `art/blender/village/village-v1.blend`，运行资源 `assets/generated/village/3d/`；用 `build_village_v1.py check` 只读复验，不能覆盖住宅 v1 源。当前 162 项测试（155＋6 布局/地形＋1 实际 GLB），零警告构建、九场景与住宅回归、村庄路线/转场和三分辨率专项见[制作](doc/engineering/village-v1.md)与[验收](doc/production/village-v1-validation.md)。内容版本 6 与正式路由不变。负责人视觉确认、真实 Xbox/raw delta、目标硬件与导出仍待验收；本机角色及截图限制不变。

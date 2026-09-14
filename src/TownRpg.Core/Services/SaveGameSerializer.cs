@@ -17,6 +17,8 @@ public static class SaveGameSerializer
     {
         "old_house",
         "station_quarter",
+        VillageExplorationState.HomeLocation,
+        VillageExplorationState.VillageLocation,
         DreamEscapeIds.Location
     };
 
@@ -134,6 +136,14 @@ public static class SaveGameSerializer
         }
 
         ValidateDreamEscape(game.DreamEscape);
+        if (game.VillageExploration is { } village)
+        {
+            VillageExplorationService.Validate(game.Player.LocationId, village);
+            if (game.DreamEscape is not { Status: DreamEscapeStatus.CompletedEscape or DreamEscapeStatus.CompletedPin, Items.Count: 0 })
+                throw new InvalidDataException("Village exploration requires a completed dream.");
+        }
+        else if (game.Player.LocationId is VillageExplorationState.HomeLocation or VillageExplorationState.VillageLocation)
+            throw new InvalidDataException("Village location requires exploration state.");
     }
 
     private static void ValidateDreamEscape(DreamEscapeState? dream)

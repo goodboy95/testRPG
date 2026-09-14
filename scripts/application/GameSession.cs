@@ -65,6 +65,7 @@ public partial class GameSession : Node
 
     public void AdvanceMovingTime(double seconds)
     {
+        if (State.VillageExploration is not null) return;
         var before = State.World.MinuteOfDay;
         Time.AdvanceMovementSeconds(seconds, Modal.IsBlocked);
         if (before != State.World.MinuteOfDay)
@@ -75,6 +76,7 @@ public partial class GameSession : Node
 
     public void Sleep()
     {
+        if (State.VillageExploration is not null) throw new InvalidOperationException("The next day is not available yet.");
         Time.Sleep();
         State.Investigation.AddTimeline(State.World.Day, "timeline.new_day");
         SaveCheckpoint();

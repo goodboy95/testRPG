@@ -1,10 +1,21 @@
 # 内容制作规范
 
+`[已实现]` 2026-09-14 后续接入：[梦境醒来与村庄自由探索](village-wake.md)。解谜成功／大头针刺醒后进入周六卧室，住宅和村庄可往返，位置及门灯写入正式存档；第一章委托、居民、森林和第二章尚未接入。此前建模轮的独立预览和验收记录继续保留，不代表本轮验证。
+
+
 ## 总原则
+
+`[计划]` 新现实内容先读[剧情圣经](../design/story-bible.md)、[章节流程](../design/story-flow.md)和[第一章细案](../design/chapter-one.md)。主角是村中高中生，先独自办事再邀请沈砚；三条必要日常链汇合后登记取箱，正常排查无有效方向，晓雨第一章现实不出场。任务链仅控制后台，玩家不见链名或主支线分类。父母、工具箱来源和学校事件有意留白，本轮只写 Markdown 场景卡，不创建占位 JSON、对白或状态键。旧 Day 1–7 只作[历史参考](../design/story-flow-legacy.md)，新章号不得复用旧 ID 表示新含义。
+
+第一章文档内编号不是运行时 ID。场景卡须说明入口、动机、可见事项、行动与选择、交差结果、后续条件和中断/失败恢复；未来正式接入须区分交差、应付报酬和领取，保证支线与钱数不控制主线，周日承接不重置或重复发奖。用文字记录的结果尚未创建存档字段。
 
 先设计状态结果，再写对白和表现。每个事件必须回答：玩家如何主动进入、能做什么选择、写入哪些事实/证据/线索/关系、如何防重复、错过或失败后怎样继续。
 
 `[固定约束]` 内容文件不能成为第二套业务逻辑。阈值、路线、结局、承诺状态机和数值截断属于 Core；JSON 和 `.dialogue` 只声明内容与调用白名单。
+
+## 村庄外景与森林地点（2026-09-14）
+
+`[计划]` 村内地点依[外景细案](../design/village-exterior.md)保留建筑布局引用、尺寸、站位和可变化部件；纸面编号不转成运行时稳定 ID。本轮不创建模型、NPC、任务数据或对白。村内没有敌对遭遇，林缘送饭／取物、两场动物战及森林小屋取箱／复查均属于未来森林区域。森林构造、路线、箱子摆放及劳作内容另定，不能直接沿用既有铁路附屋资源充当取箱地点。
 
 ## ID 规则
 
@@ -96,7 +107,7 @@ do Narrative.Execute("complete_event", "main.d3.example")
 => END
 ```
 
-正式接入时应把选择结果映射成稳定 `outcomeId`，由 C# 查找预定义 mutation 并一次提交；迁移完成前不要把这个示例复制到 Day 3–7 的大量新内容。
+正式接入时应把选择结果映射成稳定 `outcomeId`，由 C# 查找预定义 mutation 并一次提交；不要把这个 Legacy 示例复制到新第一章。示例中的 `d3` 和旧路线前缀只作命名演示，不预分配新剧情 ID。
 
 固定要求：
 
@@ -290,3 +301,15 @@ $BlenderExe = 'D:\ProgramFiles\Blender\blender.exe'
 ### 双角色动作 v3（本机限定）
 
 `[已实现]` 流萤 PMX 是晓雨本机外观源；受限原件保留，独立制作源、12 段动作、GLB 和脚部复导审计在 `outputs/character-motion-v3/`。禁止把受限资产写入正式可分发角色目录，也不得通过旧 v2 动作构建器覆盖新版镜像。详细流程、来源、回退与限制见[双角色动作](character-motion.md)。
+
+## 主角家 v1 独立预览资产
+
+`[已实现]` `scripts/tools/build_home_v1.py` 从 `HomeLayout3D.cs` 读取共享布局，提供 `graybox/build/export/check`。灰模仅进入 `work/home-v1-graybox/`；正式源为 `art/blender/home/home-v1.blend`，镜像与 manifest 在 `assets/generated/home/3d/`。`build` 重建源，人工编辑后用 `export` 保留修改；`check` 在临时目录复导并比较实际 GLB、UV、世界尺寸、门轴、屋瓦法线、共享网格、贴图、预算和哈希，不覆盖源。新增资产复用既有 CC0 图，来源及采用关系写入 provenance。独立 `HomePreview.tscn` 不连接正式剧情，manifest 保持 `status=independent-preview`、`runtimeDefault=false`、人工视觉验收 pending。材质派生图沿用 embedded_image_handling=1；源、GLB 与纹理遵守现有 LFS 规则。完整步骤见[住宅 v1](home-v1.md)。
+
+## 村庄 3D v1 独立外景
+
+`[已实现]` `scripts/tools/build_village_v1.py` 从 `VillageLayout3D.Data` 建模，离线高度解释位于 `village_geometry.py` 并受实际 GLB 顶点测试约束。`graybox` 仅写 `work/village-v1-graybox/`；`build/export/check` 使用独立 `art/blender/village/village-v1.blend` 与 `assets/generated/village/3d/village-v1.glb`。原住宅源和 GLB 不覆盖，只派生外观。房屋、树木共享网格，采用的 CC0 图和程序生成草地有 provenance；按图像字节/色彩空间合并重复资源。`check` 检查布局哈希、实际网格/法线/UV/植被实例并在临时目录确定性复导，禁止将其改为写源操作。Godot 导入关闭本资产自动 LOD以保持道路贴合，纹理为 embedded_image_handling=1。完整制作与预算见[村庄 v1](village-v1.md)。
+
+## 村庄 v2 第一批外景
+
+`[已实现]` 从保存的村庄 v1 源派生独立 v2，基础布局保持原文件；新增 `VillageExteriorLayout3D` 统一 Blender 物件、Godot 碰撞和工作净空。默认独立预览 v2，`--village-v1` 回归。只替换第一批几何，未动对象的源指纹与实际 GLB 网格均需复验；手工编辑后用新构建器 `export`，`check` 在临时目录复导，不用 `build` 覆盖精修。新增资产继续记录 provenance，任务状态不属于外景布局。命令、预算与限制见[村庄 v2](village-v2.md)。

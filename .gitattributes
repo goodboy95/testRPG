@@ -7,3 +7,11 @@
 *.blend filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text
 *.otf filter=lfs diff=lfs merge=lfs -text
+
+# Terrain sample source data and vendored native extension.
+addons/terrain_3d/bin/** filter=lfs diff=lfs merge=lfs -text
+assets/generated/village/terrain-sample-v1/data/*.res filter=lfs diff=lfs merge=lfs -text
+art/terrain/village-sample-v1/*.bin filter=lfs diff=lfs merge=lfs -text
+art/terrain/village-sample-v1/*.exr filter=lfs diff=lfs merge=lfs -text
+art/terrain/village-sample-v1/sources/*.zip filter=lfs diff=lfs merge=lfs -text
+art/terrain/village-sample-v1/sources/**/*.usdc filter=lfs diff=lfs merge=lfs -text

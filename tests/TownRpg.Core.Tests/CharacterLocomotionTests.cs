@@ -6,9 +6,9 @@ namespace TownRpg.Core.Tests;
 
 public sealed class CharacterLocomotionTests
 {
-    private static void Tick(CharacterLocomotion motion, Vector2 input, bool slow = false, float dt = 1f / 60f)
+    private static void Tick(CharacterLocomotion motion, Vector2 input, bool slow = false, float dt = 1f / 60f, float maximumSpeed = 3.1f)
     {
-        var velocity = motion.Step(input, slow, 3.1f, dt);
+        var velocity = motion.Step(input, slow, maximumSpeed, dt);
         motion.ObserveMotion(velocity, dt);
     }
 
@@ -34,6 +34,42 @@ public sealed class CharacterLocomotionTests
         Assert.Equal(.93f, m.ActualSpeed, 3);
         for (var i = 0; i < 30; i++) Tick(m, Vector2.One);
         Assert.InRange(m.ActualSpeed, 3.099f, 3.101f);
+    }
+
+    [Theory]
+    [InlineData(30)] [InlineData(60)] [InlineData(120)]
+    public void VillageSpeedAcceleratesAndBrakesWithoutChangingTiming(int fps)
+    {
+        var m = new CharacterLocomotion(); m.Reset(0);
+        var dt = 1f / fps;
+        for (var i = 0; i < (int)MathF.Ceiling(.15f * fps); i++)
+            Tick(m, Vector2.UnitY, dt: dt, maximumSpeed: 4.2f);
+        Assert.InRange(m.ActualSpeed, 4.199f, 4.201f);
+        var brakingDistance = 0f;
+        for (var i = 0; i < (int)MathF.Ceiling(.10f * fps); i++)
+        {
+            Tick(m, Vector2.Zero, dt: dt, maximumSpeed: 4.2f);
+            brakingDistance += m.ActualSpeed * dt;
+        }
+        Assert.InRange(m.ActualSpeed, 0, .00001f);
+        Assert.InRange(brakingDistance, .1f, .22f);
+    }
+
+    [Theory]
+    [InlineData(30)] [InlineData(60)] [InlineData(120)]
+    public void VillageSpeedPreservesSlowAnalogAndDiagonalControl(int fps)
+    {
+        var m = new CharacterLocomotion(); m.Reset(0);
+        void Hold(Vector2 input, bool slow = false)
+        {
+            for (var i = 0; i < fps; i++) Tick(m, input, slow, 1f / fps, 4.2f);
+        }
+        Hold(Vector2.UnitY, true); Assert.Equal(1.4f, m.ActualSpeed, 3);
+        Hold(Vector2.UnitY * .3f); Assert.Equal(1.26f, m.ActualSpeed, 3);
+        Hold(Vector2.One); Assert.InRange(m.ActualSpeed, 4.199f, 4.201f);
+        m.ObserveMotion(Vector2.Zero, 1f / fps);
+        Assert.False(m.Moving);
+        m.Reset(0); Assert.Equal(Vector2.Zero, m.Velocity);
     }
 
     [Theory]

@@ -14,7 +14,7 @@ public sealed class TimeService(GameState state)
             throw new ArgumentOutOfRangeException(nameof(seconds));
         }
 
-        if (modalOpen || state.World.IsDeepNight)
+        if (modalOpen || state.World.IsDeepNight || state.VillageExploration is not null)
         {
             return;
         }
@@ -32,6 +32,7 @@ public sealed class TimeService(GameState state)
 
     public void Sleep()
     {
+        if (state.VillageExploration is not null) throw new InvalidOperationException("The next day is not available yet.");
         _fractionalMinutes = 0;
         state.World.StartNextDay();
     }

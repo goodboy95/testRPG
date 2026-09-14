@@ -1510,7 +1510,7 @@ public partial class GodotSmokeRunner : Node
             ?? throw new InvalidOperationException("Title screen new-game button is missing.");
         newGame.EmitSignal(BaseButton.SignalName.Pressed);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        var begin = Descendants<Button>(main).FirstOrDefault(button => button.Text == "开始暑假")
+        var begin = Descendants<Button>(main).FirstOrDefault(button => button.Text == "开始游戏")
             ?? throw new InvalidOperationException("Name-entry confirmation button is missing.");
         begin.EmitSignal(BaseButton.SignalName.Pressed);
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);

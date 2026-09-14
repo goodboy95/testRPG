@@ -46,6 +46,7 @@ public partial class MainController : Node
 
     public override void _Ready()
     {
+        GetTree().AutoAcceptQuit = false;
         _session = GetNode<GameSession>("/root/GameSession");
         _session.StateChanged += RefreshHud;
 
@@ -77,6 +78,7 @@ public partial class MainController : Node
 
         DisconnectWorld();
         DisconnectDream();
+        DisconnectVillage();
         _titleLease?.Dispose();
         _journalLease?.Dispose();
         _pauseLease?.Dispose();
@@ -122,9 +124,11 @@ public partial class MainController : Node
             return;
         }
 
+        if (_village is { IsTransitioning: true } || _flowRunning) return;
+
         if (inputEvent.IsActionPressed("journal"))
         {
-            if (_dream is not null)
+            if (_dream is not null || _village is not null)
             {
                 return;
             }
@@ -244,7 +248,7 @@ public partial class MainController : Node
         };
         _toast.AddThemeStyleboxOverride("normal", UiStyles.Panel(new Color("263745f0"), 6));
         _toast.AddThemeColorOverride("font_color", new Color("f2c66d"));
-        _hud.AddChild(_toast);
+        _uiRoot.AddChild(_toast);
         _hud.Visible = false;
         UpdateInputHint();
     }
@@ -270,14 +274,14 @@ public partial class MainController : Node
             CancelButtonText = "继续游玩",
             Exclusive = true
         };
-        _quitConfirmation.Confirmed += () => GetTree().Quit();
+        _quitConfirmation.Confirmed += () => { if (SaveVillageCheckpoint()) GetTree().Quit(); };
         _uiRoot.AddChild(_quitConfirmation);
     }
 
     private void ShowTitle()
     {
         Input.MouseMode = Input.MouseModeEnum.Visible;
-        CloseCompletion(); DisconnectWorld(); DisconnectDream();
+        CloseCompletion(); DisconnectWorld(); DisconnectDream(); DisconnectVillage();
         foreach (var child in _worldHost.GetChildren()) child.QueueFree();
         _world = null; _hud.Visible = false;
         _titleLease ??= _session.Modal.Acquire("title");
@@ -318,7 +322,7 @@ public partial class MainController : Node
         var titleChoice = new OptionButton(); foreach (var item in new[] { "同学", "朋友", "前辈" }) titleChoice.AddItem(item); column.AddChild(titleChoice);
         var error = UiStyles.Wrapped(""); error.AddThemeColorOverride("font_color", new Color("e7ab96")); UiStyles.Font(error, 11); column.AddChild(error);
         var back = UiStyles.Button(UiText.Get("UI_BACK")); back.Pressed += ShowTitle; surface.Footer.AddChild(back); surface.Footer.AddSpacer(false);
-        var begin = UiStyles.Button("开始暑假"); UiStyles.Primary(begin);
+        var begin = UiStyles.Button("开始游戏"); UiStyles.Primary(begin);
         begin.Pressed += () =>
         {
             var trimmed = string.IsNullOrWhiteSpace(name.Text) ? "小岚" : name.Text.Trim();
@@ -353,17 +357,11 @@ public partial class MainController : Node
         ApplySettingsVisuals();
         if (_session.State.DreamEscape is { } dream)
         {
-            if (dream.Status == DreamEscapeStatus.PinPendingWake)
+            if (_session.State.VillageExploration is not null || dream.Status is
+                DreamEscapeStatus.PinPendingWake or DreamEscapeStatus.EscapePendingWake or
+                DreamEscapeStatus.CompletedPin or DreamEscapeStatus.CompletedEscape)
             {
-                _session.CompletePinWake();
-                LoadWorld("old_house", new Vector2(320, 260));
-                ShowPinCompletion();
-                return;
-            }
-            if (dream.Status == DreamEscapeStatus.CompletedPin)
-            {
-                LoadWorld("old_house", new Vector2(320, 260));
-                ShowPinCompletion();
+                _ = WakeAndExploreAsync();
                 return;
             }
 
@@ -407,6 +405,7 @@ public partial class MainController : Node
 
     private void LoadWorld(string locationId, Vector2? spawn = null)
     {
+        DisconnectVillage();
         var normalized = locationId switch
         {
             "old_house" => "old_house",
@@ -446,6 +445,7 @@ public partial class MainController : Node
 
     private void LoadDream(bool showEntryControlReminder = false)
     {
+        DisconnectVillage();
         var packed = ResourceLoader.Load<PackedScene>("res://scenes/dream/DreamEscape.tscn")
             ?? throw new FileNotFoundException("Dream escape root scene is missing.");
         var next = packed.Instantiate<DreamEscapeController>();
@@ -488,18 +488,9 @@ public partial class MainController : Node
         _dream = null;
     }
 
-    private void OnDreamPinWakeRequested()
-    {
-        var result = _session.CompletePinWake();
-        if (!result.Changed && _session.State.DreamEscape?.Status != DreamEscapeStatus.CompletedPin)
-        {
-            return;
-        }
-        LoadWorld("old_house", new Vector2(320, 260));
-        ShowPinCompletion();
-    }
+    private void OnDreamPinWakeRequested() => _ = WakeAndExploreAsync();
 
-    private void OnDreamExitOpened() => ShowDreamMechanicsComplete();
+    private void OnDreamExitOpened() => _ = WakeAndExploreAsync();
 
     private void OnInteractionRequested(string targetId) => _ = HandleInteractionAsync(targetId);
 
@@ -1002,10 +993,6 @@ public partial class MainController : Node
     }
 
     private void ShowSliceComplete() => ShowCompletionLayout("SliceComplete", "slice-complete", "垂直切片完成", UiText.Get("UI_COMPLETE_LEGACY"), true);
-    private void ShowDreamMechanicsComplete() => ShowCompletionLayout("DreamMechanicsComplete", "dream-mechanics-complete", "出口已开启", UiText.Get("UI_COMPLETE_DREAM"));
-    private void ShowPinCompletion() => ShowCompletionLayout("PinCompletion", "pin-complete", "你睁开了眼",
-        "针尖的疼痛让旧校舍骤然碎开。你在旧宅的床上醒来——刚才只是一场梦。梦里拿到的东西已经全部消失，那条尚未弄清的信息也没能留下。");
-
     private void ShowCompletionLayout(string name, string owner, string title, string text, bool returnToWorld = false)
     {
         CloseCompletion(); _completionScreen = NewScreen(name); _completionLease = _session.Modal.Acquire(owner);
@@ -1064,19 +1051,19 @@ public partial class MainController : Node
         {
             var save = UiStyles.Button("保存"); save.Pressed += () =>
             {
-                ClosePause(); try { _session.Save(); ShowToast("已保存。对话和战斗中不能手动保存。"); } catch (Exception e) { ShowToast($"保存失败：{e.Message}"); }
+                ClosePause(); if (_village is not null) { if (SaveVillageCheckpoint()) ShowToast("已保存。"); return; } try { _session.Save(); ShowToast("已保存。对话和战斗中不能手动保存。"); } catch (Exception e) { ShowToast($"保存失败：{e.Message}"); }
             }; menu.AddChild(save);
             var load = UiStyles.Button("载入"); load.Pressed += () =>
             {
-                ClosePause(); if (_session.TryLoad(out var error)) { ApplySettingsVisuals(); LoadWorld(_session.State.Player.LocationId); ShowToast("存档已载入。"); } else ShowToast(error);
+                ClosePause(); ContinueGame();
             }; menu.AddChild(load);
-            var unstick = UiStyles.Button("脱离卡住：回安全点"); unstick.Pressed += () => { ClosePause(); _world?.MovePlayerToSafePoint(); ShowToast("已回到当前区域的安全点。"); }; menu.AddChild(unstick);
+            var unstick = UiStyles.Button("脱离卡住：回安全点"); unstick.Pressed += () => { ClosePause(); if (_village is not null) { _village.MoveToSafePoint(); SaveVillageCheckpoint(); } else _world?.MovePlayerToSafePoint(); ShowToast("已回到当前区域的安全点。"); }; menu.AddChild(unstick);
         }
         var settings = UiStyles.Button("显示与辅助设置"); settings.Name = "PauseSettings"; settings.Alignment = HorizontalAlignment.Left;
         settings.Pressed += () => OpenSettings(); menu.AddChild(settings);
         menu.AddChild(new HSeparator());
         var titleButton = UiStyles.Button("返回标题"); titleButton.Name = "PauseReturnTitle"; titleButton.Alignment = HorizontalAlignment.Left;
-        titleButton.Pressed += () => { ClosePause(); ShowTitle(); }; menu.AddChild(titleButton);
+        titleButton.Pressed += () => { if (!SaveVillageCheckpoint()) return; ClosePause(); ShowTitle(); }; menu.AddChild(titleButton);
         var quit = UiStyles.Button("退出游戏"); quit.Name = "PauseQuit"; quit.Alignment = HorizontalAlignment.Left; quit.Pressed += AskQuit; menu.AddChild(quit);
         resume.GrabFocus(); UiStyles.FadeIn(panel);
     }
@@ -1197,6 +1184,7 @@ public partial class MainController : Node
         _promptLabel?.AddThemeStyleboxOverride("normal", UiStyles.Panel(
             _session.State.Settings.HighContrastPrompts ? new Color("000000ff") : new Color("1a2638e5"), 5));
         _dream?.ApplySettings(_session.State.Settings);
+        _village?.ApplySettings(_session.State.Settings);
         DisplaySettingsController.Apply(_session.State.Settings);
     }
 
@@ -1234,6 +1222,8 @@ public partial class MainController : Node
 
     private void AskQuit()
     {
+        if (_village is { IsTransitioning: true } || _flowRunning) return;
+        _quitConfirmation.DialogText = _village is null ? "确定要退出游戏吗？" : "保存当前位置并退出游戏？";
         Input.MouseMode = Input.MouseModeEnum.Visible;
         _quitConfirmation.PopupCentered(new Vector2I(430, 190));
     }
@@ -1355,6 +1345,7 @@ public partial class MainController : Node
             ? "左摇杆 移动　A 互动　Y 手册　Menu 暂停"
             : "WASD / 方向键 移动　F / 空格 互动　J 手册　Esc 暂停";
         _world?.SetGamepadPrompts(_usingGamepad);
+        _village?.SetGamepadPrompts(_usingGamepad);
         _journal?.SetGamepadPrompts(_usingGamepad);
     }
 

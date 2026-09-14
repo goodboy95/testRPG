@@ -35,9 +35,9 @@ public partial class UiUxCapture : Node
             Find<Button>(main).First(b => b.Text == "开始新游戏").EmitSignal(BaseButton.SignalName.Pressed);
             await Capture("name-entry");
             var nameInput = Find<LineEdit>(main).First(); nameInput.Text = "一二三四五六七八九";
-            Find<Button>(main).First(b => b.Text == "开始暑假").EmitSignal(BaseButton.SignalName.Pressed);
+            Find<Button>(main).First(b => b.Text == "开始游戏").EmitSignal(BaseButton.SignalName.Pressed);
             await Capture("name-entry-error"); nameInput.Text = "小岚";
-            Find<Button>(main).First(b => b.Text == "开始暑假").EmitSignal(BaseButton.SignalName.Pressed);
+            Find<Button>(main).First(b => b.Text == "开始游戏").EmitSignal(BaseButton.SignalName.Pressed);
             session.State.CompletedEvents.Add(DreamPrologueCatalog.EventId("intro"));
             SetSettings(session);
             Invoke(main, "ApplySettingsVisuals");
@@ -110,7 +110,7 @@ public partial class UiUxCapture : Node
             var confirm = new ConfirmationDialog { Title = "返回标题", DialogText = "是否返回标题？尚未保存的进度可能丢失。", OkButtonText = "返回标题", CancelButtonText = "取消" }; ui.AddChild(confirm);
             UiStyles.Confirm(confirm, _scale); await Capture("confirmation"); confirm.Hide();
             layer.QueueFree(); await Frames();
-            Invoke(main, "ShowDreamMechanicsComplete"); await Capture("completion");
+            Invoke(main, "ShowSliceComplete"); await Capture("legacy-completion");
             GD.Print($"UI_UX_CAPTURE_PASS files={_captures} width={_width} scale={_scale}");
             main.QueueFree(); await Frames();
             GetTree().Quit();

@@ -1,5 +1,10 @@
 # 项目结构
 
+`[已实现]` 2026-09-14 后续接入：[梦境醒来与村庄自由探索](engineering/village-wake.md)。解谜成功／大头针刺醒后进入周六卧室，住宅和村庄可往返，位置及门灯写入正式存档；第一章委托、居民、森林和第二章尚未接入。此前建模轮的独立预览和验收记录继续保留，不代表本轮验证。
+
+
+`[已实现]` 村庄 v2 第一批外景入口见[制作说明](engineering/village-v2.md)：新增外景共享布局、Blender 派生构建器与 v2 源／GLB／manifest，复用独立村庄预览及验证场景。基础村庄布局和 v1 源保留。
+
 > 文档基线：2026-08-31。仅记录维护者需要追踪的源码、内容与资源；生成目录 `.godot/`、`bin/`、`obj/` 不列入。
 
 ```text
@@ -50,7 +55,13 @@ town-rpg/
 ├─ tests/TownRpg.Core.Tests/    规则、存档、内容完整性测试
 ├─ tests/mc-model-test-runtime/ 本机非商业主角 GLB/纹理镜像；由 Git 与 Windows 导出排除，缺失时回退 billboard
 └─ doc/                         设计、工程、模块和生产交接文档
-   └─ design/dream-escape-v4.md 内容版本 6、12 组谜题、31 道具与一次回访；v2/v3 为历史
+   ├─ design/dream-escape-v4.md 内容版本 6、12 组谜题、31 道具与一次回访；v2/v3 为历史
+   ├─ design/story-bible.md     当前人物边界、前两章故乡及后续游历方向
+   ├─ design/chapter-one.md     第一章详细设计唯一正文：任务卡、战斗、后台依赖、排查与收尾
+   ├─ design/village-exterior.md 村庄外景设计正文：重点地点尺寸、24 栋登记、制作分批；森林另定
+   ├─ design/story-flow.md      尚未实现的周六委托/周日返校章节概要与留白
+   ├─ design/story-bible-legacy.md 旧公司、封印与终局素材，不约束新现实主线
+   └─ design/story-flow-legacy.md  旧 Day 1–7 及 Legacy 两日流程历史参考
 ```
 
 本项目没有 Web、外部 API、数据库或 SQL schema，因此不建立 `doc/api/`、Web 自测或 `sql/`。
@@ -58,3 +69,11 @@ town-rpg/
 `[已实现]` 音乐室 v2 源位于 `art/blender/dream_music/`，运行时 GLB/manifest 位于 `assets/generated/dream_escape/3d/`；共享布局为 `scripts/presentation/MusicRoomLayout3D.cs`。制作与本机评审脚本为 `scripts/tools/remodel_music_v2.py` 和 `review_music_v2.py`；专项入口为 `scenes/testing/MusicV2Probe.tscn`，字号矩阵复用 `DreamThoughtProbe.tscn -- --music-only`。
 
 `[已实现·仅本机]` `tests/xiaoyu-model-runtime/` 是林晓雨流萤外观镜像；`outputs/character-motion-v3/` 保存双角色制作源/审计/对照。两者均被本地 Git 与导出排除，模型缺失回退 billboard。
+
+`[已实现]` 独立住宅预览：`scenes/testing/HomePreview.tscn`／`HomeV1Probe.tscn` 分别用于漫游和专项；`scripts/presentation/HomeLayout3D.cs`、`HomeDoorMotion.cs`、`HomePreviewController3D.cs` 持有布局与临时表现状态。制作源在 `art/blender/home/`，GLB/manifest/派生材质在 `assets/generated/home/3d/`，制作及评审脚本为 `scripts/tools/build_home_v1.py`／`build_home_review.py`。灰模位于 `work/home-v1-graybox/`，本机图形与日志在 `outputs/home-v1/`。实现与验收分别见[住宅说明](engineering/home-v1.md)和[验收记录](production/home-v1-validation.md)；醒后剧情尚未接入。
+
+`[已实现]` 独立村庄预览：`scenes/testing/VillagePreview.tscn`／`VillageV1Probe.tscn`；`VillageLayout3D.cs`、`TerrainMotionRules.cs`、`VillageExterior3D.cs`、`VillagePreviewController.cs` 位于 `scripts/presentation/`。村庄源在 `art/blender/village/`，GLB、manifest 及派生纹理在 `assets/generated/village/3d/`。基础工具 `build_village_v1.py`、`village_geometry.py` 和 v1 记录保留；当前新增 `VillageExteriorLayout3D.cs`、`build_village_v2.py`、`build_village_v2_review.py`，总图／图形／性能进入 `outputs/village-v2/`，灰模进入 `work/village-v2-graybox/`。见[制作](engineering/village-v2.md)与[验收](production/village-v2-validation.md)。
+
+文档分类导航见[交接首页](README.md)，从[AGENTS.md](../AGENTS.md)可直接进入核心设计及工程规范；第一章本轮文档检查见[验收记录](production/chapter-one-doc-validation.md)。
+
+正式醒来新增 `scripts/presentation/MainController.Village.cs`、共用 `VillageAreaHost.cs`，Core 中增加 `VillageExplorationState`／`VillageExplorationService`。`scenes/testing/VillageWakeProbe.tscn` 为隔离存档专项；`PrologueE2EProbe` 继续通过真实输入覆盖四室和刺醒分支，本轮结果写入 `outputs/village-wake/`。

@@ -11,6 +11,21 @@ public partial class PlayerController3D : CharacterBody3D
 
     [Export] public float Speed { get; set; } = 3.1f;
 
+    // Explicit opt-in: the five dream areas and the original home keep their flat movement contract.
+    [Export] public bool TerrainMovement { get; set; }
+
+    public override void _Ready()
+    {
+        if (!TerrainMovement) return;
+        MotionMode = MotionModeEnum.Grounded;
+        UpDirection = Vector3.Up;
+        FloorSnapLength = TerrainMotionRules.FloorSnap;
+        FloorMaxAngle = Mathf.DegToRad(TerrainMotionRules.MaximumSlopeDegrees);
+        FloorStopOnSlope = true;
+        FloorConstantSpeed = true;
+        SafeMargin = .015f;
+    }
+
     public event Action<Vector3>? Moved;
 
     public Camera3D? MovementCamera { get; set; }
@@ -79,18 +94,20 @@ public partial class PlayerController3D : CharacterBody3D
         var requestedMotion = CameraRelativeMovement.ToWorld(input, MovementCamera);
         var step = _locomotion.Step(new System.Numerics.Vector2(requestedMotion.X, requestedMotion.Z),
             Input.IsActionPressed("move_slow"), Speed, (float)delta, UsesEnhancedAnimation);
-        Velocity = new Vector3(step.X, 0f, step.Y);
+        Velocity = new Vector3(step.X, TerrainMovement
+            ? TerrainMotionRules.VerticalVelocity(Velocity.Y, IsOnFloor(), (float)delta) : 0f, step.Y);
         var previous = GlobalPosition;
         MoveAndSlide();
-        GlobalPosition = new Vector3(GlobalPosition.X, 0f, GlobalPosition.Z);
+        if (!TerrainMovement) GlobalPosition = new Vector3(GlobalPosition.X, 0f, GlobalPosition.Z);
         var actualMotion = GlobalPosition - previous;
+        var horizontalMotion = new Vector3(actualMotion.X, 0, actualMotion.Z);
         _locomotion.ObserveMotion(delta > 0 ?
             new System.Numerics.Vector2(actualMotion.X, actualMotion.Z) / (float)delta :
             System.Numerics.Vector2.Zero, (float)delta);
-        if (actualMotion.LengthSquared() > 0.000001f)
+        if (horizontalMotion.LengthSquared() > 0.000001f)
         {
             _interactionFacing = null;
-            FacingWorld = actualMotion.Normalized();
+            FacingWorld = horizontalMotion.Normalized();
             Moved?.Invoke(GlobalPosition);
         }
         if (!_locomotion.Moving && !_locomotion.IsTurning) UpdateInteractionFacing((float)delta);

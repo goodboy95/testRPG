@@ -2,6 +2,18 @@
   "schemaVersion": 1,
   "assets": [
     {
+      "id": "village_terrain_sample_v1",
+      "status": "independent-sample",
+      "gameFile": "assets/generated/village/terrain-sample-v1/terrain.tscn",
+      "sourceFile": "assets/generated/village/terrain-sample-v1/data",
+      "provenanceFile": "assets/generated/village/terrain-sample-v1/provenance.json",
+      "generator": "Offline Python 3.14 + Pillow + NumPy; Godot 4.6.3 .NET; Terrain3D 1.0.2",
+      "model": "Not applicable; no AI image generation",
+      "generatedAt": "2026-09-14",
+      "licenseBasis": "Terrain3D MIT; ambientCG CC0; local details original",
+      "runtimeDefault": false
+},
+    {
       "id": "xiaoyu_local_motion_v3",
       "status": "implemented-local-only",
       "sourceFile": "assets\\流萤建模\\星穹铁道—流萤·春日手信.pmx",
@@ -1176,6 +1188,160 @@
         "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
       }
     }
+  ]
+},
+{
+  "id": "home_environment_v1",
+  "status": "adopted-independent-preview",
+  "sourceFile": "art/blender/home/home-v1.blend",
+  "gameFile": "home/3d/home-v1.glb",
+  "sourceSha256": "dc955365c9cba90c2cd1a0f3390e9736660b8f02daa8ccfaf672c670d8c2aaea",
+  "runtimeGlbSha256": "9e12936af1165c2dcb35b2e8475838e88621081f70a7500c5830debabe347c42",
+  "generator": "Offline Blender Python; original procedural meshes",
+  "model": "5.2.0 LTS",
+  "date": "2026-09-12",
+  "tool": "Blender Python offline procedural modeling",
+  "script": "scripts/tools/build_home_v1.py",
+  "prompt": "User-approved modest inhabited rural bungalow, 12x9m, two bedrooms, living room, kitchen and bathroom, enclosed small courtyard; modern household furniture, maintained plaster and aluminium windows.",
+  "referenceImages": [],
+  "parameters": {
+    "layoutVersion": 1,
+    "units": "metres",
+    "runtimeGeneration": false
+  },
+  "postprocessing": [
+    "component metric UV",
+    "applied bevels",
+    "linked chair and roof meshes",
+    "packed existing CC0 PBR textures"
+  ],
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ]
+},
+{
+  "id": "village_environment_v1",
+  "status": "adopted-independent-preview",
+  "sourceFile": "art/blender/village/village-v1.blend",
+  "gameFile": "village/3d/village-v1.glb",
+  "sourceSha256": "4b3ba31c571f9eaae89fbffde7ca1148d874413aacd3c7f0b45495c9d7199467",
+  "runtimeGlbSha256": "2ea2667aabcdd53141ef152aed64feb94bed33535d173127878759c138fe4bcf",
+  "date": "2026-09-12",
+  "tool": "Blender Python offline procedural modelling",
+  "model": "5.2.0 LTS",
+  "script": "scripts/tools/build_village_v1.py",
+  "prompt": "Approved compact contemporary Chinese mountain village with 24 buildings, a stream, two bridges, two walking loops, shop plaza, disused railway station, and a reusable Home v1 exterior. Full environment, no NPC or story.",
+  "referenceImages": [],
+  "parameters": {
+    "units": "metres",
+    "layoutVersion": 1,
+    "grassSeed": 412,
+    "grassTextureSize": 512,
+    "runtimeGeneration": false
+  },
+  "postprocessing": [
+    "metric UVs",
+    "packed CC0 PBR maps",
+    "linked house and tree meshes",
+    "derived exterior-only Home v1",
+    "font outlines from bundled Source Han Sans 2.005R"
+  ],
+  "sourceAssets": [
+    {
+      "id": "painted_plaster_wall",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      }
+    },
+    {
+      "id": "oak_veneer_01",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      }
+    },
+    {
+      "id": "terrazzo_tiles",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+      "license": "CC0 1.0 / Public Domain",
+      "maps": {
+        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+      }
+    }
+  ]
+},
+{
+  "id": "village_environment_v2",
+  "status": "adopted-independent-preview",
+  "sourceFile": "art/blender/village/village-v2.blend",
+  "gameFile": "village/3d/village-v2.glb",
+  "sourceSha256": "0da03dc2612ec0834970343ec4c0b7d9b4d7c249f2cc1fa86843f86f80a3e110",
+  "runtimeGlbSha256": "3a83569a75e5af85830c84bfc54d142f97abca116f3aa15f3ddb5fe74054d5ba",
+  "date": "2026-09-14",
+  "tool": "Blender offline Python modelling",
+  "model": "5.2.0 LTS",
+  "script": "scripts/tools/build_village_v2.py",
+  "prompt": "Approved first village exterior batch: everyday village desk and noticeboard, grocery loading, woodworking repair workshop. No story interactions.",
+  "referenceImages": [
+    "outputs/village-v1/validation/1920x1080/05-shop.png",
+    "outputs/village-v1/validation/1920x1080/06-plaza-tree.png",
+    "outputs/village-v1/validation/1920x1080/09-workshop.png"
+  ],
+  "parameters": {
+    "units": "metres",
+    "baseVersion": 1,
+    "exteriorVersion": 2,
+    "bevelMetres": 0.008,
+    "runtimeGeneration": false
+  },
+  "sourceAssets": [
+    "saved village-v1.blend",
+    "previously adopted Poly Haven CC0 wood/plaster/stone maps",
+    "original geometry and constant-color materials"
+  ],
+  "postprocessing": [
+    "metric UVs",
+    "small edge bevels",
+    "independent fixture and paper objects",
+    "preserved baseline geometry verified by fingerprint"
   ]
 }
 ]

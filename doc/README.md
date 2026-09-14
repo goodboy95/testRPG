@@ -1,10 +1,41 @@
 # town-rpg 交接文档
 
-> 文档基线：2026-09-12
+`[已实现]` 2026-09-14 赶路优化：村庄 v2 正式探索及独立预览室外为 4.2 米/秒，住宅／梦境／v1 回归仍为 3.1；见[分批计划](design/village-optimization.md)和[本轮验收](production/village-travel-validation.md)。地形三处独立样板已制作，见[制作](engineering/village-terrain-sample.md)和[验收](production/village-terrain-validation.md)；负责人确认后已接入正式村庄与默认 v2 预览，见[采用验收](production/village-terrain-adoption.md)；全村其余精修与建筑贴图仍为后续工作。
 
-这套文档面向将同时接手程序、内容、剧情、素材和测试的人。它包含完整剧透。当前源码包含四室梦境序章第一阶段及一个 Legacy 两日切片，不是完整七日版本。
+`[已实现]` 2026-09-14 后续接入：[梦境醒来与村庄自由探索](engineering/village-wake.md)。解谜成功／大头针刺醒后进入周六卧室，住宅和村庄可往返，位置及门灯写入正式存档；第一章委托、居民、森林和第二章尚未接入。此前建模轮的独立预览和验收记录继续保留，不代表本轮验证。
+
+
+> 文档基线：2026-09-14
+
+这套文档面向将同时接手程序、内容、剧情、素材和测试的人。当前源码包含四室梦境序章第一阶段及一个 Legacy 两日切片；醒后自由探索已接入，第一章委托尚未接入。当前剧情方向与旧版完整剧透分开维护。
+
+## 分类文档索引
+
+从 [AGENTS.md](../AGENTS.md) 到本表一次点击，再到专项文档一次点击。剧情细案、通用工程与制作规范也在 AGENTS.md 有直接入口。各项状态以目标文档及其日期为准。
+
+| 类别 | 文档地址 |
+| --- | --- |
+| 当前剧情 | [剧情圣经](design/story-bible.md)、[章节流程](design/story-flow.md)、[第一章细案](design/chapter-one.md)、[剧情速览](../剧情大纲.md) |
+| 玩法与现状 | [游戏设计](design/game-design.md)、[当前实现](engineering/current-implementation.md)、[项目结构](structure.md) |
+| 工程与内容制作 | [架构](engineering/architecture.md)、[内容制作规范](engineering/content-authoring.md)、[路线图](production/roadmap-handoff.md) |
+| 梦境剧情与规则 | [梦境概述](design/dream-escape.md)、[序章 v4](design/dream-escape-v4.md)、[模块说明](modules/dream-escape.md)、[角色提示](engineering/puzzle-feedback.md) |
+| 村庄体验与美术优化 | [分批计划](design/village-optimization.md)、[地形样板](engineering/village-terrain-sample.md)、[地形验收](production/village-terrain-validation.md)、[赶路验收](production/village-travel-validation.md) |
+| 村庄与住宅制作 | [村庄外景设计](design/village-exterior.md)、[村庄 v2](engineering/village-v2.md)、[村庄 v1](engineering/village-v1.md)、[住宅 v1](engineering/home-v1.md) |
+| 梦境场景制作 | [第一室 v6](engineering/classroom-remodel-v6.md)、[大厅 v3](engineering/manor-remodel-v3.md)、[音乐室 v2](engineering/music-remodel-v2.md)、[档案室 v2](engineering/archive-remodel-v2.md)、[礼堂 v2](engineering/auditorium-remodel-v2.md) |
+| 角色、UI 与资产规范 | [角色动作](engineering/character-motion.md)、[UI 规范](engineering/ui-ux.md)、[电影感 UI 样板](engineering/ui-cinematic-samples.md)、[资产制作与来源](engineering/content-authoring.md) |
+| 测试与人工验收 | [测试与发布](production/testing-release.md)、[序章盲测](production/prologue-v6-playtest.md)、[第一章文档检查](production/chapter-one-doc-validation.md)、[村庄外景文档检查](production/village-exterior-doc-validation.md) |
+| 正式村庄探索 | [接入与存档](engineering/village-wake.md)、[本轮验收](production/village-wake-validation.md) |
+| 场景验收记录 | [村庄 v2](production/village-v2-validation.md)、 [村庄](production/village-v1-validation.md)、[住宅](production/home-v1-validation.md)、[第一室](production/classroom-v6-validation.md)、[大厅](production/manor-v3-validation.md)、[音乐室](production/music-v2-validation.md)、[档案室与礼堂](production/late-rooms-v2-validation.md) |
+| 动作与 UI 验收记录 | [双角色动作](production/character-motion-v3-validation.md)、[UI 重制](production/ui-remake-validation.md)、[电影感 UI](production/ui-cinematic-validation.md)、[角色提示](production/dream-hints-validation.md) |
+| 历史剧情与旧规格 | [旧剧情圣经](design/story-bible-legacy.md)、[旧流程](design/story-flow-legacy.md)、[梦境 v2](design/dream-escape-v2.md)、[梦境 v3](design/dream-escape-v3.md) |
 
 ## 当前结论
+
+- `[已实现]` 2026-09-14 后续建模：广场、杂货铺、修理铺第一批 v2 已接入独立漫游，静态物件与碰撞，不含居民或剧情交互。默认预览 v2，显式 `--village-v1` 回归，基础村庄与住宅源保留；见[制作](engineering/village-v2.md)与[本轮验收](production/village-v2-validation.md)。后面的文档交付说明保留前一阶段范围。
+
+- `[计划]` 2026-09-14 确认：第一章为安全村庄与附近森林，村内无敌对遭遇、可自愿陪练；林缘劳作和两场动物战均在森林，最终从森林小屋取箱。当前先交付[村庄外景设计](design/village-exterior.md)：保留路桥和主角家骨架，重点地点详设、24 栋分级，森林及小屋另轮设计；模型、场景、剧情运行时均未改变。
+
+- `[计划]` 2026-09-13 确认：主角是一直生活在村中的高中生，父母两年前外出务工后失踪，独居且由长辈照应，课余帮忙挣钱。第一章周六先独自办事、前中期邀请沈砚，三条必要日常链完成后登记取旧工具箱；正常排查无有效方向，以疑惑收尾，可继续支线或睡觉。第二章周日早上收到下午返校通知，上午续办剩余事项。晓雨第一章现实不出场，父母与工具箱真相有意留白。 见[剧情圣经](design/story-bible.md)、[章节流程](design/story-flow.md)与[第一章细案](design/chapter-one.md)。本轮只改文档，新现实内容尚未接入。
 
 - `[已实现·仅本机非商业]` 林晓雨现使用流萤“春日手信”3D 外观，隐藏剑；两人各 12 段动作、五区平滑跟随、到位后协作及可中断交互已接入。模型缺失继续 billboard 回退，不改变正式角色候选。见[双角色动作](engineering/character-motion.md)与[验收](production/character-motion-v3-validation.md)。
 
@@ -13,12 +44,14 @@
 - `[已实现]` 梦境顶部任务栏已移除，只保留紧凑区域名；普通道具无需选中，检查机关会自动使用背包中的匹配部件。新游戏进入第一室前显示一次 Esc 与 I/Tab/X 操作确认；真实 `I`/`Tab`/Xbox `X` 背包绑定不含 Backspace，游玩时捕获指针，Esc、模态界面、失焦和转场会释放指针。
 - `[已实现·仅本机非商业]` 当前工作副本在四室和洋房默认加载 `tests/mc-model-test-runtime/caelus-pbr-test.glb`，播放新版 `idle/walk/jog` 与左右 90°/180° 转身，连续混合步态，支持 Shift 慢走；贴墙近镜头会隐藏网格，资源缺失时回退到原 2D billboard。该角色源与派生资产禁止商业使用和二次分发，已由本地 Git 排除且不进入 Windows 导出，不能作为正式可分发主角交付。
 - `[计划·v2 静态候选技术检查通过，待视觉确认]` v1 仍是未绑定、无动画且未过视觉门槛的技术样模；原画式半写实 v2 已生成正式静态 GLB/manifest，并以 `1.7017m`、`34972` 三角面、6 个可见网格、1 个材质面、无 Armature/Action 的结果通过只读检查。manifest 仍为 `runtimeReady=false`，尚未获得负责人视觉确认，也未开始骨骼、动画或 Godot 接入；正式可分发运行时仍以 2D billboard 为安全基线，本机 `mc_model` 覆盖不改变 v2 状态。
-- `[已实现·Legacy]` 15–30 分钟“两日生活＋首次异象”源码仍存在并供旧存档继续，但新游戏不再进入，其中林晓雨旧友与四人重逢内容待重写。
-- `[已实现]` Core/内容/移动及 UI 规则 151 项通过（145 基线＋6 项跟随/协作计时用例），Godot 编译、九场景冒烟和 13 段对白专项验证见各次验收记录。新版节奏和完整人工路径仍待盲测。
+- `[已实现·Legacy]` 15–30 分钟“两日生活＋首次异象”源码仍存在并供旧存档继续，但新游戏不再进入。其中林晓雨旧友、四人重逢与三选一活动仅属历史，不作为新第一章的入口。
+- `[已实现]` Core/内容/表现层规则最新 182 项通过（赶路基线 180＋2 项地形输入和保护区检查），Godot 编译、九场景冒烟和 13 段对白专项验证见各次验收记录。新版节奏和完整人工路径仍待盲测。
+- `[已实现]` 村庄 3D 独立入口 `scenes/testing/VillagePreview.tscn`（默认 v2，`--village-v1` 回归原版）：24 栋建筑、两座桥、溪岸与旧站回环，院路连续，正门往返已有住宅室内。该独立入口没有居民／任务，也不访问正式存档；正式醒后探索另见[接入说明](engineering/village-wake.md)。见[制作与启动](engineering/village-v1.md)、[路线/转场/72 图验收](production/village-v1-validation.md)。
+- `[已实现]` 主角家 3D v1 独立漫游，两卧一厅、独立厨卫、小院和完整外观，五处房门、六组灯可操作。入口 `scenes/testing/HomePreview.tscn`；该独立入口的住宅状态仅属于当前实例，不写正式存档；正式醒后探索另见[接入说明](engineering/village-wake.md)。见[住宅制作与启动](engineering/home-v1.md)与[179 项专项及 84 张截图验收](production/home-v1-validation.md)。
 - `[已实现]` 09-08 全 UI 主题作为未重做页面的基线保留，机关支持直接操作；机关关联资料已移除，独立记录和合作观察保留。19 个题面不再直接给解法，加入前失败仅回想已知材料，加入后主动三级商量只给局部建议。规则与当时 180 张矩阵截图见[角色提示](engineering/puzzle-feedback.md)和[验收](production/dream-hints-validation.md)。09-08 的 Figma、288 张图作为历史保留，边界见[UI 规范](engineering/ui-ux.md)。
 - `[已实现]` Dialogue Manager v3.10.4 已接入 13 段序章对白，结尾原子提交，取消可重试；8 段 Legacy 演示对白仍待迁移。
 - `[已实现]` 更小的电影感 UI 已接入对白、梦境探索、背包和梦中记录；菜单与字幕字号独立。`[计划]` 样板视觉确认后统一其余 UI。见[第一阶段样板](engineering/ui-cinematic-samples.md)和[验收记录](production/ui-cinematic-validation.md)。
-- `[计划]` 完整版本目标 3–5 小时、约七个内容日、8 名核心 NPC、双路线、终战和三档结局。
+- `[可调整草案]` 原 3–5 小时、七个内容日、固定居民总数、双路线与三档结局均属旧稿规模；新故事总章数、总时长、后续地点和终局未定。旧稿见[历史剧情圣经](design/story-bible-legacy.md)与[历史流程](design/story-flow-legacy.md)。
 - `[计划]` 完整人工游玩、真实物理鼠标 raw delta、手柄、中低端集显和 Windows x64 导出仍待验收；RTX 2080 Ti 上的 720p/原生 1080p 自动性能与截图检查已完成。
 
 ## 推荐阅读顺序
@@ -27,8 +60,8 @@
 2. [当前实现](engineering/current-implementation.md)：建立“现在哪里能跑”的准确认识。
 3. [架构](engineering/architecture.md)：理解状态、场景、Core 和对白边界。
 4. [游戏设计](design/game-design.md)：理解系统为何这样组合。
-5. [剧情圣经](design/story-bible.md)：完整幕后真相和角色弧线。
-6. [当前梦境密室](design/dream-escape.md)、[v4 当前重梳](design/dream-escape-v4.md)、[v3 历史冻结](design/dream-escape-v3.md)、[v2 历史冻结](design/dream-escape-v2.md)及[剧情流程](design/story-flow.md)：区分当前可玩序章、历史规则和 Day 1–7 规格。
+5. [剧情圣经](design/story-bible.md)：当前世界观、人物边界、已确认方向与未定真相。
+6. [当前梦境密室](design/dream-escape.md)、[v4 当前重梳](design/dream-escape-v4.md)及[醒后剧情流程](design/story-flow.md)：区分可玩序章和未实现的现实开篇；[旧剧情](design/story-bible-legacy.md)、[旧流程](design/story-flow-legacy.md)、[v3](design/dream-escape-v3.md)与[v2](design/dream-escape-v2.md)只作历史参考。
 7. [内容制作](engineering/content-authoring.md)：新增内容时使用。
 8. [测试与发布](production/testing-release.md)及[路线图](production/roadmap-handoff.md)：选择下一项工作并交付。
 
@@ -43,7 +76,9 @@
 | `[固定约束]` | 技术、主题或因果红线，修改前必须获得负责人确认。 |
 | `[可调整草案]` | 为接手者补足的制作方案，可以调整具体场景、名称和节奏。 |
 
-判断“现在如何运行”时，以测试和源码为准；判断“故事真相是什么”时，以剧情圣经的固定约束为准。发现冲突不能私下择一，应修复冲突并注明影响。
+第一章详细正文统一维护在[细案](design/chapter-one.md)；[剧情圣经](design/story-bible.md)保存约束，[流程](design/story-flow.md)保存章节关系。**有意留白**使用 `[固定约束]` 加说明，禁止自行补全，不新增状态标签。
+
+判断“现在如何运行”时，以测试和源码为准；当前故事以剧情圣经的已确认方向和固定约束为准。未定真相不得从旧稿自动补齐，历史文件中的旧标签也不覆盖现行决策。发现冲突应修复并注明影响。
 
 ## 项目结构速览
 
@@ -69,12 +104,12 @@ town-rpg/
 ## 关键术语
 
 - **事实 Facts**：玩家已经确认的世界事实，用于剧情条件。
-- **证据 Evidence**：可向居民或公司成员证明说法的材料，用于救援、倒戈和结局。
+- **证据 Evidence**：可向他人出示以支持说法的材料；公司取证、救援、倒戈和结局判定是旧版用途，不限定新剧情。
 - **线索 Leads**：尚待调查的方向，不代表已经证实。
 - **结果 Outcome**：一次事件提交的原子状态变更集合，使用稳定 ID 防重复应用。
-- **暴露 Exposure**：林晓雨身份从无人注意到确认的四阶段风险。
-- **谨慎路线**：身份未确认时秘密潜入并破坏一个仪式节点。
-- **救援路线**：身份确认后林晓雨被绑架，玩家依赖既有信赖组织救援。
+- **暴露 Exposure（旧版规则）**：林晓雨身份从无人注意到确认的四阶段风险；现有状态/规则保留，不预定新剧情使用。
+- **谨慎路线（旧稿）**：身份未确认时秘密潜入并破坏一个仪式节点。
+- **救援路线（旧稿）**：身份确认后林晓雨被绑架，玩家依赖既有信赖组织救援；新主线没有预定这一分线。
 - **情境战**：以调查、保护、安抚、破坏和制服为目标的非致命战斗。
 
 ## 接手第一周
@@ -83,8 +118,8 @@ town-rpg/
 2. 执行 [测试与发布](production/testing-release.md)中的 Core 测试和九场景冒烟，记录本机路径差异。
 3. 手工完成四室主路径及五个区域的大头针路径，再用旧存档回归 Legacy 两日流程。
 4. 对照 [当前实现](engineering/current-implementation.md)记录任何文档与实际行为不一致之处。
-5. 先做至少 3 人的序章盲测，再迁移 Legacy 演示对白；不要据自动化结果扩写大量 Day 3 内容。
-6. 完成切片盲测后再按[路线图](production/roadmap-handoff.md)扩展完整内容。
+5. 继续至少 3 人的序章盲测；新现实剧情依[第一章细案](design/chapter-one.md)写场景与对白草稿，来源真相继续留白，不从 Legacy 或旧 Day 3 内容直接扩写。
+6. 按[路线图](production/roadmap-handoff.md)区分叙事设计、已有内容维护和未来运行时接入。
 
 ## 不适用项
 
