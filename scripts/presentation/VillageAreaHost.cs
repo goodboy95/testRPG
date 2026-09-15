@@ -8,6 +8,10 @@ public partial class VillageAreaHost : Node
 {
     public bool EmbeddedInGame { get; init; }
     protected virtual bool TerrainSample=>false;
+    protected virtual bool ArtSample=>false;
+    protected virtual bool CompactSample=>false;
+    protected virtual bool HouseArtSample=>false;
+    protected virtual bool HomeTreesSample=>false;
     // Regression switches apply only to independent previews; formal saves always use the adopted surface.
     private bool OriginalTerrain=>OS.GetCmdlineUserArgs().Contains("--village-original-terrain") || OS.GetCmdlineUserArgs().Contains("--terrain-baseline");
     public event Action? CheckpointReached;
@@ -15,6 +19,7 @@ public partial class VillageAreaHost : Node
     private PlayerSettings _settings = new();
     private Dictionary<string, bool> _savedDoors = new();
     private Dictionary<string, bool> _savedLights = new();
+    private Dictionary<string,int> _savedDoorSides = new();
     private bool _restoring;
     public bool Graybox { get; } = OS.GetCmdlineUserArgs().Contains("--village-graybox");
     public bool UseV1 { get; } = OS.GetCmdlineUserArgs().Contains("--village-v1");
@@ -45,8 +50,16 @@ public partial class VillageAreaHost : Node
         if(ResourceLoader.Exists(PlayerController3D.DefaultCharacterModelPath))
             _characterModelResource=ResourceLoader.Load<PackedScene>(PlayerController3D.DefaultCharacterModelPath);
         _areaHost=new Node { Name="AreaHost" };AddChild(_areaHost);BuildUi();
+        var legacyPreview=OS.GetCmdlineUserArgs().Any(a=>a is "--village-v2" or "--v4-baseline" or "--village-art-baseline");
+        var compact=EmbeddedInGame || (!UseV1 && !OriginalTerrain && !ArtSample && !TerrainSample && !legacyPreview && (CompactSample || !Graybox));
+        var adoptedArt=EmbeddedInGame || (compact && !Graybox && !CompactSample && !HouseArtSample && !HomeTreesSample
+            && !OS.GetCmdlineUserArgs().Contains("--village-v4"));
         Exterior=new VillageExterior3D { Name="VillageExterior",Graybox=!EmbeddedInGame && Graybox,UseV1=!EmbeddedInGame && UseV1,
-            UseTerrainSample=EmbeddedInGame || (!UseV1 && !Graybox && !OriginalTerrain) };
+            UseTerrainSample=EmbeddedInGame || compact || (!UseV1 && !Graybox && !OriginalTerrain),
+            UseCompactLayout=compact,
+            UseHouseArtSample=adoptedArt || (!EmbeddedInGame && HouseArtSample && compact && !Graybox),
+            UseHomeTreesSample=adoptedArt || (!EmbeddedInGame && HomeTreesSample && compact && !Graybox),
+            UseArtSample=!EmbeddedInGame && ArtSample && !UseV1 && !Graybox };
         Exterior.HomeRequested+=EnterHome;
         Exterior.PromptChanged+=OnExteriorPrompt;
         _areaHost.AddChild(Exterior);
@@ -104,7 +117,7 @@ public partial class VillageAreaHost : Node
         await Fade(1);
         if(_exiting) return false;
         var yaw=ActiveCamera.YawDegrees;
-        if(Interior is not null) { _savedDoors=Interior.CaptureDoors();_savedLights=Interior.CaptureLights(); }
+        if(Interior is not null && !_restoring) { _savedDoors=Interior.CaptureDoors();_savedDoorSides=Interior.CaptureDoorSides();_savedLights=Interior.CaptureLights(); }
         var previous=IsInterior ? (Node)Interior! : Exterior;
         if(!IsInterior) Exterior.SetSurfaceActive(false);
         previous.ProcessMode=ProcessModeEnum.Disabled;_areaHost.RemoveChild(previous);
@@ -112,13 +125,13 @@ public partial class VillageAreaHost : Node
         {
             if(Interior is null)
             {
-                Interior=new HomePreviewController3D { Name="VillageHomeInterior",EmbeddedInVillage=true };
+                Interior=new HomePreviewController3D { Name="VillageHomeInterior",EmbeddedInVillage=true,UseIdentitySample=Exterior.UseHomeTreesSample };
                 Interior.VillageExitRequested+=LeaveHome;
                 Interior.FixturesChanged+=OnFixturesChanged;
             }
             _areaHost.AddChild(Interior);Interior.SetHostLocked(true);
             Interior.ApplySettings(_settings);
-            Interior.RestoreFixtures(_savedDoors,_savedLights);
+            Interior.RestoreFixtures(_savedDoors,_savedLights,_savedDoorSides);
             var entry=HomeLayout3D.Layout.Doors.Single(d=>d.Id=="entry");
             Interior.PlayerActor.GlobalPosition=new(entry.Position[0],entry.Position[1],entry.Position[2]-1.3f);
             Interior.PlayerActor.SetFacingImmediate(Vector3.Forward);
@@ -132,7 +145,7 @@ public partial class VillageAreaHost : Node
         IsInterior=enterHome;
         var next=IsInterior ? (Node)Interior! : Exterior;
         next.ProcessMode=ProcessModeEnum.Inherit;
-        ActiveCamera.SetYawImmediate(yaw+(enterHome?-VillageLayout3D.Home.Yaw:VillageLayout3D.Home.Yaw));ActiveCamera.SnapToTarget();ActiveCamera.Camera.MakeCurrent();
+        ActiveCamera.SetYawImmediate(yaw+(enterHome?-Exterior.Layout.Home.Yaw:Exterior.Layout.Home.Yaw));ActiveCamera.SnapToTarget();ActiveCamera.Camera.MakeCurrent();
         UpdateLabels();
         await ToSignal(GetTree(),SceneTree.SignalName.PhysicsFrame);
         await Fade(0);
@@ -165,7 +178,11 @@ public partial class VillageAreaHost : Node
     private void UpdateLabels()
     {
         _areaName.Text=EmbeddedInGame ? (IsInterior ? "家中 · 周六早晨" : "村庄 · 周六早晨") : UiText.Get(IsInterior ? "VILLAGE_HOME_TITLE" : "VILLAGE_TITLE");
+        if(Exterior.UseCompactLayout && !EmbeddedInGame && !IsInterior) _areaName.Text="溪谷村庄 v4 · 夏日上午";
         if(TerrainSample && !EmbeddedInGame && !IsInterior) _areaName.Text="地形样板 · 夏日上午";
+        if(Exterior.UseArtSample && !EmbeddedInGame && !IsInterior) _areaName.Text="树木与铺面样板 · 夏日上午";
+        if(Exterior.UseHouseArtSample && !EmbeddedInGame && !IsInterior) _areaName.Text="四户住宅样板 · 夏日上午";
+        if(Exterior.UseHomeTreesSample && !EmbeddedInGame && !IsInterior) _areaName.Text=HomeTreesSample ? "主角家与全村树木样板 · 夏日上午" : "溪谷村庄 v6 · 夏日上午";
         _instructions.Text=EmbeddedInGame ? (_gamepad ? "左摇杆 移动　右摇杆 镜头　A 互动　Menu 暂停" : "WASD 移动　Shift 慢走　鼠标 镜头　F 互动　Esc 暂停") : UiText.Get(_gamepad?"VILLAGE_CONTROLS_PAD":"VILLAGE_CONTROLS_KEYBOARD");
         if(IsInterior) _prompt.Text=string.Empty;
     }
@@ -188,13 +205,14 @@ public partial class VillageAreaHost : Node
         var direction = ActivePlayer.FacingWorld;
         return new() { X=p.X, Y=p.Y, Z=p.Z, FacingRadians=Mathf.Atan2(direction.X,direction.Z),
             CameraYaw=ActiveCamera.YawDegrees, Doors=Interior?.CaptureDoors() ?? new(_savedDoors),
+            DoorOpenSides=Interior?.CaptureDoorSides() ?? new(_savedDoorSides),
             Lights=Interior?.CaptureLights() ?? new(_savedLights) };
     }
 
     public async Task RestoreAsync(string location, VillageExplorationState snapshot)
     {
         _restoring=true;
-        _savedDoors=new(snapshot.Doors);_savedLights=new(snapshot.Lights);
+        _savedDoors=new(snapshot.Doors);_savedDoorSides=new(snapshot.DoorOpenSides);_savedLights=new(snapshot.Lights);
         _hostLocked=false;
         try
         {
@@ -202,7 +220,7 @@ public partial class VillageAreaHost : Node
                 await SwitchArea(location == VillageExplorationState.HomeLocation);
             if (_exiting) return;
             SetHostLocked(true);
-            Interior?.RestoreFixtures(_savedDoors,_savedLights);
+            Interior?.RestoreFixtures(_savedDoors,_savedLights,_savedDoorSides,IsInterior?new Vector3(snapshot.X,snapshot.Y,snapshot.Z):null);
             ApplySettings(_settings);
             await ToSignal(GetTree(),SceneTree.SignalName.PhysicsFrame);
             if (_exiting) return;
@@ -232,7 +250,7 @@ public partial class VillageAreaHost : Node
         }
         else
         {
-            var bounds=VillageLayout3D.Layout.Bounds;
+            var bounds=Exterior.Layout.Geometry.Bounds;
             if (p.X < bounds[0]+1 || p.X > bounds[0]+bounds[2]-1 || p.Z < bounds[1]+1 || p.Z > bounds[1]+bounds[3]-1 ||
                 !Exterior.Surface.Ready || !float.IsFinite(Exterior.WalkHeight(p.X,p.Z)) ||
                 Math.Abs(p.Y-Exterior.WalkHeight(p.X,p.Z)) > .5f) return false;

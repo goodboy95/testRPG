@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-15",
+  "tool": "Python Pillow / NumPy offline derivation",
+  "aiGenerated": false,
+  "license": "CC0-1.0",
+  "licenseRecord": "art/sources/cc0/village-art-v3/license.html",
+  "reusedManifest": "art/sources/cc0/village-art-v3/provenance.json",
+  "recipe": "scripts/tools/prepare_village_houses.py",
+  "processing": [
+    "1K colour, contrast compression .48 plaster / .70 timber",
+    "No baked illumination; shared material factors provide per-house colours",
+    "Existing brick/roof/stone normal and roughness maps reused unchanged"
+  ],
+  "inputs": [
+    {
+      "path": "art\\sources\\cc0\\polyhaven\\environment-cinematic-v1\\painted_plaster_wall\\painted_plaster_wall_diff_2k.jpg",
+      "sha256": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+      "dimensions": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "path": "art\\sources\\cc0\\polyhaven\\environment-cinematic-v1\\oak_veneer_01\\oak_veneer_01_diff_2k.jpg",
+      "sha256": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+      "dimensions": [
+        2048,
+        2048
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "art\\blender\\village\\v5-textures\\plaster-color.png",
+      "sha256": "434db9d52dc69c653a6a6fc6506d36470b20999e2421b4ceb0a6ad08b1efe092",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "art\\blender\\village\\v5-textures\\repair-color.png",
+      "sha256": "90f4a58500e7b980c44cd84f1d46685c57f52bab4b3b90c9f91b366af4af6b65",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "art\\blender\\village\\v5-textures\\wood-color.png",
+      "sha256": "5acd2057da750be7407d0487a0213dac635289b41d2eab3be130a20ef1d3bc8e",
+      "dimensions": [
+        1024,
+        1024
+      ]
+    }
+  ]
+}

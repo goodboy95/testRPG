@@ -22,22 +22,38 @@ public sealed class HomePreviewTests
             Math.Abs(p[2] - b.Center.Z) < b.Size.Z / 2 + .25));
     }
 
-    [Fact]
-    public void DoorBlocksOccupiedSweepAndIgnoresRepeatedInputDuringMotion()
+    [Theory]
+    [InlineData(30)] [InlineData(60)] [InlineData(120)]
+    public void DoorPushesAwayAndClosesAlongItsOpeningSide(int fps)
     {
-        foreach (var d in HomeLayout3D.Layout.Doors)
+        foreach(var d in HomeLayout3D.Layout.Doors)
+        foreach(var side in new[]{-1,1})
         {
-            var motion = new HomeDoorMotion(d);
-            Assert.False(motion.Request(new(d.Position[0], d.Position[2])));
-            Assert.True(motion.Request(new(20, 20)));
-            motion.Step(.1f); Assert.True(motion.IsMoving);
-            Assert.False(motion.Request(new(20, 20)));
-            motion.Step(1); Assert.True(motion.IsOpen);
-            var sweep = d.SweepBounds();
-            Assert.False(motion.Request(new(sweep.X + sweep.Width / 2, sweep.Z + sweep.Depth / 2)));
-            Assert.True(motion.Request(new(20, 20)));
-            motion.Step(1); Assert.False(motion.IsOpen); Assert.Equal(0, motion.Progress);
+            var p=new Vector2(d.Position[0],d.Position[2])+(d.Axis=="x"?Vector2.UnitY:Vector2.UnitX)*(.55f*side);
+            var m=new HomeDoorMotion(d);Assert.True(m.Request(p));Assert.Equal(-side,m.OpenSide);
+            Assert.False(m.Request(p));
+            for(var i=0;i<fps;i++)m.Step(1f/fps,p);
+            Assert.True(m.IsOpen);Assert.False(m.IsBlocked);Assert.Equal(-side,m.StableOpenSide);
+            Assert.True(m.Request(p));
+            for(var i=0;i<fps;i++)m.Step(1f/fps,p);
+            Assert.False(m.IsOpen);Assert.False(m.IsMoving);Assert.Equal(0,m.Progress);
+            Assert.False(m.Request(new(d.Position[0],d.Position[2])));
         }
+    }
+
+    [Fact]
+    public void DoorStopsBeforeCapsuleAndResumesWithoutFlippingOrSavingIntermediatePose()
+    {
+        var d=HomeLayout3D.Layout.Doors[1];var m=new HomeDoorMotion(d);
+        Assert.True(m.Request(new(-2.55f,2.1f)));
+        // Capsule moves into the opening side, ahead of the moving tip.
+        m.Step(1,new Vector2(-1.05f,1.65f));
+        Assert.True(m.IsBlocked);Assert.True(m.IsMoving);Assert.False(m.StableOpen);
+        Assert.False(m.OverlapsPlayer(m.Progress,m.OpenSide,new(-1.05f,1.65f)));
+        var angle=m.AngleRadians(0);m.Step(.1f,new(-1.05f,1.65f));Assert.Equal(angle,m.AngleRadians(0));
+        m.Step(1,new(-3,2));Assert.True(m.IsOpen);Assert.Equal(1,m.StableOpenSide);
+        Assert.True(m.Request(new(-3,2)));m.Step(.1f,new(-3,2));Assert.True(m.StableOpen);Assert.Equal(1,m.StableOpenSide);
+        m.Restore(m.StableOpen,m.StableOpenSide);Assert.True(m.IsOpen);Assert.Equal(1,m.OpenSide);
     }
 
     [Fact]

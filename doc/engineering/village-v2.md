@@ -1,5 +1,9 @@
 # 村庄 v2：第一批外景与独立漫游
 
+`[已实现]` 2026-09-14 后续布局轮：[紧凑村庄 v4](village-v4.md)已接入正式醒后探索与默认预览，采用 v3 树木／两铺外观和独立派生 Terrain3D。固定主角家、溪流、双桥及 24 栋体量；原布局通过独立预览 `--village-v2` 回归，v1 与 v3 样板入口保留。第一章委托仍未接入。[本轮实际验证](../production/village-v4-validation.md)独立记录；下述旧批次的“正式 v2／样板待采用”均为当时状态。
+
+`[已实现]` 后续 [v3 树木与两铺样板](village-art-v3.md)从本版保存源派生，尚未替换正式与默认入口。本版源、GLB 和历史验收保留，样板结果见其独立记录。
+
 > 2026-09-14 负责人确认采用地形：正式村庄与默认 v2 预览已使用 [Terrain3D 地形](village-terrain-sample.md)。显式 `--village-original-terrain` 保留原 v2 地面，`--village-v1` 保留 v1。原始模型与地形数据未重建；本轮结果见[正式采用验收](../production/village-terrain-adoption.md)。仅三处精修，全村其余区域为基础迁入。
 
 

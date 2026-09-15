@@ -1,0 +1,63 @@
+[gd_resource type="Terrain3DAssets" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Grass001-albedo-height.png" id="1_xj77i"]
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Grass001-normal-roughness.png" id="2_yotse"]
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Ground031-albedo-height.png" id="3_6l4yh"]
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Ground031-normal-roughness.png" id="4_2wp7w"]
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Gravel014-albedo-height.png" id="5_oril0"]
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Gravel014-normal-roughness.png" id="6_khhh2"]
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Ground037-albedo-height.png" id="7_fbel6"]
+[ext_resource type="Texture2D" path="res://assets/generated/village/terrain-sample-v1/Ground037-normal-roughness.png" id="8_dq1en"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k53jr"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_nkljf"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_k53jr")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_8ijsh"]
+name = "Grass001"
+albedo_texture = ExtResource("1_xj77i")
+normal_texture = ExtResource("2_yotse")
+uv_scale = 0.5
+detiling_rotation = 0.12
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_qqrp6"]
+name = "Ground031"
+id = 1
+albedo_texture = ExtResource("3_6l4yh")
+normal_texture = ExtResource("4_2wp7w")
+uv_scale = 0.5
+detiling_rotation = 0.12
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_pmbu4"]
+name = "Gravel014"
+id = 2
+albedo_texture = ExtResource("5_oril0")
+normal_texture = ExtResource("6_khhh2")
+uv_scale = 0.5
+detiling_rotation = 0.12
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_kcrrg"]
+name = "Ground037"
+id = 3
+albedo_texture = ExtResource("7_fbel6")
+normal_texture = ExtResource("8_dq1en")
+uv_scale = 0.5
+detiling_rotation = 0.12
+
+[resource]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_nkljf")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_8ijsh"), SubResource("Terrain3DTextureAsset_qqrp6"), SubResource("Terrain3DTextureAsset_pmbu4"), SubResource("Terrain3DTextureAsset_kcrrg")])

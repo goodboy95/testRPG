@@ -1,5 +1,18 @@
 # 当前实现说明
 
+> 2026-09-15 正式采用：负责人已确认将 v6（四户住宅 v5、主角家暖色外观、全村树木）与配套住宅外观启用。正式游戏和默认村庄预览现用 v6，沿用修复后的 v4 布局／地形；独立预览 `--village-v4` 保留旧外观回归。第一章委托未接入。[采用与验证](../production/village-v6-adoption.md)。下述样板轮“尚未切换”是当轮交付状态。
+
+
+> 2026-09-15 本轮更新：主角家与全村树木独立样板已可走查，包含四户 v5，正式村庄继续 v4；[入口与边界](village-home-trees-v6.md)。第一章委托尚未接入。
+
+`[已实现]` 2026-09-15：[四户住宅美术 v5](village-houses-v5.md)仅在独立入口走查，沿用已修复 v4 地形。正式游戏及默认预览继续 v4；第一章委托未接入。验证见[本轮记录](../production/village-houses-v5-validation.md)。
+
+> 2026-09-15：[双向推门与院外接坡](home-access.md)更新门方向的可选保存、住宅缓存恢复和 v4 局部地形／路面；[实际验收](../production/home-access-validation.md)记录连续院外往返，保留旧批次的历史结果。
+
+`[已实现]` 2026-09-14 后续布局轮：[紧凑村庄 v4](village-v4.md)已接入正式醒后探索与默认预览，采用 v3 树木／两铺外观和独立派生 Terrain3D。固定主角家、溪流、双桥及 24 栋体量；原布局通过独立预览 `--village-v2` 回归，v1 与 v3 样板入口保留。第一章委托仍未接入。[本轮实际验证](../production/village-v4-validation.md)独立记录；下述旧批次的“正式 v2／样板待采用”均为当时状态。
+
+`[已实现]` 2026-09-14 [树木与两间铺面 v3](village-art-v3.md)可通过独立 `VillageArtPreview.tscn` 走查。正式与默认入口仍加载 v2 + 已采用 Terrain3D。该美术轮测试 184 项（182＋2 项美术导出与隔离契约），具体结果见[本轮验收](../production/village-art-v3-validation.md)。
+
 > 2026-09-14 负责人确认采用地形：正式村庄与默认 v2 预览已使用 [Terrain3D 地形](village-terrain-sample.md)。显式 `--village-original-terrain` 保留原 v2 地面，`--village-v1` 保留 v1。原始模型与地形数据未重建；本轮结果见[正式采用验收](../production/village-terrain-adoption.md)。仅三处精修，全村其余区域为基础迁入。
 
 

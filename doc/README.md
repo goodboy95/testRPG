@@ -1,6 +1,17 @@
 # town-rpg 交接文档
 
-`[已实现]` 2026-09-14 赶路优化：村庄 v2 正式探索及独立预览室外为 4.2 米/秒，住宅／梦境／v1 回归仍为 3.1；见[分批计划](design/village-optimization.md)和[本轮验收](production/village-travel-validation.md)。地形三处独立样板已制作，见[制作](engineering/village-terrain-sample.md)和[验收](production/village-terrain-validation.md)；负责人确认后已接入正式村庄与默认 v2 预览，见[采用验收](production/village-terrain-adoption.md)；全村其余精修与建筑贴图仍为后续工作。
+> 2026-09-15 正式采用：负责人已确认将 v6（四户住宅 v5、主角家暖色外观、全村树木）与配套住宅外观启用。正式游戏和默认村庄预览现用 v6，沿用修复后的 v4 布局／地形；独立预览 `--village-v4` 保留旧外观回归。第一章委托未接入。[采用与验证](production/village-v6-adoption.md)。下述样板轮“尚未切换”是当轮交付状态。
+
+
+> 2026-09-15 本轮更新：[主角家辨识与全村树木 v6](engineering/village-home-trees-v6.md) · [实际验收](production/village-home-trees-v6-validation.md)
+
+`[已实现]` 2026-09-15：[四户住宅美术样板 v5](engineering/village-houses-v5.md)提供独立漫游，四户的贴图、院墙和生活摆设有明确区别；沿用已修复的 v4 地形和布局。正式与默认预览仍为 v4，外观确认后再切换；[实际验收](production/village-houses-v5-validation.md)与人工确认单列，第一章委托尚未接入。
+
+`[已实现]` 2026-09-14 后续布局轮：[紧凑村庄 v4](engineering/village-v4.md)已接入正式醒后探索与默认预览，采用 v3 树木／两铺外观和独立派生 Terrain3D。固定主角家、溪流、双桥及 24 栋体量；原布局通过独立预览 `--village-v2` 回归，v1 与 v3 样板入口保留。第一章委托仍未接入。[本轮实际验证](production/village-v4-validation.md)独立记录；下述旧批次的“正式 v2／样板待采用”均为当时状态。
+
+`[已实现]` 2026-09-14 [树木与两间铺面 v3 样板](engineering/village-art-v3.md)可独立漫游，正式游戏与默认预览尚未切换。三棵树与两铺采用 CC0 材质和独立派生源；[本轮验证](production/village-art-v3-validation.md)与负责人确认单列。
+
+`[已实现]` 2026-09-14 赶路优化：村庄 v2 正式探索及独立预览室外为 4.2 米/秒，住宅／梦境／v1 回归仍为 3.1；见[分批计划](design/village-optimization.md)和[本轮验收](production/village-travel-validation.md)。地形三处独立样板已制作，见[制作](engineering/village-terrain-sample.md)和[验收](production/village-terrain-validation.md)；负责人确认后已接入正式村庄与默认 v2 预览，见[采用验收](production/village-terrain-adoption.md)；全村其余精修仍为后续工作，两铺材质由下述 v3 样板制作，尚未正式采用。
 
 `[已实现]` 2026-09-14 后续接入：[梦境醒来与村庄自由探索](engineering/village-wake.md)。解谜成功／大头针刺醒后进入周六卧室，住宅和村庄可往返，位置及门灯写入正式存档；第一章委托、居民、森林和第二章尚未接入。此前建模轮的独立预览和验收记录继续保留，不代表本轮验证。
 
@@ -20,6 +31,10 @@
 | 工程与内容制作 | [架构](engineering/architecture.md)、[内容制作规范](engineering/content-authoring.md)、[路线图](production/roadmap-handoff.md) |
 | 梦境剧情与规则 | [梦境概述](design/dream-escape.md)、[序章 v4](design/dream-escape-v4.md)、[模块说明](modules/dream-escape.md)、[角色提示](engineering/puzzle-feedback.md) |
 | 村庄体验与美术优化 | [分批计划](design/village-optimization.md)、[地形样板](engineering/village-terrain-sample.md)、[地形验收](production/village-terrain-validation.md)、[赶路验收](production/village-travel-validation.md) |
+| 村庄紧凑布局 | [v4 制作与入口](engineering/village-v4.md)、[v4 实际验收](production/village-v4-validation.md) |
+| 树木与铺面样板 | [v3 制作](engineering/village-art-v3.md)、[v3 验收](production/village-art-v3-validation.md) |
+| 四户住宅美术样板 | [v5 制作与入口](engineering/village-houses-v5.md)、[v5 实际验收](production/village-houses-v5-validation.md) |
+| 门交互与院外通行修复 | [规则、保存与编辑](engineering/home-access.md)、[实际验收](production/home-access-validation.md) |
 | 村庄与住宅制作 | [村庄外景设计](design/village-exterior.md)、[村庄 v2](engineering/village-v2.md)、[村庄 v1](engineering/village-v1.md)、[住宅 v1](engineering/home-v1.md) |
 | 梦境场景制作 | [第一室 v6](engineering/classroom-remodel-v6.md)、[大厅 v3](engineering/manor-remodel-v3.md)、[音乐室 v2](engineering/music-remodel-v2.md)、[档案室 v2](engineering/archive-remodel-v2.md)、[礼堂 v2](engineering/auditorium-remodel-v2.md) |
 | 角色、UI 与资产规范 | [角色动作](engineering/character-motion.md)、[UI 规范](engineering/ui-ux.md)、[电影感 UI 样板](engineering/ui-cinematic-samples.md)、[资产制作与来源](engineering/content-authoring.md) |

@@ -10,9 +10,14 @@
 | 世界观、人物与剧情红线 | [剧情圣经](doc/design/story-bible.md) |
 | 第一章任务、场景与章末事件 | [第一章细案](doc/design/chapter-one.md) |
 | 村庄赶路、地形与贴图优化 | [分批优化计划](doc/design/village-optimization.md)、[地形样板](doc/engineering/village-terrain-sample.md)、[地形验收](doc/production/village-terrain-validation.md)、[赶路验收](doc/production/village-travel-validation.md) |
+| 村庄紧凑布局与 v4 正式采用 | [制作与版本入口](doc/engineering/village-v4.md)、[实际验收](doc/production/village-v4-validation.md) |
+| 树木与两铺独立美术样板 | [v3 制作与入口](doc/engineering/village-art-v3.md)、[实际验收](doc/production/village-art-v3-validation.md) |
+| 主角家辨识与全村树木样板 | [v6 制作与入口](doc/engineering/village-home-trees-v6.md)、[实际验收](doc/production/village-home-trees-v6-validation.md) |
+| 四户住宅贴图、院落摆设与独立走查 | [v5 制作与入口](doc/engineering/village-houses-v5.md)、[实际验收](doc/production/village-houses-v5-validation.md) |
 | 村庄建筑、院落与外景建模设计 | [村庄外景细案](doc/design/village-exterior.md)、[第一批建模 v2](doc/engineering/village-v2.md) |
 | 章节推进、第二章接口与历史替代 | [剧情流程](doc/design/story-flow.md) |
 | 玩法、时间、战斗与成长 | [游戏设计](doc/design/game-design.md) |
+| 双向推门、门方向存档与院外道路阻挡 | [修复说明](doc/engineering/home-access.md)、[实际验收](doc/production/home-access-validation.md) |
 | 梦境醒来、村庄正式存档与恢复 | [正式村庄探索](doc/engineering/village-wake.md) |
 | 当前能运行什么 | [当前实现](doc/engineering/current-implementation.md) |
 | 模块边界、状态与存档 | [架构](doc/engineering/architecture.md) |
@@ -21,6 +26,12 @@
 | 下一步工作与接入门槛 | [交接路线图](doc/production/roadmap-handoff.md) |
 
 第一章详细正文只维护在细案中；各入口保留摘要。场景、UI、角色动作、资产和历史资料从交接首页分类索引进入，至多两次点击可达。文档设计不代表已经接入游戏。
+
+## v6 正式采用与提交（2026-09-15 后续授权）
+
+- `[已实现]` 负责人确认“先这样吧”，授权正式采用 v6 和配套住宅外观，包含四户 v5 与全村树木。正式与默认村庄预览使用新外观，布局及地形继续使用已修复 v4。独立 `--village-v4` 与旧版本入口保留。
+- `[固定约束]` 本轮允许 Git 提交已开发内容，替代前述批次“本轮不提交”的阶段边界；本机角色、角色动作及含角色画面仍禁止提交，不推送、不导出游戏。第一章委托未接入。
+- [正式采用与验证](doc/production/village-v6-adoption.md)；样板轮验收保留历史，不能当作本次正式入口测试。
 
 ## 项目约束
 
@@ -93,6 +104,30 @@ Web、数据库、外部微服务、HTTP/gRPC、域名、监听端口、反向�
 - `[已实现]` Terrain3D 1.0.2 已安装，家门外道路、广场边缘和南桥西岸三处样板进入独立 `VillageTerrainPreview.tscn`；四区域承载基础地面，三处精修。样板制作轮未切换正式入口；负责人随后确认“看着不错，可以覆盖”，当前正式村庄与默认 v2 预览已采用这版地形。
 - `[固定约束]` 本轮已获插件安装、地表素材及样板表现层接入授权，先前“未安装、地形不修改”为赶路轮边界。Godot 4.6.3／Compatibility、Core、存档、内容版本 6、旧 Blend/GLB 与建筑路桥保留；不接任务、森林或建筑新材质。
 - 原生区域和材质为后续编辑源；初始化工具拒绝覆盖既有文件。制作、备份和实际检查见[地形样板](doc/engineering/village-terrain-sample.md)及[样板验收](doc/production/village-terrain-validation.md)、[正式采用验收](doc/production/village-terrain-adoption.md)。负责人已确认本版外观；真实设备手感与目标硬件验收仍单列。原 v2 地面使用独立预览 `--village-original-terrain` 回归，v1 原入口不变；不覆盖原 Blend/GLB，不改 Core/存档格式。
+
+## 树木与两间铺面样板（2026-09-14 后续授权）
+
+- `[已实现]` 广场大树、Tree_037、Tree_043 和两间铺面已派生为独立 v3；入口 `VillageArtPreview.tscn` 使用已采用的 Terrain3D。该样板制作轮正式游戏和默认预览仍为 v2；后续 v4 已采用其外观，第一章委托尚未接入。
+- `[固定约束]` 本轮授权树木、两铺相关几何和 CC0 材质制作，替代上一轮“建筑贴图未制作”的阶段边界；保留位置体量、碰撞通路、旧源、地形、住宅、Core、存档和内容版本 6。本轮不调用图像生成工具，不提交、推送或导出游戏。
+- 通过[制作说明](doc/engineering/village-art-v3.md)编辑并导出；v3 已存在时初始化拒绝覆盖。该样板当时等待正式采用；现已随 v4 采用，其余树木、房屋推广另行安排；实际检查和人工验收边界见[本轮记录](doc/production/village-art-v3-validation.md)。
+
+## 村庄布局收紧（2026-09-14 后续授权）
+
+- `[已实现]` 全村适度收紧的 v4 已接入正式探索与默认预览，同时采用 v3 树木与两铺外观；加载、路线及恢复结果见本轮验收。独立预览 `--village-v2` 回归原布局。本轮允许移动其他建筑、院地、道路和局部地形，替代前几轮“全部建筑位置不变”的阶段边界；主角家及院地、溪流、双桥、24 栋建筑体量与外围边界固定。
+- `[固定约束]` 从保存的 v3 和已采用 Terrain3D 派生独立源，旧 v1～v3、住宅与旧地形保留；不使用旧构建器覆盖。Core、SaveEnvelope v1、存档字段、内容版本 6、剧情、室内和角色速度不变。新旧布局由外景实例分别持有，旧档无效落点回到固定安全点。
+- 制作、入口、编辑方法和当前验证状态见[v4 说明](doc/engineering/village-v4.md)与[本轮验收](doc/production/village-v4-validation.md)。正式切换与负责人视觉、手感确认分别记录，不提交、推送或导出游戏。
+
+## 四户住宅美术样板（2026-09-15 后续授权）
+
+- `[已实现]` house02、house03、house13、house15 采用新旧混居、有人维护的外墙／屋顶／门窗／院墙与不同生活摆设；从包含院外接坡修复的保存 v4 派生独立 v5。入口为 `VillageHouseArtPreview.tscn`，正式游戏与默认预览仍为 v4，负责人确认后再切换。
+- `[固定约束]` 负责人批准这四户的材质、浅构件与门前静态摆设，替代此前该批未制作的阶段边界；保留全部建筑位置体量、道路、已修复 Terrain3D、住宅、两铺和其他树木。只复用已采用 CC0 素材，不调用图像生成，不改 Core、存档和内容版本，不接第一章委托。
+- 制作和只读复验见[v5 说明](doc/engineering/village-houses-v5.md)。保留旧源；禁止重跑 `init` 覆盖手工编辑。负责人视觉／手感确认与自动验证分别记录，不提交、推送或导出游戏。
+
+## 主角家与全村树木样板（2026-09-15 后续授权）
+
+- `[已实现]` 从保存 v5 派生独立 v6，保留四户样板，采用主角家暖色外观并将三种共享阔叶树推广至其余 55 棵普通树；广场大树与两棵已美化普通树保留，样板可独立走查。正式村庄与默认预览仍为 v4，负责人确认后再安排采用。
+- `[固定约束]` 本轮授权主角家外侧材料、门廊浅构件、静态自行车／收纳与全村普通树枝叶替换，替代前轮相应“不变”边界。位置体量、室内、门轴、院门净宽、双向推门、修复地形、四户和两铺保持；无 Core／存档／剧情改动。
+- [制作与独立入口](doc/engineering/village-home-trees-v6.md)、[实际验收](doc/production/village-home-trees-v6-validation.md)。只复用已采用 CC0；旧源保留，不运行旧构建器覆盖，不提交、推送或导出游戏。
 
 ## 技术基线
 
@@ -191,3 +226,9 @@ GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=21 items=31
 截至 2026-09-12：`[已实现]` 主角家 3D v1 独立漫游：12×9×3.2 米平房、15×18 米院地、两卧一厅与独立厨卫，五处房门和六组灯可操作；`HomeLayout3D` 统一 Blender 几何与 Godot 碰撞/门轴/安全点。入口为 `scenes/testing/HomePreview.tscn`，状态仅属于当前实例，不写正式存档，没有晓雨或剧情线索；醒后剧情尚未接入，正式新游戏、Legacy、梦境结算和内容版本 6 不变。独立源为 `art/blender/home/home-v1.blend`，GLB/manifest 位于 `assets/generated/home/3d/`；用 `build_home_v1.py check` 只读复验，灰模仅写入 `work/home-v1-graybox/`。155 项测试（151＋4）、零警告 Debug 构建、九场景回归及住宅 179 项图形专项通过，三分辨率 84 张截图与加载耗时见[实现](doc/engineering/home-v1.md)和[验收](doc/production/home-v1-validation.md)。负责人视觉确认、真实 Xbox/raw delta、目标硬件冷启动和导出仍待验收；本机角色与含角色截图的限制不变。
 
 截至 2026-09-12：`[已实现]` 村庄 3D v1 独立漫游：24 栋建筑（18 住宅＋6 公用/铁路建筑）、两桥、溪岸与旧站回环，院路连续，住宅正门淡入淡出往返既有室内。`VillageLayout3D` 统一地形网格、建筑、道路、桥面和碰撞，角色可选地形移动默认关闭，仅村庄开启；预览缓存住宅临时门灯状态，重置释放，不写正式存档，不接入居民/对白/任务或醒后剧情。独立源 `art/blender/village/village-v1.blend`，运行资源 `assets/generated/village/3d/`；用 `build_village_v1.py check` 只读复验，不能覆盖住宅 v1 源。当前 162 项测试（155＋6 布局/地形＋1 实际 GLB），零警告构建、九场景与住宅回归、村庄路线/转场和三分辨率专项见[制作](doc/engineering/village-v1.md)与[验收](doc/production/village-v1-validation.md)。内容版本 6 与正式路由不变。负责人视觉确认、真实 Xbox/raw delta、目标硬件与导出仍待验收；本机角色及截图限制不变。
+
+## 双向推门与院外接坡（2026-09-15 后续授权）
+
+- `[已实现]` 房门向玩家对侧开启，真实门叶运动受阻暂停、让开继续；正式正门仍转场。取消原整片扫掠拒绝与临时碰撞，保存稳定开闭及方向。
+- `[固定约束]` 本轮负责人明确批准 Core 可选 `DoorOpenSides` 字典，SaveEnvelope v1／内容版本 6 保留。旧档缺字段先用原方向，必要时选择安全另一侧；住宅缓存不覆盖载入快照。
+- `[已实现]` 连续走到院外低处后回路面复现 Terrain3D 接坡阻挡，局部修改 276 个样本及三处道路网格；住宅、院门宽度与移动参数不变。此前 v4 小段道路高度保护约束由本次修复授权局部替代。详见[修复说明](doc/engineering/home-access.md)与[实际验收](doc/production/home-access-validation.md)，旧测试没有覆盖完整院外往返，不代表这段路线此前顺畅。

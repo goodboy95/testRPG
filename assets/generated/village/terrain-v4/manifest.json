@@ -1,0 +1,40 @@
+{
+  "version": 4,
+  "spacing": 0.5,
+  "origin": [
+    -128,
+    -128
+  ],
+  "dimensions": [
+    512,
+    512
+  ],
+  "source": "currently saved terrain-sample-v1 native export",
+  "protectedSamples": 36683,
+  "changedSamples": 51031,
+  "detailInstances": 37,
+  "files": {
+    "height.bin": "f73fd51d24b58f9fde35a915fd0b38db509fa8acd3f7de8305651435664b8429",
+    "control.bin": "0f108b1791c36a4f64f2d701c30154efd9f9fc1628b46c0ab2ed3b9306ba5679",
+    "color.bin": "6cbfd9e1904310e9688d9e8e25b8eea91845bec8de17163701fe95b3bf570adb",
+    "protected.bin": "e3246659396fd68d1d1240f0e1c6b7de5732b8af8f0be23b275d5c8845883865"
+  },
+  "gradeRefinement": {
+    "backup": "art\\terrain\\village-v4\\edits\\20260914-232640",
+    "iterations": 180,
+    "changedSamples": 31235
+  },
+  "colorRefinement": "Preserve adopted macro colour and neutral roughness; feather relocated plaza; no hard white/roughness rectangles.",
+  "homeAccessRepair": {
+    "date": "2026-09-15",
+    "backup": "art/terrain/village-v4/edits/home-access",
+    "changedSamples": 276,
+    "bounds": [
+      -62,
+      52,
+      -50,
+      62
+    ],
+    "reason": "Continuous return from z=61 stalled on steep approach at z=58.21; ease road to opposite courtyard without changing home yard or movement rules."
+  }
+}

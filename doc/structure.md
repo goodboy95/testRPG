@@ -1,5 +1,11 @@
 # 项目结构
 
+`[已实现]` 2026-09-14 后续布局轮：[紧凑村庄 v4](engineering/village-v4.md)已接入正式醒后探索与默认预览，采用 v3 树木／两铺外观和独立派生 Terrain3D。固定主角家、溪流、双桥及 24 栋体量；原布局通过独立预览 `--village-v2` 回归，v1 与 v3 样板入口保留。第一章委托仍未接入。[本轮实际验证](production/village-v4-validation.md)独立记录；下述旧批次的“正式 v2／样板待采用”均为当时状态。
+
+当前源：`art/blender/village/village-v4.blend`、`art/terrain/village-v4/`；运行文件：`assets/generated/village/layout-v4.json`、`3d/village-v4.*`、`terrain-v4/`。独立走查为 `VillageCompactPreview.tscn`，地形编辑为 `VillageCompactAuthoring.tscn`。
+
+[树木与铺面 v3](engineering/village-art-v3.md)：`art/blender/village/village-v3.blend` 与 `v3-textures/` 为编辑源，`assets/generated/village/3d/village-v3.*` 为独立资源，`VillageArtPreview.tscn` 为入口；原 Terrain3D 数据共用且不重建。
+
 `[已实现]` 2026-09-14 后续接入：[梦境醒来与村庄自由探索](engineering/village-wake.md)。解谜成功／大头针刺醒后进入周六卧室，住宅和村庄可往返，位置及门灯写入正式存档；第一章委托、居民、森林和第二章尚未接入。此前建模轮的独立预览和验收记录继续保留，不代表本轮验证。
 
 

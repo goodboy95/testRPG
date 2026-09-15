@@ -1,0 +1,1084 @@
+{
+  "schemaVersion": 1,
+  "status": "independent-preview",
+  "runtimeDefault": false,
+  "graybox": false,
+  "visualAcceptance": "pending-human-review",
+  "sourceFile": "art/blender/home/home-v1.blend",
+  "runtimeGlbFile": "assets/generated/home/3d/home-v1.glb",
+  "sourceSha256": "dc955365c9cba90c2cd1a0f3390e9736660b8f02daa8ccfaf672c670d8c2aaea",
+  "runtimeGlbSha256": "9e12936af1165c2dcb35b2e8475838e88621081f70a7500c5830debabe347c42",
+  "runtimeGlbBytes": 26270220,
+  "layoutSource": "scripts/presentation/HomeLayout3D.cs",
+  "layoutSha256": "7de0f8f7091d01e67993b0250d7a69ec76531568f3b0dc787936ef20bd670eb7",
+  "layout": {
+    "version": 1,
+    "width": 12,
+    "depth": 9,
+    "height": 3.2,
+    "wallThickness": 0.2,
+    "spawn": [
+      -3.1,
+      0,
+      2.8
+    ],
+    "lot": [
+      -7.5,
+      -6,
+      15,
+      18
+    ],
+    "structure": [
+      {
+        "id": "Floor",
+        "position": [
+          0,
+          -0.11,
+          0
+        ],
+        "size": [
+          12,
+          0.2,
+          9
+        ],
+        "material": "tile"
+      },
+      {
+        "id": "Ceiling",
+        "position": [
+          0,
+          3.3,
+          0
+        ],
+        "size": [
+          12,
+          0.2,
+          9
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "Courtyard",
+        "position": [
+          0,
+          -0.13,
+          3
+        ],
+        "size": [
+          15,
+          0.22,
+          18
+        ],
+        "material": "concrete"
+      },
+      {
+        "id": "Porch",
+        "position": [
+          0,
+          -0.014,
+          5.25
+        ],
+        "size": [
+          12,
+          0.018,
+          1.5
+        ],
+        "material": "tile"
+      },
+      {
+        "id": "PorchCanopy",
+        "position": [
+          0,
+          2.94,
+          5.27
+        ],
+        "size": [
+          12.2,
+          0.12,
+          1.65
+        ],
+        "material": "concrete"
+      },
+      {
+        "id": "PorchPillarWest",
+        "position": [
+          -5.7,
+          1.46,
+          5.86
+        ],
+        "size": [
+          0.16,
+          2.92,
+          0.16
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "PorchPillarEast",
+        "position": [
+          5.7,
+          1.46,
+          5.86
+        ],
+        "size": [
+          0.16,
+          2.92,
+          0.16
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "FenceWest",
+        "position": [
+          -7.4,
+          0.75,
+          3
+        ],
+        "size": [
+          0.2,
+          1.5,
+          18
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "FenceEast",
+        "position": [
+          7.4,
+          0.75,
+          3
+        ],
+        "size": [
+          0.2,
+          1.5,
+          18
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "FenceRear",
+        "position": [
+          0,
+          0.75,
+          -5.9
+        ],
+        "size": [
+          14.6,
+          1.5,
+          0.2
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "FenceFrontLeft",
+        "position": [
+          -4.4,
+          0.75,
+          11.9
+        ],
+        "size": [
+          6,
+          1.5,
+          0.2
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "FenceFrontRight",
+        "position": [
+          4.4,
+          0.75,
+          11.9
+        ],
+        "size": [
+          6,
+          1.5,
+          0.2
+        ],
+        "material": "plaster"
+      },
+      {
+        "id": "ClosedYardGate",
+        "position": [
+          0,
+          0.75,
+          11.9
+        ],
+        "size": [
+          2.8,
+          1.5,
+          0.08
+        ],
+        "material": "green"
+      }
+    ],
+    "walls": [
+      {
+        "id": "south",
+        "axis": "x",
+        "at": 4.4,
+        "from": -6,
+        "to": 6,
+        "openings": [
+          [
+            0,
+            1.6,
+            0,
+            2.4
+          ],
+          [
+            -3.9,
+            2.1,
+            1,
+            2.45
+          ],
+          [
+            3.9,
+            2.1,
+            1.1,
+            2.45
+          ]
+        ]
+      },
+      {
+        "id": "north",
+        "axis": "x",
+        "at": -4.4,
+        "from": -6,
+        "to": 6,
+        "openings": [
+          [
+            -3.9,
+            2,
+            1,
+            2.45
+          ],
+          [
+            0,
+            1.8,
+            1,
+            2.45
+          ],
+          [
+            3.9,
+            1.4,
+            1.5,
+            2.45
+          ]
+        ]
+      },
+      {
+        "id": "west",
+        "axis": "z",
+        "at": -5.9,
+        "from": -4.3,
+        "to": 4.3,
+        "openings": [
+          [
+            2,
+            1.6,
+            1,
+            2.45
+          ],
+          [
+            -2.2,
+            1.6,
+            1,
+            2.45
+          ]
+        ]
+      },
+      {
+        "id": "east",
+        "axis": "z",
+        "at": 5.9,
+        "from": -4.3,
+        "to": 4.3,
+        "openings": [
+          [
+            2,
+            1.8,
+            1.1,
+            2.45
+          ],
+          [
+            -2.7,
+            1.1,
+            1.5,
+            2.45
+          ]
+        ]
+      },
+      {
+        "id": "partition_west",
+        "axis": "z",
+        "at": -1.9,
+        "from": -4.3,
+        "to": 4.3,
+        "openings": [
+          [
+            -2.5,
+            1.2,
+            0,
+            2.25
+          ],
+          [
+            2.1,
+            1.2,
+            0,
+            2.25
+          ]
+        ]
+      },
+      {
+        "id": "partition_east",
+        "axis": "z",
+        "at": 1.9,
+        "from": -4.3,
+        "to": 4.3,
+        "openings": [
+          [
+            -2.5,
+            1.2,
+            0,
+            2.25
+          ],
+          [
+            2,
+            1.2,
+            0,
+            2.25
+          ]
+        ]
+      },
+      {
+        "id": "bedroom_divider",
+        "axis": "x",
+        "at": 0,
+        "from": -5.8,
+        "to": -2,
+        "openings": []
+      },
+      {
+        "id": "wet_divider",
+        "axis": "x",
+        "at": -1,
+        "from": 2,
+        "to": 5.8,
+        "openings": []
+      }
+    ],
+    "doors": [
+      {
+        "id": "entry",
+        "position": [
+          0,
+          0,
+          4.4
+        ],
+        "width": 1.6,
+        "height": 2.4,
+        "axis": "x",
+        "swing": -1,
+        "double": true
+      },
+      {
+        "id": "bedroom",
+        "position": [
+          -1.9,
+          0,
+          2.1
+        ],
+        "width": 1.2,
+        "height": 2.25,
+        "axis": "z",
+        "swing": -1,
+        "double": false
+      },
+      {
+        "id": "family",
+        "position": [
+          -1.9,
+          0,
+          -2.5
+        ],
+        "width": 1.2,
+        "height": 2.25,
+        "axis": "z",
+        "swing": -1,
+        "double": false
+      },
+      {
+        "id": "kitchen",
+        "position": [
+          1.9,
+          0,
+          2
+        ],
+        "width": 1.2,
+        "height": 2.25,
+        "axis": "z",
+        "swing": 1,
+        "double": false
+      },
+      {
+        "id": "bathroom",
+        "position": [
+          1.9,
+          0,
+          -2.5
+        ],
+        "width": 1.2,
+        "height": 2.25,
+        "axis": "z",
+        "swing": 1,
+        "double": false
+      }
+    ],
+    "furniture": [
+      {
+        "id": "PlayerBed",
+        "kind": "bed",
+        "position": [
+          -4.85,
+          0,
+          3.1
+        ],
+        "size": [
+          1.45,
+          0.7,
+          2.25
+        ]
+      },
+      {
+        "id": "PlayerDesk",
+        "kind": "desk",
+        "position": [
+          -3.6,
+          0,
+          0.58
+        ],
+        "size": [
+          1.55,
+          0.78,
+          0.72
+        ]
+      },
+      {
+        "id": "DeskChair",
+        "kind": "chair",
+        "position": [
+          -3.55,
+          0,
+          1.28
+        ],
+        "size": [
+          0.48,
+          0.9,
+          0.48
+        ]
+      },
+      {
+        "id": "PlayerWardrobe",
+        "kind": "wardrobe",
+        "position": [
+          -5.35,
+          0,
+          0.57
+        ],
+        "size": [
+          0.72,
+          2.25,
+          0.8
+        ]
+      },
+      {
+        "id": "Suitcase",
+        "kind": "case",
+        "position": [
+          -2.48,
+          0,
+          3.92
+        ],
+        "size": [
+          0.65,
+          0.56,
+          0.38
+        ]
+      },
+      {
+        "id": "FamilyBed",
+        "kind": "bed",
+        "position": [
+          -4.68,
+          0,
+          -3.1
+        ],
+        "size": [
+          1.8,
+          0.7,
+          2.25
+        ]
+      },
+      {
+        "id": "FamilyWardrobe",
+        "kind": "wardrobe",
+        "position": [
+          -3.1,
+          0,
+          -0.52
+        ],
+        "size": [
+          1.55,
+          2.2,
+          0.65
+        ]
+      },
+      {
+        "id": "Nightstand",
+        "kind": "nightstand",
+        "position": [
+          -3.35,
+          0,
+          -3.9
+        ],
+        "size": [
+          0.6,
+          0.6,
+          0.6
+        ]
+      },
+      {
+        "id": "Sofa",
+        "kind": "sofa",
+        "position": [
+          -1.31,
+          0,
+          -0.05
+        ],
+        "size": [
+          0.78,
+          0.85,
+          1.85
+        ]
+      },
+      {
+        "id": "CoffeeTable",
+        "kind": "table",
+        "position": [
+          -0.48,
+          0,
+          -0.1
+        ],
+        "size": [
+          0.42,
+          0.43,
+          0.9
+        ]
+      },
+      {
+        "id": "TvConsole",
+        "kind": "tv",
+        "position": [
+          1.56,
+          0,
+          -0.1
+        ],
+        "size": [
+          0.42,
+          1.75,
+          1.8
+        ]
+      },
+      {
+        "id": "ShoeCabinet",
+        "kind": "cabinet",
+        "position": [
+          -1.49,
+          0,
+          3.7
+        ],
+        "size": [
+          0.45,
+          0.95,
+          0.85
+        ]
+      },
+      {
+        "id": "DiningTable",
+        "kind": "table",
+        "position": [
+          0,
+          0,
+          -3.55
+        ],
+        "size": [
+          1.3,
+          0.76,
+          0.65
+        ]
+      },
+      {
+        "id": "DiningChair1",
+        "kind": "chair",
+        "position": [
+          -1,
+          0,
+          -3.55
+        ],
+        "size": [
+          0.48,
+          0.9,
+          0.48
+        ]
+      },
+      {
+        "id": "DiningChair2",
+        "kind": "chair",
+        "position": [
+          1,
+          0,
+          -3.55
+        ],
+        "size": [
+          0.48,
+          0.9,
+          0.48
+        ]
+      },
+      {
+        "id": "KitchenSink",
+        "kind": "sink",
+        "position": [
+          5.38,
+          0,
+          2.1
+        ],
+        "size": [
+          0.72,
+          0.9,
+          1.6
+        ]
+      },
+      {
+        "id": "Stove",
+        "kind": "stove",
+        "position": [
+          5.36,
+          0,
+          0.35
+        ],
+        "size": [
+          0.76,
+          0.9,
+          1.3
+        ]
+      },
+      {
+        "id": "PrepCabinet",
+        "kind": "counter",
+        "position": [
+          3.95,
+          0,
+          -0.52
+        ],
+        "size": [
+          1.8,
+          0.9,
+          0.65
+        ]
+      },
+      {
+        "id": "Fridge",
+        "kind": "fridge",
+        "position": [
+          2.46,
+          0,
+          -0.43
+        ],
+        "size": [
+          0.72,
+          1.85,
+          0.8
+        ]
+      },
+      {
+        "id": "Washbasin",
+        "kind": "basin",
+        "position": [
+          3.1,
+          0,
+          -3.94
+        ],
+        "size": [
+          1,
+          0.85,
+          0.65
+        ]
+      },
+      {
+        "id": "Toilet",
+        "kind": "toilet",
+        "position": [
+          5.19,
+          0,
+          -3.64
+        ],
+        "size": [
+          0.62,
+          0.9,
+          0.88
+        ]
+      },
+      {
+        "id": "Washer",
+        "kind": "washer",
+        "position": [
+          2.62,
+          0,
+          -1.53
+        ],
+        "size": [
+          0.72,
+          0.88,
+          0.68
+        ]
+      },
+      {
+        "id": "PorchBench",
+        "kind": "bench",
+        "position": [
+          -4,
+          0,
+          5.27
+        ],
+        "size": [
+          1.6,
+          0.48,
+          0.5
+        ]
+      },
+      {
+        "id": "YardTap",
+        "kind": "yardtap",
+        "position": [
+          6.97,
+          0,
+          8
+        ],
+        "size": [
+          0.52,
+          0.85,
+          0.8
+        ]
+      },
+      {
+        "id": "Plant1",
+        "kind": "plant",
+        "position": [
+          -5.6,
+          0,
+          6.75
+        ],
+        "size": [
+          0.52,
+          0.85,
+          0.52
+        ]
+      },
+      {
+        "id": "Plant2",
+        "kind": "plant",
+        "position": [
+          5.6,
+          0,
+          6.75
+        ],
+        "size": [
+          0.52,
+          0.85,
+          0.52
+        ]
+      },
+      {
+        "id": "Plant3",
+        "kind": "plant",
+        "position": [
+          -5.6,
+          0,
+          7.65
+        ],
+        "size": [
+          0.52,
+          0.85,
+          0.52
+        ]
+      },
+      {
+        "id": "ClothesRack",
+        "kind": "rack",
+        "position": [
+          -5.3,
+          0,
+          9
+        ],
+        "size": [
+          1.9,
+          1.85,
+          0.75
+        ]
+      }
+    ],
+    "lights": [
+      {
+        "id": "bedroom",
+        "position": [
+          -3.9,
+          2.9,
+          2.1
+        ],
+        "switch": [
+          -2.03,
+          1.2,
+          3.15
+        ]
+      },
+      {
+        "id": "family",
+        "position": [
+          -3.9,
+          2.9,
+          -2.1
+        ],
+        "switch": [
+          -2.03,
+          1.2,
+          -1.42
+        ]
+      },
+      {
+        "id": "living",
+        "position": [
+          0,
+          2.9,
+          -0.3
+        ],
+        "switch": [
+          1.1,
+          1.2,
+          4.28
+        ]
+      },
+      {
+        "id": "kitchen",
+        "position": [
+          3.9,
+          2.9,
+          1.8
+        ],
+        "switch": [
+          2.03,
+          1.2,
+          3.04
+        ]
+      },
+      {
+        "id": "bathroom",
+        "position": [
+          3.9,
+          2.9,
+          -2.7
+        ],
+        "switch": [
+          2.03,
+          1.2,
+          -3.52
+        ]
+      },
+      {
+        "id": "porch",
+        "position": [
+          0,
+          2.7,
+          5.2
+        ],
+        "switch": [
+          1.1,
+          1.2,
+          4.52
+        ]
+      }
+    ],
+    "safePoints": [
+      [
+        -3.1,
+        0,
+        2.8
+      ],
+      [
+        -2.4,
+        0,
+        0.8
+      ],
+      [
+        -2.6,
+        0,
+        -3.55
+      ],
+      [
+        0.75,
+        0,
+        2
+      ],
+      [
+        0.75,
+        0,
+        -1.8
+      ],
+      [
+        3.8,
+        0,
+        3.2
+      ],
+      [
+        3.9,
+        0,
+        -2.4
+      ],
+      [
+        0,
+        0,
+        5.5
+      ],
+      [
+        0,
+        0,
+        9
+      ],
+      [
+        -6.7,
+        0,
+        0
+      ],
+      [
+        6.7,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        -5.25
+      ]
+    ]
+  },
+  "geometry": {
+    "objectCount": 105,
+    "meshObjectCount": 98,
+    "maximumVisibleMeshCount": 98,
+    "uniqueMeshCount": 95,
+    "triangleCount": 76648,
+    "materialCount": 17,
+    "materials": [
+      "Home_Aluminium",
+      "Home_Blue",
+      "Home_Concrete",
+      "Home_Dark",
+      "Home_Fabric",
+      "Home_Glass",
+      "Home_Green",
+      "Home_Grout",
+      "Home_Ivory",
+      "Home_Lamp",
+      "Home_Paper",
+      "Home_Plaster",
+      "Home_Roof",
+      "Home_Screen",
+      "Home_Terracotta",
+      "Home_Tile",
+      "Home_Wood"
+    ],
+    "packedOrReferencedImages": [
+      "oak_veneer_01_arm_2k.jpg",
+      "oak_veneer_01_diff_2k.jpg",
+      "oak_veneer_01_nor_gl_2k.jpg",
+      "painted_plaster_wall_arm_2k.jpg",
+      "painted_plaster_wall_diff_2k.jpg",
+      "painted_plaster_wall_nor_gl_2k.jpg",
+      "terrazzo_tiles_arm_2k.jpg",
+      "terrazzo_tiles_nor_gl_2k.jpg"
+    ],
+    "missingExternalFiles": []
+  },
+  "actualGlb": {
+    "nodes": 105,
+    "meshes": 95,
+    "images": 8
+  },
+  "limits": {
+    "triangles": 180000,
+    "visibleMeshes": 220,
+    "materials": 24,
+    "glbBytes": 62914560,
+    "textureMiB": 256
+  },
+  "textureMemoryEstimateMiB": 170.67,
+  "provenance": {
+    "date": "2026-09-12",
+    "tool": "Blender Python offline procedural modeling",
+    "model": "5.2.0 LTS",
+    "script": "scripts/tools/build_home_v1.py",
+    "prompt": "User-approved modest inhabited rural bungalow, 12x9m, two bedrooms, living room, kitchen and bathroom, enclosed small courtyard; modern household furniture, maintained plaster and aluminium windows.",
+    "referenceImages": [],
+    "parameters": {
+      "layoutVersion": 1,
+      "units": "metres",
+      "runtimeGeneration": false
+    },
+    "postprocessing": [
+      "component metric UV",
+      "applied bevels",
+      "linked chair and roof meshes",
+      "packed existing CC0 PBR textures"
+    ],
+    "sourceAssets": [
+      {
+        "id": "painted_plaster_wall",
+        "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+        "license": "CC0 1.0 / Public Domain",
+        "maps": {
+          "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+          "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+          "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+        }
+      },
+      {
+        "id": "oak_veneer_01",
+        "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+        "license": "CC0 1.0 / Public Domain",
+        "maps": {
+          "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+          "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+          "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+        }
+      },
+      {
+        "id": "terrazzo_tiles",
+        "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+        "license": "CC0 1.0 / Public Domain",
+        "maps": {
+          "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+          "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+          "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+        }
+      }
+    ]
+  },
+  "exportProfile": {
+    "animations": false,
+    "characters": false,
+    "cameras": false,
+    "lights": false,
+    "runtimeDependsOnBlender": false
+  }
+}

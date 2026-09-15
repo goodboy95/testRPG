@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "status": "independent-sample",
+  "spacing": 0.5,
+  "regionSize": 256,
+  "regions": 4,
+  "origin": [
+    -128,
+    -128
+  ],
+  "dimensions": [
+    512,
+    512
+  ],
+  "baselineGlbSha256": "3a83569a75e5af85830c84bfc54d142f97abca116f3aa15f3ddb5fe74054d5ba",
+  "protectedSamples": 43415,
+  "maxProtectedDelta": 0.0,
+  "editedSamples": 1729,
+  "maximumHeightDelta": 0.1581721332016593,
+  "details": 55,
+  "textureIds": [
+    "Grass001",
+    "Ground031",
+    "Gravel014",
+    "Ground037"
+  ],
+  "textureBytesEstimate": 44739242.666666664,
+  "inputs": {
+    "baseline.bin": "e34b9e035735b103023534263d2305f04e44c9b0b312565e0c0f24db05ecd1bf",
+    "color.bin": "a6706f0440be288d523fc27c0d0f492189d44056508a5a54e6940fd7e73d64ab",
+    "control.bin": "f0f573c514ebe83882a73302b6dfcabaee8785b6884fd9a404e1a77abe1c1b78",
+    "height.bin": "1790b3827b452a6d67d75858ed74a82d71059b37f22aa042ebae94a682e1dd3b",
+    "protected.bin": "4c8589fbf7c59458b8bd1c2c2471908b6474331ef71bcb14eb5e1c580312dc1e"
+  },
+  "regionsDescription": [
+    "home gate and 30m lane",
+    "plaza edge",
+    "south bridge west bank, 20m north"
+  ],
+  "note": "Four regions migrate the base. Only three zones are art samples. Outside zones grass shading changes; geometry retained."
+}

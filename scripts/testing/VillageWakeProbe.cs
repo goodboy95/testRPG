@@ -71,7 +71,7 @@ public partial class VillageWakeProbe : Node
         try
         {
             if(!OS.GetCmdlineUserArgs().Contains("--prologue-e2e")) throw new InvalidOperationException("Missing isolated save flag");
-            _output=ProjectSettings.GlobalizePath("res://outputs/"+(OS.GetCmdlineUserArgs().Contains("--terrain-adoption") ? "village-terrain-adoption/formal/" : "village-wake/integration/")+DateTime.Now.ToString("yyyyMMdd-HHmmss"));Directory.CreateDirectory(_output);
+            _output=ProjectSettings.GlobalizePath("res://outputs/"+(OS.GetCmdlineUserArgs().Contains("--home-access") ? "home-access/formal/" : OS.GetCmdlineUserArgs().Contains("--village-v4") ? "village-v4/formal/" : OS.GetCmdlineUserArgs().Contains("--village-art") ? "village-art-v3/formal/" : OS.GetCmdlineUserArgs().Contains("--terrain-adoption") ? "village-terrain-adoption/formal/" : "village-wake/integration/")+DateTime.Now.ToString("yyyyMMdd-HHmmss"));Directory.CreateDirectory(_output);
             _save=Path.Combine(_output,"save.json");saveLease=Session.UseTestSavePath(_save);
             var formal=ProjectSettings.GlobalizePath(GameSession.SavePath);
             string Hash(string path)=>File.Exists(path)?Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path))):"absent";
@@ -85,6 +85,7 @@ public partial class VillageWakeProbe : Node
                 Require(Session.State.DreamEscape!.Status==DreamEscapeStatus.CompletedPin && Session.State.VillageExploration!.WakeIntroductionComplete,"pin wake at "+size);
                 Require(Village.IsInterior && Village.SafePose(Village.ActivePlayer.GlobalPosition),"safe bedroom spawn");
                 Require(Village.Exterior.UseTerrainSample && !Village.Exterior.Surface.Ready,"formal terrain selected and cached collision disabled indoors");
+                Require(Village.Exterior.UseCompactLayout && Village.Exterior.Layout.Geometry.Version==4 && !Village.Exterior.UseArtSample,"formal mode selects compact v4 independently of preview flags");
                 Require(Math.Abs(Village.ActivePlayer.Speed-3.1f)<.001f,"formal home speed remains 3.1");
                 await Shot($"{size.X}-bedroom");
                 var start=Village.ActivePlayer.GlobalPosition;
@@ -132,7 +133,7 @@ public partial class VillageWakeProbe : Node
                         Require(Village.ActivePlayer.GlobalPosition.DistanceTo(restored)<.1f,"adopted pose persists after reload");
                     }
                     var blocked=SaveGameSerializer.Deserialize(File.ReadAllText(_save));
-                    blocked.VillageExploration!.X=-56;blocked.VillageExploration.Z=40;blocked.VillageExploration.Y=0;
+                    blocked.VillageExploration!.X=-20;blocked.VillageExploration.Z=16;blocked.VillageExploration.Y=0;
                     await LoadFixture(blocked);
                     Require(Village.SafePose(Village.ActivePlayer.GlobalPosition) && Village.ActivePlayer.GlobalPosition.DistanceTo(Village.Exterior.SurfacePoint(-56,49))<.15f,"building overlap save falls back safely");
                 }
@@ -148,6 +149,22 @@ public partial class VillageWakeProbe : Node
             await LoadFixture(SaveGameSerializer.Deserialize(File.ReadAllText(_save)));Require(Session.State.VillageExploration!.WakeIntroductionComplete,"interrupted wake resumes");
             var old=GameState.CreateDreamPrologue();old.DreamEscape!.Status=DreamEscapeStatus.CompletedEscape;old.DreamEscape.Items.Clear();old.DreamEscape.ContentVersion=5;
             await LoadFixture(old);Require(Village.IsInterior,"old completed dream migrates to bedroom");
+            if(OS.GetCmdlineUserArgs().Contains("--home-access"))
+            {
+                var legacyDoor=SaveGameSerializer.Deserialize(File.ReadAllText(_save));
+                var doorState=legacyDoor.VillageExploration!;
+                doorState.Doors["bedroom"]=true;doorState.DoorOpenSides.Clear();
+                doorState.X=-2.8f;doorState.Y=0;doorState.Z=1.5f;
+                await LoadFixture(legacyDoor);
+                Require(Village.Interior!.DoorOpenSide("bedroom")==1,"legacy open door chooses unoccupied opposite side");
+                Require(Village.ActivePlayer.GlobalPosition.DistanceTo(new Vector3(-2.8f,0,1.5f))<.1f,"legacy direction correction retains player position");
+                await Reload();Require(Village.Interior!.DoorOpenSide("bedroom")==1,"migrated door direction persists");
+                var cached=Village.Capture();cached.DoorOpenSides["bedroom"]=-1;cached.X=-3.1f;cached.Z=2.8f;
+                await Village.SwitchArea(false);
+                await Village.RestoreAsync(VillageExplorationState.HomeLocation,cached);
+                Require(Village.Interior!.DoorOpenSide("bedroom")==-1,"snapshot direction overrides cached interior on restore");
+                Require(Village.SafePose(Village.ActivePlayer.GlobalPosition),"restored cached interior has safe player position");
+            }
             var legacy=GameState.CreateVerticalSlice();legacy.World.Facts.Add("slice.d1.awake");
             _main.QueueFree();await Frames(5);File.WriteAllText(_save,SaveGameSerializer.Serialize(legacy));
             _main=ResourceLoader.Load<PackedScene>("res://scenes/app/Main.tscn").Instantiate<MainController>();AddChild(_main);await Frames(10);await Click("继续");await Frames(15);

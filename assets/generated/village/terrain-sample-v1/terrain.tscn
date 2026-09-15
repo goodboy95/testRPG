@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3]
+[ext_resource type="Terrain3DMaterial" path="res://assets/generated/village/terrain-sample-v1/terrain-material.tres" id="1"]
+[ext_resource type="Terrain3DAssets" path="res://assets/generated/village/terrain-sample-v1/terrain-assets.tres" id="2"]
+[node name="Terrain3D" type="Terrain3D"]
+data_directory = "res://assets/generated/village/terrain-sample-v1/data"
+material = ExtResource("1")
+assets = ExtResource("2")
+collision_mode = 3
+vertex_spacing = 0.5
+free_editor_textures = false
+mesh_size = 32
+mesh_lods = 6
+cast_shadows = 0

@@ -9,9 +9,14 @@ public partial class VillageExterior3D : WorldArea3D
     public event Action? HomeRequested;
     public bool Graybox { get; init; }
     public bool UseV1 { get; init; }
+    public bool UseCompactLayout { get; init; }
+    public VillageLayoutProfile3D Layout { get; private set; }=VillageLayoutProfile3D.Legacy;
     public bool UseTerrainSample { get; init; }
+    public bool UseArtSample { get; init; }
+    public bool UseHouseArtSample { get; init; }
+    public bool UseHomeTreesSample { get; init; }
     public IVillageSurface3D Surface { get; private set; } = new OriginalVillageSurface3D();
-    public float WalkHeight(float x,float z) => VillageLayout3D.Layout.Bridges.FirstOrDefault(b=>b.Contains(new(x,z))) is { } bridge ? bridge.DeckY : Surface.GroundHeight(x,z);
+    public float WalkHeight(float x,float z) => Layout.Geometry.Bridges.FirstOrDefault(b=>b.Contains(new(x,z))) is { } bridge ? bridge.DeckY : Surface.GroundHeight(x,z);
     public Vector3 SurfacePoint(float x,float z,float offset=0)=>new(x,WalkHeight(x,z)+offset,z);
     public PlayerController3D PlayerActor => Player;
     public ThirdPersonCameraRig CameraController => CameraRig;
@@ -24,31 +29,49 @@ public partial class VillageExterior3D : WorldArea3D
         get
         {
             var entry=HomeLayout3D.Layout.Doors.Single(d=>d.Id=="entry");
-            var p=VillageLayout3D.Home.ToWorld(new(entry.Position[0],entry.Position[2]));
-            return new(p.X,VillageLayout3D.Home.Elevation+entry.Position[1],p.Y);
+            var p=Layout.Home.ToWorld(new(entry.Position[0],entry.Position[2]));
+            return new(p.X,Layout.Home.Elevation+entry.Position[1],p.Y);
         }
     }
-    public Vector3 HomeForward => Vector3.Back.Rotated(Vector3.Up,Mathf.DegToRad(VillageLayout3D.Home.Yaw));
+    public Vector3 HomeForward => Vector3.Back.Rotated(Vector3.Up,Mathf.DegToRad(Layout.Home.Yaw));
     public Vector3 HomeReturnPoint => HomeEntry+HomeForward*1.45f+Vector3.Up*.04f;
 
     public override void _Ready()
     {
+        if(UseCompactLayout) Layout=VillageLayoutProfile3D.Parse(Godot.FileAccess.GetFileAsString("res://assets/generated/village/layout-v4.json"));
+        var stage=Time.GetTicksUsec();
         ModelRoot=Graybox ? new Node3D { Name="VillageGraybox" } : ResourceLoader.Load<PackedScene>(UseV1
-            ? "res://assets/generated/village/3d/village-v1.glb" : "res://assets/generated/village/3d/village-v2.glb").Instantiate<Node3D>();
+            ? "res://assets/generated/village/3d/village-v1.glb" : UseHomeTreesSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v6.glb" : UseHouseArtSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v5.glb" : UseCompactLayout ? "res://assets/generated/village/3d/village-v4.glb" : UseArtSample ? "res://assets/generated/village/3d/village-v3.glb" : "res://assets/generated/village/3d/village-v2.glb").Instantiate<Node3D>();
         AddChild(ModelRoot);
+        if(OS.GetCmdlineUserArgs().Contains("--v4-load")) GD.Print("V4_LOAD_STAGE model="+(Time.GetTicksUsec()-stage)/1000d);
+        stage=Time.GetTicksUsec();
         foreach(var mesh in Descendants(ModelRoot).OfType<MeshInstance3D>())
         {
             var name=mesh.Name.ToString();
             if(name is "Terrain" or "StreamWater" or "VillageSquare" or "ScenicMountainTerrain" || name.StartsWith("Road",StringComparison.Ordinal))
                 mesh.CastShadow=GeometryInstance3D.ShadowCastingSetting.Off;
+            if(UseArtSample || UseCompactLayout)
+                for(var surface=0;surface<mesh.Mesh.GetSurfaceCount();surface++)
+                    if(mesh.GetActiveMaterial(surface) is StandardMaterial3D material && material.ResourceName=="V3_Leaves")
+                    {
+                        // MASK is explicit in the GLB; enforce the same editor/runtime foliage contract.
+                        material.Transparency=BaseMaterial3D.TransparencyEnum.AlphaScissor;
+                        material.AlphaScissorThreshold=.45f;
+                        material.CullMode=BaseMaterial3D.CullModeEnum.Disabled;
+                        material.BacklightEnabled=true;
+                        material.Backlight=new Color(.12f,.17f,.06f);
+                        material.TextureFilter=BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic;
+                    }
         }
         if(UseTerrainSample)
         {
             foreach(var mesh in Descendants(ModelRoot).OfType<MeshInstance3D>().Where(m=>m.Name=="Terrain")) mesh.Visible=false;
-            Surface=new TerrainVillageSurface3D(this);
-            VillageTerrainDetails3D.AddTo(this,Surface);
+            Surface=new TerrainVillageSurface3D(this,UseCompactLayout ? "res://assets/generated/village/terrain-v4/" : TerrainVillageSurface3D.Folder);
+            VillageTerrainDetails3D.AddTo(this,Surface,UseCompactLayout ? "res://assets/generated/village/terrain-v4/" : TerrainVillageSurface3D.Folder);
         }
-        else BuildTerrain();
+        else { Surface=new OriginalVillageSurface3D(Layout);BuildTerrain(); }
+        if(OS.GetCmdlineUserArgs().Contains("--v4-load")) GD.Print("V4_LOAD_STAGE ground="+(Time.GetTicksUsec()-stage)/1000d);
+        stage=Time.GetTicksUsec();
         BuildBuildings(); BuildBridgesAndBanks(); BuildBoundaries(); BuildLandmarks();
         if(!UseV1) BuildExteriorBatch();
         BuildActor(); BuildLighting();
@@ -57,6 +80,7 @@ public partial class VillageExterior3D : WorldArea3D
         base._Ready();
         Player.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(ResourceLoader.Load<Texture2D>("res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png")));
         ResetPosition();
+        if(OS.GetCmdlineUserArgs().Contains("--v4-load")) GD.Print("V4_LOAD_STAGE fixtures_actor="+(Time.GetTicksUsec()-stage)/1000d);
         InteractionRequested += HandleInteraction;
     }
     public override void _ExitTree() { base._ExitTree(); }
@@ -81,7 +105,7 @@ public partial class VillageExterior3D : WorldArea3D
     public void SetHostLocked(bool value) { _hostLocked=value; SetRuntimeInputLocked(value); }
     public void ResetPosition()
     {
-        var p=VillageLayout3D.Layout.Spawn;
+        var p=Layout.Geometry.Spawn;
         Player.GlobalPosition=SurfacePoint(p[0],p[2],.04f);Player.SetFacingImmediate(HomeForward);
         CameraRig.SetYawImmediate(180);CameraRig.SnapToTarget();
     }
@@ -101,14 +125,14 @@ public partial class VillageExterior3D : WorldArea3D
     }
     private void BuildTerrain()
     {
-        var d=VillageLayout3D.Layout;var nx=(int)(d.Bounds[2]/d.Grid)+1;var nz=(int)(d.Bounds[3]/d.Grid)+1;
+        var d=Layout.Geometry;var nx=(int)(d.Bounds[2]/d.Grid)+1;var nz=(int)(d.Bounds[3]/d.Grid)+1;
         var vertices=new Vector3[nx*nz];var normals=new Vector3[vertices.Length];var uv=new Vector2[vertices.Length];
         for(var z=0;z<nz;z++) for(var x=0;x<nx;x++)
         {
             var px=d.Bounds[0]+x*d.Grid;var pz=d.Bounds[1]+z*d.Grid;var index=z*nx+x;
-            vertices[index]=new(px,VillageLayout3D.GroundHeight(px,pz),pz);
-            normals[index]=new Vector3(VillageLayout3D.GroundHeight(px-.1f,pz)-VillageLayout3D.GroundHeight(px+.1f,pz),.2f,
-                VillageLayout3D.GroundHeight(px,pz-.1f)-VillageLayout3D.GroundHeight(px,pz+.1f)).Normalized();
+            vertices[index]=new(px,Layout.GroundHeight(px,pz),pz);
+            normals[index]=new Vector3(Layout.GroundHeight(px-.1f,pz)-Layout.GroundHeight(px+.1f,pz),.2f,
+                Layout.GroundHeight(px,pz-.1f)-Layout.GroundHeight(px,pz+.1f)).Normalized();
             uv[index]=new(px/4,pz/4);
         }
         var indices=new int[(nx-1)*(nz-1)*6];var cursor=0;
@@ -142,7 +166,7 @@ public partial class VillageExterior3D : WorldArea3D
     }
     private void BuildBuildings()
     {
-        foreach(var b in VillageLayout3D.Layout.Buildings)
+        foreach(var b in Layout.Geometry.Buildings)
         {
             var host=new Node3D { Name="Collision_"+b.Id,Position=new(b.Position[0],b.Position[1],b.Position[2]),RotationDegrees=new(0,b.Yaw,0) };AddChild(host);
             var solid=Box(host,"Building",new(0,b.Size[1]/2,0),new(b.Size[0],b.Size[1],b.Size[2]),Graybox,b.Kind=="home"?"dfd6bd":"bfc1b4");
@@ -156,6 +180,9 @@ public partial class VillageExterior3D : WorldArea3D
                 // Open leaves are flush beside the front wall, leaving the full original 2.8 m gate opening.
                 Box(host,"OpenGateWest",new(-2.05f,.7f,11.76f),new(1.3f,1.4f,.07f),Graybox,"405448");
                 Box(host,"OpenGateEast",new(2.05f,.7f,11.76f),new(1.3f,1.4f,.07f),Graybox,"405448");
+                if(UseHomeTreesSample)
+                    foreach(var p in HomeIdentityLayout3D.Layout.Props)
+                        Box(host,"V6_"+p.Id,new(p.Position[0],p.Position[1]+p.Size[1]/2,p.Position[2]),new(p.Size[0],p.Size[1],p.Size[2]));
             }
             else if(b.Kind=="house")
             {
@@ -165,19 +192,22 @@ public partial class VillageExterior3D : WorldArea3D
                 var side=(pad.Width-2.8f)/2;
                 Box(host,"FenceFrontLeft",new(-1.4f-side/2,wallHeight/2,end),new(side,wallHeight,.18f),Graybox);
                 Box(host,"FenceFrontRight",new(1.4f+side/2,wallHeight/2,end),new(side,wallHeight,.18f),Graybox);
+                if(UseHouseArtSample)
+                    foreach(var p in VillageHouseArtLayout3D.Layout.Props.Where(p=>p.House==b.Id && p.Solid))
+                        Box(host,"V5_"+p.Id,new(p.Position[0],p.Position[1]+p.Size[1]/2,p.Position[2]),new(p.Size[0],p.Size[1],p.Size[2]));
             }
         }
     }
     private void BuildBridgesAndBanks()
     {
-        foreach(var b in VillageLayout3D.Layout.Bridges)
+        foreach(var b in Layout.Geometry.Bridges)
         {
             Box(this,"BridgeDeck_"+b.Id,new(b.CenterX,b.DeckY-.16f,b.Z),new(b.HalfSpan*2,.32f,b.Width),Graybox,"aaa79b");
             foreach(var side in new[]{-1,1}) Box(this,"BridgeRail_"+b.Id+side,new(b.CenterX,b.DeckY+.53f,b.Z+side*b.Width/2),new(b.HalfSpan*2,1.06f,.16f),Graybox,"827c70");
         }
         for(var z=-111;z<104;z+=2)
         {
-            if(VillageLayout3D.Layout.Bridges.Any(b=>Math.Abs(z-b.Z)<b.Width/2+1.1f)) continue;
+            if(Layout.Geometry.Bridges.Any(b=>Math.Abs(z-b.Z)<b.Width/2+1.1f)) continue;
             foreach(var side in new[]{-1,1})
             {
                 var x=VillageLayout3D.StreamX(z)+side*8.7f;
@@ -187,7 +217,7 @@ public partial class VillageExterior3D : WorldArea3D
     }
     private void BuildBoundaries()
     {
-        var b=VillageLayout3D.Layout.Bounds;
+        var b=Layout.Geometry.Bounds;
         Box(this,"WestBoundary",new(b[0],5,b[1]+b[3]/2),new(1,30,b[3]),Graybox,"6b775d");
         Box(this,"EastBoundary",new(b[0]+b[2],5,b[1]+b[3]/2),new(1,30,b[3]),Graybox,"6b775d");
         Box(this,"NorthBoundary",new(b[0]+b[2]/2,5,b[1]),new(b[2],30,1),Graybox,"6b775d");
@@ -195,20 +225,20 @@ public partial class VillageExterior3D : WorldArea3D
     }
     private void BuildLandmarks()
     {
-        foreach(var l in VillageLayout3D.Layout.Landmarks)
+        foreach(var l in Layout.Geometry.Landmarks)
         {
-            if(!UseV1 && VillageExteriorLayout3D.Layout.ReplacedLandmarks.Contains(l.Id)) continue;
+            if(!UseV1 && Layout.Fixtures.ReplacedLandmarks.Contains(l.Id)) continue;
             Box(this,l.Id,new(l.Position[0],l.Position[1]+l.Size[1]/2,l.Position[2]),new(l.Size[0],l.Size[1],l.Size[2]),Graybox,"746e54");
         }
-        foreach(var t in VillageLayout3D.Trees)
-            Box(this,$"Tree_{t.X}_{t.Z}",new(t.X,VillageLayout3D.GroundHeight(t.X,t.Z)+1.5f,t.Z),new(.55f,3,.55f),Graybox,"635947");
-        foreach(var p in VillageLayout3D.Layout.UtilityPoles)
-            Box(this,$"UtilityPole_{p[0]}_{p[1]}",new(p[0],VillageLayout3D.GroundHeight(p[0],p[1])+3.3f,p[1]),new(.19f,6.6f,.19f),Graybox,"888c82");
+        foreach(var t in Layout.Trees)
+            Box(this,$"Tree_{t.X}_{t.Z}",new(t.X,Surface.GroundHeight(t.X,t.Z)+1.5f,t.Z),new(.55f,3,.55f),Graybox,"635947");
+        foreach(var p in Layout.Geometry.UtilityPoles)
+            Box(this,$"UtilityPole_{p[0]}_{p[1]}",new(p[0],Surface.GroundHeight(p[0],p[1])+3.3f,p[1]),new(.19f,6.6f,.19f),Graybox,"888c82");
     }
     private void BuildExteriorBatch()
     {
         var host=new Node3D { Name="ExteriorBatchCollisions" };AddChild(host);
-        foreach(var p in VillageExteriorLayout3D.Layout.Props.Where(p=>p.Solid))
+        foreach(var p in Layout.Fixtures.Props.Where(p=>p.Solid))
             Box(host,p.Id,new(p.Position[0],p.Position[1]+p.Size[1]/2,p.Position[2]),
                 new(p.Size[0],p.Size[1],p.Size[2]),Graybox,"7d877e");
     }

@@ -6,9 +6,9 @@ namespace TownRpg.Presentation;
 public static class VillageTerrainDetails3D
 {
     private sealed record Detail(float X,float Y,float Z,float Yaw,float Scale,string Kind);
-    public static void AddTo(Node3D host,IVillageSurface3D ground)
+    public static void AddTo(Node3D host,IVillageSurface3D ground,string folder=TerrainVillageSurface3D.Folder)
     {
-        var items=JsonSerializer.Deserialize<Detail[]>(Godot.FileAccess.GetFileAsString(TerrainVillageSurface3D.Folder+"details.json"),
+        var items=JsonSerializer.Deserialize<Detail[]>(Godot.FileAccess.GetFileAsString(folder+"details.json"),
             new JsonSerializerOptions { PropertyNameCaseInsensitive=true })!;
         var grass=new SurfaceTool();grass.Begin(Mesh.PrimitiveType.Triangles);
         for(var i=0;i<7;i++)

@@ -1,0 +1,39 @@
+{
+  "id": "village_home_trees_v6",
+  "status": "adopted-2026-09-15",
+  "date": "2026-09-15",
+  "generator": "Blender offline modelling; saved v5 and home v1 derivatives",
+  "model": "Blender 5.2.0 LTS",
+  "sourceFile": "art/blender/village/village-v6.blend",
+  "gameFile": "village/3d/village-v6.glb",
+  "homeSourceFile": "art/blender/home/home-identity-v2.blend",
+  "homeGameFile": "home/3d/home-identity-v2.glb",
+  "sourceSha256": "343b94ef2e849eedf407d3955e44478f0ccac44e85a2b3f70186e69d7ceded4f",
+  "runtimeGlbSha256": "4454a4cf452fd803f2e309404926ddde166a7bd4d359355384166e319bce36a7",
+  "homeSourceSha256": "e1c755ee46c5b3efdc08600c909049183319b553da4b689ac9b1f93ea9f3dfe2",
+  "homeGlbSha256": "7e689750980220818bef337b2d12f1b30d67da366c2c75f47872676bd85dc173",
+  "prompt": "Approved warm ivory maintained home, muted ochre red open yard gate, timber porch, old bicycle and shelf. Extend existing soft semi-realistic broadleaf art to 55 ordinary trees with three shared variants. Preserve 3 improved trees, all anchors, repaired terrain, v5 houses and shops. No story props, interiors, new interactions or image generation.",
+  "sourceRecords": [
+    "art/sources/cc0/village-art-v3/provenance.json",
+    "art/blender/village/v5-textures/provenance.json",
+    "assets/generated/home/3d/home-v1-manifest.json"
+  ],
+  "license": "Reuses previously adopted CC0 materials; no downloads, purchases or AI images",
+  "referenceImages": [],
+  "parameters": {
+    "treeSeedBase": 613,
+    "ordinaryTreeVariants": 3,
+    "treeTriangleLimit": 1900,
+    "units": "metres",
+    "runtimeGeneration": false
+  },
+  "postprocessing": [
+    "exterior face material isolation",
+    "identical packed-image deduplication",
+    "shared tree mesh variants",
+    "alpha scissor 0.45 and double-sided foliage",
+    "Godot automatic LOD import for three new tree meshes only",
+    "VRAM-compressed mipmapped textures",
+    "saved-source export with temporary deterministic verification"
+  ]
+}

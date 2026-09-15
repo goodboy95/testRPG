@@ -1,0 +1,891 @@
+{
+  "schemaVersion": 2,
+  "status": "independent-preview",
+  "runtimeDefault": false,
+  "graybox": false,
+  "visualAcceptance": "pending-human-review",
+  "sourceFile": "art/blender/village/village-v2.blend",
+  "runtimeGlbFile": "assets/generated/village/3d/village-v2.glb",
+  "sourceSha256": "0da03dc2612ec0834970343ec4c0b7d9b4d7c249f2cc1fa86843f86f80a3e110",
+  "runtimeGlbSha256": "3a83569a75e5af85830c84bfc54d142f97abca116f3aa15f3ddb5fe74054d5ba",
+  "runtimeGlbBytes": 47062464,
+  "baseSourceSha256": "4b3ba31c571f9eaae89fbffde7ca1148d874413aacd3c7f0b45495c9d7199467",
+  "baseGlbSha256": "2ea2667aabcdd53141ef152aed64feb94bed33535d173127878759c138fe4bcf",
+  "baseLayoutSha256": "84eeceb9b3d22ca986af3d7eaafb2d83ddc8cfdaf385fbea73aacfdd56227795",
+  "exteriorLayoutSha256": "50b45971903331dffd1aea7532e89fdbc159ed60d26b81905296c6b4e318d20f",
+  "homeSourceSha256": "dc955365c9cba90c2cd1a0f3390e9736660b8f02daa8ccfaf672c670d8c2aaea",
+  "geometry": {
+    "objectCount": 300,
+    "meshObjectCount": 247,
+    "maximumVisibleMeshCount": 247,
+    "uniqueMeshCount": 176,
+    "triangleCount": 718571,
+    "materialCount": 41,
+    "materials": [
+      "Home_Aluminium",
+      "Home_Concrete",
+      "Home_Dark",
+      "Home_Fabric",
+      "Home_Green",
+      "Home_Plaster",
+      "Home_Roof",
+      "Home_Terracotta",
+      "Home_Tile",
+      "Home_Wood",
+      "V2_FlourSack",
+      "V2_Jute",
+      "V2_PalePlywood",
+      "V2_PaperInk",
+      "V2_UncoatedPaper",
+      "V2_WeatheredGalvanised",
+      "V2_WornWoodEdge",
+      "Village_Brick",
+      "Village_BrickLight",
+      "Village_Concrete",
+      "Village_CoolPlaster",
+      "Village_Dark",
+      "Village_FadedGreen",
+      "Village_FadedRed",
+      "Village_FoliageDark",
+      "Village_FoliageLight",
+      "Village_FoliageMid",
+      "Village_GardenSoil",
+      "Village_Grass",
+      "Village_Metal",
+      "Village_Mortar",
+      "Village_Plaster",
+      "Village_Roof",
+      "Village_RoofWarm",
+      "Village_SignIvory",
+      "Village_Stone",
+      "Village_StreamWater",
+      "Village_TarpBlue",
+      "Village_WarmPlaster",
+      "Village_WindowGlass",
+      "Village_Wood"
+    ],
+    "packedOrReferencedImages": [
+      "VillageOriginalGrass512",
+      "oak_veneer_01_arm_2k.jpg",
+      "oak_veneer_01_diff_2k.jpg",
+      "oak_veneer_01_nor_gl_2k.jpg",
+      "painted_plaster_wall_arm_2k.jpg",
+      "painted_plaster_wall_diff_2k.jpg",
+      "painted_plaster_wall_nor_gl_2k.jpg",
+      "terrazzo_tiles_arm_2k.jpg",
+      "terrazzo_tiles_nor_gl_2k.jpg"
+    ],
+    "missingExternalFiles": []
+  },
+  "actualGlb": {
+    "nodes": 300,
+    "meshes": 176,
+    "images": 9,
+    "terrainSamplesChecked": 468,
+    "trees": 57,
+    "preservedMeshesChecked": 202
+  },
+  "limits": {
+    "triangles": 1200000,
+    "visibleMeshes": 600,
+    "materials": 64,
+    "glbBytes": 104857600,
+    "textureMiB": 384
+  },
+  "textureMemoryEstimateMiB": 172.0,
+  "layout": {
+    "version": 2,
+    "replacedLandmarks": [
+      "noticeboard",
+      "shop_bench",
+      "shop_crates"
+    ],
+    "props": [
+      {
+        "id": "Noticeboard",
+        "kind": "board",
+        "position": [
+          -15.5,
+          1.7,
+          7
+        ],
+        "size": [
+          2.2,
+          2.15,
+          0.45
+        ],
+        "solid": true
+      },
+      {
+        "id": "VillageDesk",
+        "kind": "desk",
+        "position": [
+          -19,
+          1.3147,
+          6.95
+        ],
+        "size": [
+          1.4,
+          0.78,
+          0.7
+        ],
+        "solid": true
+      },
+      {
+        "id": "VillageChair",
+        "kind": "chair",
+        "position": [
+          -19,
+          1.5,
+          6
+        ],
+        "size": [
+          0.48,
+          0.95,
+          0.5
+        ],
+        "solid": true
+      },
+      {
+        "id": "PaperCabinet",
+        "kind": "cabinet",
+        "position": [
+          -20.3,
+          1.383,
+          6.6
+        ],
+        "size": [
+          0.55,
+          1.05,
+          0.48
+        ],
+        "solid": true
+      },
+      {
+        "id": "CollectionBox",
+        "kind": "mailbox",
+        "position": [
+          -17.8,
+          1.3732,
+          6.65
+        ],
+        "size": [
+          0.4,
+          1.25,
+          0.3
+        ],
+        "solid": true
+      },
+      {
+        "id": "PlazaBench",
+        "kind": "bench",
+        "position": [
+          -21,
+          1.125,
+          10.2
+        ],
+        "size": [
+          2.2,
+          0.85,
+          0.6
+        ],
+        "solid": true
+      },
+      {
+        "id": "DeliveryTable",
+        "kind": "table",
+        "position": [
+          -7.5,
+          1.985,
+          2.5
+        ],
+        "size": [
+          1.6,
+          0.85,
+          0.7
+        ],
+        "solid": true
+      },
+      {
+        "id": "DryGoods",
+        "kind": "sacks",
+        "position": [
+          -1,
+          1.985,
+          2.5
+        ],
+        "size": [
+          2,
+          0.95,
+          1.2
+        ],
+        "solid": true
+      },
+      {
+        "id": "EmptyCrates",
+        "kind": "crates",
+        "position": [
+          -1,
+          1.985,
+          3.7
+        ],
+        "size": [
+          1.4,
+          0.85,
+          0.65
+        ],
+        "solid": true
+      },
+      {
+        "id": "Handcart",
+        "kind": "cart",
+        "position": [
+          -10.7,
+          1.875,
+          8.1
+        ],
+        "size": [
+          1,
+          1.1,
+          1.8
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopBench",
+        "kind": "bench",
+        "position": [
+          -9,
+          1.8283,
+          8.3
+        ],
+        "size": [
+          2.2,
+          0.85,
+          0.6
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopFridge",
+        "kind": "fridge",
+        "position": [
+          -8.7,
+          1.985,
+          1.95
+        ],
+        "size": [
+          0.85,
+          1.65,
+          0.55
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopPostLeft",
+        "kind": "post",
+        "position": [
+          -9.5,
+          1.985,
+          3.7
+        ],
+        "size": [
+          0.12,
+          2.85,
+          0.12
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopPostRight",
+        "kind": "post",
+        "position": [
+          0.2,
+          1.985,
+          3.7
+        ],
+        "size": [
+          0.12,
+          2.85,
+          0.12
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkTable",
+        "kind": "workbench",
+        "position": [
+          -19.3,
+          2.75,
+          -15.25
+        ],
+        "size": [
+          2.4,
+          0.85,
+          0.8
+        ],
+        "solid": true
+      },
+      {
+        "id": "ToolBoard",
+        "kind": "toolboard",
+        "position": [
+          -19.3,
+          3.75,
+          -15.8
+        ],
+        "size": [
+          2.4,
+          1.25,
+          0.12
+        ],
+        "solid": false
+      },
+      {
+        "id": "RepairCabinet",
+        "kind": "cabinet",
+        "position": [
+          -27.8,
+          2.75,
+          -15.4
+        ],
+        "size": [
+          1.1,
+          1.8,
+          0.7
+        ],
+        "solid": true
+      },
+      {
+        "id": "PendingStool",
+        "kind": "stool",
+        "position": [
+          -27.5,
+          2.75,
+          -13.8
+        ],
+        "size": [
+          0.55,
+          0.5,
+          0.5
+        ],
+        "solid": true
+      },
+      {
+        "id": "ReadyStool",
+        "kind": "stool",
+        "position": [
+          -18.2,
+          2.75,
+          -11.4
+        ],
+        "size": [
+          0.55,
+          0.5,
+          0.5
+        ],
+        "solid": true
+      },
+      {
+        "id": "TimberRack",
+        "kind": "timber",
+        "position": [
+          -27.9,
+          2.75,
+          -12
+        ],
+        "size": [
+          1.5,
+          0.55,
+          0.65
+        ],
+        "solid": true
+      },
+      {
+        "id": "SortingBins",
+        "kind": "bins",
+        "position": [
+          -17.6,
+          2.75,
+          -15.2
+        ],
+        "size": [
+          0.65,
+          0.65,
+          0.8
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkshopPostWest",
+        "kind": "post",
+        "position": [
+          -28.25,
+          2.75,
+          -10.65
+        ],
+        "size": [
+          0.15,
+          3,
+          0.15
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkshopPostEast",
+        "kind": "post",
+        "position": [
+          -17.75,
+          2.75,
+          -10.65
+        ],
+        "size": [
+          0.15,
+          3,
+          0.15
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopRoof",
+        "kind": "overhead",
+        "position": [
+          -4,
+          4.63,
+          2.6
+        ],
+        "size": [
+          11.2,
+          0.44,
+          2.35
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkshopRoof",
+        "kind": "overhead",
+        "position": [
+          -23,
+          5.6,
+          -13.2
+        ],
+        "size": [
+          11,
+          0.45,
+          5.6
+        ],
+        "solid": true
+      }
+    ],
+    "zones": [
+      {
+        "id": "BoardReading",
+        "rect": [
+          -17,
+          7.5,
+          3,
+          2.4
+        ]
+      },
+      {
+        "id": "DeskVisitors",
+        "rect": [
+          -20.2,
+          7.4,
+          2.4,
+          2.4
+        ]
+      },
+      {
+        "id": "Loading",
+        "rect": [
+          -9,
+          4,
+          3,
+          3
+        ]
+      },
+      {
+        "id": "ShopEntry",
+        "rect": [
+          -5.4,
+          1.8,
+          2.8,
+          5.5
+        ]
+      },
+      {
+        "id": "CooperativeWork",
+        "rect": [
+          -20.5,
+          -14.6,
+          2.4,
+          2.4
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "id": "board",
+        "points": [
+          [
+            -12,
+            15
+          ],
+          [
+            -15.5,
+            11
+          ],
+          [
+            -15.5,
+            8.9
+          ]
+        ]
+      },
+      {
+        "id": "desk",
+        "points": [
+          [
+            -15.5,
+            11
+          ],
+          [
+            -19,
+            10
+          ],
+          [
+            -19,
+            8.6
+          ]
+        ]
+      },
+      {
+        "id": "delivery",
+        "points": [
+          [
+            -4,
+            5
+          ],
+          [
+            -5.6,
+            6
+          ],
+          [
+            -7.5,
+            5.5
+          ],
+          [
+            -7.5,
+            3.3
+          ]
+        ]
+      },
+      {
+        "id": "workbench",
+        "points": [
+          [
+            -29,
+            -5
+          ],
+          [
+            -23,
+            -14
+          ],
+          [
+            -21.5,
+            -12
+          ],
+          [
+            -19.3,
+            -13.3
+          ]
+        ]
+      },
+      {
+        "id": "stool",
+        "points": [
+          [
+            -23,
+            -14
+          ],
+          [
+            -25.5,
+            -12.5
+          ],
+          [
+            -26.6,
+            -13.8
+          ]
+        ]
+      }
+    ]
+  },
+  "preservedObjects": {
+    "Bridge_north": "e9e4a112933543ca008de424a31672323d97adf7b2bf77d5e56ba0f59e902639",
+    "Bridge_south": "7a4306e5aae47257a6d3d91028e83ab67fa306fe994ffd3917e48220a84ec4c8",
+    "Building_clinic": "e0a1dc4d6d0206f7ef1ece6d60c15ba5e57d2e4ffdd6382e4bc6e18c501059b1",
+    "Building_community": "e2ec4e99b0dc73751be8fbccaafd1145c01ae23c26a9be9946cdedbdea7ea56e",
+    "Building_house02": "3a9b64ccd1348d5a649fe1f748669d54cef964ac6b325352ba14b1a6cb8c6600",
+    "Building_house03": "994685820f3a3bb00e98d4b6dee95cb1898090e1f186d2e1b638bd5060ebba91",
+    "Building_house04": "a2b8c0493d4f0346a95791a6fb5d8bde5d810b70e7af0e0fe0fd0390c8d35599",
+    "Building_house05": "522b09810246972cbe44d9fb8daf29d3f57f78077f97af6ed77898675f54107e",
+    "Building_house06": "ee546ea3780651b2d81df5df7a03221b21595f1b2f10ec7b0d8f6229ed38e902",
+    "Building_house07": "670f1b0756294ce1747561c6c9ab9630443c08c57ca40581b7754e9860ca0da0",
+    "Building_house08": "f5c3f973f5345a1ba599243bd422e319c8f6457a4bb80379509a6ffec7e1a63b",
+    "Building_house09": "80055bb54910324833181286aeb78524e57b50e6d3d8cb2195efe0b9536b7300",
+    "Building_house10": "24728f7fef1c4411730d8a441db559ea10a6e7fd683bc082e7d0306fc525039f",
+    "Building_house11": "3d8d79d626688e7baecfe8e64a3088332cd9c8faf0a04d25e5a28822a4cbb7a9",
+    "Building_house12": "6fac6c33db63393294f7c7b3a6ad10a7f12741ff4a7e51d28135164c3288f3b7",
+    "Building_house13": "a6426161985434a7d49e03008d1eeaac82d8c7c0173de22fc0c7407dc4004414",
+    "Building_house14": "2061cef241720b3ca22d3a25f3d5c555fa59125bf35f39642a9541d70c3fc882",
+    "Building_house15": "c013863d538f37ed546571f0fafb3161716fb473391a0c1101a8f339a7ff5627",
+    "Building_house16": "bae630cf6b0c7dda13521e8c9cd4a4a787dcac74b75a6ec82c42d486a4454659",
+    "Building_house17": "bd2febf04a6ee954427b44b0a5332dafa1dbd856b89f97d073d2ab60ff8a65ec",
+    "Building_house18": "c0c8f90f6f95e3eb77072d7c58e405a6ae05e9dbc6ff710731d775f24fe0eb1f",
+    "Building_rail_shed": "038771541f1d336a16003f84cf21a532d5e37157baf21f9be3abb0566cc5541d",
+    "Building_shop": "eccc2b24a658b02672abafd806f825a829c035ac33ab825502bef04a36cdaeb2",
+    "Building_station": "a0161ceb76fad821343b6753e508941b90f3807342448e2956bf4ac305e6bdd4",
+    "Building_workshop": "6055115499525978be84ac391cd2ae4b6c05edacf3c7d3bb405ac72217b4901a",
+    "Ceiling": "e9dda9985b129e6543ac2482c0bbfb76709a58543e38a34b8a399abadbfa00f3",
+    "ClothesRack": "b3e3eed319f6f0fc5a03908d1d89830b5ac1eb9b1b39bb38fea3c14e057f1641",
+    "Courtyard": "d0e49c1a2d8807e0e777332b80c2b23252cd6a94f45846d51b0f2430297a94fe",
+    "DoorFrame_entry": "502f5687394ef05d7e729b89cbfee3a0ecdcb520cc1a2380718dc940d37c71dd",
+    "Door_entry_Hinge0": "e5453433d5aee7382d965925a0b4f6af61d534998f4706667dc525489c5bb33f",
+    "Door_entry_Hinge1": "44460019784fdb6a7caaaaa0c1b177e4ef571556b30b1aa5a11d47a52ff8215a",
+    "Door_entry_Leaf0": "5c46003b5d76d33fefb35c0969a480d370d2ff8d725998cc26864c08bd36b008",
+    "Door_entry_Leaf1": "d6abd3fbc8dd737194e1ab6acc8751ca71243383a44fee1a7fa414ec38b996ad",
+    "Drainpipes": "6fe5b78ca87887688869ae9716965211098a5f6f6287753cb3fe1826f64ab5f9",
+    "FenceEast": "805e7f292deebbff4772b2c0c96b0ece2b0be6dbc0866ec361b0b216022157f2",
+    "FenceFrontLeft": "3d2348f92a1ea7dd814dbdcb74987421560522b8fa2b0d14e7604fce09bb96ee",
+    "FenceFrontRight": "36b30c8bad74c980e7ce14e1e8b0023309576f229b9088832f18456bb64a050e",
+    "FenceRear": "8f294340228ba499d8be1cfa716f50b8d44197446baf90662ab9c681a792c34e",
+    "FenceWest": "8cf8c9a2344006798ececa4255956000a86155720695af2df83b85f0fa770284",
+    "Forecourt_clinic": "52d56d4e70ff6cfb303e3148bda4ad2ea98f978024c2e6036c549792f23067f1",
+    "Forecourt_community": "81306bdba852dc75034c8cf8c5a34e1dd9f4f39c5a56f6622d81918564d057ca",
+    "Forecourt_rail_shed": "6e828d329c05347a29c79548887ae6663e01d06648a1440ab4396302b29ec681",
+    "Forecourt_shop": "be48e2b73d1ef12921204ca7ec597a4003829a4c6e2c1576377543594d4f6049",
+    "Forecourt_station": "358c478aa4186683ac6d59766aafd72f851f629a5539b3a3b50d777838e7295b",
+    "Forecourt_workshop": "173e030ddef609d1c46a9b46c39f5bac0bf190769298e1d8319ab0b5ed849ccf",
+    "Glass_east_0": "4f3a3251b596487fa88caebbbc5cc6c482ca2c7245ed9c1232fe633a78612d54",
+    "Glass_east_1": "6c3de36a75ce33609452573066ce2a4e4d18c8b8af48a62bdabcfeabb7a3ba22",
+    "Glass_north_0": "d61bb287e706135d0174c11876d1a52ef1c4241c1c8d62a9da441e2b5857f489",
+    "Glass_north_1": "affc2a187ae1a243deed7cadaaa63e6569efe7ba4a20a96b951645886d217400",
+    "Glass_north_2": "18d55a34fd9e5630fcd0ead3ef5ff6b76834e9b8117101520b4130b514ccff6d",
+    "Glass_south_1": "af1c4f967dfe4bb338d33df517bcbc1156fda6ca16d9fe3ffc1c8a8ee9c08b19",
+    "Glass_south_2": "7a391eb706ee1f00b27923fa80a01ce14e02c45c071191bf71469d3bfe91ac5c",
+    "Glass_west_0": "2ca4b293169be78e8aaec8f138c722115784164d0178e60f7d2e41ff319159c0",
+    "Glass_west_1": "f693fc7165f2037a14d28931556deb7662d7f47b2d511fc7199a8085addce947",
+    "HomeExterior": "0e219dccba368fa4e28afefb9ccb8f0f0f27d44718ede240f2eb9f1ebe690fda",
+    "HomeOpenYardGate": "953b0c7e6faae1b539b9e821d6aa649975f3eac62f82c059e0404affc07fd8a8",
+    "HouseShell_house02": "f506d628fe56ecb15a0666c122f298860eeb07e74896822233e7bdeb1923e8f3",
+    "HouseShell_house03": "38bc4e98dce4726eb7657e06384cf7ce389e746497b820ca6fda81e657ced890",
+    "HouseShell_house04": "cfd52eb5bb8a68cfab1e3df00829c5fc278218a5c6beaccb381d92f3d0ba345c",
+    "HouseShell_house05": "b07fe897d5c0444bd9b781c47e9014e3363e4d9779be711130c15380c291ebd1",
+    "HouseShell_house06": "235af893cde76c536a86557e7ff971561d54acfa94cf276ed0fc6b74bcffda7c",
+    "HouseShell_house07": "8a1119ecea7f7afe79d349eb4b3f2422c369900a7e0138cf90b351a066341c15",
+    "HouseShell_house08": "73e47210c73a6360486cd33df8edce17365c001d043eb95f07b3c16739f93d12",
+    "HouseShell_house09": "0e1335404a0e04de79f1f25c713adc2fbf2b5efc77b3297fdff70b32f39b3606",
+    "HouseShell_house10": "5a64f5619121a067e80bc6da0a955bf93f99fbd83bc765f6890c666b394f31df",
+    "HouseShell_house11": "8fc77cfdc7b6fc5347d765b73af62c37c1c193956cf18fa91987f16c4d7398e0",
+    "HouseShell_house12": "ad6b9c652240af93ce625e8624bcf0a9e9c0e49db082a352aaa3dac0146b9e0a",
+    "HouseShell_house13": "c5ca9b0834ab11901ca1e86601e3b971427fc3f3f8776983105f7151827ca4e3",
+    "HouseShell_house14": "98ef668e0fab3ac7cabd8b060ceb90088e61e426f48a607818ea1d347e94f2e8",
+    "HouseShell_house15": "15fd54cc423715c72c91811c65748a70c3680b48d6c2f501913b2d7b85a6e5dc",
+    "HouseShell_house16": "164be0ed8f6c890e38bd0d7615040fe4591d02ff72333bb7388cbe22ca7a67da",
+    "HouseShell_house17": "76f53dd1c4308081283a1ea4de737dd52832a8cec9e35d9425e5fefa1adab057",
+    "HouseShell_house18": "dc795d11f9e339dd2ee654f83c08915653d72d5431d9b57bd385fc7ef6632d53",
+    "Landmark_station_bench": "adf6e0a005586794af5b349bd7e5b1de241d33b456706998405ed1551e22dbee",
+    "Landmark_station_luggage": "86d737ea2e61579796bf30772937487a78bbebbb54794c32fe3c00e775d2317b",
+    "OldRailway": "757ddb4a9d5e65f09bceb2090650781e8ad8a88a7daa743229c8e8641daba078",
+    "Plant1": "6d7845c937a389f918f27a8d53fbb908e4b4f64d64f7b8635c0ef23489426cd1",
+    "Plant2": "ae10866219a54e9597f130bd49b0e19ceb2fde0672dea23332f32165f7493347",
+    "Plant3": "01aef740d1c94d471c206fd385bb7e183dd3218016feff374c48d90acaeb1829",
+    "PlazaTree": "407b011085093d85d7e9389fa232f823cbae87b03e023ba7a6e431c1b2e50aab",
+    "PlazaTreeSeat": "55bae187b45c6b00a7a1f702f41513cde8bd4db5ef482aeb00dec498285f5feb",
+    "Porch": "9dc5c8b9ade38ebf9d31c3014a623c0f862552958fde012b7ed90439a3bbf2c8",
+    "PorchBench": "86e9e25d53d085ac4aea4d739dbb52eba7c53759e3ae6c51f62f856cb4ae8c46",
+    "PorchCanopy": "facc33e9ee2de6a4c7c76fe928444843a63b25639bc395edb6243ca13b365584",
+    "PorchPillarEast": "5e8fbddcfb815e450506d445c6cf707fa1ec69bc6422b68d1af2aea338ed32ee",
+    "PorchPillarWest": "e232b1dc3d7caf1b410f4b8644abd35273590bfecbd9060f0c8a4d560a76bef9",
+    "PublicShell_clinic": "0735668d6228aec558a6efb1f0516de15f55caa20c873091f2d0b0a0799485a0",
+    "PublicShell_community": "8cc07c13cb2c76dd0751844a701702c99a22720c2796b3fa091f4e5b4ed7c872",
+    "PublicShell_rail_shed": "27bf7d907ffa7dca967c81be7d176c15d6c2ed31ca824fcb77ef7be53f4188d9",
+    "PublicShell_station": "a4d102a7408fa115d58f469de9998ee5f04867fc299383163748ad420b4f8456",
+    "RoadSeams_creek_north": "19cc98b33c761e0744aa2bd966e31f7e3b0a8fd5956a192e7823cf2e86329aa2",
+    "RoadSeams_creek_south": "b22829a17d10c43c55d6ddad6e7088e43225b289722dddec31fb958a73745d52",
+    "RoadSeams_east_bank": "ba96170368a6c2cef3289f8c774b1f4161d24cc2756a2d3e5dc75b80f0d76476",
+    "RoadSeams_home_gate": "2d25456ca75bd7bc6c4a67c095d46dd3d93aaf07aa5b51ad3e9a52896eca9ba7",
+    "RoadSeams_home_lane": "32c0da0d4c7b4ad1ad4c6305bc22eec46013aa9038b05a030b8e60a9681f84c4",
+    "RoadSeams_north_house": "5f13fc5a1b74691885a66f265b3e633ebf7b2b72e00627b42ca6d102e9d69b73",
+    "RoadSeams_north_spine": "0e1f46833a73eaeb9e2ff321cb033c617572bf61f7dcf90068e2ce895bf24f6b",
+    "RoadSeams_south_loop": "552cbfdbc8adf4264aba42ad62f0dd6ad3296b916518d5fdc9ef9e95663de7c4",
+    "RoadSeams_south_return": "9aa407240e2d9fe8e5b8861ce239b60024c81c75deeb7da24042d125551ea797",
+    "RoadSeams_station_court": "c82ff8b4866b6c8d52cc2180703bcd1daf5e8262cd6f9b032f34d0dd706f1b19",
+    "RoadSeams_west_bank": "f8f9a525fad7a0699446c1b10987a0c0d64857b25e13fe7622c27fbe0f02d05d",
+    "RoadSeams_west_houses": "3121c9ebc83dcd173c52b432cfff2be54170939c4139431f62bda1eeaae42b76",
+    "RoadSeams_west_return": "a42efaaf8b414b7af88d1b279b516495a30309e09d7fc6dfc00c8aefbb5b6789",
+    "RoadSeams_workshop_path": "3452bc68915ea3a6601e11913c81d7281e6a18b65d25f0de01a2f6524583d105",
+    "Road_creek_north": "ea27cbc1d2bbc4966e0e22f03612d0993430584c0f27e6e64803513220cca80c",
+    "Road_creek_south": "5ab8885695adf6e7a21e47af6c6ae349407491775dff5c2bd98768486df77ba8",
+    "Road_east_bank": "050a1c99d2385223aab6b81e24b637a15cfe6cdd817dae99e03c9db649163b8e",
+    "Road_home_gate": "7daf98420a5902bc7281466b06c357e6379f2641209ce3c598f7d121c63761b2",
+    "Road_home_lane": "ded4cdfe699d800b778303e41789ac173a1f728283d6879355f7e5153142bfe7",
+    "Road_north_house": "75d605e70ec7d8a61f2362473f35e945a8fc5d8beed7bf4a1c1682839548ed4a",
+    "Road_north_spine": "24481d0374a28c781cd59589176cbc4bcb45979cb7f44fbaa4588f7dcca48e2e",
+    "Road_south_loop": "57fa0db6c97a8b935f1f6b9452f68de394310196013eddf847b11ead6eefd1c4",
+    "Road_south_return": "9212e98867a679697ce5ec3b9bf120a1d2a60e4b5ce7369864d5b350e7a4d114",
+    "Road_station_court": "f8ca57def7aa9531ef8ff603956f1f7b71f0393c85b52ca55f4ff67799f5e9ed",
+    "Road_west_bank": "4fb4847fc814078ef24115ded9ae29b686cae078497080190aaef5476cedff38",
+    "Road_west_houses": "1bafd614f5398f4580a3af3954e038f9a4905592af1b24ca0a7df84f044b92cc",
+    "Road_west_return": "50ddc592482431ac47432c7432317d76c02d1f9664efcbb89d383605b97f5200",
+    "Road_workshop_path": "5e5cf0f60a984b62ee8be577ed3c19478cd4cfade15aa5e7ef6e7c4e8368c36b",
+    "RoofGables": "06651b68635eebba9250f7c98bda843a58cf3795590d4c5a7aa58260bbe3a782",
+    "RoofTilesNorth": "5ca36167c2e8c27697f7c7da6d11e7ab69c7953c2ba466affc981f0a1a3891b2",
+    "RoofTilesSouth": "154bbe6e25076ed6b1cd8cdee5ba982c2ab12810a04c0e067f484c7dcef7edc6",
+    "ScenicMountainTerrain": "223a73a814988b609b2fcc373bed219a7fa0200d84c3315f61cbceffdf122b47",
+    "SignBoard_clinic": "cb9e428471cd95ec3b6528edeb3deff1cb026fa5ea58a7192164b61a3886e8c4",
+    "SignBoard_community": "f4858dd3d9d5959926402ec6a050e568a2202e50755c8833d902b75f1a495892",
+    "SignBoard_shop": "d244af8b2fb943293faa7be89ae09e4775bcb25bcaf883393097e19467d20929",
+    "SignBoard_station": "51e692f7f96cf4fae5fde600f2bdf5dbc49ebd84e8f46ce322ea57305f5c6617",
+    "SignBoard_workshop": "c2cea4841b9babc2ca2a88860da77a352040674a19a1b9859a9bde7df05b035c",
+    "SignText_clinic": "163a1eafa3d547a2f10eab459b9d79a435ead8863872406c5f60bb21f849230c",
+    "SignText_community": "e2252bb201249f1a5ced49fe1efb5b4553ffdc516389b3b383aac4621dc68107",
+    "SignText_shop": "f35558e0191f094ceabbbd30d8917753a170e01dc9c58a949597dc0352e44f4d",
+    "SignText_station": "ef726ca849bf33c6497c3acd5a6ce1b6f15bade876ab6dceb8beb124cc5ec125",
+    "SignText_workshop": "2e4f618ff5212adf0e58d83f6bdb934bf727dc610dc0d30e48263d9eff9bc617",
+    "StreamBankParapets": "004e09ff61999813c0dfc22cb613c6bb7dbbc47eeb599ab1731a75a9f23ece09",
+    "StreamWater": "9cc8806ef48498beba0118cac6e69e406dc2d0d07adb3a47dcbb35c9a172b11d",
+    "Terrain": "d9c11e45717c9e731db2d2c048afed8d18ceebc20283bc36e70269deeeb1c31c",
+    "Tree_000": "06a41c1afc26e4b5c3eb4ef8fb05ccf840638d3ce551f41403f0b71d6c14bd1d",
+    "Tree_001": "ae8fae36d165f1b6ebfd98641c69c88f85c8696833754396f24fce8b2c5ece14",
+    "Tree_002": "1e6b550ff76ea1a3b28efeb0803b9db307093c76e2f828b2a37b3f33a5e41460",
+    "Tree_003": "bc6aec99dc007a15d11530ff551bbb9f7f80aa9cac53cc9b22a714cea3c8f4fb",
+    "Tree_004": "941e7d6752d5de20199dbd186c5f06763e35c2e27f73b44e0c594f70e31ea1d3",
+    "Tree_005": "61f5d33d1077e86cc6409314231afe04e93ec25aba23e04f12b0f63e3041b17e",
+    "Tree_006": "4f3e30acf6b15ca21875b4b0b9df2d69e3d017dcfe3cd588848b855fd0f0b548",
+    "Tree_007": "7ed56dce4cb192bf9361cc97fc8f4e735cc949508bb0420f530a77499615221a",
+    "Tree_008": "353a7ccca440631d297f4bad278a46915f92868276ee9c2334c2b734158e632a",
+    "Tree_009": "2555905ef969ef93b9603aa57f87adb209e1805cbf093b88a8403cc2ec878cb1",
+    "Tree_010": "c11a6cc3eb58cbeb8d18a0a2eed6cf54b809a086320de9e069aa41731342b737",
+    "Tree_011": "36bad8f82d8be334f9a74f3c5e589bfede70097dcc16b2a8323296c37f2f164d",
+    "Tree_012": "27bba572dbd54ae08ccd40fbef2032f91c43e73291340691b6c56204b0d06245",
+    "Tree_013": "851bf92c66c47c2398371d4b6e327a34a2ae5b6032b07fbf8466a7da614ff175",
+    "Tree_014": "d5f7f65ab7ad3ed3978adc0a659497700da85da6c9484c2bff560d830ae94b9a",
+    "Tree_015": "63a83d6b75918631e7aa7eaf7250ce821f97f1686f4dda53e1125671bb4ec799",
+    "Tree_016": "887e283fcec37fef434b1167b8212bf11cb08d2a4ed5fd9d104f845c28b3a538",
+    "Tree_017": "aefb258f8c6c2d0c819e5fde4b84fe4d8a22d35720abaaafca0759cdc19a1548",
+    "Tree_018": "d1d121bca236e5d555c848e565ef4bdd46e6161c52e9160227111518052465c3",
+    "Tree_019": "dd9c851c4f96612ff60359eea2cb0af1216a498d6dd04a6c89ec77a3625a95aa",
+    "Tree_020": "bdec3da768b24751f957dea4fc2ccdab307f331d8ddcdd6fcaae818394db8459",
+    "Tree_021": "f25919a16d371dd839adde1e645f30bdfe59b9a7c9486dd8a7bde8bfe9ec823f",
+    "Tree_022": "d0427c2833f8469dbeb2951c7eed49305ca3af3dcb6ee5fce4777a67035ccd8f",
+    "Tree_023": "17fd0c8273b5421060e7404355471dbd084001dbecf9b3c0d93e86272112b753",
+    "Tree_024": "5d18b32d69dca1e13502b42452da54bc3fd4aa3190293c01c2e3a8839e4f4996",
+    "Tree_025": "1ba2f9cb6e644c9c3e8ca3b46f7bb888c917c2e350ea5fd0de947fcc2e5068cb",
+    "Tree_026": "67ab0c3bbbdcd5fb202cb3b08a873e57312cba9cc8d2b2373d7020c8db4235be",
+    "Tree_027": "4f966d4f4ead86bf9bb2a9db40ca4fb7b9d6f90f71ad6c460ca79d767c4520ad",
+    "Tree_028": "0657fab0184de31a09a7b5c9b01e8fd3f924aecde0ae10b72dfa97b578154f0a",
+    "Tree_029": "8cdfb94268c5639ca64728e92f0eec9ed45f853400d9d8f71e61c16019c30884",
+    "Tree_030": "df2d529ef9c8611900ab7554710014a9ce017f021fc6844c1554dcc2979ed17e",
+    "Tree_031": "301df30e35bf874b4f6476616448a8b97a98bb9190b3d0365109871eb358ba56",
+    "Tree_032": "14a5eafe3a8d126d6a51a79b89abf80e2796e1a68a384106b60581e74c88e7cf",
+    "Tree_033": "905c8ea9d50a170a18114014de22b3ce2057ec4df5d71abe0449fcbdcb6e918a",
+    "Tree_034": "e8af7b1ab4d888a28d58250946d9efffb0677e4ca8ff7031aa6520f31b46afcf",
+    "Tree_035": "e4a0f2f95ae3352e1c3df73662ac52f4ba5cd4823fe2fa32b94de9e454c058bf",
+    "Tree_036": "0ddc64a19dc069e7e333fe7953ff00e5c73dbcc319b8e41ee884bce2076cfc43",
+    "Tree_037": "e0057b488fd8868188853a164c63be45a48bed9a5caa5653acc068953287042d",
+    "Tree_038": "a9f9c5d332221e19af86d3161704ce0f3e52e568f7a965fcb0f331681bd373b7",
+    "Tree_039": "4b2b834155a5cd940f34808366026247ad670cc2d32aa322c39bdaaff951a50d",
+    "Tree_040": "709af8c4a64fc0ccce38b557eb63c5fca192024b4b597be40c4d116cb3f1c47d",
+    "Tree_041": "49b400f89a88c7e8c97caa75fe310c30f540d080db46aa37f3b7dc1c4f87fa0e",
+    "Tree_042": "d2bb3202746bcc4f3614fd385db36f27b13934be0c4fae0d0d2604f5a5824f7f",
+    "Tree_043": "c907241b2a852618415661619d1ddeb5ad467eb88396804ba4787058744476a7",
+    "Tree_044": "68c3921357b2c769e2fd8e6faf8604066a432d9dd56af30d5815732b17b02a3c",
+    "Tree_045": "bad8444629ca6d0f2fde94e49dc42f56f373e06107e894ea5086bc9050887321",
+    "Tree_046": "6f2cb5dff4d1fc3497437bc4d687219dd903910ed736dd625d740f38f4f7522c",
+    "Tree_047": "6ba606595f2601cf525dae7bc25e4498d8fcc6f10040af9e57c2309f6bde4c37",
+    "Tree_048": "5cf6f9841f6c9100f565d48b699df86a3d3ec676629307ed9bed878867157c0e",
+    "Tree_049": "94e0ea6ed7a963d1790ea13484268742e3ddee87b164d577ea4ad8faeae80e08",
+    "Tree_050": "ae0692f305083f1f8a760e1f03c865212b7ba2620067e0c66a8df6ae99027227",
+    "Tree_051": "fd5f2f86a5b466aa8df6d09a89846db17d552cbe9527e444e702c1357169c184",
+    "Tree_052": "e15a659fe84595678aeb0dd5c942b45a5f1df541e642717291b7b0a098b32319",
+    "Tree_053": "2c45c2c05d48c32c171f218f418b47ba2ad168c2caab219e923e1bd0131532d3",
+    "Tree_054": "04810451d8504545e78b7aff958fcdb4bcb26a95eecb573414536590ce31b2a2",
+    "Tree_055": "b40c07ca276a7f103aac9e27522e03315b58da2c9fb465de3056d39d88097e74",
+    "Tree_056": "e5bc3e72a0aa9dfe577efe5451660ef15c22c96812cdb92d908ecf748aa66b2c",
+    "UtilityPolesAndWires": "0ec13b785dd5138c84be52634e609c55bed69b2366d4e55842d7c88f9fd590a3",
+    "VegetablePlot_0": "b08eadc2fee7d46e9c1d8dc1f00e13d76ac240e6e915f4e99f08704c744a8fa3",
+    "VegetablePlot_1": "02be79c468bab065912e85154b80c5fd8105cb5b66a537192776258aa6913635",
+    "VegetablePlot_2": "8e1b17117fb45431361189dded3bafa0f236cc4d284d814fe12d8c25b27ef4b7",
+    "VillageSquare": "021d82db3f7a1cb610897ce618db94d57bd644bc64e38339efd7d7a6cb5aec32",
+    "VillageV1": "32aade228c1186713f6a3ade3427b71cb7add838413b82aff44328a50c8b0d9a",
+    "Wall_east": "d429733003b29ae54dbf55175aaa48fcdeccd1bafc50ce4675e368bb9a335a53",
+    "Wall_north": "e850ca3aa39526935ccdc37877ad43a2e35363a32a6e01a32402702e69710835",
+    "Wall_south": "5c83c8c44f43490b02ccf1a11ea0e1e91edc4d012b612f4955cba8e1a23c75b8",
+    "Wall_west": "31b9d1421ce1931e2fcca241d61822fa6ee186ee3496c448d0bb394a4148429c",
+    "Window_east_0": "ad8e31169592e41f56dd74ecc1f2c25cdd08dc723870bc2d7137c5482da88224",
+    "Window_east_1": "5c6ca453670178442c3d3bda7a1b87a56ca17ec86ba8287a62e71be17a1b3e43",
+    "Window_north_0": "543b3ae8759756943c7e7c3d844617bbe82e441914d0a1aa400ac6d3280c3b97",
+    "Window_north_1": "63bffedd28c20ebc377657e85742e654bfc3b6a16f11251b812696d34ea1c097",
+    "Window_north_2": "6578a044ee50deee655fd12c7196fae92d8ed22a7e4a473dd93ba2a1b7c88828",
+    "Window_south_1": "8b28213b00d3f3d1af00c3cf3ae88d395709b5e0bd8eb72704d7732590426c94",
+    "Window_south_2": "2123c62779e7773c09b0adb62242f953325a9f97f6f4c33e2c6ffceb68d4c4a0",
+    "Window_west_0": "a1291495cc2700ff2906376318c36445d69405945d14d234c7c35add009635da",
+    "Window_west_1": "4166d012d2ebf4f2cdef881254e9751e84f9e9ebbafd5751be0f3f09fcbba6b9",
+    "YardTap": "80afe1293a61dbe9eb96555fb5581708a1d7cccf4353e4335a220cbb3832ad85",
+    "Yard_house02": "69cef488f5b5f75e925cecc977571f5ab5d9d550055b192594a4a36f11325c82",
+    "Yard_house03": "532f784c29677fd393faabfe5af1b7e828ecd164701ec1e4cd34e2e3bdc2c85f",
+    "Yard_house04": "83c5e22bc1ce555d98d87e7bc37ee994bdf459dad8cb525f2d80c80257cea48c",
+    "Yard_house05": "51b8cb17d2855cb07905b22be8f5a68390d711299cf266025a8ae14564a80631",
+    "Yard_house06": "5b7e57bee1b940a471b914a44ccc16a9c67a1c66a31c5ad0c025905c42c3a2a9",
+    "Yard_house07": "2b642a8f6e01c9f4f47f7903a17856a32b2a90b39ab370dd4ff648b760391be0",
+    "Yard_house08": "76096d1f5a1a9be6af8a32b7854a0223bb86c6a60d574f6e0aeef5c041296a7e",
+    "Yard_house09": "c85eabc1514f4bf85eb2f995eb3715e6769b28a7e32eb8bb3aca3fe700958bcd",
+    "Yard_house10": "4cddd612a78a0149e414fe65e5aa4c1b42b768cb71d96dfa9ded950f01d9ab7e",
+    "Yard_house11": "58dda99bb7bd0f2073bd39280973311f626bdefcb0bf2d6d683513d0ff05e2cb",
+    "Yard_house12": "0f46f4356cbd41189bcab0a7a6a3eaf42cf0796a9f6e189f901cc6bade5e138b",
+    "Yard_house13": "26add1524329b359f871d0ce153460b4ec8dc64222d88e5bf3c2c7236ca6ec15",
+    "Yard_house14": "915d4e8916ca92db3c32f9c92d9aa59b64b919f727e1c479548d8888b6e669a5",
+    "Yard_house15": "910b570c47d0c84ad7fa783c9c133011e7bc5a0a79bf03e65d9e81d8f4ad9d34",
+    "Yard_house16": "193116f5df1ec4ea60cb2f43f30a7c9e1235ea6adcf05e7211b287508d0bd962",
+    "Yard_house17": "567c086878c81307794c4e628e861de2c6b1fd34edcfc3af5e3566324b5ec8a2",
+    "Yard_house18": "69ec05e96c3b2504d78dd1f93103f48107b6d1c0d6eccff1c5a15468230212db"
+  },
+  "provenance": {
+    "date": "2026-09-14",
+    "tool": "Blender offline Python modelling",
+    "model": "5.2.0 LTS",
+    "script": "scripts/tools/build_village_v2.py",
+    "prompt": "Approved first village exterior batch: everyday village desk and noticeboard, grocery loading, woodworking repair workshop. No story interactions.",
+    "referenceImages": [
+      "outputs/village-v1/validation/1920x1080/05-shop.png",
+      "outputs/village-v1/validation/1920x1080/06-plaza-tree.png",
+      "outputs/village-v1/validation/1920x1080/09-workshop.png"
+    ],
+    "parameters": {
+      "units": "metres",
+      "baseVersion": 1,
+      "exteriorVersion": 2,
+      "bevelMetres": 0.008,
+      "runtimeGeneration": false
+    },
+    "sourceAssets": [
+      "saved village-v1.blend",
+      "previously adopted Poly Haven CC0 wood/plaster/stone maps",
+      "original geometry and constant-color materials"
+    ],
+    "postprocessing": [
+      "metric UVs",
+      "small edge bevels",
+      "independent fixture and paper objects",
+      "preserved baseline geometry verified by fingerprint"
+    ]
+  },
+  "exportProfile": {
+    "characters": false,
+    "animations": false,
+    "cameras": false,
+    "lights": false,
+    "runtimeDependsOnBlender": false
+  }
+}

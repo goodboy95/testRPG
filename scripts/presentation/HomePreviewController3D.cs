@@ -8,6 +8,7 @@ public partial class HomePreviewController3D : WorldArea3D
 {
     /// <summary>Only set before Ready by the independent village host. Defaults preserve HomePreview v1.</summary>
     public bool EmbeddedInVillage { get; init; }
+    public bool UseIdentitySample { get; init; }
     public event Action? VillageExitRequested;
     public event Action? FixturesChanged;
     private bool _hostLocked;
@@ -17,7 +18,6 @@ public partial class HomePreviewController3D : WorldArea3D
         public HomeDoorMotion Motion { get; } = new(spec);
         public List<Node3D> Hinges { get; } = [];
         public List<StaticBody3D> Leaves { get; } = [];
-        public StaticBody3D Sweep { get; set; } = null!;
     }
     private readonly Dictionary<string, DoorRuntime> _doors = new(StringComparer.Ordinal);
     private readonly Dictionary<string, OmniLight3D> _lights = new(StringComparer.Ordinal);
@@ -82,11 +82,14 @@ public partial class HomePreviewController3D : WorldArea3D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_paused) return;
+        if (_paused || _hostLocked) return;
         foreach (var door in _doors.Values)
         {
             if (!door.Motion.IsMoving) continue;
-            door.Motion.Step((float)delta);
+            var wasBlocked=door.Motion.IsBlocked;
+            door.Motion.Step((float)delta,new NVector2(Player.Position.X,Player.Position.Z));
+            if(door.Motion.IsBlocked){_feedback=UiText.Get("HOME_DOOR_CLEARANCE");_feedbackTime=.25f;}
+            else if(wasBlocked)_feedbackTime=0;
             ApplyDoor(door);
             if (!door.Motion.IsMoving) FixturesChanged?.Invoke();
         }
@@ -133,13 +136,12 @@ public partial class HomePreviewController3D : WorldArea3D
     {
         var from = Player.GlobalPosition + Vector3.Up * 1.2f;
         var to = _sightPoints[id];
-        var query = PhysicsRayQueryParameters3D.Create(from, to, 1);
+        using var query = PhysicsRayQueryParameters3D.Create(from, to, 1);
         var excluded = new Godot.Collections.Array<Rid> { Player.GetRid() };
         if (id.StartsWith("home.door.", StringComparison.Ordinal))
         {
             var door = _doors[id[10..]];
             foreach (var leaf in door.Leaves) excluded.Add(leaf.GetRid());
-            excluded.Add(door.Sweep.GetRid());
         }
         query.Exclude = excluded;
         return GetWorld3D().DirectSpaceState.IntersectRay(query).Count == 0;
@@ -159,7 +161,7 @@ public partial class HomePreviewController3D : WorldArea3D
             var door = _doors[id[10..]];
             if (!door.Motion.Request(new NVector2(Player.Position.X, Player.Position.Z)))
             {
-                _feedback = UiText.Get("HOME_DOOR_CLEARANCE"); _feedbackTime = 2;
+                if(door.Motion.IsBlocked){_feedback = UiText.Get("HOME_DOOR_CLEARANCE"); _feedbackTime = 2;}
                 return false;
             }
             ApplyDoor(door);
@@ -177,11 +179,23 @@ public partial class HomePreviewController3D : WorldArea3D
     public bool DoorMoving(string id) => _doors[id].Motion.IsMoving;
     public bool LightOn(string id) => _lights[id].Visible;
 
+    public int DoorOpenSide(string id)=>_doors[id].Motion.OpenSide;
+    public Dictionary<string,int> CaptureDoorSides()=>_doors.ToDictionary(pair=>pair.Key,pair=>pair.Value.Motion.StableOpenSide);
     public Dictionary<string, bool> CaptureDoors() => _doors.ToDictionary(pair => pair.Key, pair => pair.Value.Motion.StableOpen);
     public Dictionary<string, bool> CaptureLights() => _lights.ToDictionary(pair => pair.Key, pair => pair.Value.Visible);
-    public void RestoreFixtures(IReadOnlyDictionary<string, bool> doors, IReadOnlyDictionary<string, bool> lights)
+    public void RestoreFixtures(IReadOnlyDictionary<string, bool> doors, IReadOnlyDictionary<string, bool> lights, IReadOnlyDictionary<string,int>? sides=null, Vector3? savedPlayer=null)
     {
-        foreach (var (id, door) in _doors) { door.Motion.Restore(doors.GetValueOrDefault(id)); ApplyDoor(door); }
+        foreach(var (id,door) in _doors)
+        {
+            var known=sides is not null && sides.ContainsKey(id);
+            door.Motion.Restore(doors.GetValueOrDefault(id),known?sides![id]:null);
+            if(!known && door.Motion.IsOpen && savedPlayer is { } player)
+            {
+                var p=new NVector2(player.X,player.Z);var side=door.Motion.OpenSide;
+                if(door.Motion.OverlapsPlayer(1,side,p) && !door.Motion.OverlapsPlayer(1,-side,p))door.Motion.Restore(true,-side);
+            }
+            ApplyDoor(door);
+        }
         foreach (var (id, light) in _lights) light.Visible = lights.GetValueOrDefault(id);
     }
 
@@ -206,15 +220,11 @@ public partial class HomePreviewController3D : WorldArea3D
 
     private void ApplyDoor(DoorRuntime d)
     {
-        var t = Mathf.SmoothStep(0, 1, d.Motion.Progress);
         for (var i = 0; i < d.Hinges.Count; i++)
         {
-            var sign = d.Spec.Double ? (i == 0 ? 1 : -1) : d.Spec.Swing;
-            d.Hinges[i].Rotation = new Vector3(0, sign * Mathf.Pi / 2 * t, 0);
-            d.Leaves[i].CollisionLayer = d.Motion.IsMoving ? 0u : 1u;
+            d.Hinges[i].Rotation = new Vector3(0,d.Motion.AngleRadians(i),0);
+            d.Leaves[i].CollisionLayer = 1;
         }
-        // A temporary solid sweep prevents the actor entering a moving leaf's path.
-        d.Sweep.CollisionLayer = d.Motion.IsMoving ? 1u : 0u;
     }
 
     private static Vector3 V(float[] a) => new(a[0], a[1], a[2]);
@@ -222,7 +232,7 @@ public partial class HomePreviewController3D : WorldArea3D
 
     private void BuildModel()
     {
-        _model = Graybox ? new Node3D() : ResourceLoader.Load<PackedScene>("res://assets/generated/home/3d/home-v1.glb").Instantiate<Node3D>();
+        _model = Graybox ? new Node3D() : ResourceLoader.Load<PackedScene>(UseIdentitySample ? "res://assets/generated/home/3d/home-identity-v2.glb" : "res://assets/generated/home/3d/home-v1.glb").Instantiate<Node3D>();
         _model.Name = "HomeModel"; AddChild(_model);
         foreach (var mesh in Descendants(_model).OfType<MeshInstance3D>())
             if (mesh.Name.ToString().StartsWith("Glass_", StringComparison.Ordinal)) mesh.CastShadow = GeometryInstance3D.ShadowCastingSetting.Off;
@@ -248,6 +258,9 @@ public partial class HomePreviewController3D : WorldArea3D
             AddBox(this, f.Id + "Collision", V(f.Position) + Vector3.Up * (f.Size[1] / 2), V(f.Size), Graybox);
         foreach (var b in HomeLayout3D.Layout.Structure)
             AddBox(this, b.Id + "Collision", V(b.Position), V(b.Size), Graybox);
+        if(UseIdentitySample)
+            foreach(var p in HomeIdentityLayout3D.Layout.Props)
+                AddBox(this,"V6_"+p.Id,V(p.Position)+Vector3.Up*(p.Size[1]/2),V(p.Size),Graybox);
     }
 
     private StaticBody3D AddBox(Node parent, string name, Vector3 position, Vector3 size, bool visible)
@@ -296,10 +309,6 @@ public partial class HomePreviewController3D : WorldArea3D
                 runtime.Hinges.Add(hinge);
                 runtime.Leaves.Add(AddBox(hinge, "DoorLeafCollision", center, size, Graybox));
             }
-            var sweep = d.SweepBounds(0);
-            runtime.Sweep = AddBox(this, "Sweep_" + d.Id, new(sweep.X + sweep.Width / 2, d.Height / 2, sweep.Z + sweep.Depth / 2),
-                new(sweep.Width + .08f, d.Height, sweep.Depth + .08f), false);
-            runtime.Sweep.CollisionLayer = 0;
             AddMarker(host, "home.door." + d.Id, "HOME_ROOM_" + d.Id.ToUpperInvariant(), V(d.Position) + Vector3.Up * 1.2f);
         }
         foreach (var l in HomeLayout3D.Layout.Lights)

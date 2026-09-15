@@ -1,5 +1,7 @@
 # 村庄 Terrain3D 三处地形样板
 
+`[已实现]` 2026-09-14 后续布局轮：[紧凑村庄 v4](village-v4.md)已接入正式醒后探索与默认预览，采用 v3 树木／两铺外观和独立派生 Terrain3D。固定主角家、溪流、双桥及 24 栋体量；原布局通过独立预览 `--village-v2` 回归，v1 与 v3 样板入口保留。第一章委托仍未接入。[本轮实际验证](../production/village-v4-validation.md)独立记录；下述旧批次的“正式 v2／样板待采用”均为当时状态。
+
 > 2026-09-14。`[已实现]` 负责人查看样板后确认“看着不错，可以覆盖”，已采用到正式村庄及默认 v2 预览。原样板制作结果见[历史验收](../production/village-terrain-validation.md)，本轮接入见[采用验收](../production/village-terrain-adoption.md)。
 
 ## 范围与入口

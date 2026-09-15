@@ -89,6 +89,19 @@ public sealed class VillageExplorationTests
     }
 
     [Fact]
+    public void DoorDirectionsRoundTripAndMissingOldFieldRemainsCompatible()
+    {
+        var game=GameState.CreateDreamPrologue();game.DreamEscape!.Status=DreamEscapeStatus.CompletedEscape;game.DreamEscape.Items.Clear();new VillageExplorationService(game).BeginWake();
+        game.VillageExploration!.Doors["bedroom"]=true;game.VillageExploration.DoorOpenSides["bedroom"]=1;
+        var json=SaveGameSerializer.Serialize(game);var copy=SaveGameSerializer.Deserialize(json);
+        Assert.Equal(1,copy.VillageExploration!.DoorOpenSides["bedroom"]);
+        var node=System.Text.Json.Nodes.JsonNode.Parse(json)!;node["game"]!["villageExploration"]!.AsObject().Remove("doorOpenSides");
+        var old=SaveGameSerializer.Deserialize(node.ToJsonString());Assert.Empty(old.VillageExploration!.DoorOpenSides);Assert.True(old.VillageExploration.Doors["bedroom"]);
+        foreach(var sides in new[]{new Dictionary<string,int>{{"bedroom",0}},new Dictionary<string,int>{{"invalid",1}}})
+            Assert.Throws<InvalidDataException>(()=>VillageExplorationService.Validate(VillageExplorationState.HomeLocation,new(){DoorOpenSides=sides}));
+    }
+
+    [Fact]
     public void DoorPersistenceUsesLastStableEndpoint()
     {
         var door = new HomeDoorMotion(HomeLayout3D.Layout.Doors[1]);

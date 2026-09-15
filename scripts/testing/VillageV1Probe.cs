@@ -18,7 +18,7 @@ public partial class VillageV1Probe : Node
     private bool BatchOnly => OS.GetCmdlineUserArgs().Contains("--village-batch-only");
     private bool UseV1 => OS.GetCmdlineUserArgs().Contains("--village-v1");
     private bool TerrainAdoption=>OS.GetCmdlineUserArgs().Contains("--terrain-adoption");
-    private string Output=>TerrainAdoption ? ProjectSettings.GlobalizePath($"res://outputs/village-terrain-adoption/{_travelRun}-{(UseV1?"v1":TerrainBaseline?"original":"default")}") : TerrainCheck ? TerrainOutput : TravelCheck || TravelVideo ? TravelOutput : ProjectSettings.GlobalizePath($"res://outputs/{(UseV1?"village-v1-regression":"village-v2")}/{(_lookdev?"lookdev":_gray?"graybox":"validation")}");
+    private string Output=>HomeTreesCheck ? HomeTreesOutput : HouseArtCheck ? HouseOutput : CompactCheck ? CompactOutput : ArtCheck ? ArtOutput : TerrainAdoption ? ProjectSettings.GlobalizePath($"res://outputs/village-terrain-adoption/{_travelRun}-{(UseV1?"v1":TerrainBaseline?"original":"default")}") : TerrainCheck ? TerrainOutput : TravelCheck || TravelVideo ? TravelOutput : ProjectSettings.GlobalizePath($"res://outputs/{(UseV1?"village-v1-regression":"village-v2")}/{(_lookdev?"lookdev":_gray?"graybox":"validation")}");
     public override void _Ready()=>CallDeferred(MethodName.Run);
     private async void Run()
     {
@@ -28,10 +28,23 @@ public partial class VillageV1Probe : Node
             var session=GetNode<GameSession>("/root/GameSession");var state=SaveGameSerializer.Serialize(session.State);
             var path=ProjectSettings.GlobalizePath(GameSession.SavePath);var save=File.Exists(path)?File.ReadAllBytes(path):null;
             var start=Time.GetTicksUsec();
-            _village=ResourceLoader.Load<PackedScene>(TerrainCheck && !TerrainBaseline && !TerrainAdoption ? "res://scenes/testing/VillageTerrainPreview.tscn" : "res://scenes/testing/VillagePreview.tscn").Instantiate<VillagePreviewController>();
+            _village=ResourceLoader.Load<PackedScene>(HomeTreesAdoption ? "res://scenes/testing/VillagePreview.tscn" : HomeTreesCheck ? (HomeTreesBaseline ? "res://scenes/testing/VillageHouseArtPreview.tscn" : "res://scenes/testing/VillageHomeTreesPreview.tscn") : HouseArtCheck && !HouseBaseline ? "res://scenes/testing/VillageHouseArtPreview.tscn" : HouseArtCheck || CompactCheck && !CompactBaseline ? "res://scenes/testing/VillageCompactPreview.tscn" : ArtCheck && !ArtBaseline ? "res://scenes/testing/VillageArtPreview.tscn" : TerrainCheck && !TerrainBaseline && !TerrainAdoption ? "res://scenes/testing/VillageTerrainPreview.tscn" : "res://scenes/testing/VillagePreview.tscn").Instantiate<VillagePreviewController>();
             AddChild(_village);await Frames(6);var loadMs=(Time.GetTicksUsec()-start)/1000d;
+            if(HomeTreesCheck) {if(HomeTreesAdoption) Require(_village.Exterior.UseHomeTreesSample && _village.Exterior.UseHouseArtSample,"default preview adopts v6 and four houses");if(OS.GetCmdlineUserArgs().Contains("--home-trees-routes")) await RunCompact(loadMs,state,save,path);else await RunHomeTrees(loadMs,state,save,path);return;}
+            if(HouseArtCheck) { if(OS.GetCmdlineUserArgs().Contains("--house-routes")) await RunCompact(loadMs,state,save,path); else await RunHouseArt(loadMs,state,save,path);return; }
+            if(CompactCheck) {await RunCompact(loadMs,state,save,path);return;}
             Require(Math.Abs(_village.ActivePlayer.Speed-(UseV1?3.1f:4.2f))<.001f,"area default speed");
             Require(_village.Exterior.UseTerrainSample==(!UseV1 && !_gray && !TerrainBaseline && !OS.GetCmdlineUserArgs().Contains("--village-original-terrain")),"preview surface selection");
+            if(ArtCheck)
+            {
+                ArtContract();
+                if(OS.GetCmdlineUserArgs().Contains("--art-views"))
+                {
+                    await CaptureArtMatrix();await ClosePreview();
+                    File.WriteAllText(Path.Combine(Output,"art-views.json"),JsonSerializer.Serialize(new {loadMs,checks=_checks,captureCount=_captures.Count,baseline=ArtBaseline}));
+                    GD.Print("VILLAGE_ART_VIEWS_PASS");GetTree().Quit();return;
+                }
+            }
             if(TerrainCheck)
             {
                 if(!TerrainBaseline) await TerrainContract();
@@ -61,7 +74,9 @@ public partial class VillageV1Probe : Node
             Require(_village.ActivePlayer.TerrainMovement && _village.ActivePlayer.IsOnFloor(),$"terrain grounded at spawn {_village.ActivePlayer.Position}");
             await Inputs();
             if(TravelCheck && !UseV1 && !TravelVerificationOnly) await CompareTravel();
-            Engine.TimeScale=3;
+            // Art comparisons exercise real-time movement; accelerated physics can
+            // overshoot narrow bends when a newly imported material stalls a frame.
+            Engine.TimeScale=ArtCheck ? 1 : 3;
             if(!BatchOnly && (!(TravelCheck && !UseV1) || TravelVerificationOnly)) foreach(var route in VillageLayout3D.Layout.Routes) await WalkRoute(route);
             if(!UseV1)
             {
@@ -75,7 +90,7 @@ public partial class VillageV1Probe : Node
             await HomeTransitions();
             Require(SaveGameSerializer.Serialize(session.State)==state,"formal session unchanged");
             Require(save is null ? !File.Exists(path) : File.ReadAllBytes(path).SequenceEqual(save),"formal save unchanged");
-            if(_capture) { if(TerrainCheck) await CaptureTerrainMatrix(); else await CaptureMatrix(); }
+            if(_capture) { if(ArtCheck) await CaptureArtMatrix(); else if(TerrainCheck) await CaptureTerrainMatrix(); else await CaptureMatrix(); }
             await _village.ResetPreview();await Frames(5);
             Require(!_village.IsInterior && _village.Interior is null && !_village.IsPaused,"reset clears cached interior");
             _village.ActivePlayer.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(ResourceLoader.Load<Texture2D>(
@@ -130,7 +145,7 @@ public partial class VillageV1Probe : Node
         for(var i=1;i<route.Points.Length;i++)
         {
             var destination=new Vector3(route.Points[i][0],0,route.Points[i][1]);var done=false;
-            for(var frame=0;frame<2400;frame++)
+            for(var frame=0;frame<(CompactCheck?900:2400);frame++)
             {
                 var p=_village.ActivePlayer.GlobalPosition;var direction=new Vector3(destination.X-p.X,0,destination.Z-p.Z);
                 minY=Math.Min(minY,p.Y);maxY=Math.Max(maxY,p.Y);
@@ -141,7 +156,7 @@ public partial class VillageV1Probe : Node
                 await Frames(1);seconds+=GetPhysicsProcessDeltaTime();
                 if(frame%30==0) Require(Math.Abs(p.Y-_village.Exterior.WalkHeight(p.X,p.Z))<.4f,$"{route.Id} on surface segment {i} frame {frame}");
             }
-            if(!done) throw new InvalidOperationException($"Route {route.Id} blocked {_village.ActivePlayer.Position} -> {destination}");
+            if(!done) { var actor=_village.ActivePlayer;var contacts=Enumerable.Range(0,actor.GetSlideCollisionCount()).Select(n=>{var c=actor.GetSlideCollision(n);return $"{c.GetCollider()} normal={c.GetNormal()}";});throw new InvalidOperationException($"Route {route.Id} blocked {actor.Position} -> {destination}; velocity={actor.Velocity}; floor={actor.IsOnFloor()}; contacts={string.Join(" | ",contacts)}"); }
         }
         ReleaseMovement();await Frames(5);
         Require(true,"continuous input route "+route.Id);

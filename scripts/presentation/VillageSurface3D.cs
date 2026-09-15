@@ -10,9 +10,9 @@ public interface IVillageSurface3D
     bool Ready { get; }
 }
 
-public sealed class OriginalVillageSurface3D : IVillageSurface3D
+public sealed class OriginalVillageSurface3D(VillageLayoutProfile3D? layout=null) : IVillageSurface3D
 {
-    public float GroundHeight(float x,float z)=>VillageLayout3D.TriangulatedHeight(x,z);
+    public float GroundHeight(float x,float z)=>layout?.Compact==true ? layout.GroundHeight(x,z) : VillageLayout3D.TriangulatedHeight(x,z);
     public void SetActive(bool active) { }
     public bool Ready=>true;
 }
@@ -24,10 +24,10 @@ public sealed class TerrainVillageSurface3D : IVillageSurface3D
     private readonly Node3D _terrain;
     private readonly GodotObject _data;
     private readonly GodotObject _collision;
-    public TerrainVillageSurface3D(Node3D host)
+    public TerrainVillageSurface3D(Node3D host,string folder=Folder)
     {
         if(!ClassDB.ClassExists("Terrain3D")) throw new InvalidOperationException("Terrain3D 1.0.2 is unavailable. Use the original village preview.");
-        _terrain=ResourceLoader.Load<PackedScene>(Folder+"terrain.tscn").Instantiate<Node3D>();
+        _terrain=ResourceLoader.Load<PackedScene>(folder+"terrain.tscn").Instantiate<Node3D>();
         _terrain.Set("free_editor_textures",false);
         host.AddChild(_terrain);
         _data=_terrain.Get("data").AsGodotObject();

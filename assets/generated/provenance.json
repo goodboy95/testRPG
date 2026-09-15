@@ -2,6 +2,43 @@
   "schemaVersion": 1,
   "assets": [
     {
+      "id": "village_art_v3",
+      "status": "independent-art-sample",
+      "runtimeDefault": false,
+      "sourceFile": "art\\blender\\village\\village-v3.blend",
+      "gameFile": "assets\\generated\\village\\3d\\village-v3.glb",
+      "sourceSha256": "45241a8b1b54435d96f12643ed28d87094efa3864f109f6de7153048f8f8aa65",
+      "runtimeGlbSha256": "be9e2433e87e94f5c940bf832ad5320ce2abb3e5e3f07ef227a56bb50995dd96",
+      "date": "2026-09-14",
+      "tool": "Blender 5.2.0 LTS; Python Pillow/NumPy offline texture processing",
+      "aiGenerated": false,
+      "model": "not applicable; no image generation",
+      "sourceProvenance": "art/sources/cc0/village-art-v3/provenance.json",
+      "script": "scripts/tools/build_village_v3.py",
+      "parameters": {
+        "baseVersion": 2,
+        "units": "metres",
+        "alphaScissor": 0.45,
+        "doubleSidedLeaves": true
+      },
+      "scope": [
+        "PlazaTree",
+        "Tree_037",
+        "Tree_043",
+        "shop",
+        "workshop"
+      ],
+      "referenceImages": [
+        "outputs/village-art-v3/20260914-203544-sample/1920/tree-profile.png"
+      ],
+      "postprocessing": [
+        "metric facade UVs",
+        "soft foliage normals",
+        "temporary deterministic GLB re-export",
+        "preserved 233 non-target mesh payloads"
+      ]
+    },
+    {
       "id": "village_terrain_sample_v1",
       "status": "independent-sample",
       "gameFile": "assets/generated/village/terrain-sample-v1/terrain.tscn",
@@ -12,7 +49,7 @@
       "generatedAt": "2026-09-14",
       "licenseBasis": "Terrain3D MIT; ambientCG CC0; local details original",
       "runtimeDefault": false
-},
+    },
     {
       "id": "xiaoyu_local_motion_v3",
       "status": "implemented-local-only",
@@ -97,7 +134,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Green-screen removal", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Green-screen removal",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Isolated steel pushpin with warm amber head; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; deep navy, teal and amber palette; chroma-green background; no text or UI."
     },
     {
@@ -108,7 +149,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Alpha crop",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Single worn white classroom chalk stick; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
     },
     {
@@ -119,7 +164,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Alpha crop",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Single old brass room key with a small second-room tag; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no UI."
     },
     {
@@ -130,7 +179,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Green-screen removal", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Green-screen removal",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Compact aged brass maintenance key with triangular head; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; chroma-green background; no text or UI."
     },
     {
@@ -141,7 +194,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Alpha crop",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Translucent worn red plastic ruler/filter strip; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
     },
     {
@@ -152,7 +209,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Alpha crop",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Faded 1990s Chinese school class group photograph with worn cream border and unreadable faces; hand-painted pixel-art-inspired RPG icon; transparent background; no readable text."
     },
     {
@@ -163,7 +224,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Alpha crop",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Vintage open-reel magnetic recording tape spool in muted teal and brown; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
     },
     {
@@ -174,7 +239,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Alpha crop", "Bicubic resize and center to 64x64", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Alpha crop",
+        "Bicubic resize and center to 64x64",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Removable vintage tape-recorder hand crank with square mounting socket; hand-painted pixel-art-inspired Chinese youth-fantasy RPG inventory icon; transparent background; no text or UI."
     },
     {
@@ -185,7 +254,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-15",
       "referenceImages": [],
-      "postprocessing": ["Alpha crop", "Bicubic resize and bottom-align to 256x256", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Alpha crop",
+        "Bicubic resize and bottom-align to 256x256",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Original neutral half-body portrait of Chinese university-age Lin Xiaoyu; dark low ponytail, teal hair clip, practical summer blouse, calm alert expression, no hostility or romance; youth-fantasy mystery RPG style; transparent background."
     },
     {
@@ -196,7 +269,11 @@
       "model": "built-in default",
       "generatedAt": "2026-08-16",
       "referenceImages": [],
-      "postprocessing": ["Green-screen removal", "Bicubic resize to 128x144 four-column/three-row sheet", "Transparent PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Green-screen removal",
+        "Bicubic resize to 128x144 four-column/three-row sheet",
+        "Transparent PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Original 4-column by 3-row Lin Xiaoyu RPG walk spritesheet; dark low ponytail, teal hair clip, summer clothes; down/left/right/up views and three walking phases; crisp pixel-art style; chroma-green background; no text or UI.",
       "supersededBy": "dream_lin_xiaoyu_walk_4x4_v2"
     },
@@ -208,7 +285,10 @@
       "model": "built-in default",
       "generatedAt": "2026-08-16",
       "referenceImages": [],
-      "postprocessing": ["Bicubic resize to 640x360", "PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Bicubic resize to 640x360",
+        "PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Old Chinese school class photograph under a translucent red ruler/filter; B2, D1, A3 and C4 marked beside circled silhouettes; visible A-D/1-4 grid for a non-color-only clue; pixel-art-inspired 16:9 closeup."
     },
     {
@@ -219,7 +299,10 @@
       "model": "built-in default",
       "generatedAt": "2026-08-16",
       "referenceImages": [],
-      "postprocessing": ["Bicubic resize to 640x360", "PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Bicubic resize to 640x360",
+        "PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Repaired vintage school reel recorder with tape and crank; four ordered curtain, clock, bell and register pictograms, each paired with a distinct waveform for non-audio access; pixel-art-inspired 16:9 closeup."
     },
     {
@@ -230,7 +313,10 @@
       "model": "built-in default",
       "generatedAt": "2026-08-16",
       "referenceImages": [],
-      "postprocessing": ["Bicubic resize to 640x360", "PNG export via PrepareDreamAssets.ps1"],
+      "postprocessing": [
+        "Bicubic resize to 640x360",
+        "PNG export via PrepareDreamAssets.ps1"
+      ],
       "prompt": "Old auditorium control console with three empty puzzle panels and two separated simultaneous levers; engraved shape and lamp state alternatives; navy/teal/brass pixel-art-inspired 16:9 backdrop; no filled answers."
     },
     {
@@ -241,8 +327,12 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["town-style-anchor-source.png"],
-      "postprocessing": ["Copied unchanged into offline work reference directory"],
+      "referenceImages": [
+        "town-style-anchor-source.png"
+      ],
+      "postprocessing": [
+        "Copied unchanged into offline work reference directory"
+      ],
       "prompt": "Believable abandoned 1990s Chinese secondary-school classroom for a top-down 2D mystery RPG; erased blackboard, map cabinet, student desks, teacher desk, old window, seven-o'clock clock and duty roster; crisp 32-bit-era pixel-art reference; deep navy, muted teal and restrained warm amber; realistic base with subtle dreamlike unease; no characters, labels, UI, puzzle answers or watermark."
     },
     {
@@ -254,8 +344,15 @@
       "model": "built-in default",
       "generatedAt": "2026-08-17",
       "adoptedAt": "2026-08-22",
-      "referenceImages": ["town-style-anchor-source.png", "dream_escape/lin-xiaoyu-neutral.png"],
-      "postprocessing": ["Copied byte-for-byte from the ignored art-direction reference into the tracked character concept directory", "Retained at 1254x1254 as the authoritative identity, palette and silhouette anchor", "SHA-256 17842b77ff8b810933e745e9edc6148c41375b4bb83bbaff19b6aad60b0d90c2"],
+      "referenceImages": [
+        "town-style-anchor-source.png",
+        "dream_escape/lin-xiaoyu-neutral.png"
+      ],
+      "postprocessing": [
+        "Copied byte-for-byte from the ignored art-direction reference into the tracked character concept directory",
+        "Retained at 1254x1254 as the authoritative identity, palette and silhouette anchor",
+        "SHA-256 17842b77ff8b810933e745e9edc6148c41375b4bb83bbaff19b6aad60b0d90c2"
+      ],
       "prompt": "Original Chinese male university student protagonist art-direction reference; short dark hair, brick-red short-sleeve shirt, deep navy trousers and canvas shoes; ordinary build and attentive expression; full-body view plus simplified directional silhouettes; no text, UI, watermark or extra characters."
     },
     {
@@ -266,8 +363,15 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/concepts/characters/protagonist-art-direction-v1.png", "art/concepts/characters/protagonist-3d-turnaround-v1.png"],
-      "postprocessing": ["Copied unchanged into the tracked character concept directory", "Retained at 1717x916 for front, profile, back and three-quarter facial and solid-hair modeling reference", "SHA-256 8f5d2139c095375ac1063d7d263955806a4bbf5614868745da09ba702cd39826"],
+      "referenceImages": [
+        "art/concepts/characters/protagonist-art-direction-v1.png",
+        "art/concepts/characters/protagonist-3d-turnaround-v1.png"
+      ],
+      "postprocessing": [
+        "Copied unchanged into the tracked character concept directory",
+        "Retained at 1717x916 for front, profile, back and three-quarter facial and solid-hair modeling reference",
+        "SHA-256 8f5d2139c095375ac1063d7d263955806a4bbf5614868745da09ba702cd39826"
+      ],
       "prompt": "Use case: stylized-concept\nAsset type: game character modeling reference, face and hair identity sheet\nPrimary request: Create a polished semi-realistic modeling reference sheet for the exact same protagonist shown in the references.\nInput images: Image 1 is the primary identity, mood, hairstyle and silhouette reference; Image 2 is secondary anatomy and clothing-proportion reference only.\nSubject: an ordinary Chinese male university student in his early twenties, average-to-slim non-heroic build, attentive and slightly guarded neutral expression, short dark tousled layered hair, brick-red short-sleeve shirt visible only at the collar and shoulders.\nStyle/medium: original-art faithful semi-realistic game character concept, believable human anatomy and skin, not photorealistic, suitable for Blender sculpting.\nComposition/framing: one clean reference sheet containing exactly five consistent views of the same head at the same scale: orthographic front, left profile, back hair view, left three-quarter, right three-quarter. Keep the face fully visible and the hair silhouette readable.\nLighting/mood: flat neutral studio lighting with a gentle warm rim, medium-gray background, no dramatic shadows.\nMaterials/textures: natural young skin with restrained detail; solid layered hair clumps suitable for opaque 3D geometry.\nConstraints: preserve the recognizable narrow almond eyes, straight brows, modest jaw, youthful face, short tousled fringe and quiet observant personality from Image 1; all five views must be the same person; no redesign; no facial hair; no glasses; no accessories; no text; no labels; no watermark.\nAvoid: celebrity likeness, heroic jaw, muscular neck, anime exaggeration, oversized eyes, glossy plastic skin, helmet-shaped hair, duplicated heads beyond the five requested views, cropped hair or chin."
     },
     {
@@ -278,8 +382,15 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/concepts/characters/protagonist-art-direction-v1.png", "art/concepts/characters/protagonist-3d-turnaround-v1.png"],
-      "postprocessing": ["Copied unchanged into the tracked character concept directory", "Retained at 1402x1122 for garment construction, seams, controlled wear and opaque material reference", "SHA-256 492c38f9335febf1f2561312f852abb9c2f2dc1d4de22270fc31ce7b32082be3"],
+      "referenceImages": [
+        "art/concepts/characters/protagonist-art-direction-v1.png",
+        "art/concepts/characters/protagonist-3d-turnaround-v1.png"
+      ],
+      "postprocessing": [
+        "Copied unchanged into the tracked character concept directory",
+        "Retained at 1402x1122 for garment construction, seams, controlled wear and opaque material reference",
+        "SHA-256 492c38f9335febf1f2561312f852abb9c2f2dc1d4de22270fc31ce7b32082be3"
+      ],
       "prompt": "Use case: stylized-concept\nAsset type: game character modeling reference, clothing construction and material detail sheet\nPrimary request: Create a production-ready semi-realistic clothing and footwear reference sheet for the exact outfit in the references, without redesigning it.\nInput images: Image 1 is the primary silhouette, color, looseness and worn everyday character reference; Image 2 is the secondary garment proportion and construction reference.\nSubject: brick-red slightly loose short-sleeve button-up cotton shirt with one left chest patch pocket, small dark buttons, proper collar stand, shoulder yoke, sleeve hems and a naturally uneven worn hem; deep navy straight-leg cotton trousers with waistband, fly, side pockets and rear patch pockets; worn black low-top canvas sneakers with off-white rubber toe caps and soles, cream laces and subtle scuffs.\nStyle/medium: original-art faithful semi-realistic game asset concept, realistic construction and restrained wear, suitable for Blender retopology and PBR texturing.\nComposition/framing: one clean sheet with exactly six separated studies: shirt front three-quarter close-up, shirt back close-up, trouser front/waist close-up, trouser back/pocket close-up, one sneaker lateral view, one sneaker top three-quarter view. Keep every item complete and readable.\nLighting/mood: flat neutral studio lighting, medium-gray background, no dramatic shadows.\nMaterials/textures: matte washed cotton shirt, dense dark cotton twill trousers, aged canvas, rubber and cotton laces; restrained seam, edge-wear and wrinkle detail.\nConstraints: preserve the exact brick-red/deep-navy/black-and-off-white palette and ordinary late-1990s-to-early-2000s student clothing; practical, inexpensive and slightly worn; no body except minimal mannequin forms needed to show construction; no text; no labels; no logos; no watermark.\nAvoid: fashionable streetwear redesign, oversized silhouette, tucked shirt, cargo pockets, belt, jewelry, brand marks, glossy synthetic fabric, extra garments or extra shoes."
     },
     {
@@ -289,8 +400,16 @@
       "generator": "Pillow deterministic pixel drawing",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["town-style-anchor-source.png", "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"],
-      "postprocessing": ["Drawn at 1x pixel resolution", "Limited to the project palette", "Packed into a 256x256 RGBA atlas", "PNG optimized without resampling"],
+      "referenceImages": [
+        "town-style-anchor-source.png",
+        "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"
+      ],
+      "postprocessing": [
+        "Drawn at 1x pixel resolution",
+        "Limited to the project palette",
+        "Packed into a 256x256 RGBA atlas",
+        "PNG optimized without resampling"
+      ],
       "prompt": "Programmatic specification: reusable 32px abandoned-school plaster, teal lower wall, baseboard, worn floor, threshold, shadow, crack and dust tiles in the navy/teal/amber dream palette."
     },
     {
@@ -300,8 +419,15 @@
       "generator": "Pillow deterministic pixel drawing",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"],
-      "postprocessing": ["Drawn at 1x pixel resolution", "State variants aligned to fixed atlas regions", "Packed into a 512x256 RGBA atlas", "PNG optimized without resampling"],
+      "referenceImages": [
+        "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"
+      ],
+      "postprocessing": [
+        "Drawn at 1x pixel resolution",
+        "State variants aligned to fixed atlas regions",
+        "Packed into a 512x256 RGBA atlas",
+        "PNG optimized without resampling"
+      ],
       "prompt": "Programmatic specification: blank/revealed blackboard, locked/open map cabinet, marked window, seven-o'clock clock, second-row duty roster, locked/open teacher desk, chalk and four student-desk variants; no floating labels."
     },
     {
@@ -311,8 +437,14 @@
       "generator": "Pillow deterministic pixel drawing",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"],
-      "postprocessing": ["Four 32x32 dust frames", "Low-alpha window-light regions", "Packed into a 128x64 RGBA atlas"],
+      "referenceImages": [
+        "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png"
+      ],
+      "postprocessing": [
+        "Four 32x32 dust frames",
+        "Low-alpha window-light regions",
+        "Packed into a 128x64 RGBA atlas"
+      ],
       "prompt": "Programmatic specification: slow amber dust motes and restrained translucent window-light shapes for a non-horror dream atmosphere."
     },
     {
@@ -322,8 +454,14 @@
       "generator": "Pillow deterministic pixel drawing",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["art/concepts/characters/protagonist-art-direction-v1.png"],
-      "postprocessing": ["Drawn at 32x48 per frame", "Four frames for each of down/left/right/up", "Packed into a 128x192 transparent RGBA sheet"],
+      "referenceImages": [
+        "art/concepts/characters/protagonist-art-direction-v1.png"
+      ],
+      "postprocessing": [
+        "Drawn at 32x48 per frame",
+        "Four frames for each of down/left/right/up",
+        "Packed into a 128x192 transparent RGBA sheet"
+      ],
       "prompt": "Programmatic specification: masculine Chinese university student with short dark hair, brick-red summer shirt, navy trousers and canvas shoes; restrained four-direction walk cycle."
     },
     {
@@ -333,8 +471,14 @@
       "generator": "Pillow deterministic pixel drawing",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["dream_escape/lin-xiaoyu-neutral.png"],
-      "postprocessing": ["Drawn at 32x48 per frame", "Four frames for each of down/left/right/up", "Packed into a 128x192 transparent RGBA sheet"],
+      "referenceImages": [
+        "dream_escape/lin-xiaoyu-neutral.png"
+      ],
+      "postprocessing": [
+        "Drawn at 32x48 per frame",
+        "Four frames for each of down/left/right/up",
+        "Packed into a 128x192 transparent RGBA sheet"
+      ],
       "prompt": "Programmatic specification: Lin Xiaoyu with dark low ponytail, teal hair clip and practical summer blouse; neutral four-direction walk cycle without hostility or romance cues."
     },
     {
@@ -345,8 +489,13 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["town-style-anchor-source.png"],
-      "postprocessing": ["Copied byte-for-byte from the offline work reference", "Original 1672x941 RGB PNG retained for reproducibility"],
+      "referenceImages": [
+        "town-style-anchor-source.png"
+      ],
+      "postprocessing": [
+        "Copied byte-for-byte from the offline work reference",
+        "Original 1672x941 RGB PNG retained for reproducibility"
+      ],
       "prompt": "Believable abandoned 1990s Chinese secondary-school classroom for a top-down 2D mystery RPG; erased blackboard, map cabinet, student desks, teacher desk, old window, seven-o'clock clock and duty roster; crisp 32-bit-era pixel-art reference; deep navy, muted teal and restrained warm amber; realistic base with subtle dreamlike unease; no characters, labels, UI, puzzle answers or watermark."
     },
     {
@@ -357,8 +506,14 @@
       "generator": "Pillow deterministic preprocessing",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["dream_escape/experimental/classroom-original-source-v1.png"],
-      "postprocessing": ["Lanczos resize to 640x360", "RGBA conversion", "Deterministic optimized PNG encoding"],
+      "referenceImages": [
+        "dream_escape/experimental/classroom-original-source-v1.png"
+      ],
+      "postprocessing": [
+        "Lanczos resize to 640x360",
+        "RGBA conversion",
+        "Deterministic optimized PNG encoding"
+      ],
       "prompt": "Deterministic runtime preparation of the adopted classroom composition without generative modification."
     },
     {
@@ -369,8 +524,14 @@
       "generator": "Pillow deterministic masking",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-17",
-      "referenceImages": ["dream_escape/experimental/classroom-original-source-v1.png"],
-      "postprocessing": ["Four 640x360 transparent occlusion bands", "Polygon masks for cabinet, teacher desk and ten student desks", "Packed vertically into a 640x1440 RGBA atlas"],
+      "referenceImages": [
+        "dream_escape/experimental/classroom-original-source-v1.png"
+      ],
+      "postprocessing": [
+        "Four 640x360 transparent occlusion bands",
+        "Polygon masks for cabinet, teacher desk and ten student desks",
+        "Packed vertically into a 640x1440 RGBA atlas"
+      ],
       "prompt": "Deterministic foreground masks copied from the adopted classroom image for player depth sorting; no synthesized pixels."
     },
     {
@@ -381,8 +542,16 @@
       "generator": "Deterministic Blender Python scene build",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png", "dream_escape/pixel/classroom-props-v1.png"],
-      "postprocessing": ["Built at metric scale 9.6x7.2x3.2m", "Converted Godot X/Y-up/Z coordinates to Blender X/Y/Z-up coordinates", "Saved editable .blend source with linked student desk meshes", "Validated required nodes, solid wall thickness, materials and ten desk groups"],
+      "referenceImages": [
+        "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png",
+        "dream_escape/pixel/classroom-props-v1.png"
+      ],
+      "postprocessing": [
+        "Built at metric scale 9.6x7.2x3.2m",
+        "Converted Godot X/Y-up/Z coordinates to Blender X/Y/Z-up coordinates",
+        "Saved editable .blend source with linked student desk meshes",
+        "Validated required nodes, solid wall thickness, materials and ten desk groups"
+      ],
       "prompt": "Programmatic specification: roofless abandoned-school classroom with four solid walls, east door, west window, blackboard, seven-o'clock clock, duty roster, teacher desk, map cabinet, chalk and ten instanced student desk/chair groups; realistic proportions, restrained low-poly wear, no new puzzle answers."
     },
     {
@@ -393,8 +562,14 @@
       "generator": "Blender glTF 2.0 exporter",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/blender/dream_classroom/classroom-mvp.blend"],
-      "postprocessing": ["GLB export with applied transforms, materials, normals and Y-up conversion", "Godot runtime uses separate StaticBody3D collisions", "Deterministic fresh-export hash checked against classroom-3d-manifest.json"],
+      "referenceImages": [
+        "art/blender/dream_classroom/classroom-mvp.blend"
+      ],
+      "postprocessing": [
+        "GLB export with applied transforms, materials, normals and Y-up conversion",
+        "Godot runtime uses separate StaticBody3D collisions",
+        "Deterministic fresh-export hash checked against classroom-3d-manifest.json"
+      ],
       "prompt": "Deterministic runtime export of the adopted classroom MVP; no generative modification and no runtime Blender dependency."
     },
     {
@@ -405,8 +580,14 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png", "outputs/classroom-3d-mvp/3d/01-view-southeast.png"],
-      "postprocessing": ["Copied unchanged into the tracked concept directory", "Used as material, lighting and detail target rather than runtime geometry"],
+      "referenceImages": [
+        "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png",
+        "outputs/classroom-3d-mvp/3d/01-view-southeast.png"
+      ],
+      "postprocessing": [
+        "Copied unchanged into the tracked concept directory",
+        "Used as material, lighting and detail target rather than runtime geometry"
+      ],
       "prompt": "Near-photorealistic roofless dollhouse view of the same 9.6x7.2 m old Chinese town-school classroom from the southeast; preserve the exact gameplay layout with ten student desks in two rows of five, north blackboard/clock/duty roster, teacher desk and map cabinet, west window and open east doorway; turn-of-the-century furniture, intact but sealed for years, worn square terrazzo tiles, faded teal wall wainscot, aged plaster, golden-hour west-window light, restrained blue-green shadows; no people, readable text, flags, logos, horror remains or structural collapse."
     },
     {
@@ -417,8 +598,13 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"],
-      "postprocessing": ["Deterministically cropped and graded to a 1024x512 runtime plate", "Placed behind the west window as a static non-interactive vista"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"
+      ],
+      "postprocessing": [
+        "Deterministically cropped and graded to a 1024x512 runtime plate",
+        "Placed behind the west window as a static non-interactive vista"
+      ],
       "prompt": "Warm late-summer mountain forest and layered branches seen through an old small-town school window at golden hour; static exterior plate with atmospheric depth, no window frame, buildings, people, text, logo or dramatic fantasy effects."
     },
     {
@@ -429,8 +615,13 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"],
-      "postprocessing": ["Square crop and deterministic atlas grading", "Normal and ORM channels derived offline"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"
+      ],
+      "postprocessing": [
+        "Square crop and deterministic atlas grading",
+        "Normal and ORM channels derived offline"
+      ],
       "prompt": "Seamless square near-photoreal old school plaster surface, warm off-white, fine hairline cracks, restrained peeling and grime, structurally intact, flat even light, no objects, text, perspective or large damage."
     },
     {
@@ -441,8 +632,13 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"],
-      "postprocessing": ["Square crop and deterministic 16x12 tile layout", "Normal and ORM channels derived offline"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"
+      ],
+      "postprocessing": [
+        "Square crop and deterministic 16x12 tile layout",
+        "Normal and ORM channels derived offline"
+      ],
       "prompt": "Seamless square near-photoreal worn brown-gray school terrazzo with fine aggregate and subtle age variation, flat even light, no grout grid, objects, text or perspective."
     },
     {
@@ -453,8 +649,13 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"],
-      "postprocessing": ["Square crop and deterministic atlas grading", "Normal and ORM channels derived offline"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"
+      ],
+      "postprocessing": [
+        "Square crop and deterministic atlas grading",
+        "Normal and ORM channels derived offline"
+      ],
       "prompt": "Seamless square near-photoreal old varnished school-desk wood, medium warm brown grain with restrained scratches and rubbed edges, flat even light, no hardware, objects, text or perspective."
     },
     {
@@ -465,8 +666,19 @@
       "generator": "Deterministic Pillow and NumPy texture preparation",
       "model": "Pillow 12.1.1; NumPy 2.4.2",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/blender/dream_classroom/source-v2/plaster-albedo-source.png", "art/blender/dream_classroom/source-v2/terrazzo-albedo-source.png", "art/blender/dream_classroom/source-v2/wood-albedo-source.png", "art/blender/dream_classroom/source-v2/window-exterior-source.png"],
-      "postprocessing": ["Packed eight shell and eight furniture material regions into separate 2048x2048 albedo/normal/ORM atlases", "Drew exact puzzle clue and paper details into a 1024x1024 RGBA atlas", "Prepared a 1024x512 window plate", "Enabled mipmapped linear anisotropic Godot imports while keeping character sprites nearest-filtered", "Mirrored final bytes into Godot runtime assets, removed the superseded single atlas and verified deterministic hashes"],
+      "referenceImages": [
+        "art/blender/dream_classroom/source-v2/plaster-albedo-source.png",
+        "art/blender/dream_classroom/source-v2/terrazzo-albedo-source.png",
+        "art/blender/dream_classroom/source-v2/wood-albedo-source.png",
+        "art/blender/dream_classroom/source-v2/window-exterior-source.png"
+      ],
+      "postprocessing": [
+        "Packed eight shell and eight furniture material regions into separate 2048x2048 albedo/normal/ORM atlases",
+        "Drew exact puzzle clue and paper details into a 1024x1024 RGBA atlas",
+        "Prepared a 1024x512 window plate",
+        "Enabled mipmapped linear anisotropic Godot imports while keeping character sprites nearest-filtered",
+        "Mirrored final bytes into Godot runtime assets, removed the superseded single atlas and verified deterministic hashes"
+      ],
       "prompt": "Programmatic specification: late-1990s/early-2000s intact but long-sealed town-school plaster, teal wainscot, 0.6 m square terrazzo, worn timber, dark metal, blackboard, paper, dusty glass and restrained amber accents; exact Chinese puzzle text is deterministic, never generative."
     },
     {
@@ -477,8 +689,18 @@
       "generator": "Blender MCP refinement plus idempotent Blender Python bootstrap",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-art-pass-v2-concept.png", "outputs/classroom-3d-mvp/3d/01-view-southeast.png"],
-      "postprocessing": ["Preserved the 9.6x7.2 m gameplay footprint and stable state nodes", "Added shared bevelled iron-and-wood desk mesh, architectural trim, wall fixtures, hardware and lookdev collections", "Rebuilt the east door around an exported hinge with two-sided leaf, frosted glass, lock, handles and hinge hardware", "Added four upper wall courses so the ceilingless room does not expose the outside void at fixed-pitch 16:9 orbit angles", "Corrected floor top-face UV to sixteen by twelve 0.6 m-looking tiles", "Reviewed, saved and deterministically exported with Blender 5.2"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png",
+        "outputs/classroom-3d-mvp/3d/01-view-southeast.png"
+      ],
+      "postprocessing": [
+        "Preserved the 9.6x7.2 m gameplay footprint and stable state nodes",
+        "Added shared bevelled iron-and-wood desk mesh, architectural trim, wall fixtures, hardware and lookdev collections",
+        "Rebuilt the east door around an exported hinge with two-sided leaf, frosted glass, lock, handles and hinge hardware",
+        "Added four upper wall courses so the ceilingless room does not expose the outside void at fixed-pitch 16:9 orbit angles",
+        "Corrected floor top-face UV to sixteen by twelve 0.6 m-looking tiles",
+        "Reviewed, saved and deterministically exported with Blender 5.2"
+      ],
       "prompt": "Authoring specification: enrich the existing classroom without changing puzzle coordinates or collision footprint; photographically grounded low-poly school furniture and construction details, intact long-sealed room, golden-hour west light, no full-room AI geometry generation."
     },
     {
@@ -489,8 +711,16 @@
       "generator": "Blender glTF 2.0 exporter",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-21",
-      "referenceImages": ["art/blender/dream_classroom/classroom-art-pass-v2.blend"],
-      "postprocessing": ["GLB export with applied modifiers, normals and Y-up conversion", "Tangents generated by Godot import for tiny bevel stability", "Fresh export hash checked against classroom-art-pass-v2-manifest.json", "Godot retains a separate twenty-body collision layout including the closed door barrier", "Validated from four orbit headings and three close-up framings at native 1920x1080"],
+      "referenceImages": [
+        "art/blender/dream_classroom/classroom-art-pass-v2.blend"
+      ],
+      "postprocessing": [
+        "GLB export with applied modifiers, normals and Y-up conversion",
+        "Tangents generated by Godot import for tiny bevel stability",
+        "Fresh export hash checked against classroom-art-pass-v2-manifest.json",
+        "Godot retains a separate twenty-body collision layout including the closed door barrier",
+        "Validated from four orbit headings and three close-up framings at native 1920x1080"
+      ],
       "prompt": "Deterministic runtime export of the full-room classroom art pass for continuous horizontal third-person orbit; no runtime Blender or generation dependency."
     },
     {
@@ -501,7 +731,9 @@
       "generator": "OpenAI built-in image generation",
       "model": "built-in default",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/concepts/characters/protagonist-art-direction-v1.png"],
+      "referenceImages": [
+        "art/concepts/characters/protagonist-art-direction-v1.png"
+      ],
       "postprocessing": [
         "Copied unchanged into the tracked character concept directory",
         "Retained at 1536x1024 for Blender front, side and back proportion reference",
@@ -518,8 +750,15 @@
       "model": "Human Base Meshes v1.4.1 / Body Male - Realistic",
       "generatedAt": "2026-08-22",
       "license": "CC0 1.0 / Public Domain",
-      "referenceImages": ["art/concepts/characters/protagonist-3d-turnaround-v1.png"],
-      "postprocessing": ["Extracted only the adopted male body and eyes from the official bundle", "Full 49 MB bundle is not tracked", "Official archive SHA-256 811f43accbb31a88266d932f8f5563b2d13586fca0ba2693aad1f5fe582b3515", "Adopted Blend SHA-256 ba9a85de85ebc40d92d516248a8c072d7c8862557879f04459359516ffd5c8f1"],
+      "referenceImages": [
+        "art/concepts/characters/protagonist-3d-turnaround-v1.png"
+      ],
+      "postprocessing": [
+        "Extracted only the adopted male body and eyes from the official bundle",
+        "Full 49 MB bundle is not tracked",
+        "Official archive SHA-256 811f43accbb31a88266d932f8f5563b2d13586fca0ba2693aad1f5fe582b3515",
+        "Adopted Blend SHA-256 ba9a85de85ebc40d92d516248a8c072d7c8862557879f04459359516ffd5c8f1"
+      ],
       "prompt": "No generative prompt; official CC0 anatomical and topology base adopted for offline character study."
     },
     {
@@ -530,8 +769,18 @@
       "generator": "Idempotent Blender Python build with Blender MCP inspection",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/concepts/characters/protagonist-3d-turnaround-v1.png", "assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png"],
-      "postprocessing": ["Average-proportion body study at 1.694 m", "Closed independent shirt, trousers, hair-cap and canvas-shoe topology studies", "26142 triangles across 38 mesh objects", "No armature, skin weights or animation", "Source SHA-256 30cb3a4aa5710a7da424e75f840647bcdb47d8b737fcbb61acdfe947c874aa08", "Explicitly rejected as a visual candidate pending artist-authored garment retopology, likeness sculpt and skin/hair polish"],
+      "referenceImages": [
+        "art/concepts/characters/protagonist-3d-turnaround-v1.png",
+        "assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png"
+      ],
+      "postprocessing": [
+        "Average-proportion body study at 1.694 m",
+        "Closed independent shirt, trousers, hair-cap and canvas-shoe topology studies",
+        "26142 triangles across 38 mesh objects",
+        "No armature, skin weights or animation",
+        "Source SHA-256 30cb3a4aa5710a7da424e75f840647bcdb47d8b737fcbb61acdfe947c874aa08",
+        "Explicitly rejected as a visual candidate pending artist-authored garment retopology, likeness sculpt and skin/hair polish"
+      ],
       "prompt": "Offline modeling specification: ordinary Chinese male university student in a brick-red short-sleeve shirt, straight navy trousers and worn canvas shoes; realistic proportions, no heroic styling."
     },
     {
@@ -542,8 +791,15 @@
       "generator": "Blender glTF 2.0 exporter",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/blender/characters/protagonist-static-v1.blend"],
-      "postprocessing": ["Static GLB export only", "No armature, actions, cameras or lights", "GLB SHA-256 ccc95c7550cb24bcadc728b8046c91c43c29dd81028e556af2c875e0cef4ca4d", "Fresh temporary export hash verified"],
+      "referenceImages": [
+        "art/blender/characters/protagonist-static-v1.blend"
+      ],
+      "postprocessing": [
+        "Static GLB export only",
+        "No armature, actions, cameras or lights",
+        "GLB SHA-256 ccc95c7550cb24bcadc728b8046c91c43c29dd81028e556af2c875e0cef4ca4d",
+        "Fresh temporary export hash verified"
+      ],
       "prompt": "Deterministic technical export; it must not replace the current pixel billboard."
     },
     {
@@ -555,8 +811,21 @@
       "model": "Blender 5.2.0 LTS; Human Base Meshes v1.4.1 CC0 anatomical source",
       "generatedAt": "2026-08-22",
       "license": "Derived from CC0 1.0 / Public Domain source; project-authored character design",
-      "referenceImages": ["art/concepts/characters/protagonist-art-direction-v1.png", "art/concepts/characters/protagonist-face-hair-reference-v2.png", "art/concepts/characters/protagonist-garment-reference-v2.png", "art/concepts/characters/protagonist-3d-turnaround-v1.png"],
-      "postprocessing": ["Reshaped the official male base into a 1.7017 m ordinary slim university-student candidate", "Created opaque hair, independent shirt, trousers and canvas shoes while retaining six major visible meshes", "Packed one 2048x2048 RGBA albedo, tangent-space normal and ORM set into one PBR material", "Validated 34972 triangles, zero boundary/non-manifold/loose edges or zero-area faces, and zero missing external files", "No armature, skin weights, actions or animation; runtimeReady=false", "Authority SHA-256 bb52a4a01d715b607175b445421ea790f3733bff72259e61a957ae060f0c33d5", "Visual identity, hair silhouette and garment finish remain pending project-owner review"],
+      "referenceImages": [
+        "art/concepts/characters/protagonist-art-direction-v1.png",
+        "art/concepts/characters/protagonist-face-hair-reference-v2.png",
+        "art/concepts/characters/protagonist-garment-reference-v2.png",
+        "art/concepts/characters/protagonist-3d-turnaround-v1.png"
+      ],
+      "postprocessing": [
+        "Reshaped the official male base into a 1.7017 m ordinary slim university-student candidate",
+        "Created opaque hair, independent shirt, trousers and canvas shoes while retaining six major visible meshes",
+        "Packed one 2048x2048 RGBA albedo, tangent-space normal and ORM set into one PBR material",
+        "Validated 34972 triangles, zero boundary/non-manifold/loose edges or zero-area faces, and zero missing external files",
+        "No armature, skin weights, actions or animation; runtimeReady=false",
+        "Authority SHA-256 bb52a4a01d715b607175b445421ea790f3733bff72259e61a957ae060f0c33d5",
+        "Visual identity, hair silhouette and garment finish remain pending project-owner review"
+      ],
       "prompt": "Authoring specification: preserve the adopted quiet Chinese university-student identity, short dark layered hair, brick-red short-sleeve shirt, deep navy trousers and worn canvas shoes in a restrained semi-realistic low-poly 3D character; ordinary slim proportions, no heroic styling, accessories, facial animation or runtime rig."
     },
     {
@@ -567,8 +836,17 @@
       "generator": "Blender glTF 2.0 exporter plus read-only manifest validation",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/blender/characters/protagonist-art-pass-v2.blend", "assets/generated/characters/3d/protagonist-art-pass-v2-manifest.json"],
-      "postprocessing": ["Static GLB export with modifiers applied and three tracked 2048x2048 PBR textures embedded", "1532748 bytes; SHA-256 b739db511ecf9204e2d073d68c1e3cdb1362afca36b6c12608dd9e60d90b5f19", "Manifest SHA-256 cca354768523b7998e907d96660e14b927c6769db930f289f3318287067a87a9", "Read-only art-check verified nine named nodes, six meshes, one material, 34972 triangles, no skins, no animation and no camera", "Godot review capture used a separate ignored relaxed-pose review export; DreamClassroom.tscn deliberately continues to use the 2D billboard"],
+      "referenceImages": [
+        "art/blender/characters/protagonist-art-pass-v2.blend",
+        "assets/generated/characters/3d/protagonist-art-pass-v2-manifest.json"
+      ],
+      "postprocessing": [
+        "Static GLB export with modifiers applied and three tracked 2048x2048 PBR textures embedded",
+        "1532748 bytes; SHA-256 b739db511ecf9204e2d073d68c1e3cdb1362afca36b6c12608dd9e60d90b5f19",
+        "Manifest SHA-256 cca354768523b7998e907d96660e14b927c6769db930f289f3318287067a87a9",
+        "Read-only art-check verified nine named nodes, six meshes, one material, 34972 triangles, no skins, no animation and no camera",
+        "Godot review capture used a separate ignored relaxed-pose review export; DreamClassroom.tscn deliberately continues to use the 2D billboard"
+      ],
       "prompt": "Deterministic static review export only; it must not replace the current 2D runtime protagonist until visual approval, rigging and animation are completed as separate work."
     },
     {
@@ -579,8 +857,16 @@
       "generator": "Deterministic Pillow and NumPy texture preparation",
       "model": "Pillow 12.1.1; NumPy 2.4.2",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png", "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png", "art/blender/dream_classroom/source-v2/"],
-      "postprocessing": ["Prepared twenty packed PBR/detail/exterior images", "Kept exact puzzle writing deterministic", "Validated hashes without rewriting repository files"],
+      "referenceImages": [
+        "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png",
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png",
+        "art/blender/dream_classroom/source-v2/"
+      ],
+      "postprocessing": [
+        "Prepared twenty packed PBR/detail/exterior images",
+        "Kept exact puzzle writing deterministic",
+        "Validated hashes without rewriting repository files"
+      ],
       "prompt": "Programmatic v3 material specification: dark blue-green old-school atmosphere with restrained amber dusk light, tileable plaster, teal wainscot, terrazzo, worn timber, blackboard and exact clue surfaces."
     },
     {
@@ -591,8 +877,17 @@
       "generator": "Blender MCP inspection plus idempotent Blender Python refinement",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png", "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"],
-      "postprocessing": ["Preserved the 9.6x7.2 m footprint, ten desk roots, stable puzzle state roots and door pivot", "Rebuilt 1.4 m wainscot, 3.0x1.55 m west window, map cabinet, teacher desk, desks and small hardware", "Packed all twenty images and removed missing external references", "35568 triangles, 91 mesh objects and 19 materials", "Source SHA-256 2e1b5c3c132b178028cbca5d1b52e416ba7e767184542bf99f4ea236387fbb9e"],
+      "referenceImages": [
+        "work/dream_escape_art_refs/classroom-art-direction-2026-08-17.png",
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"
+      ],
+      "postprocessing": [
+        "Preserved the 9.6x7.2 m footprint, ten desk roots, stable puzzle state roots and door pivot",
+        "Rebuilt 1.4 m wainscot, 3.0x1.55 m west window, map cabinet, teacher desk, desks and small hardware",
+        "Packed all twenty images and removed missing external references",
+        "35568 triangles, 91 mesh objects and 19 materials",
+        "Source SHA-256 2e1b5c3c132b178028cbca5d1b52e416ba7e767184542bf99f4ea236387fbb9e"
+      ],
       "prompt": "Authoring specification: combine the original dark blue-green and restrained amber mood with the v2 concept's realistic geometry and materials, without changing any puzzle, marker, collision or Core state."
     },
     {
@@ -603,8 +898,15 @@
       "generator": "Blender glTF 2.0 exporter",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/blender/dream_classroom/classroom-art-pass-v3.blend"],
-      "postprocessing": ["Packed GLB export with no runtime Blender dependency", "33105288 bytes within the 35 MiB budget", "Fresh temporary export hash matched SHA-256 45c90b8973d993d223ee5a3229eb9ad86e741aa68e8febf30ffe830a7ddddb03", "Current DreamClassroom.tscn deliberately continues to load v2 pending visual approval"],
+      "referenceImages": [
+        "art/blender/dream_classroom/classroom-art-pass-v3.blend"
+      ],
+      "postprocessing": [
+        "Packed GLB export with no runtime Blender dependency",
+        "33105288 bytes within the 35 MiB budget",
+        "Fresh temporary export hash matched SHA-256 45c90b8973d993d223ee5a3229eb9ad86e741aa68e8febf30ffe830a7ddddb03",
+        "Current DreamClassroom.tscn deliberately continues to load v2 pending visual approval"
+      ],
       "prompt": "Deterministic export of the v3 classroom visual candidate; no generative runtime behavior."
     },
     {
@@ -615,8 +917,19 @@
       "generator": "OpenAI built-in image generation plus deterministic Pillow review-board assembly",
       "model": "built-in default; Pillow 12.1.1",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/concepts/dream_manor/manor-floor-plan-v1.png", "art/concepts/dream_manor/manor-concept-board-v2.png", "art/concepts/dream_manor/manor-interior-multi-angle-board-v1.png", "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"],
-      "postprocessing": ["Promoted sixteen adopted plan, source, multi-angle, prompt and manifest files without overwriting the ignored review originals", "Kept generated perspective images as mood/material/object-language references only", "Preserved the deterministic four-room topology, one locked exterior entrance and two solid future-expansion modules", "Implementation authority widens the foyer to 7.6x6.8 m and hall to 6.8x18.0x4.2 m", "Adopted concept board SHA-256 a83615dc33e27cc49819ac28ea25b5191c2326c71309a71e7950ed820e828ad7"],
+      "referenceImages": [
+        "art/concepts/dream_manor/manor-floor-plan-v1.png",
+        "art/concepts/dream_manor/manor-concept-board-v2.png",
+        "art/concepts/dream_manor/manor-interior-multi-angle-board-v1.png",
+        "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"
+      ],
+      "postprocessing": [
+        "Promoted sixteen adopted plan, source, multi-angle, prompt and manifest files without overwriting the ignored review originals",
+        "Kept generated perspective images as mood/material/object-language references only",
+        "Preserved the deterministic four-room topology, one locked exterior entrance and two solid future-expansion modules",
+        "Implementation authority widens the foyer to 7.6x6.8 m and hall to 6.8x18.0x4.2 m",
+        "Adopted concept board SHA-256 a83615dc33e27cc49819ac28ea25b5191c2326c71309a71e7950ed820e828ad7"
+      ],
       "prompt": "English Arts and Crafts country manor at dusk, structurally intact but sealed for years; dark oak, aged plaster, leaded glass, brass, terrazzo and restrained residential dressing; exactly four current room entrances, one locked double exterior door, two handleless solid future-expansion bays, no stairs, extra doors, school signage or horror decoration. Full prompts are tracked beside the images."
     },
     {
@@ -627,8 +940,17 @@
       "generator": "Deterministic Pillow texture preparation",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/concepts/dream_manor/manor-concept-board-v2.png", "art/concepts/dream_manor/manor-interior-multi-angle-board-v1.png", "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"],
-      "postprocessing": ["Generated 2048x2048 building, furnishings and rug albedo/normal/ORM families", "Generated one 1024x1024 transparent detail atlas", "Packed plaster, stone, terrazzo, slate, dark oak, aged brass, upholstery and dark iron material regions", "Validated ten PNG files through a temporary deterministic rebuild without rewriting tracked files"],
+      "referenceImages": [
+        "art/concepts/dream_manor/manor-concept-board-v2.png",
+        "art/concepts/dream_manor/manor-interior-multi-angle-board-v1.png",
+        "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"
+      ],
+      "postprocessing": [
+        "Generated 2048x2048 building, furnishings and rug albedo/normal/ORM families",
+        "Generated one 1024x1024 transparent detail atlas",
+        "Packed plaster, stone, terrazzo, slate, dark oak, aged brass, upholstery and dark iron material regions",
+        "Validated ten PNG files through a temporary deterministic rebuild without rewriting tracked files"
+      ],
       "prompt": "Programmatic material specification: aged English Arts and Crafts manor, warm gray plaster, stone base, old terrazzo, blue slate, dark oak, oxidized brass, muted green upholstery and a faded rust/teal/cream runner; intact, dusty and restrained rather than ruined."
     },
     {
@@ -639,8 +961,19 @@
       "generator": "Idempotent Blender Python construction and Blender 5.2 validation",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/concepts/dream_manor/manor-floor-plan-v1.png", "art/concepts/dream_manor/manor-concept-board-v2.png", "art/concepts/dream_manor/manor-interior-multi-angle-board-v1.png", "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"],
-      "postprocessing": ["Built separate InteriorShell, ExteriorShell, Doors, Furniture, Props, Decals, ReservedModules and Lookdev collections", "Preserved complete two-sided structural volumes, four current room doors, one locked front door and two solid reserved modules", "Added fireplace, runner, console, bench, umbrella stand, paintings, beams, sconces, leaded glazing, brass hardware, stone base, gabled slate roofs, chimneys and exterior wings", "Linked equivalent repeated mesh data to keep 160 hall mesh instances at 79 unique meshes and 101 exterior mesh instances at 37 unique meshes", "Source SHA-256 02f85a19e841a5d011e1fb9621c8958b49f30b3a82a07099300a2620ea796e8a"],
+      "referenceImages": [
+        "art/concepts/dream_manor/manor-floor-plan-v1.png",
+        "art/concepts/dream_manor/manor-concept-board-v2.png",
+        "art/concepts/dream_manor/manor-interior-multi-angle-board-v1.png",
+        "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"
+      ],
+      "postprocessing": [
+        "Built separate InteriorShell, ExteriorShell, Doors, Furniture, Props, Decals, ReservedModules and Lookdev collections",
+        "Preserved complete two-sided structural volumes, four current room doors, one locked front door and two solid reserved modules",
+        "Added fireplace, runner, console, bench, umbrella stand, paintings, beams, sconces, leaded glazing, brass hardware, stone base, gabled slate roofs, chimneys and exterior wings",
+        "Linked equivalent repeated mesh data to keep 160 hall mesh instances at 79 unique meshes and 101 exterior mesh instances at 37 unique meshes",
+        "Source SHA-256 02f85a19e841a5d011e1fb9621c8958b49f30b3a82a07099300a2620ea796e8a"
+      ],
       "prompt": "Authoring specification: build the approved single-storey axial Arts and Crafts dream manor at real scale, X east and Z north, with a 7.6x6.8 m foyer, 6.8x18.0x4.2 m hall, complete exterior shell, residential detail, four current room entrances, locked south double door and two non-door expansion panels."
     },
     {
@@ -651,8 +984,16 @@
       "generator": "Blender glTF 2.0 exporter plus read-only manifest validation",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/blender/dream_manor/dream-manor-v1.blend", "assets/generated/dream_escape/3d/dream-manor-v1-manifest.json"],
-      "postprocessing": ["Exported hall-only GLB with PBR textures embedded, modifiers applied, Y-up conversion, no camera, light or animation", "21789048 bytes; 14916 triangles; 160 mesh instances; 79 unique meshes; 11 materials", "Preserved stable room/front door roots and seven hinge nodes for Godot-controlled transitions", "Fresh temporary hall export matched SHA-256 b1a68e5dee09c21008f0c4486089a8dc3842362c291ca67ce6a5a89d0e9d8919"],
+      "referenceImages": [
+        "art/blender/dream_manor/dream-manor-v1.blend",
+        "assets/generated/dream_escape/3d/dream-manor-v1-manifest.json"
+      ],
+      "postprocessing": [
+        "Exported hall-only GLB with PBR textures embedded, modifiers applied, Y-up conversion, no camera, light or animation",
+        "21789048 bytes; 14916 triangles; 160 mesh instances; 79 unique meshes; 11 materials",
+        "Preserved stable room/front door roots and seven hinge nodes for Godot-controlled transitions",
+        "Fresh temporary hall export matched SHA-256 b1a68e5dee09c21008f0c4486089a8dc3842362c291ca67ce6a5a89d0e9d8919"
+      ],
       "prompt": "Deterministic runtime export of the playable Dream Manor foyer and hall; gameplay collision remains independent in Godot and runtime never invokes Blender or image generation."
     },
     {
@@ -663,8 +1004,16 @@
       "generator": "Blender glTF 2.0 exporter plus read-only manifest validation",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-22",
-      "referenceImages": ["art/blender/dream_manor/dream-manor-v1.blend", "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"],
-      "postprocessing": ["Exported the complete exterior shell separately so the current game does not load unseen geometry", "16715460 bytes; 11028 triangles; 101 mesh instances; 37 unique meshes; 7 materials", "Includes front porch, single exterior entrance, four room volumes, slate roofs, leaded windows, chimneys, stone base and restrained planting", "Fresh temporary exterior export matched SHA-256 d49f61d0fcfd225d33647a58207dd6278dd39d9a56c166480bed97c1bfc61d86"],
+      "referenceImages": [
+        "art/blender/dream_manor/dream-manor-v1.blend",
+        "art/concepts/dream_manor/manor-exterior-multi-angle-board-v1.png"
+      ],
+      "postprocessing": [
+        "Exported the complete exterior shell separately so the current game does not load unseen geometry",
+        "16715460 bytes; 11028 triangles; 101 mesh instances; 37 unique meshes; 7 materials",
+        "Includes front porch, single exterior entrance, four room volumes, slate roofs, leaded windows, chimneys, stone base and restrained planting",
+        "Fresh temporary exterior export matched SHA-256 d49f61d0fcfd225d33647a58207dd6278dd39d9a56c166480bed97c1bfc61d86"
+      ],
       "prompt": "Deterministic exterior review export of the approved English Arts and Crafts manor; no playable exterior, extra exterior doors, stairs or runtime Blender dependency."
     },
     {
@@ -675,8 +1024,14 @@
       "generator": "Deterministic Pillow drawing and review-board assembly",
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-30",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"],
-      "postprocessing": ["Drew the authoritative 12x9 m top-down plan with 18 desks, two longitudinal aisles, rear return aisle, east door, west windows and all first-room anchors", "Assembled a 3840x2160 comparison board without generating new raster content", "Read-only rebuild matched plan SHA-256 16b2970dfb4d5f18cb157b59091a1bcf969b5efbcf6e6b5d778a72f8e6a255ff and comparison SHA-256 05887d0c1bda97f374f547a87c3001ea662180ba8761897e33f6f9f839c8eaa5"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"
+      ],
+      "postprocessing": [
+        "Drew the authoritative 12x9 m top-down plan with 18 desks, two longitudinal aisles, rear return aisle, east door, west windows and all first-room anchors",
+        "Assembled a 3840x2160 comparison board without generating new raster content",
+        "Read-only rebuild matched plan SHA-256 16b2970dfb4d5f18cb157b59091a1bcf969b5efbcf6e6b5d778a72f8e6a255ff and comparison SHA-256 05887d0c1bda97f374f547a87c3001ea662180ba8761897e33f6f9f839c8eaa5"
+      ],
       "prompt": "No generative prompt; deterministic layout specification for the expanded classroom v4."
     },
     {
@@ -687,8 +1042,17 @@
       "generator": "Blender 5.2 deterministic construction seeded from the v3 material library",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-29",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-v4-floor-plan.png", "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"],
-      "postprocessing": ["Rebuilt the room at 12x9x4 m with a complete ceiling", "Instanced 18 desk-chair groups in six columns and three rows", "Added three west window bays, teaching zone, clock and roster variants, window cache, map cabinet, transom cache, four fluorescent fixtures, two static fans and restrained classroom dressing", "Preserved the v3 PBR material seed while replacing all scene geometry", "Source SHA-256 369037d93b87656c14994e31b042ee465caeb3fdadbf295655cca94aa480cba0"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-v4-floor-plan.png",
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png"
+      ],
+      "postprocessing": [
+        "Rebuilt the room at 12x9x4 m with a complete ceiling",
+        "Instanced 18 desk-chair groups in six columns and three rows",
+        "Added three west window bays, teaching zone, clock and roster variants, window cache, map cabinet, transom cache, four fluorescent fixtures, two static fans and restrained classroom dressing",
+        "Preserved the v3 PBR material seed while replacing all scene geometry",
+        "Source SHA-256 369037d93b87656c14994e31b042ee465caeb3fdadbf295655cca94aa480cba0"
+      ],
       "prompt": "Authoring specification: expand the first room into a complete 12x9x4 m classroom vertical slice with 18 shared desks, clear traversal aisles, seven v2 puzzle mechanisms, intact old-school construction and no false interactive decoration."
     },
     {
@@ -699,8 +1063,16 @@
       "generator": "Blender glTF 2.0 exporter plus read-only manifest validation",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-29",
-      "referenceImages": ["art/blender/dream_classroom/classroom-art-pass-v4.blend", "assets/generated/dream_escape/3d/classroom-art-pass-v4-manifest.json"],
-      "postprocessing": ["Exported a 31795348-byte GLB with no camera, light or animation", "Validated 32476 triangles, 18 shared desk groups, 127 maximum mutually visible meshes and all required state roots", "Godot maintains an independent 29-body collision layout and nine stable interaction markers", "Fresh temporary export matched SHA-256 c634c7cd63b9be903d9fa2e2bebfb6c22410658e9eec85b2fb537e08f11e335"],
+      "referenceImages": [
+        "art/blender/dream_classroom/classroom-art-pass-v4.blend",
+        "assets/generated/dream_escape/3d/classroom-art-pass-v4-manifest.json"
+      ],
+      "postprocessing": [
+        "Exported a 31795348-byte GLB with no camera, light or animation",
+        "Validated 32476 triangles, 18 shared desk groups, 127 maximum mutually visible meshes and all required state roots",
+        "Godot maintains an independent 29-body collision layout and nine stable interaction markers",
+        "Fresh temporary export matched SHA-256 c634c7cd63b9be903d9fa2e2bebfb6c22410658e9eec85b2fb537e08f11e335"
+      ],
       "prompt": "Deterministic runtime export of the classroom v4 vertical slice; runtime never invokes Blender or image generation."
     },
     {
@@ -712,7 +1084,11 @@
       "model": "Pillow 12.1.1",
       "generatedAt": "2026-08-30",
       "referenceImages": [],
-      "postprocessing": ["Drew twenty-eight 64x64 RGBA icons used by the complete 34-item v4 catalog; the remaining six established icons retain their earlier deterministic sources", "Added archive index, fuse components, repaired fuse, splicing tape, fourth-room key, archive tape fragment, inspection mirror, curtain counterweight, projector lens, master reel core and restored master tape", "No runtime generation dependency"],
+      "postprocessing": [
+        "Drew twenty-eight 64x64 RGBA icons used by the complete 34-item v4 catalog; the remaining six established icons retain their earlier deterministic sources",
+        "Added archive index, fuse components, repaired fuse, splicing tape, fourth-room key, archive tape fragment, inspection mirror, curtain counterweight, projector lens, master reel core and restored master tape",
+        "No runtime generation dependency"
+      ],
       "prompt": "No generative prompt; programmatic icon specification using the existing navy, teal, aged paper and restrained amber inventory palette."
     },
     {
@@ -723,8 +1099,17 @@
       "generator": "AIProxy image generation/editing",
       "model": "gpt-image-2",
       "generatedAt": "2026-08-29",
-      "referenceImages": ["outputs/classroom-v4/godot-1080p/01-view-blackboard.png", "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png", "assets/generated/characters/3d/protagonist-art-pass-v2.glb"],
-      "postprocessing": ["Generated as a 2048x1152 layout-preserving paint-over of the current Godot classroom view", "Kept the blackboard, clock, roster, teacher desk, student desks and west-window edge in their established spatial relationship", "Stored unchanged after generation; SHA-256 8ad7f58ada8927e5505af943da1725d413e103a0247cc819d4c1f66c061a80c4", "Review-only target; no runtime scene references this image"],
+      "referenceImages": [
+        "outputs/classroom-v4/godot-1080p/01-view-blackboard.png",
+        "art/concepts/dream_classroom/classroom-art-pass-v2-concept.png",
+        "assets/generated/characters/3d/protagonist-art-pass-v2.glb"
+      ],
+      "postprocessing": [
+        "Generated as a 2048x1152 layout-preserving paint-over of the current Godot classroom view",
+        "Kept the blackboard, clock, roster, teacher desk, student desks and west-window edge in their established spatial relationship",
+        "Stored unchanged after generation; SHA-256 8ad7f58ada8927e5505af943da1725d413e103a0247cc819d4c1f66c061a80c4",
+        "Review-only target; no runtime scene references this image"
+      ],
       "prompt": "Edit the supplied current classroom screenshot into a cinematic semi-realistic 3D target while strictly preserving its layout and camera: believable 12x9m late-1990s/early-2000s Chinese classroom, blackboard wall teaching zone, seven-o'clock clock, duty roster, teacher desk, two visible desk rows and the west-window edge; layered aged plaster and teal wainscot, worn terrazzo, oxidized steel and matte old wood; deep blue-teal shadows with restrained amber dusk light; include the supplied protagonist v2 only as a scale and color-temperature reference; intact and dusty rather than ruined; no horror-house styling, extra doors, readable puzzle answers, UI, text overlays, logos or watermark."
     },
     {
@@ -735,8 +1120,17 @@
       "generator": "AIProxy image generation/editing",
       "model": "gpt-image-2",
       "generatedAt": "2026-08-29",
-      "referenceImages": ["outputs/dream-manor-godot-1080p/01-foyer-front-door.png", "art/concepts/dream_manor/manor-concept-board-v2.png", "assets/generated/characters/3d/protagonist-art-pass-v2.glb"],
-      "postprocessing": ["Generated as a 2048x1152 layout-preserving paint-over of the current Godot manor foyer view", "Preserved the locked front door, first-room door, wainscot, sconces, runner and entrance furniture", "Stored unchanged after generation; SHA-256 0e6616a7224a8a4c9e77bcab5790eda9b2930397c135a0bf4b296ecd06964fbc", "Review-only target; no runtime scene references this image"],
+      "referenceImages": [
+        "outputs/dream-manor-godot-1080p/01-foyer-front-door.png",
+        "art/concepts/dream_manor/manor-concept-board-v2.png",
+        "assets/generated/characters/3d/protagonist-art-pass-v2.glb"
+      ],
+      "postprocessing": [
+        "Generated as a 2048x1152 layout-preserving paint-over of the current Godot manor foyer view",
+        "Preserved the locked front door, first-room door, wainscot, sconces, runner and entrance furniture",
+        "Stored unchanged after generation; SHA-256 0e6616a7224a8a4c9e77bcab5790eda9b2930397c135a0bf4b296ecd06964fbc",
+        "Review-only target; no runtime scene references this image"
+      ],
       "prompt": "Edit the supplied current manor screenshot into a cinematic semi-realistic 3D target while strictly preserving its camera and doorway layout: English Arts and Crafts private manor foyer and inner hall, locked south double entrance, first-room door, substantial dark-oak wainscot, aged brass sconces, worn runner, console furniture and credible residential construction; deep blue-teal recesses with localized warm amber wall-light pools; include the supplied protagonist v2 only for scale; sealed for years but structurally intact; no gothic horror, school signage, extra doors, stairs, modern furniture, UI, labels, logos or watermark."
     },
     {
@@ -747,11 +1141,20 @@
       "generator": "Poly Haven downloads plus deterministic project material preparation",
       "model": "Poly Haven 2K JPG maps; Pillow 12.1.1 project processing",
       "generatedAt": "2026-08-29",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-cinematic-target-v5.png", "art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-cinematic-target-v5.png",
+        "art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png"
+      ],
       "sourceUrl": "https://polyhaven.com/",
       "license": "CC0 1.0 / Public Domain",
       "licenseUrl": "https://polyhaven.com/license",
-      "postprocessing": ["Downloaded diffuse, OpenGL tangent-space normal and ARM maps at 2K for eight asset families", "Recorded per-file source URL, MD5, SHA-256, color space, thumbnail and acquisition date in source-manifest.json", "Prepared ten project-specific material families without modifying the archived CC0 source files", "Built a deterministic material-source review board; SHA-256 8f157183d3888a25d840711bb424020ab8c1e21d3f571e4ee7a2e7e1b2252fe6", "No Fab or BlenderKit asset was purchased or incorporated"],
+      "postprocessing": [
+        "Downloaded diffuse, OpenGL tangent-space normal and ARM maps at 2K for eight asset families",
+        "Recorded per-file source URL, MD5, SHA-256, color space, thumbnail and acquisition date in source-manifest.json",
+        "Prepared ten project-specific material families without modifying the archived CC0 source files",
+        "Built a deterministic material-source review board; SHA-256 8f157183d3888a25d840711bb424020ab8c1e21d3f571e4ee7a2e7e1b2252fe6",
+        "No Fab or BlenderKit asset was purchased or incorporated"
+      ],
       "prompt": "No generative prompt; curated CC0 source family: painted_plaster_wall, old_mosaic_floor, oak_veneer_01, rust_coarse_01, beige_wall_001, black_oak_veneer, fabric_pattern_07 and terrazzo_tiles."
     },
     {
@@ -762,8 +1165,19 @@
       "generator": "Blender 5.2 baseline-preserving sample refinement and glTF 2.0 export",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-29",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-cinematic-target-v5.png", "art/blender/dream_classroom/classroom-art-pass-v4.blend", "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"],
-      "postprocessing": ["Retained the established v4 room layout and gameplay state roots while adding cinematic material and teaching-zone detail for a bounded approval sample", "Exported 52180980 bytes, 38344 triangles, 196 maximum mutually visible meshes and 14 materials", "Source SHA-256 8d128188061139d1b863bc5d0b6beced8a74c959fd121bbb390e4655f93b81cc; GLB SHA-256 c06fa2da01dff958227e9dab65dec48771d7b1aca6e0c037455a9efdb7d35970", "Fresh temporary export matched the sample GLB; missing external files 0", "Lookdev camera, lights and static protagonist scale reference were excluded from the GLB", "This approved sample was superseded on 2026-08-30 by dream_classroom_cinematic_runtime_v5; its recorded hashes intentionally describe the frozen approval snapshot"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-cinematic-target-v5.png",
+        "art/blender/dream_classroom/classroom-art-pass-v4.blend",
+        "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"
+      ],
+      "postprocessing": [
+        "Retained the established v4 room layout and gameplay state roots while adding cinematic material and teaching-zone detail for a bounded approval sample",
+        "Exported 52180980 bytes, 38344 triangles, 196 maximum mutually visible meshes and 14 materials",
+        "Source SHA-256 8d128188061139d1b863bc5d0b6beced8a74c959fd121bbb390e4655f93b81cc; GLB SHA-256 c06fa2da01dff958227e9dab65dec48771d7b1aca6e0c037455a9efdb7d35970",
+        "Fresh temporary export matched the sample GLB; missing external files 0",
+        "Lookdev camera, lights and static protagonist scale reference were excluded from the GLB",
+        "This approved sample was superseded on 2026-08-30 by dream_classroom_cinematic_runtime_v5; its recorded hashes intentionally describe the frozen approval snapshot"
+      ],
       "prompt": "Authoring specification: a bounded cinematic semi-realistic blackboard-wall and teaching-zone sample using scan-derived tiled PBR materials, credible layered construction, mid-scale hardware and restrained dust/wear; preserve all current gameplay geometry and state-root names; do not expand to the full approved art pass before visual review."
     },
     {
@@ -774,8 +1188,19 @@
       "generator": "Blender 5.2 baseline-preserving sample refinement and glTF 2.0 export",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-29",
-      "referenceImages": ["art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png", "art/blender/dream_manor/dream-manor-v1.blend", "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"],
-      "postprocessing": ["Retained the established v1 hall layout and door roots while refining the foyer, locked entrance, first-room doorway, wainscot, runner and sconces as a bounded approval sample", "Exported 34488524 bytes, 26656 triangles, 168 visible mesh instances and 12 materials", "Source SHA-256 4809fc9052f8a09a2a9ca6632ebfbb7124b715766f4b90648b4a88928c22d8b2; GLB SHA-256 2655dcbb16138e9c91575e8966160da5aee8901b8809aa46665e81e5219ce23d", "Fresh temporary export matched the sample GLB; missing external files 0", "Lookdev camera, lights and static protagonist scale reference were excluded from the GLB", "This approved sample was superseded on 2026-08-30 by dream_manor_hall_cinematic_runtime_v2; its recorded hashes intentionally describe the frozen approval snapshot"],
+      "referenceImages": [
+        "art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png",
+        "art/blender/dream_manor/dream-manor-v1.blend",
+        "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"
+      ],
+      "postprocessing": [
+        "Retained the established v1 hall layout and door roots while refining the foyer, locked entrance, first-room doorway, wainscot, runner and sconces as a bounded approval sample",
+        "Exported 34488524 bytes, 26656 triangles, 168 visible mesh instances and 12 materials",
+        "Source SHA-256 4809fc9052f8a09a2a9ca6632ebfbb7124b715766f4b90648b4a88928c22d8b2; GLB SHA-256 2655dcbb16138e9c91575e8966160da5aee8901b8809aa46665e81e5219ce23d",
+        "Fresh temporary export matched the sample GLB; missing external files 0",
+        "Lookdev camera, lights and static protagonist scale reference were excluded from the GLB",
+        "This approved sample was superseded on 2026-08-30 by dream_manor_hall_cinematic_runtime_v2; its recorded hashes intentionally describe the frozen approval snapshot"
+      ],
       "prompt": "Authoring specification: a bounded cinematic semi-realistic manor foyer and first-room-door sample using scan-derived tiled PBR materials, credible Arts and Crafts joinery, aged brass hardware, layered wall construction and localized wear; preserve all current door roots and layout; do not expand to the complete hall before visual review."
     },
     {
@@ -786,8 +1211,20 @@
       "generator": "Blender 5.2 hand-authored full-scene refinement with idempotent detail assistance and glTF 2.0 export",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-30",
-      "referenceImages": ["art/concepts/dream_classroom/classroom-cinematic-target-v5.png", "art/blender/dream_classroom/classroom-art-pass-v4.blend", "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"],
-      "postprocessing": ["Expanded the approved teaching-zone sample across the complete 12x9x4 metre classroom without changing gameplay state roots, anchors, collision ownership or puzzle layout", "Shared one StudentDeskArt_01 mesh across all 18 desks and added non-interactive hardware, books, papers, window joinery, notice-board detail, door hardware, cabinet and teacher-desk state detail, suspended-light fittings and restrained floor wear", "Exported 56502720 bytes, 114452 triangles, 178 maximum mutually visible meshes and 14 materials", "Source SHA-256 56b6742485bf0f4a83476c407de8741b63b4f5b9fa250401d78978a89713eda7; GLB SHA-256 7a315caa6cc56e8b5bf1a2bc503f6f1865901d82478a2eec5f3e0bf53fd5b6d0", "Fresh temporary export matched the runtime GLB; missing external files 0", "Godot runtime uses Filmic tone mapping, shadowed realtime lights and two ReflectionProbe nodes; no LightmapGI, commercial asset or runtime Blender dependency was introduced", "DreamClassroom.tscn now references this GLB; v4 remains a historical runtime baseline"],
+      "referenceImages": [
+        "art/concepts/dream_classroom/classroom-cinematic-target-v5.png",
+        "art/blender/dream_classroom/classroom-art-pass-v4.blend",
+        "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"
+      ],
+      "postprocessing": [
+        "Expanded the approved teaching-zone sample across the complete 12x9x4 metre classroom without changing gameplay state roots, anchors, collision ownership or puzzle layout",
+        "Shared one StudentDeskArt_01 mesh across all 18 desks and added non-interactive hardware, books, papers, window joinery, notice-board detail, door hardware, cabinet and teacher-desk state detail, suspended-light fittings and restrained floor wear",
+        "Exported 56502720 bytes, 114452 triangles, 178 maximum mutually visible meshes and 14 materials",
+        "Source SHA-256 56b6742485bf0f4a83476c407de8741b63b4f5b9fa250401d78978a89713eda7; GLB SHA-256 7a315caa6cc56e8b5bf1a2bc503f6f1865901d82478a2eec5f3e0bf53fd5b6d0",
+        "Fresh temporary export matched the runtime GLB; missing external files 0",
+        "Godot runtime uses Filmic tone mapping, shadowed realtime lights and two ReflectionProbe nodes; no LightmapGI, commercial asset or runtime Blender dependency was introduced",
+        "DreamClassroom.tscn now references this GLB; v4 remains a historical runtime baseline"
+      ],
       "prompt": "Authoring specification: extend the approved cinematic semi-realistic classroom direction to every camera-facing wall and furnishing, preserving the 12x9 metre v2 puzzle layout, 18 shared desks, all stable state roots and the non-horror blue-teal and restrained amber art direction."
     },
     {
@@ -798,8 +1235,22 @@
       "generator": "Blender 5.2 hand-authored full-hall refinement with idempotent detail assistance and glTF 2.0 export",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-08-30",
-      "referenceImages": ["art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png", "art/concepts/dream_manor/manor-concept-board-v2.png", "art/blender/dream_manor/dream-manor-v1.blend", "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"],
-      "postprocessing": ["Expanded the approved foyer sample across the complete playable hall while preserving the established 6.8 metre clear width, 18 metre axis, room-door identities, collision ownership and spawn routing", "Repositioned all seven door hinge roots while preserving child world transforms, then added full-hall door joinery and hardware, wainscot bays, sconces, fireplace tools, entrance-furniture detail, beam straps, reserved-module panels and framed artwork", "Exported 37793392 bytes, 88244 triangles, 198 visible mesh instances and 12 materials", "Source SHA-256 5ffb1ef8822b2ca1b4e7855cc97f24a5c9b713734079014853783661483d3e0b; GLB SHA-256 3c1e4752283a075b9ebff27f183ddc5aad4d68a0ed80946d38daf5e7eb56376d", "Fresh temporary export matched the runtime GLB; missing external files 0", "The exporter explicitly includes both CinematicSampleDetails and CinematicFullDetails so all four independent full-hall wainscot meshes are present", "Godot runtime uses Filmic tone mapping, shadowed realtime lights and two ReflectionProbe nodes; no LightmapGI, commercial asset or runtime Blender dependency was introduced", "DreamCorridor.tscn now references this hall GLB; v1 hall remains a historical runtime baseline and the v1 exterior remains offline-only"],
+      "referenceImages": [
+        "art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png",
+        "art/concepts/dream_manor/manor-concept-board-v2.png",
+        "art/blender/dream_manor/dream-manor-v1.blend",
+        "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"
+      ],
+      "postprocessing": [
+        "Expanded the approved foyer sample across the complete playable hall while preserving the established 6.8 metre clear width, 18 metre axis, room-door identities, collision ownership and spawn routing",
+        "Repositioned all seven door hinge roots while preserving child world transforms, then added full-hall door joinery and hardware, wainscot bays, sconces, fireplace tools, entrance-furniture detail, beam straps, reserved-module panels and framed artwork",
+        "Exported 37793392 bytes, 88244 triangles, 198 visible mesh instances and 12 materials",
+        "Source SHA-256 5ffb1ef8822b2ca1b4e7855cc97f24a5c9b713734079014853783661483d3e0b; GLB SHA-256 3c1e4752283a075b9ebff27f183ddc5aad4d68a0ed80946d38daf5e7eb56376d",
+        "Fresh temporary export matched the runtime GLB; missing external files 0",
+        "The exporter explicitly includes both CinematicSampleDetails and CinematicFullDetails so all four independent full-hall wainscot meshes are present",
+        "Godot runtime uses Filmic tone mapping, shadowed realtime lights and two ReflectionProbe nodes; no LightmapGI, commercial asset or runtime Blender dependency was introduced",
+        "DreamCorridor.tscn now references this hall GLB; v1 hall remains a historical runtime baseline and the v1 exterior remains offline-only"
+      ],
       "prompt": "Authoring specification: extend the approved cinematic semi-realistic Arts and Crafts foyer direction through the complete playable inner hall, preserving every current room door and reserved module while enriching credible residential joinery, hardware, furnishings and localized wear."
     },
     {
@@ -811,7 +1262,11 @@
       "model": "No generative model; Python 3.14 math, struct and wave",
       "generatedAt": "2026-08-30",
       "referenceImages": [],
-      "postprocessing": ["Synthesized five mono 16-bit 22050 Hz WAV files: a 12-second room tone, four beats at 72 BPM with a low-frequency fourth beat, A3-C4-E4-A4 decaying tuning-fork tones, an acoustic-wall completion chord and an eight-second looping auditorium master white-noise bed", "Used fixed linear-congruential seeds for deterministic ambience and master noise", "No runtime synthesis, generated model, external sample, music composition or voice recording is used"],
+      "postprocessing": [
+        "Synthesized five mono 16-bit 22050 Hz WAV files: a 12-second room tone, four beats at 72 BPM with a low-frequency fourth beat, A3-C4-E4-A4 decaying tuning-fork tones, an acoustic-wall completion chord and an eight-second looping auditorium master white-noise bed",
+        "Used fixed linear-congruential seeds for deterministic ambience and master noise",
+        "No runtime synthesis, generated model, external sample, music composition or voice recording is used"
+      ],
       "prompt": "No generative prompt; project-authored signal specification. Audio only reinforces atmosphere and the already visible puzzle records, and is never required to solve an interaction."
     },
     {
@@ -822,10 +1277,20 @@
       "generator": "Blender 5.2 deterministic construction and glTF 2.0 export",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-09-01",
-      "referenceImages": ["art/blender/dream_late_rooms/dream-archive-room-v1.blend", "assets/generated/dream_escape/3d/dream-archive-room-v1-manifest.json", "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"],
+      "referenceImages": [
+        "art/blender/dream_late_rooms/dream-archive-room-v1.blend",
+        "assets/generated/dream_escape/3d/dream-archive-room-v1-manifest.json",
+        "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"
+      ],
       "license": "Project-authored geometry plus Poly Haven CC0 1.0 / Public Domain PBR maps; redistributable",
       "licenseUrl": "https://polyhaven.com/license",
-      "postprocessing": ["Built the complete 12x9x4.2 metre archive and broadcast room as deterministic procedural geometry", "Applied the adopted painted_plaster_wall, beige_wall_001, old_mosaic_floor, black_oak_veneer, oak_veneer_01 and rust_coarse_01 diffuse, OpenGL normal and ARM map families", "Exported 47053364 bytes with 106 mesh objects and a 11888-triangle upper bound; GLB SHA-256 6927c08b023746123743244c3aabebca639d92867f3d7aa59ad4fa3c00c08087", "Fresh read-only export matched the adopted GLB; missing external files 0", "Godot owns collision, interaction markers, realtime state meshes, Filmic lighting and two ReflectionProbe nodes; no LightmapGI or runtime Blender dependency"],
+      "postprocessing": [
+        "Built the complete 12x9x4.2 metre archive and broadcast room as deterministic procedural geometry",
+        "Applied the adopted painted_plaster_wall, beige_wall_001, old_mosaic_floor, black_oak_veneer, oak_veneer_01 and rust_coarse_01 diffuse, OpenGL normal and ARM map families",
+        "Exported 47053364 bytes with 106 mesh objects and a 11888-triangle upper bound; GLB SHA-256 6927c08b023746123743244c3aabebca639d92867f3d7aa59ad4fa3c00c08087",
+        "Fresh read-only export matched the adopted GLB; missing external files 0",
+        "Godot owns collision, interaction markers, realtime state meshes, Filmic lighting and two ReflectionProbe nodes; no LightmapGI or runtime Blender dependency"
+      ],
       "prompt": "Authoring specification: cinematic semi-realistic archive and broadcast room with archive stacks, central registry, broadcast booth, repair recorder zone and editing counter; preserve the 12x9 metre gameplay layout and stable state roots; use restrained blue-teal shadow and warm task-light contrast, with no fake interactive decorations."
     },
     {
@@ -836,10 +1301,20 @@
       "generator": "Blender 5.2 deterministic construction and glTF 2.0 export",
       "model": "Blender 5.2.0 LTS",
       "generatedAt": "2026-09-01",
-      "referenceImages": ["art/blender/dream_late_rooms/dream-auditorium-v1.blend", "assets/generated/dream_escape/3d/dream-auditorium-v1-manifest.json", "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"],
+      "referenceImages": [
+        "art/blender/dream_late_rooms/dream-auditorium-v1.blend",
+        "assets/generated/dream_escape/3d/dream-auditorium-v1-manifest.json",
+        "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json"
+      ],
       "license": "Project-authored geometry plus Poly Haven CC0 1.0 / Public Domain PBR maps; redistributable",
       "licenseUrl": "https://polyhaven.com/license",
-      "postprocessing": ["Built the complete 18x13x7.5 metre auditorium with audience banks, stage, backstage fly rail, projection zone, splice bench, three consoles and two-sided exit machinery", "Applied the adopted painted_plaster_wall, beige_wall_001, old_mosaic_floor, black_oak_veneer, oak_veneer_01 and rust_coarse_01 diffuse, OpenGL normal and ARM map families; retained a restrained project-authored dark seat fabric to avoid a false high-contrast pattern", "Exported 47378260 bytes with 142 mesh objects and a 16432-triangle upper bound; GLB SHA-256 7a82c48265a6fac3e9a1a7b0e1c1840802d5851d3f88a612bc511dafdeb0f2ac", "Fresh read-only export matched the adopted GLB; missing external files 0", "Godot owns collision, interaction markers, transient line-set/lever previews, Filmic lighting and three ReflectionProbe nodes; no LightmapGI or runtime Blender dependency"],
+      "postprocessing": [
+        "Built the complete 18x13x7.5 metre auditorium with audience banks, stage, backstage fly rail, projection zone, splice bench, three consoles and two-sided exit machinery",
+        "Applied the adopted painted_plaster_wall, beige_wall_001, old_mosaic_floor, black_oak_veneer, oak_veneer_01 and rust_coarse_01 diffuse, OpenGL normal and ARM map families; retained a restrained project-authored dark seat fabric to avoid a false high-contrast pattern",
+        "Exported 47378260 bytes with 142 mesh objects and a 16432-triangle upper bound; GLB SHA-256 7a82c48265a6fac3e9a1a7b0e1c1840802d5851d3f88a612bc511dafdeb0f2ac",
+        "Fresh read-only export matched the adopted GLB; missing external files 0",
+        "Godot owns collision, interaction markers, transient line-set/lever previews, Filmic lighting and three ReflectionProbe nodes; no LightmapGI or runtime Blender dependency"
+      ],
       "prompt": "Authoring specification: cinematic semi-realistic old school auditorium with a south entrance, central audience aisle, north stage and curtain, side projection and fly-rail zones, splice bench, three control consoles and dual exit mechanisms; preserve the 18x13 metre gameplay layout and stable state roots, with no readable answer decoration or false interactions."
     },
     {
@@ -881,468 +1356,600 @@
       ],
       "prompt": "Authoring specification approved 2026-09-09: realistic old East Asian classroom with twelve wood-and-steel desks, pale plaster, faded green dado, terrazzo floor and gentle west-window daylight. Preserve the 12x9x4 metre shell, east door, three west window bays and all current puzzle semantics; keep central aisle >=2.4m and side/rear main aisles >=1.2m."
     },
-{
-  "id": "dream_manor_hall_runtime_v3",
-  "sourceFile": "art/blender/dream_manor/dream-manor-hall-v3.blend",
-  "gameFile": "dream_escape/3d/dream-manor-hall-v3.glb",
-  "status": "adopted-runtime-default",
-  "generator": "Blender Python procedural offline modeling",
-  "model": "Blender 5.2.0 LTS",
-  "date": "2026-09-09",
-  "script": "scripts/tools/remodel_manor_v3.py",
-  "prompt": "Approved 10x8x6.6m foyer, 7x12x4.2m hall, closed scenic return stair, Arts and Crafts old house, warm lamps and readable cool shadows. Four rooms in unchanged story order; front door remains locked.",
-  "referenceImages": [
-    "art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png"
-  ],
-  "reusedDecorativeImage": {
-    "file": "art/blender/dream_manor/textures-v3/landscape-painting.png",
-    "sha256": "510d2b6754ed527355b37941dc61d2d27d892dd9d32718197a076e1fce5d08d1",
-    "origin": "Existing offline sample from build_environment_material_textures.py, landscape(), random seed 10103. Copied unchanged; no new raster generation."
-  },
-  "parameters": {
-    "layoutSource": "scripts/presentation/MansionLayout3D.cs",
-    "layoutVersion": 3,
-    "seed": 0,
-    "realtimeGeneration": false
-  },
-  "postprocessing": [
-    "metric planar UV projection",
-    "applied mesh modifiers",
-    "packed CC0 PBR textures",
-    "GLB export without characters, cameras or lights"
-  ],
-  "sourceSha256": "487e2aef155f91df3352ebd42601f175c9240fde65556587ad263e24f410f714",
-  "runtimeGlbSha256": "a8b78a7cdabccf590539992d9d663b2428c30f76e6473554455ce1689eecd8dd",
-  "sourceAssets": [
     {
-      "id": "painted_plaster_wall",
-      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
-        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
-        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+      "id": "dream_manor_hall_runtime_v3",
+      "sourceFile": "art/blender/dream_manor/dream-manor-hall-v3.blend",
+      "gameFile": "dream_escape/3d/dream-manor-hall-v3.glb",
+      "status": "adopted-runtime-default",
+      "generator": "Blender Python procedural offline modeling",
+      "model": "Blender 5.2.0 LTS",
+      "date": "2026-09-09",
+      "script": "scripts/tools/remodel_manor_v3.py",
+      "prompt": "Approved 10x8x6.6m foyer, 7x12x4.2m hall, closed scenic return stair, Arts and Crafts old house, warm lamps and readable cool shadows. Four rooms in unchanged story order; front door remains locked.",
+      "referenceImages": [
+        "art/concepts/dream_manor/manor-foyer-cinematic-target-v2.png"
+      ],
+      "reusedDecorativeImage": {
+        "file": "art/blender/dream_manor/textures-v3/landscape-painting.png",
+        "sha256": "510d2b6754ed527355b37941dc61d2d27d892dd9d32718197a076e1fce5d08d1",
+        "origin": "Existing offline sample from build_environment_material_textures.py, landscape(), random seed 10103. Copied unchanged; no new raster generation."
+      },
+      "parameters": {
+        "layoutSource": "scripts/presentation/MansionLayout3D.cs",
+        "layoutVersion": 3,
+        "seed": 0,
+        "realtimeGeneration": false
+      },
+      "postprocessing": [
+        "metric planar UV projection",
+        "applied mesh modifiers",
+        "packed CC0 PBR textures",
+        "GLB export without characters, cameras or lights"
+      ],
+      "sourceSha256": "487e2aef155f91df3352ebd42601f175c9240fde65556587ad263e24f410f714",
+      "runtimeGlbSha256": "a8b78a7cdabccf590539992d9d663b2428c30f76e6473554455ce1689eecd8dd",
+      "sourceAssets": [
+        {
+          "id": "painted_plaster_wall",
+          "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+            "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+            "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+          }
+        },
+        {
+          "id": "old_mosaic_floor",
+          "assetUrl": "https://polyhaven.com/a/old_mosaic_floor",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "902e128679cb1fa2edcc33683e128350f668abca7d950970ae474c03b451edbf",
+            "normal": "2c0bc58bfda87fd56cfeba8c99fed396571be5bb52c7fdf2d50ec742fc1f4d80",
+            "arm": "14a5b62fbc76cfd30a1e5f514ff618c936be29a3efa9e4775564adad479ebd64"
+          }
+        },
+        {
+          "id": "oak_veneer_01",
+          "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+            "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+            "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+          }
+        },
+        {
+          "id": "rust_coarse_01",
+          "assetUrl": "https://polyhaven.com/a/rust_coarse_01",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "5b8801674fa53ff1b6f7853300f50aa7a1b31e69278554803bd957fe9fa7e392",
+            "normal": "495d3c87da059827ffaf49dae59f967cb3e0b187f4426ab0a47088c3fa83e50b",
+            "arm": "22f10597662e8d5268f79960d23c4a03790a2083f9f05d0680c3535152b26843"
+          }
+        },
+        {
+          "id": "beige_wall_001",
+          "assetUrl": "https://polyhaven.com/a/beige_wall_001",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e",
+            "normal": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
+            "arm": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431"
+          }
+        },
+        {
+          "id": "black_oak_veneer",
+          "assetUrl": "https://polyhaven.com/a/black_oak_veneer",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "d2653c9cf8e05171ba2256c92315cf39fe230482b433a6a9c02cf26ef566624c",
+            "normal": "1d4c099204ad713b47a9e10799de7e31623f0ce7c5fab18712b339ba9760a80a",
+            "arm": "9084ea54de3a19368868501ec1e0c7b633ded32bb8e824301e9999f4374adb2c"
+          }
+        },
+        {
+          "id": "fabric_pattern_07",
+          "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+            "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+            "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
+          }
+        },
+        {
+          "id": "terrazzo_tiles",
+          "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+            "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+            "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dream_music_room_runtime_v2",
+      "sourceFile": "art/blender/dream_music/music-room-art-pass-v2.blend",
+      "gameFile": "dream_escape/3d/music-room-art-pass-v2.glb",
+      "status": "adopted-runtime-default",
+      "generator": "Blender Python offline procedural modeling",
+      "model": "Blender 5.2.0 LTS",
+      "date": "2026-09-09",
+      "script": "scripts/tools/remodel_music_v2.py",
+      "prompt": "Approved 12x10x4m old school music classroom; six timber and steel chairs, real upright piano, four-instrument calibration, 3.2m equipment room with traversable unlocked door, school joinery and readable west daylight.",
+      "referenceImages": [
+        "outputs/music-room-3d-review/01-entry-overview.png"
+      ],
+      "styleReferences": [
+        "doc/engineering/classroom-remodel-v6.md"
+      ],
+      "parameters": {
+        "layoutSource": "scripts/presentation/MusicRoomLayout3D.cs",
+        "layoutVersion": 2,
+        "seed": 0,
+        "runtimeGeneration": false
+      },
+      "postprocessing": [
+        "per-component metric UVs",
+        "applied bevels",
+        "packed adopted CC0 PBR textures",
+        "GLB with stable state anchors; no characters, animations, cameras or lights"
+      ],
+      "sourceSha256": "c4f199750ef62811f0745266f22f8885f541d9b1662ccfbea01219b3bc2bd8a8",
+      "runtimeGlbSha256": "2d4a66863242a23d327424c3da61fc4a4f0f4b8f3371fd55ed012b99eae3b696",
+      "sourceAssets": [
+        {
+          "id": "painted_plaster_wall",
+          "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+            "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+            "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+          }
+        },
+        {
+          "id": "oak_veneer_01",
+          "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+            "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+            "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+          }
+        },
+        {
+          "id": "terrazzo_tiles",
+          "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+            "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+            "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dream_archive_room_runtime_v2",
+      "sourceFile": "art/blender/dream_late_rooms/dream-archive-room-v2.blend",
+      "gameFile": "dream_escape/3d/dream-archive-room-v2.glb",
+      "status": "adopted-runtime-default",
+      "generator": "Blender Python offline procedural modeling",
+      "model": "5.2.0 LTS",
+      "date": "2026-09-10",
+      "script": "scripts/tools/remodel_archive_v2.py",
+      "prompt": "Approved 14x12x4.2m school archive and recording repair room; west and north filing, central retrieval table, east repair and reel recorder, south timeline, real joinery and supported documents. Preserve 13 interaction IDs.",
+      "referenceImages": [
+        "outputs/late-rooms-v2/before"
+      ],
+      "parameters": {
+        "layoutSource": "scripts/presentation/ArchiveRoomLayout3D.cs",
+        "layoutVersion": 2,
+        "seed": 0,
+        "runtimeGeneration": false
+      },
+      "postprocessing": [
+        "metric UVs",
+        "applied bevels",
+        "packed adopted CC0 textures",
+        "stable physical state anchors; no character or animation data"
+      ],
+      "sourceSha256": "c31a608c1c306f3504e111003cd1fb027d16c74ca6445199e7b2590eafdbf319",
+      "runtimeGlbSha256": "606660d2567a12c365f9e3e2cb1efabf8d4099cf03ed697f3c6a0dcd8c2c4fa5",
+      "sourceAssets": [
+        {
+          "id": "painted_plaster_wall",
+          "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+            "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+            "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+          }
+        },
+        {
+          "id": "oak_veneer_01",
+          "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+            "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+            "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+          }
+        },
+        {
+          "id": "terrazzo_tiles",
+          "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+            "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+            "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dream_auditorium_runtime_v2",
+      "sourceFile": "art/blender/dream_late_rooms/dream-auditorium-room-v2.blend",
+      "gameFile": "dream_escape/3d/dream-auditorium-room-v2.glb",
+      "status": "adopted-runtime-default",
+      "generator": "Blender Python offline procedural modeling",
+      "model": "5.2.0 LTS",
+      "date": "2026-09-10",
+      "script": "scripts/tools/remodel_auditorium_v2.py",
+      "prompt": "Approved 22x16x7.5m old school auditorium, 32 linked upholstered seats, continuous ground-level central and side work aisles, scenic raised stage with pleated curtain, physical fly rail, shadow discs, tape splicing and cooperation controls. Preserve 15 interaction IDs.",
+      "referenceImages": [
+        "outputs/late-rooms-v2/before/auditorium"
+      ],
+      "parameters": {
+        "layoutSource": "scripts/presentation/AuditoriumLayout3D.cs",
+        "layoutVersion": 2,
+        "seed": 0,
+        "runtimeGeneration": false
+      },
+      "postprocessing": [
+        "metric UVs",
+        "applied bevels",
+        "32 seats share one mesh",
+        "packed adopted CC0 PBR textures",
+        "stable physical state anchors; no character or animation data"
+      ],
+      "sourceSha256": "4352fe1228ff4f3746979d519e5400afa11c23e0345d22c5e024a1164bfafcc6",
+      "runtimeGlbSha256": "f0d5b0323769dd9da1e66800b4417918ff169228064145fb05c4038f1a894263",
+      "sourceAssets": [
+        {
+          "id": "painted_plaster_wall",
+          "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+            "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+            "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+          }
+        },
+        {
+          "id": "oak_veneer_01",
+          "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+            "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+            "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+          }
+        },
+        {
+          "id": "fabric_pattern_07",
+          "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
+            "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
+            "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
+          }
+        },
+        {
+          "id": "terrazzo_tiles",
+          "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+            "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+            "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+          }
+        }
+      ]
+    },
+    {
+      "id": "home_environment_v1",
+      "status": "adopted-independent-preview",
+      "sourceFile": "art/blender/home/home-v1.blend",
+      "gameFile": "home/3d/home-v1.glb",
+      "sourceSha256": "dc955365c9cba90c2cd1a0f3390e9736660b8f02daa8ccfaf672c670d8c2aaea",
+      "runtimeGlbSha256": "9e12936af1165c2dcb35b2e8475838e88621081f70a7500c5830debabe347c42",
+      "generator": "Offline Blender Python; original procedural meshes",
+      "model": "5.2.0 LTS",
+      "date": "2026-09-12",
+      "tool": "Blender Python offline procedural modeling",
+      "script": "scripts/tools/build_home_v1.py",
+      "prompt": "User-approved modest inhabited rural bungalow, 12x9m, two bedrooms, living room, kitchen and bathroom, enclosed small courtyard; modern household furniture, maintained plaster and aluminium windows.",
+      "referenceImages": [],
+      "parameters": {
+        "layoutVersion": 1,
+        "units": "metres",
+        "runtimeGeneration": false
+      },
+      "postprocessing": [
+        "component metric UV",
+        "applied bevels",
+        "linked chair and roof meshes",
+        "packed existing CC0 PBR textures"
+      ],
+      "sourceAssets": [
+        {
+          "id": "painted_plaster_wall",
+          "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+            "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+            "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+          }
+        },
+        {
+          "id": "oak_veneer_01",
+          "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+            "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+            "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+          }
+        },
+        {
+          "id": "terrazzo_tiles",
+          "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+            "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+            "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+          }
+        }
+      ]
+    },
+    {
+      "id": "village_environment_v1",
+      "status": "adopted-independent-preview",
+      "sourceFile": "art/blender/village/village-v1.blend",
+      "gameFile": "village/3d/village-v1.glb",
+      "sourceSha256": "4b3ba31c571f9eaae89fbffde7ca1148d874413aacd3c7f0b45495c9d7199467",
+      "runtimeGlbSha256": "2ea2667aabcdd53141ef152aed64feb94bed33535d173127878759c138fe4bcf",
+      "date": "2026-09-12",
+      "tool": "Blender Python offline procedural modelling",
+      "model": "5.2.0 LTS",
+      "script": "scripts/tools/build_village_v1.py",
+      "prompt": "Approved compact contemporary Chinese mountain village with 24 buildings, a stream, two bridges, two walking loops, shop plaza, disused railway station, and a reusable Home v1 exterior. Full environment, no NPC or story.",
+      "referenceImages": [],
+      "parameters": {
+        "units": "metres",
+        "layoutVersion": 1,
+        "grassSeed": 412,
+        "grassTextureSize": 512,
+        "runtimeGeneration": false
+      },
+      "postprocessing": [
+        "metric UVs",
+        "packed CC0 PBR maps",
+        "linked house and tree meshes",
+        "derived exterior-only Home v1",
+        "font outlines from bundled Source Han Sans 2.005R"
+      ],
+      "sourceAssets": [
+        {
+          "id": "painted_plaster_wall",
+          "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+            "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+            "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
+          }
+        },
+        {
+          "id": "oak_veneer_01",
+          "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+            "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+            "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+          }
+        },
+        {
+          "id": "terrazzo_tiles",
+          "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
+          "license": "CC0 1.0 / Public Domain",
+          "maps": {
+            "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+            "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+            "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
+          }
+        }
+      ]
+    },
+    {
+      "id": "village_environment_v2",
+      "status": "adopted-independent-preview",
+      "sourceFile": "art/blender/village/village-v2.blend",
+      "gameFile": "village/3d/village-v2.glb",
+      "sourceSha256": "0da03dc2612ec0834970343ec4c0b7d9b4d7c249f2cc1fa86843f86f80a3e110",
+      "runtimeGlbSha256": "3a83569a75e5af85830c84bfc54d142f97abca116f3aa15f3ddb5fe74054d5ba",
+      "date": "2026-09-14",
+      "tool": "Blender offline Python modelling",
+      "model": "5.2.0 LTS",
+      "script": "scripts/tools/build_village_v2.py",
+      "prompt": "Approved first village exterior batch: everyday village desk and noticeboard, grocery loading, woodworking repair workshop. No story interactions.",
+      "referenceImages": [
+        "outputs/village-v1/validation/1920x1080/05-shop.png",
+        "outputs/village-v1/validation/1920x1080/06-plaza-tree.png",
+        "outputs/village-v1/validation/1920x1080/09-workshop.png"
+      ],
+      "parameters": {
+        "units": "metres",
+        "baseVersion": 1,
+        "exteriorVersion": 2,
+        "bevelMetres": 0.008,
+        "runtimeGeneration": false
+      },
+      "sourceAssets": [
+        "saved village-v1.blend",
+        "previously adopted Poly Haven CC0 wood/plaster/stone maps",
+        "original geometry and constant-color materials"
+      ],
+      "postprocessing": [
+        "metric UVs",
+        "small edge bevels",
+        "independent fixture and paper objects",
+        "preserved baseline geometry verified by fingerprint"
+      ]
+    },
+    {
+      "id": "village_environment_v4",
+      "status": "adopted-formal-and-preview",
+      "date": "2026-09-14",
+      "sourceFile": "art/blender/village/village-v4.blend",
+      "gameFile": "village/3d/village-v4.glb",
+      "sourceSha256": "5d3212352607df6c7ae939c39355d4780b6cb92f2c4888a923d8fb3606641233",
+      "runtimeGlbSha256": "44ffdb690ef43b9a6b798a00ba30121a679235fd911dd4a45cf33a0d692096db",
+      "layoutFile": "assets/generated/village/layout-v4.json",
+      "layoutSha256": "10fc02e76c78830c0643a3ebdf334e1df4a2622ac7ce4bca512efee481779949",
+      "terrainSource": "assets/generated/village/terrain-v4/",
+      "heightBackup": "art/terrain/village-v4/",
+      "tool": "Blender 5.2.0 LTS offline modelling; Terrain3D 1.0.2",
+      "model": "No image generation used",
+      "prompt": "Approved compact layout: preserve home, stream, both bridges, boundary and 24 building sizes; group-move buildings, yards and props, rebuild affected roads, derive native terrain and adopt v3 art.",
+      "sourceAssets": [
+        "saved village-v3.blend",
+        "art/sources/cc0/village-art-v3/provenance.json",
+        "assets/generated/village/terrain-sample-v1/provenance.json"
+      ],
+      "postprocessing": [
+        "group transforms retaining 219 mesh payloads",
+        "rebuilt roads, pavement joins and overhead wires",
+        "copied native Terrain3D with float32/EXR backup, protected anchors and smoothed road grades",
+        "24 independent extracted texture imports: S3TC VRAM compression plus mipmaps; original source pixels retained"
+      ],
+      "parameters": {
+        "units": "metres",
+        "runtimeGeneration": false,
+        "buildingCount": 24,
+        "outdoorSpeed": 4.2,
+        "contentVersion": 6
       }
     },
     {
-      "id": "old_mosaic_floor",
-      "assetUrl": "https://polyhaven.com/a/old_mosaic_floor",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "902e128679cb1fa2edcc33683e128350f668abca7d950970ae474c03b451edbf",
-        "normal": "2c0bc58bfda87fd56cfeba8c99fed396571be5bb52c7fdf2d50ec742fc1f4d80",
-        "arm": "14a5b62fbc76cfd30a1e5f514ff618c936be29a3efa9e4775564adad479ebd64"
+      "id": "village_environment_v4_home_access_repair",
+      "date": "2026-09-15",
+      "status": "local-approach-repair",
+      "supersedesHashesOf": "village_environment_v4",
+      "sourceFile": "art/blender/village/village-v4.blend",
+      "gameFile": "village/3d/village-v4.glb",
+      "sourceSha256": "61fe2a18c68e719f9dc4397d83b5cb91ed0ba8db68d391ec762aa1d8621ca1a3",
+      "runtimeGlbSha256": "13863cd1855065fca83ffead44b4d0e3f3733c3d097aea04bd3c989f0119ac24",
+      "tool": "Blender 5.2.0 LTS; Terrain3D 1.0.2; scripts/tools/repair_home_access.py",
+      "model": "No image generation used",
+      "prompt": "Approved local repair after continuous walking reproduced Terrain3D obstruction returning from outside low ground to village road; preserve home and movement settings.",
+      "sourceAssets": [
+        "saved village-v4.blend",
+        "existing village-v4 materials and native terrain"
+      ],
+      "postprocessing": [
+        "276 float height samples eased locally; original backup and change mask retained",
+        "Road_home_gate, Road_home_lane and RoadSeams_home_lane affected vertices reprojected preserving original surface offset and UVs"
+      ],
+      "parameters": {
+        "homePositionUnchanged": true,
+        "runtimeGeneration": false,
+        "changedHeightSamples": 276,
+        "contentVersion": 6
       }
     },
     {
-      "id": "oak_veneer_01",
-      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
-        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
-        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
+      "id": "village_house_art_v5",
+      "date": "2026-09-15",
+      "tool": "Blender 5.2.0 LTS; Python Pillow and NumPy offline processing",
+      "aiGenerated": false,
+      "license": "Original geometry; adopted CC0 surface maps",
+      "source": "art/blender/village/village-v5.blend",
+      "sourceSha256": "4c58de7c0a42d79457b4f461024c6a231e300637f2dbe6554e7a64352e855d96",
+      "runtime": "assets/generated/village/3d/village-v5.glb",
+      "runtimeSha256": "4b7ef4f222c85fe6ef5ebdeb80c481a2a41bfe9f540c583ca1b3d1c48e225ad2",
+      "sourceRecord": "art/blender/village/v5-textures/provenance.json",
+      "references": [
+        "art/sources/cc0/village-art-v3/provenance.json",
+        "saved access-repaired village-v4.blend"
+      ],
+      "postprocessing": [
+        "Isolated four facade and yard meshes; preserved 253 non-target exported meshes",
+        "Shared 1K plaster, timber and repair colours with per-house factors; original normal/roughness maps",
+        "Independent props and simple collisions from VillageHouseArtLayout3D; no terrain or layout changes"
+      ],
+      "parameters": {
+        "sampleOnly": true,
+        "runtimeGeneration": false,
+        "contentVersion": 6,
+        "houseIds": [
+          "house02",
+          "house03",
+          "house13",
+          "house15"
+        ]
       }
     },
     {
-      "id": "rust_coarse_01",
-      "assetUrl": "https://polyhaven.com/a/rust_coarse_01",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "5b8801674fa53ff1b6f7853300f50aa7a1b31e69278554803bd957fe9fa7e392",
-        "normal": "495d3c87da059827ffaf49dae59f967cb3e0b187f4426ab0a47088c3fa83e50b",
-        "arm": "22f10597662e8d5268f79960d23c4a03790a2083f9f05d0680c3535152b26843"
-      }
-    },
-    {
-      "id": "beige_wall_001",
-      "assetUrl": "https://polyhaven.com/a/beige_wall_001",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e",
-        "normal": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
-        "arm": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431"
-      }
-    },
-    {
-      "id": "black_oak_veneer",
-      "assetUrl": "https://polyhaven.com/a/black_oak_veneer",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "d2653c9cf8e05171ba2256c92315cf39fe230482b433a6a9c02cf26ef566624c",
-        "normal": "1d4c099204ad713b47a9e10799de7e31623f0ce7c5fab18712b339ba9760a80a",
-        "arm": "9084ea54de3a19368868501ec1e0c7b633ded32bb8e824301e9999f4374adb2c"
-      }
-    },
-    {
-      "id": "fabric_pattern_07",
-      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
-        "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
-        "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
-      }
-    },
-    {
-      "id": "terrazzo_tiles",
-      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
-        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
-        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
-      }
+      "id": "village_home_trees_v6",
+      "status": "adopted-2026-09-15",
+      "date": "2026-09-15",
+      "generator": "Blender offline modelling; saved v5 and home v1 derivatives",
+      "model": "Blender 5.2.0 LTS",
+      "sourceFile": "art/blender/village/village-v6.blend",
+      "gameFile": "village/3d/village-v6.glb",
+      "homeSourceFile": "art/blender/home/home-identity-v2.blend",
+      "homeGameFile": "home/3d/home-identity-v2.glb",
+      "sourceSha256": "343b94ef2e849eedf407d3955e44478f0ccac44e85a2b3f70186e69d7ceded4f",
+      "runtimeGlbSha256": "4454a4cf452fd803f2e309404926ddde166a7bd4d359355384166e319bce36a7",
+      "homeSourceSha256": "e1c755ee46c5b3efdc08600c909049183319b553da4b689ac9b1f93ea9f3dfe2",
+      "homeGlbSha256": "7e689750980220818bef337b2d12f1b30d67da366c2c75f47872676bd85dc173",
+      "prompt": "Approved warm ivory maintained home, muted ochre red open yard gate, timber porch, old bicycle and shelf. Extend existing soft semi-realistic broadleaf art to 55 ordinary trees with three shared variants. Preserve 3 improved trees, all anchors, repaired terrain, v5 houses and shops. No story props, interiors, new interactions or image generation.",
+      "sourceRecords": [
+        "art/sources/cc0/village-art-v3/provenance.json",
+        "art/blender/village/v5-textures/provenance.json",
+        "assets/generated/home/3d/home-v1-manifest.json"
+      ],
+      "license": "Reuses previously adopted CC0 materials; no downloads, purchases or AI images",
+      "referenceImages": [],
+      "parameters": {
+        "treeSeedBase": 613,
+        "ordinaryTreeVariants": 3,
+        "treeTriangleLimit": 1900,
+        "units": "metres",
+        "runtimeGeneration": false
+      },
+      "postprocessing": [
+        "exterior face material isolation",
+        "identical packed-image deduplication",
+        "shared tree mesh variants",
+        "alpha scissor 0.45 and double-sided foliage",
+        "Godot automatic LOD import for three new tree meshes only",
+        "VRAM-compressed mipmapped textures",
+        "saved-source export with temporary deterministic verification"
+      ]
     }
   ]
-},
-{
-  "id": "dream_music_room_runtime_v2",
-  "sourceFile": "art/blender/dream_music/music-room-art-pass-v2.blend",
-  "gameFile": "dream_escape/3d/music-room-art-pass-v2.glb",
-  "status": "adopted-runtime-default",
-  "generator": "Blender Python offline procedural modeling",
-  "model": "Blender 5.2.0 LTS",
-  "date": "2026-09-09",
-  "script": "scripts/tools/remodel_music_v2.py",
-  "prompt": "Approved 12x10x4m old school music classroom; six timber and steel chairs, real upright piano, four-instrument calibration, 3.2m equipment room with traversable unlocked door, school joinery and readable west daylight.",
-  "referenceImages": [
-    "outputs/music-room-3d-review/01-entry-overview.png"
-  ],
-  "styleReferences": [
-    "doc/engineering/classroom-remodel-v6.md"
-  ],
-  "parameters": {
-    "layoutSource": "scripts/presentation/MusicRoomLayout3D.cs",
-    "layoutVersion": 2,
-    "seed": 0,
-    "runtimeGeneration": false
-  },
-  "postprocessing": [
-    "per-component metric UVs",
-    "applied bevels",
-    "packed adopted CC0 PBR textures",
-    "GLB with stable state anchors; no characters, animations, cameras or lights"
-  ],
-  "sourceSha256": "c4f199750ef62811f0745266f22f8885f541d9b1662ccfbea01219b3bc2bd8a8",
-  "runtimeGlbSha256": "2d4a66863242a23d327424c3da61fc4a4f0f4b8f3371fd55ed012b99eae3b696",
-  "sourceAssets": [
-    {
-      "id": "painted_plaster_wall",
-      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
-        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
-        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
-      }
-    },
-    {
-      "id": "oak_veneer_01",
-      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
-        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
-        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
-      }
-    },
-    {
-      "id": "terrazzo_tiles",
-      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
-        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
-        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
-      }
-    }
-  ]
-},
-{
-  "id": "dream_archive_room_runtime_v2",
-  "sourceFile": "art/blender/dream_late_rooms/dream-archive-room-v2.blend",
-  "gameFile": "dream_escape/3d/dream-archive-room-v2.glb",
-  "status": "adopted-runtime-default",
-  "generator": "Blender Python offline procedural modeling",
-  "model": "5.2.0 LTS",
-  "date": "2026-09-10",
-  "script": "scripts/tools/remodel_archive_v2.py",
-  "prompt": "Approved 14x12x4.2m school archive and recording repair room; west and north filing, central retrieval table, east repair and reel recorder, south timeline, real joinery and supported documents. Preserve 13 interaction IDs.",
-  "referenceImages": [
-    "outputs/late-rooms-v2/before"
-  ],
-  "parameters": {
-    "layoutSource": "scripts/presentation/ArchiveRoomLayout3D.cs",
-    "layoutVersion": 2,
-    "seed": 0,
-    "runtimeGeneration": false
-  },
-  "postprocessing": [
-    "metric UVs",
-    "applied bevels",
-    "packed adopted CC0 textures",
-    "stable physical state anchors; no character or animation data"
-  ],
-  "sourceSha256": "c31a608c1c306f3504e111003cd1fb027d16c74ca6445199e7b2590eafdbf319",
-  "runtimeGlbSha256": "606660d2567a12c365f9e3e2cb1efabf8d4099cf03ed697f3c6a0dcd8c2c4fa5",
-  "sourceAssets": [
-    {
-      "id": "painted_plaster_wall",
-      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
-        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
-        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
-      }
-    },
-    {
-      "id": "oak_veneer_01",
-      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
-        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
-        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
-      }
-    },
-    {
-      "id": "terrazzo_tiles",
-      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
-        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
-        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
-      }
-    }
-  ]
-},
-{
-  "id": "dream_auditorium_runtime_v2",
-  "sourceFile": "art/blender/dream_late_rooms/dream-auditorium-room-v2.blend",
-  "gameFile": "dream_escape/3d/dream-auditorium-room-v2.glb",
-  "status": "adopted-runtime-default",
-  "generator": "Blender Python offline procedural modeling",
-  "model": "5.2.0 LTS",
-  "date": "2026-09-10",
-  "script": "scripts/tools/remodel_auditorium_v2.py",
-  "prompt": "Approved 22x16x7.5m old school auditorium, 32 linked upholstered seats, continuous ground-level central and side work aisles, scenic raised stage with pleated curtain, physical fly rail, shadow discs, tape splicing and cooperation controls. Preserve 15 interaction IDs.",
-  "referenceImages": [
-    "outputs/late-rooms-v2/before/auditorium"
-  ],
-  "parameters": {
-    "layoutSource": "scripts/presentation/AuditoriumLayout3D.cs",
-    "layoutVersion": 2,
-    "seed": 0,
-    "runtimeGeneration": false
-  },
-  "postprocessing": [
-    "metric UVs",
-    "applied bevels",
-    "32 seats share one mesh",
-    "packed adopted CC0 PBR textures",
-    "stable physical state anchors; no character or animation data"
-  ],
-  "sourceSha256": "4352fe1228ff4f3746979d519e5400afa11c23e0345d22c5e024a1164bfafcc6",
-  "runtimeGlbSha256": "f0d5b0323769dd9da1e66800b4417918ff169228064145fb05c4038f1a894263",
-  "sourceAssets": [
-    {
-      "id": "painted_plaster_wall",
-      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
-        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
-        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
-      }
-    },
-    {
-      "id": "oak_veneer_01",
-      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
-        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
-        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
-      }
-    },
-    {
-      "id": "fabric_pattern_07",
-      "assetUrl": "https://polyhaven.com/a/fabric_pattern_07",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "1f4941638b890d4535b1078067be8a831ca302d1e696ed959b4e4512de893cba",
-        "normal": "84f15ee5f6b63e7e224051a22426c751cc1fe15a794efd001ebfdb5f84828602",
-        "arm": "68b0e04fbee9a5e5e896f4e3826376149745afb67b1cf3f5a1144687f33c669f"
-      }
-    },
-    {
-      "id": "terrazzo_tiles",
-      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
-        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
-        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
-      }
-    }
-  ]
-},
-{
-  "id": "home_environment_v1",
-  "status": "adopted-independent-preview",
-  "sourceFile": "art/blender/home/home-v1.blend",
-  "gameFile": "home/3d/home-v1.glb",
-  "sourceSha256": "dc955365c9cba90c2cd1a0f3390e9736660b8f02daa8ccfaf672c670d8c2aaea",
-  "runtimeGlbSha256": "9e12936af1165c2dcb35b2e8475838e88621081f70a7500c5830debabe347c42",
-  "generator": "Offline Blender Python; original procedural meshes",
-  "model": "5.2.0 LTS",
-  "date": "2026-09-12",
-  "tool": "Blender Python offline procedural modeling",
-  "script": "scripts/tools/build_home_v1.py",
-  "prompt": "User-approved modest inhabited rural bungalow, 12x9m, two bedrooms, living room, kitchen and bathroom, enclosed small courtyard; modern household furniture, maintained plaster and aluminium windows.",
-  "referenceImages": [],
-  "parameters": {
-    "layoutVersion": 1,
-    "units": "metres",
-    "runtimeGeneration": false
-  },
-  "postprocessing": [
-    "component metric UV",
-    "applied bevels",
-    "linked chair and roof meshes",
-    "packed existing CC0 PBR textures"
-  ],
-  "sourceAssets": [
-    {
-      "id": "painted_plaster_wall",
-      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
-        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
-        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
-      }
-    },
-    {
-      "id": "oak_veneer_01",
-      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
-        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
-        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
-      }
-    },
-    {
-      "id": "terrazzo_tiles",
-      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
-        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
-        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
-      }
-    }
-  ]
-},
-{
-  "id": "village_environment_v1",
-  "status": "adopted-independent-preview",
-  "sourceFile": "art/blender/village/village-v1.blend",
-  "gameFile": "village/3d/village-v1.glb",
-  "sourceSha256": "4b3ba31c571f9eaae89fbffde7ca1148d874413aacd3c7f0b45495c9d7199467",
-  "runtimeGlbSha256": "2ea2667aabcdd53141ef152aed64feb94bed33535d173127878759c138fe4bcf",
-  "date": "2026-09-12",
-  "tool": "Blender Python offline procedural modelling",
-  "model": "5.2.0 LTS",
-  "script": "scripts/tools/build_village_v1.py",
-  "prompt": "Approved compact contemporary Chinese mountain village with 24 buildings, a stream, two bridges, two walking loops, shop plaza, disused railway station, and a reusable Home v1 exterior. Full environment, no NPC or story.",
-  "referenceImages": [],
-  "parameters": {
-    "units": "metres",
-    "layoutVersion": 1,
-    "grassSeed": 412,
-    "grassTextureSize": 512,
-    "runtimeGeneration": false
-  },
-  "postprocessing": [
-    "metric UVs",
-    "packed CC0 PBR maps",
-    "linked house and tree meshes",
-    "derived exterior-only Home v1",
-    "font outlines from bundled Source Han Sans 2.005R"
-  ],
-  "sourceAssets": [
-    {
-      "id": "painted_plaster_wall",
-      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
-        "normal": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
-        "arm": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5"
-      }
-    },
-    {
-      "id": "oak_veneer_01",
-      "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
-        "normal": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
-        "arm": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce"
-      }
-    },
-    {
-      "id": "terrazzo_tiles",
-      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles",
-      "license": "CC0 1.0 / Public Domain",
-      "maps": {
-        "diff": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
-        "normal": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
-        "arm": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e"
-      }
-    }
-  ]
-},
-{
-  "id": "village_environment_v2",
-  "status": "adopted-independent-preview",
-  "sourceFile": "art/blender/village/village-v2.blend",
-  "gameFile": "village/3d/village-v2.glb",
-  "sourceSha256": "0da03dc2612ec0834970343ec4c0b7d9b4d7c249f2cc1fa86843f86f80a3e110",
-  "runtimeGlbSha256": "3a83569a75e5af85830c84bfc54d142f97abca116f3aa15f3ddb5fe74054d5ba",
-  "date": "2026-09-14",
-  "tool": "Blender offline Python modelling",
-  "model": "5.2.0 LTS",
-  "script": "scripts/tools/build_village_v2.py",
-  "prompt": "Approved first village exterior batch: everyday village desk and noticeboard, grocery loading, woodworking repair workshop. No story interactions.",
-  "referenceImages": [
-    "outputs/village-v1/validation/1920x1080/05-shop.png",
-    "outputs/village-v1/validation/1920x1080/06-plaza-tree.png",
-    "outputs/village-v1/validation/1920x1080/09-workshop.png"
-  ],
-  "parameters": {
-    "units": "metres",
-    "baseVersion": 1,
-    "exteriorVersion": 2,
-    "bevelMetres": 0.008,
-    "runtimeGeneration": false
-  },
-  "sourceAssets": [
-    "saved village-v1.blend",
-    "previously adopted Poly Haven CC0 wood/plaster/stone maps",
-    "original geometry and constant-color materials"
-  ],
-  "postprocessing": [
-    "metric UVs",
-    "small edge bevels",
-    "independent fixture and paper objects",
-    "preserved baseline geometry verified by fingerprint"
-  ]
-}
-]
 }

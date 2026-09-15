@@ -24,7 +24,10 @@
     <Compile Include="..\..\scripts\presentation\CompanionMotionState.cs" Link="Presentation\CompanionMotionState.cs" />
     <Compile Include="..\..\scripts\presentation\SubtitlePagination.cs" Link="Presentation\SubtitlePagination.cs" />
     <Compile Include="..\..\scripts\presentation\HomeLayout3D.cs" Link="Presentation\HomeLayout3D.cs" />
+    <Compile Include="..\..\scripts\presentation\HomeIdentityLayout3D.cs" Link="Presentation\HomeIdentityLayout3D.cs" />
     <Compile Include="..\..\scripts\presentation\HomeDoorMotion.cs" Link="Presentation\HomeDoorMotion.cs" />
+    <Compile Include="..\..\scripts\presentation\VillageLayoutProfile3D.cs" Link="Presentation\VillageLayoutProfile3D.cs" />
+    <Compile Include="..\..\scripts\presentation\VillageHouseArtLayout3D.cs" Link="Presentation\VillageHouseArtLayout3D.cs" />
     <Compile Include="..\..\scripts\presentation\VillageLayout3D.cs" Link="Presentation\VillageLayout3D.cs" />
     <Compile Include="..\..\scripts\presentation\VillageExteriorLayout3D.cs" Link="Presentation\VillageExteriorLayout3D.cs" />
     <Compile Include="..\..\scripts\presentation\TerrainMotionRules.cs" Link="Presentation\TerrainMotionRules.cs" />

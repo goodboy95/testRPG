@@ -43,7 +43,8 @@ public sealed class VillageExplorationService(GameState game)
         if (location is not (VillageExplorationState.HomeLocation or VillageExplorationState.VillageLocation) ||
             !float.IsFinite(state.X) || !float.IsFinite(state.Y) || !float.IsFinite(state.Z) ||
             !float.IsFinite(state.FacingRadians) || !float.IsFinite(state.CameraYaw) ||
-            state.Doors is null || state.Lights is null ||
+            state.Doors is null || state.DoorOpenSides is null || state.Lights is null ||
+            state.DoorOpenSides.Any(pair => !VillageExplorationState.DoorIds.Contains(pair.Key) || pair.Value is not (-1 or 1)) ||
             state.Doors.Keys.Any(key => !VillageExplorationState.DoorIds.Contains(key)) ||
             state.Lights.Keys.Any(key => !VillageExplorationState.LightIds.Contains(key)))
             throw new InvalidDataException("Invalid village exploration state.");

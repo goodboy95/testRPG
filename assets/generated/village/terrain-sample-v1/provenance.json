@@ -1,0 +1,66 @@
+{
+  "date": "2026-09-14",
+  "generator": "Offline Python 3.14 + Pillow + NumPy; Godot 4.6.3 .NET; Terrain3D 1.0.2",
+  "model": "Not applicable; no AI image generation",
+  "plugin": {
+    "version": "1.0.2",
+    "license": "MIT",
+    "url": "https://github.com/TokisanGames/Terrain3D/releases/download/v1.0.2-stable/Terrain3D_v1.0.2-stable.zip",
+    "sha256": "a071850250ec5e596aa54da61c01d75768774eb379ee997584d426a45f4884a2",
+    "windows": {
+      "libterrain.windows.debug.x86_64.dll": "bf72686a7e1d8d8370ba9ba5eaa70c59375ee2cb5638d63b8942f1ad7d448cda",
+      "libterrain.windows.release.x86_64.dll": "40900e649c3c6c7619c383d28732c3e2e8dc87c2938de43b29122a668aedcf86"
+    }
+  },
+  "materials": [
+    {
+      "id": "Grass001",
+      "url": "https://ambientcg.com/a/Grass001",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://docs.ambientcg.com/license/",
+      "sourceArchive": "Grass001_1K-PNG.zip",
+      "sha256": "43e6807e6fab786978a967a74b0a3abae9b43fadcce0f269e2e8045c758d5a3e"
+    },
+    {
+      "id": "Ground037",
+      "url": "https://ambientcg.com/a/Ground037",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://docs.ambientcg.com/license/",
+      "sourceArchive": "Ground037_1K-PNG.zip",
+      "sha256": "cbd75f0660870b3299a68c4fe7fd54efb3951cf992d4295961209619eb284c47"
+    },
+    {
+      "id": "Ground031",
+      "url": "https://ambientcg.com/a/Ground031",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://docs.ambientcg.com/license/",
+      "sourceArchive": "Ground031_1K-PNG.zip",
+      "sha256": "30a2fb5ceda10aba8d01c33b3a153e6154b8a65614af028f8f9329ceeba66bbe"
+    },
+    {
+      "id": "Gravel014",
+      "url": "https://ambientcg.com/a/Gravel014",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://docs.ambientcg.com/license/",
+      "sourceArchive": "Gravel014_1K-PNG.zip",
+      "sha256": "ce08ed3540c01187eed3829b61bd9d7a9d915e154a1a48bc5d572fbe15a6bd81"
+    }
+  ],
+  "postprocessing": [
+    "1K albedo RGB with displacement in alpha",
+    "OpenGL normals RGB with roughness in alpha",
+    "Grass saturation 0.68 brightness 1.07; others saturation 0.8 brightness 0.92",
+    "Mipmaps enabled; packed normal data preserved, no automatic normal conversion",
+    "Deterministic masks and 55 shared-mesh grass/stone instances; no runtime procedural scattering"
+  ],
+  "files": {
+    "Grass001-albedo-height.png": "6f955c0a7e15aa40ddc1ff048038103622d99f2f31a120cc92c26cd1afd57698",
+    "Grass001-normal-roughness.png": "ea601907788ad2a69002f20f4807f99f84d4e59bd65b91d90f9d6a22ca5c6c16",
+    "Gravel014-albedo-height.png": "40d51b79ee1be67a416a292342b1578eb35ffc10b69e56bb9a52b4a89359918e",
+    "Gravel014-normal-roughness.png": "8202f13a013ef42b2aef39e7d9e24fb9a1c92bd6ed5252d3049334480a96f1f8",
+    "Ground031-albedo-height.png": "25fe157838381682c564be954beffa2f6a43382c1b6780ef4dafc9f141d14499",
+    "Ground031-normal-roughness.png": "a33fc662f19900cd3a1b3db283335b9f556d2ec7e1779d73b895519b9ad1d466",
+    "Ground037-albedo-height.png": "0f058a3f1a64d596f0fece3a103357e5178eebff148534d7b6c601942592ce7f",
+    "Ground037-normal-roughness.png": "331104f54b36d9491707ed67abf0aee6f45cff259f13c18eecc4de85dbae2e02"
+  }
+}

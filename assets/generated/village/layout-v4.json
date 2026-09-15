@@ -1,0 +1,2223 @@
+{
+  "version": 4,
+  "geometry": {
+    "version": 4,
+    "bounds": [
+      -104,
+      -112,
+      208,
+      216
+    ],
+    "grid": 1,
+    "spawn": [
+      -56,
+      0,
+      49
+    ],
+    "buildings": [
+      {
+        "id": "home",
+        "kind": "home",
+        "position": [
+          -56,
+          0.0,
+          40
+        ],
+        "size": [
+          12,
+          3.2,
+          9
+        ],
+        "yaw": 0,
+        "variant": 0
+      },
+      {
+        "id": "house02",
+        "kind": "house",
+        "position": [
+          -71,
+          0.0,
+          40
+        ],
+        "size": [
+          9,
+          3.5,
+          7
+        ],
+        "yaw": 0,
+        "variant": 0
+      },
+      {
+        "id": "house03",
+        "kind": "house",
+        "position": [
+          -40,
+          0.0,
+          40
+        ],
+        "size": [
+          10,
+          6.1,
+          7
+        ],
+        "yaw": 0,
+        "variant": 1
+      },
+      {
+        "id": "house04",
+        "kind": "house",
+        "position": [
+          -71,
+          -1.215,
+          67
+        ],
+        "size": [
+          8,
+          3.3,
+          7
+        ],
+        "yaw": 180,
+        "variant": 2
+      },
+      {
+        "id": "house05",
+        "kind": "house",
+        "position": [
+          -56,
+          -1.215,
+          67
+        ],
+        "size": [
+          10,
+          3.5,
+          7
+        ],
+        "yaw": 180,
+        "variant": 0
+      },
+      {
+        "id": "house06",
+        "kind": "house",
+        "position": [
+          -40,
+          -1.215,
+          67
+        ],
+        "size": [
+          9,
+          6.1,
+          7
+        ],
+        "yaw": 180,
+        "variant": 3
+      },
+      {
+        "id": "house07",
+        "kind": "house",
+        "position": [
+          -71,
+          1.035,
+          17
+        ],
+        "size": [
+          10,
+          3.5,
+          8
+        ],
+        "yaw": 0,
+        "variant": 2
+      },
+      {
+        "id": "house08",
+        "kind": "house",
+        "position": [
+          -71,
+          1.845,
+          -1
+        ],
+        "size": [
+          9,
+          3.3,
+          7
+        ],
+        "yaw": 0,
+        "variant": 3
+      },
+      {
+        "id": "house09",
+        "kind": "house",
+        "position": [
+          -71,
+          2.7,
+          -20
+        ],
+        "size": [
+          10,
+          3.5,
+          7
+        ],
+        "yaw": 90,
+        "variant": 0
+      },
+      {
+        "id": "house10",
+        "kind": "house",
+        "position": [
+          -53,
+          2.25,
+          -10
+        ],
+        "size": [
+          9,
+          6.1,
+          7
+        ],
+        "yaw": 0,
+        "variant": 1
+      },
+      {
+        "id": "house11",
+        "kind": "house",
+        "position": [
+          -54,
+          3.285,
+          -33
+        ],
+        "size": [
+          8,
+          3.3,
+          7
+        ],
+        "yaw": 90,
+        "variant": 2
+      },
+      {
+        "id": "house12",
+        "kind": "house",
+        "position": [
+          -4,
+          2.745,
+          -21
+        ],
+        "size": [
+          10,
+          3.5,
+          8
+        ],
+        "yaw": 90,
+        "variant": 3
+      },
+      {
+        "id": "house13",
+        "kind": "house",
+        "position": [
+          18,
+          0.0,
+          40
+        ],
+        "size": [
+          10,
+          3.5,
+          7
+        ],
+        "yaw": 180,
+        "variant": 0
+      },
+      {
+        "id": "house14",
+        "kind": "house",
+        "position": [
+          20,
+          1.62,
+          4
+        ],
+        "size": [
+          9,
+          3.3,
+          7
+        ],
+        "yaw": 180,
+        "variant": 2
+      },
+      {
+        "id": "house15",
+        "kind": "house",
+        "position": [
+          81,
+          0.0,
+          40
+        ],
+        "size": [
+          9,
+          3.5,
+          7
+        ],
+        "yaw": 180,
+        "variant": 3
+      },
+      {
+        "id": "house16",
+        "kind": "house",
+        "position": [
+          83,
+          0.9,
+          20
+        ],
+        "size": [
+          10,
+          6.1,
+          7
+        ],
+        "yaw": 270,
+        "variant": 1
+      },
+      {
+        "id": "house17",
+        "kind": "house",
+        "position": [
+          83,
+          1.755,
+          1
+        ],
+        "size": [
+          9,
+          3.5,
+          7
+        ],
+        "yaw": 270,
+        "variant": 0
+      },
+      {
+        "id": "house18",
+        "kind": "house",
+        "position": [
+          81,
+          2.79,
+          -22
+        ],
+        "size": [
+          10,
+          3.5,
+          8
+        ],
+        "yaw": 180,
+        "variant": 2
+      },
+      {
+        "id": "shop",
+        "kind": "shop",
+        "position": [
+          -20,
+          1.935,
+          16
+        ],
+        "size": [
+          12,
+          3.8,
+          9
+        ],
+        "yaw": 0,
+        "variant": 0
+      },
+      {
+        "id": "clinic",
+        "kind": "clinic",
+        "position": [
+          10,
+          1.08,
+          16
+        ],
+        "size": [
+          10,
+          3.5,
+          8
+        ],
+        "yaw": 0,
+        "variant": 1
+      },
+      {
+        "id": "workshop",
+        "kind": "workshop",
+        "position": [
+          -23,
+          2.7,
+          -4
+        ],
+        "size": [
+          12,
+          3.6,
+          8
+        ],
+        "yaw": 0,
+        "variant": 2
+      },
+      {
+        "id": "community",
+        "kind": "community",
+        "position": [
+          -48,
+          1.125,
+          15
+        ],
+        "size": [
+          10,
+          4.0,
+          8
+        ],
+        "yaw": 90,
+        "variant": 3
+      },
+      {
+        "id": "station",
+        "kind": "station",
+        "position": [
+          -29,
+          3.87,
+          -46
+        ],
+        "size": [
+          20,
+          4.3,
+          9
+        ],
+        "yaw": 0,
+        "variant": 0
+      },
+      {
+        "id": "rail_shed",
+        "kind": "rail_shed",
+        "position": [
+          0,
+          3.645,
+          -41
+        ],
+        "size": [
+          8,
+          3.2,
+          6
+        ],
+        "yaw": 0,
+        "variant": 2
+      }
+    ],
+    "roads": [
+      {
+        "id": "home_lane",
+        "width": 4,
+        "surface": "concrete",
+        "points": [
+          [
+            -82,
+            55
+          ],
+          [
+            -56,
+            55
+          ],
+          [
+            -30,
+            53
+          ],
+          [
+            -28,
+            32
+          ],
+          [
+            -20,
+            24
+          ],
+          [
+            -8,
+            25
+          ]
+        ]
+      },
+      {
+        "id": "home_gate",
+        "width": 2.8,
+        "surface": "concrete",
+        "points": [
+          [
+            -56,
+            51.8
+          ],
+          [
+            -56,
+            55
+          ]
+        ]
+      },
+      {
+        "id": "south_loop",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            -82,
+            55
+          ],
+          [
+            -82,
+            29
+          ],
+          [
+            -71,
+            29
+          ],
+          [
+            -58,
+            29
+          ],
+          [
+            -58,
+            4
+          ],
+          [
+            -71,
+            4
+          ],
+          [
+            -71,
+            10
+          ]
+        ]
+      },
+      {
+        "id": "community_path",
+        "width": 2.5,
+        "surface": "concrete",
+        "points": [
+          [
+            -37,
+            15
+          ],
+          [
+            -34,
+            15
+          ],
+          [
+            -34,
+            22
+          ],
+          [
+            -32,
+            25
+          ]
+        ]
+      },
+      {
+        "id": "north_spine",
+        "width": 4,
+        "surface": "concrete",
+        "points": [
+          [
+            -8,
+            25
+          ],
+          [
+            -8,
+            9
+          ],
+          [
+            7,
+            -7
+          ],
+          [
+            9,
+            -16
+          ],
+          [
+            12,
+            -35
+          ],
+          [
+            7,
+            -30
+          ],
+          [
+            -14,
+            -25
+          ],
+          [
+            -28,
+            -33
+          ],
+          [
+            -28,
+            -39
+          ]
+        ]
+      },
+      {
+        "id": "west_return",
+        "width": 3.5,
+        "surface": "stone",
+        "points": [
+          [
+            -32,
+            25
+          ],
+          [
+            -34,
+            22
+          ],
+          [
+            -34,
+            7
+          ],
+          [
+            -36,
+            -12
+          ],
+          [
+            -37,
+            -27
+          ],
+          [
+            -28,
+            -33
+          ]
+        ]
+      },
+      {
+        "id": "creek_south",
+        "width": 3.5,
+        "surface": "concrete",
+        "points": [
+          [
+            -8,
+            25
+          ],
+          [
+            0,
+            28
+          ],
+          [
+            16,
+            28
+          ],
+          [
+            38,
+            28
+          ],
+          [
+            66,
+            28
+          ],
+          [
+            68,
+            26
+          ]
+        ]
+      },
+      {
+        "id": "creek_north",
+        "width": 3.5,
+        "surface": "stone",
+        "points": [
+          [
+            9,
+            -16
+          ],
+          [
+            22,
+            -26
+          ],
+          [
+            28,
+            -30
+          ],
+          [
+            38,
+            -31
+          ],
+          [
+            65,
+            -31
+          ],
+          [
+            68,
+            -31
+          ]
+        ]
+      },
+      {
+        "id": "west_bank",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            38,
+            28
+          ],
+          [
+            36,
+            6
+          ],
+          [
+            35,
+            -13
+          ],
+          [
+            36,
+            -31
+          ]
+        ]
+      },
+      {
+        "id": "east_bank",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            68,
+            26
+          ],
+          [
+            68,
+            2
+          ],
+          [
+            68,
+            -31
+          ],
+          [
+            73,
+            -40
+          ],
+          [
+            80,
+            -45
+          ]
+        ]
+      },
+      {
+        "id": "south_return",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            16,
+            28
+          ],
+          [
+            9,
+            28
+          ],
+          [
+            1,
+            46
+          ],
+          [
+            -15,
+            51
+          ],
+          [
+            -30,
+            53
+          ]
+        ]
+      },
+      {
+        "id": "workshop_path",
+        "width": 2.5,
+        "surface": "concrete",
+        "points": [
+          [
+            -23,
+            2
+          ],
+          [
+            -29,
+            11
+          ],
+          [
+            -34,
+            7
+          ]
+        ]
+      },
+      {
+        "id": "station_court",
+        "width": 4,
+        "surface": "concrete",
+        "points": [
+          [
+            -41,
+            -37
+          ],
+          [
+            -28,
+            -37
+          ],
+          [
+            -12,
+            -34
+          ],
+          [
+            0,
+            -35
+          ],
+          [
+            12,
+            -35
+          ]
+        ]
+      },
+      {
+        "id": "west_houses",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            -60,
+            -20
+          ],
+          [
+            -58,
+            -20
+          ],
+          [
+            -37,
+            -27
+          ],
+          [
+            -34,
+            7
+          ]
+        ]
+      },
+      {
+        "id": "north_house",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            -45,
+            -33
+          ],
+          [
+            -37,
+            -33
+          ],
+          [
+            -37,
+            -27
+          ]
+        ]
+      },
+      {
+        "id": "house10_entry",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            -53,
+            0.5
+          ],
+          [
+            -53,
+            4
+          ],
+          [
+            -58,
+            4
+          ]
+        ]
+      },
+      {
+        "id": "house07_entry",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            -71,
+            29
+          ],
+          [
+            -71,
+            28
+          ]
+        ]
+      },
+      {
+        "id": "house14_entry",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            20,
+            -6.5
+          ],
+          [
+            20,
+            -10
+          ],
+          [
+            7,
+            -7
+          ]
+        ]
+      },
+      {
+        "id": "east_houses",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            72.5,
+            20
+          ],
+          [
+            68,
+            20
+          ],
+          [
+            68,
+            1
+          ],
+          [
+            72.5,
+            1
+          ]
+        ]
+      },
+      {
+        "id": "east_south_entry",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            81,
+            29.5
+          ],
+          [
+            81,
+            27
+          ],
+          [
+            68,
+            26
+          ]
+        ]
+      },
+      {
+        "id": "east_north_entry",
+        "width": 2.5,
+        "surface": "stone",
+        "points": [
+          [
+            81,
+            -32
+          ],
+          [
+            81,
+            -36
+          ],
+          [
+            73,
+            -36
+          ]
+        ]
+      }
+    ],
+    "bridges": [
+      {
+        "id": "south",
+        "z": 28,
+        "width": 3.6,
+        "halfSpan": 13
+      },
+      {
+        "id": "north",
+        "z": -31,
+        "width": 3.6,
+        "halfSpan": 13
+      }
+    ],
+    "utilityPoles": [
+      [
+        -84,
+        29
+      ],
+      [
+        -82,
+        58
+      ],
+      [
+        -31,
+        60
+      ],
+      [
+        -30,
+        37
+      ],
+      [
+        3,
+        26
+      ],
+      [
+        -40,
+        -13
+      ],
+      [
+        -40,
+        -35
+      ],
+      [
+        -17,
+        -50
+      ]
+    ],
+    "landmarks": [
+      {
+        "id": "plaza_tree",
+        "position": [
+          -28,
+          1.35,
+          29
+        ],
+        "size": [
+          2.6,
+          1,
+          2.6
+        ]
+      },
+      {
+        "id": "shop_bench",
+        "position": [
+          -25,
+          1.935,
+          23.1
+        ],
+        "size": [
+          2.2,
+          0.85,
+          0.6
+        ]
+      },
+      {
+        "id": "shop_crates",
+        "position": [
+          -15.5,
+          1.935,
+          22.5
+        ],
+        "size": [
+          1.5,
+          1.0,
+          1
+        ]
+      },
+      {
+        "id": "noticeboard",
+        "position": [
+          -31.5,
+          1.7,
+          26
+        ],
+        "size": [
+          2.1,
+          2,
+          0.35
+        ]
+      },
+      {
+        "id": "station_bench",
+        "position": [
+          -35,
+          3.8699999999999997,
+          -38.5
+        ],
+        "size": [
+          2.4,
+          0.85,
+          0.6
+        ]
+      },
+      {
+        "id": "station_luggage",
+        "position": [
+          -21,
+          3.8699999999999997,
+          -39.5
+        ],
+        "size": [
+          1.8,
+          0.6,
+          0.8
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "id": "home_shop",
+        "points": [
+          [
+            -56,
+            49
+          ],
+          [
+            -56,
+            55
+          ],
+          [
+            -30,
+            53
+          ],
+          [
+            -28,
+            32
+          ],
+          [
+            -20,
+            24
+          ]
+        ]
+      },
+      {
+        "id": "creek_loop",
+        "points": [
+          [
+            -8,
+            25
+          ],
+          [
+            0,
+            28
+          ],
+          [
+            16,
+            28
+          ],
+          [
+            38,
+            28
+          ],
+          [
+            66,
+            28
+          ],
+          [
+            68,
+            26
+          ],
+          [
+            68,
+            2
+          ],
+          [
+            68,
+            -31
+          ],
+          [
+            65,
+            -31
+          ],
+          [
+            38,
+            -31
+          ],
+          [
+            28,
+            -30
+          ],
+          [
+            22,
+            -26
+          ],
+          [
+            9,
+            -16
+          ],
+          [
+            -8,
+            9
+          ],
+          [
+            -12,
+            25
+          ],
+          [
+            -28,
+            32
+          ],
+          [
+            -30,
+            53
+          ],
+          [
+            -56,
+            55
+          ],
+          [
+            -56,
+            49
+          ]
+        ]
+      },
+      {
+        "id": "rail_loop",
+        "points": [
+          [
+            -32,
+            25
+          ],
+          [
+            -34,
+            22
+          ],
+          [
+            -34,
+            7
+          ],
+          [
+            -36,
+            -12
+          ],
+          [
+            -37,
+            -27
+          ],
+          [
+            -28,
+            -33
+          ],
+          [
+            -28,
+            -37
+          ],
+          [
+            -12,
+            -34
+          ],
+          [
+            0,
+            -35
+          ],
+          [
+            12,
+            -35
+          ],
+          [
+            9,
+            -16
+          ],
+          [
+            7,
+            -7
+          ],
+          [
+            -8,
+            9
+          ],
+          [
+            -8,
+            25
+          ],
+          [
+            -32,
+            25
+          ]
+        ]
+      }
+    ]
+  },
+  "fixtures": {
+    "version": 4,
+    "replacedLandmarks": [
+      "noticeboard",
+      "shop_bench",
+      "shop_crates"
+    ],
+    "props": [
+      {
+        "id": "Noticeboard",
+        "kind": "board",
+        "position": [
+          -31.5,
+          1.7,
+          26
+        ],
+        "size": [
+          2.2,
+          2.15,
+          0.45
+        ],
+        "solid": true
+      },
+      {
+        "id": "VillageDesk",
+        "kind": "desk",
+        "position": [
+          -35,
+          1.3147,
+          25.95
+        ],
+        "size": [
+          1.4,
+          0.78,
+          0.7
+        ],
+        "solid": true
+      },
+      {
+        "id": "VillageChair",
+        "kind": "chair",
+        "position": [
+          -35,
+          1.5,
+          25
+        ],
+        "size": [
+          0.48,
+          0.95,
+          0.5
+        ],
+        "solid": true
+      },
+      {
+        "id": "PaperCabinet",
+        "kind": "cabinet",
+        "position": [
+          -36.3,
+          1.383,
+          25.6
+        ],
+        "size": [
+          0.55,
+          1.05,
+          0.48
+        ],
+        "solid": true
+      },
+      {
+        "id": "CollectionBox",
+        "kind": "mailbox",
+        "position": [
+          -33.8,
+          1.3732,
+          25.65
+        ],
+        "size": [
+          0.4,
+          1.25,
+          0.3
+        ],
+        "solid": true
+      },
+      {
+        "id": "PlazaBench",
+        "kind": "bench",
+        "position": [
+          -37,
+          1.125,
+          29.2
+        ],
+        "size": [
+          2.2,
+          0.85,
+          0.6
+        ],
+        "solid": true
+      },
+      {
+        "id": "DeliveryTable",
+        "kind": "table",
+        "position": [
+          -23.5,
+          1.985,
+          21.5
+        ],
+        "size": [
+          1.6,
+          0.85,
+          0.7
+        ],
+        "solid": true
+      },
+      {
+        "id": "DryGoods",
+        "kind": "sacks",
+        "position": [
+          -17,
+          1.985,
+          21.5
+        ],
+        "size": [
+          2,
+          0.95,
+          1.2
+        ],
+        "solid": true
+      },
+      {
+        "id": "EmptyCrates",
+        "kind": "crates",
+        "position": [
+          -17,
+          1.985,
+          22.7
+        ],
+        "size": [
+          1.4,
+          0.85,
+          0.65
+        ],
+        "solid": true
+      },
+      {
+        "id": "Handcart",
+        "kind": "cart",
+        "position": [
+          -26.7,
+          1.875,
+          27.1
+        ],
+        "size": [
+          1,
+          1.1,
+          1.8
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopBench",
+        "kind": "bench",
+        "position": [
+          -25,
+          1.8283,
+          27.3
+        ],
+        "size": [
+          2.2,
+          0.85,
+          0.6
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopFridge",
+        "kind": "fridge",
+        "position": [
+          -24.7,
+          1.985,
+          20.95
+        ],
+        "size": [
+          0.85,
+          1.65,
+          0.55
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopPostLeft",
+        "kind": "post",
+        "position": [
+          -25.5,
+          1.985,
+          22.7
+        ],
+        "size": [
+          0.12,
+          2.85,
+          0.12
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopPostRight",
+        "kind": "post",
+        "position": [
+          -15.8,
+          1.985,
+          22.7
+        ],
+        "size": [
+          0.12,
+          2.85,
+          0.12
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkTable",
+        "kind": "workbench",
+        "position": [
+          -19.3,
+          2.75,
+          0.75
+        ],
+        "size": [
+          2.4,
+          0.85,
+          0.8
+        ],
+        "solid": true
+      },
+      {
+        "id": "ToolBoard",
+        "kind": "toolboard",
+        "position": [
+          -19.3,
+          3.75,
+          0.1999999999999993
+        ],
+        "size": [
+          2.4,
+          1.25,
+          0.12
+        ],
+        "solid": false
+      },
+      {
+        "id": "RepairCabinet",
+        "kind": "cabinet",
+        "position": [
+          -27.8,
+          2.75,
+          0.5999999999999996
+        ],
+        "size": [
+          1.1,
+          1.8,
+          0.7
+        ],
+        "solid": true
+      },
+      {
+        "id": "PendingStool",
+        "kind": "stool",
+        "position": [
+          -27.5,
+          2.75,
+          2.1999999999999993
+        ],
+        "size": [
+          0.55,
+          0.5,
+          0.5
+        ],
+        "solid": true
+      },
+      {
+        "id": "ReadyStool",
+        "kind": "stool",
+        "position": [
+          -18.2,
+          2.75,
+          4.6
+        ],
+        "size": [
+          0.55,
+          0.5,
+          0.5
+        ],
+        "solid": true
+      },
+      {
+        "id": "TimberRack",
+        "kind": "timber",
+        "position": [
+          -27.9,
+          2.75,
+          4
+        ],
+        "size": [
+          1.5,
+          0.55,
+          0.65
+        ],
+        "solid": true
+      },
+      {
+        "id": "SortingBins",
+        "kind": "bins",
+        "position": [
+          -17.6,
+          2.75,
+          0.8000000000000007
+        ],
+        "size": [
+          0.65,
+          0.65,
+          0.8
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkshopPostWest",
+        "kind": "post",
+        "position": [
+          -28.25,
+          2.75,
+          5.35
+        ],
+        "size": [
+          0.15,
+          3,
+          0.15
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkshopPostEast",
+        "kind": "post",
+        "position": [
+          -17.75,
+          2.75,
+          5.35
+        ],
+        "size": [
+          0.15,
+          3,
+          0.15
+        ],
+        "solid": true
+      },
+      {
+        "id": "ShopRoof",
+        "kind": "overhead",
+        "position": [
+          -20,
+          4.63,
+          21.6
+        ],
+        "size": [
+          11.2,
+          0.44,
+          2.35
+        ],
+        "solid": true
+      },
+      {
+        "id": "WorkshopRoof",
+        "kind": "overhead",
+        "position": [
+          -23,
+          5.6,
+          2.8000000000000007
+        ],
+        "size": [
+          11,
+          0.45,
+          5.6
+        ],
+        "solid": true
+      }
+    ],
+    "zones": [
+      {
+        "id": "BoardReading",
+        "rect": [
+          -33,
+          26.5,
+          3,
+          2.4
+        ]
+      },
+      {
+        "id": "DeskVisitors",
+        "rect": [
+          -36.2,
+          26.4,
+          2.4,
+          2.4
+        ]
+      },
+      {
+        "id": "Loading",
+        "rect": [
+          -25,
+          23,
+          3,
+          3
+        ]
+      },
+      {
+        "id": "ShopEntry",
+        "rect": [
+          -21.4,
+          20.8,
+          2.8,
+          5.5
+        ]
+      },
+      {
+        "id": "CooperativeWork",
+        "rect": [
+          -20.5,
+          1.4000000000000004,
+          2.4,
+          2.4
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "id": "board",
+        "points": [
+          [
+            -28,
+            34
+          ],
+          [
+            -31.5,
+            30
+          ],
+          [
+            -31.5,
+            27.9
+          ]
+        ]
+      },
+      {
+        "id": "desk",
+        "points": [
+          [
+            -31.5,
+            30
+          ],
+          [
+            -35,
+            29
+          ],
+          [
+            -35,
+            27.6
+          ]
+        ]
+      },
+      {
+        "id": "delivery",
+        "points": [
+          [
+            -20,
+            24
+          ],
+          [
+            -21.6,
+            25
+          ],
+          [
+            -23.5,
+            24.5
+          ],
+          [
+            -23.5,
+            22.3
+          ]
+        ]
+      },
+      {
+        "id": "workbench",
+        "points": [
+          [
+            -29,
+            11
+          ],
+          [
+            -23,
+            2
+          ],
+          [
+            -21.5,
+            4
+          ],
+          [
+            -19.3,
+            2.6999999999999993
+          ]
+        ]
+      },
+      {
+        "id": "stool",
+        "points": [
+          [
+            -23,
+            2
+          ],
+          [
+            -25.5,
+            3.5
+          ],
+          [
+            -26.6,
+            2.1999999999999993
+          ]
+        ]
+      }
+    ]
+  },
+  "groups": {
+    "plaza": [
+      -16,
+      0,
+      19
+    ],
+    "shop": [
+      -16,
+      0,
+      19
+    ],
+    "workshop": [
+      0,
+      0,
+      16
+    ],
+    "station": [
+      0,
+      -2.025,
+      45
+    ]
+  },
+  "propGroups": {
+    "Noticeboard": "plaza",
+    "VillageDesk": "plaza",
+    "VillageChair": "plaza",
+    "PaperCabinet": "plaza",
+    "CollectionBox": "plaza",
+    "PlazaBench": "plaza",
+    "DeliveryTable": "shop",
+    "DryGoods": "shop",
+    "EmptyCrates": "shop",
+    "Handcart": "shop",
+    "ShopBench": "shop",
+    "ShopFridge": "shop",
+    "ShopPostLeft": "shop",
+    "ShopPostRight": "shop",
+    "WorkTable": "workshop",
+    "ToolBoard": "workshop",
+    "RepairCabinet": "workshop",
+    "PendingStool": "workshop",
+    "ReadyStool": "workshop",
+    "TimberRack": "workshop",
+    "SortingBins": "workshop",
+    "WorkshopPostWest": "workshop",
+    "WorkshopPostEast": "workshop",
+    "ShopRoof": "shop",
+    "WorkshopRoof": "workshop"
+  },
+  "trees": [
+    {
+      "id": "Tree_000",
+      "x": -94.0,
+      "z": -87.5,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_001",
+      "x": -92.8,
+      "z": -77.5,
+      "height": 5.5,
+      "variant": 0
+    },
+    {
+      "id": "Tree_002",
+      "x": -94.6,
+      "z": -46.5,
+      "height": 7.15,
+      "variant": 1
+    },
+    {
+      "id": "Tree_003",
+      "x": -93.4,
+      "z": -36.5,
+      "height": 6.6,
+      "variant": 0
+    },
+    {
+      "id": "Tree_004",
+      "x": -95.2,
+      "z": -11.0,
+      "height": 5.5,
+      "variant": 1
+    },
+    {
+      "id": "Tree_005",
+      "x": -94.0,
+      "z": 4.5,
+      "height": 7.7,
+      "variant": 0
+    },
+    {
+      "id": "Tree_006",
+      "x": -95.8,
+      "z": 30.0,
+      "height": 6.6,
+      "variant": 1
+    },
+    {
+      "id": "Tree_007",
+      "x": -94.6,
+      "z": 69.0,
+      "height": 6.05,
+      "variant": 2
+    },
+    {
+      "id": "Tree_008",
+      "x": -93.4,
+      "z": 79.0,
+      "height": 5.5,
+      "variant": 1
+    },
+    {
+      "id": "Tree_009",
+      "x": -83.8,
+      "z": -100.5,
+      "height": 7.15,
+      "variant": 1
+    },
+    {
+      "id": "Tree_010",
+      "x": -80.8,
+      "z": -87.0,
+      "height": 7.7,
+      "variant": 1
+    },
+    {
+      "id": "Tree_011",
+      "x": -82.6,
+      "z": -61.5,
+      "height": 6.6,
+      "variant": 2
+    },
+    {
+      "id": "Tree_012",
+      "x": -81.4,
+      "z": -51.5,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_013",
+      "x": -83.2,
+      "z": -20.5,
+      "height": 7.7,
+      "variant": 2
+    },
+    {
+      "id": "Tree_014",
+      "x": -82.0,
+      "z": -10.5,
+      "height": 7.15,
+      "variant": 1
+    },
+    {
+      "id": "Tree_015",
+      "x": -83.8,
+      "z": 15.0,
+      "height": 6.05,
+      "variant": 2
+    },
+    {
+      "id": "Tree_016",
+      "x": -85.3716,
+      "z": 31.6481,
+      "height": 5.5,
+      "variant": 1
+    },
+    {
+      "id": "Tree_017",
+      "x": -70.6,
+      "z": -100.0,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_018",
+      "x": -68.2,
+      "z": -74.5,
+      "height": 7.7,
+      "variant": 2
+    },
+    {
+      "id": "Tree_019",
+      "x": -71.2,
+      "z": -64.5,
+      "height": 7.15,
+      "variant": 1
+    },
+    {
+      "id": "Tree_020",
+      "x": -68.8,
+      "z": -33.5,
+      "height": 6.05,
+      "variant": 2
+    },
+    {
+      "id": "Tree_021",
+      "x": -68.8,
+      "z": 82.0,
+      "height": 7.7,
+      "variant": 0
+    },
+    {
+      "id": "Tree_022",
+      "x": -56.2,
+      "z": -89.5,
+      "height": 7.15,
+      "variant": 0
+    },
+    {
+      "id": "Tree_023",
+      "x": -62.2426,
+      "z": 23.7574,
+      "height": 7.7,
+      "variant": 0
+    },
+    {
+      "id": "Tree_024",
+      "x": -59.8,
+      "z": 82.5,
+      "height": 6.6,
+      "variant": 0
+    },
+    {
+      "id": "Tree_025",
+      "x": -46.0,
+      "z": -102.5,
+      "height": 5.5,
+      "variant": 0
+    },
+    {
+      "id": "Tree_026",
+      "x": -46.6,
+      "z": -61.5,
+      "height": 6.6,
+      "variant": 0
+    },
+    {
+      "id": "Tree_027",
+      "x": -44.2,
+      "z": -12.5,
+      "height": 5.5,
+      "variant": 0
+    },
+    {
+      "id": "Tree_028",
+      "x": -40.3,
+      "z": 28.5,
+      "height": 6.6,
+      "variant": 0
+    },
+    {
+      "id": "Tree_029",
+      "x": -32.8,
+      "z": -102.0,
+      "height": 7.15,
+      "variant": 0
+    },
+    {
+      "id": "Tree_030",
+      "x": -41.564,
+      "z": -29.136,
+      "height": 7.15,
+      "variant": 1
+    },
+    {
+      "id": "Tree_031",
+      "x": -35.2,
+      "z": 80.0,
+      "height": 6.05,
+      "variant": 2
+    },
+    {
+      "id": "Tree_032",
+      "x": -23.2,
+      "z": -53.5,
+      "height": 6.6,
+      "variant": 2
+    },
+    {
+      "id": "Tree_033",
+      "x": -25.4442,
+      "z": -26.6851,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_034",
+      "x": -23.8,
+      "z": 82.5,
+      "height": 6.6,
+      "variant": 1
+    },
+    {
+      "id": "Tree_035",
+      "x": -8.2,
+      "z": -99.0,
+      "height": 6.6,
+      "variant": 2
+    },
+    {
+      "id": "Tree_036",
+      "x": -11.2,
+      "z": -89.0,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_037",
+      "x": -11.5213,
+      "z": -20.3787,
+      "height": 6.05,
+      "variant": 2
+    },
+    {
+      "id": "Tree_038",
+      "x": -11.8,
+      "z": 67.5,
+      "height": 6.05,
+      "variant": 2
+    },
+    {
+      "id": "Tree_039",
+      "x": 0.8,
+      "z": -98.5,
+      "height": 5.5,
+      "variant": 2
+    },
+    {
+      "id": "Tree_040",
+      "x": 5.9,
+      "z": 44.5,
+      "height": 7.7,
+      "variant": 0
+    },
+    {
+      "id": "Tree_041",
+      "x": 0.8,
+      "z": 80.0,
+      "height": 6.05,
+      "variant": 0
+    },
+    {
+      "id": "Tree_042",
+      "x": 14.6,
+      "z": -76.0,
+      "height": 7.7,
+      "variant": 2
+    },
+    {
+      "id": "Tree_043",
+      "x": 12.6142,
+      "z": -12.074,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_044",
+      "x": 24.8,
+      "z": -60.0,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_045",
+      "x": 26.0,
+      "z": -50.0,
+      "height": 5.5,
+      "variant": 0
+    },
+    {
+      "id": "Tree_046",
+      "x": 24.8,
+      "z": 55.5,
+      "height": 7.7,
+      "variant": 2
+    },
+    {
+      "id": "Tree_047",
+      "x": 36.2,
+      "z": 52.5,
+      "height": 5.5,
+      "variant": 1
+    },
+    {
+      "id": "Tree_048",
+      "x": 62.6,
+      "z": -62.0,
+      "height": 7.15,
+      "variant": 0
+    },
+    {
+      "id": "Tree_049",
+      "x": 63.8,
+      "z": -46.5,
+      "height": 6.6,
+      "variant": 2
+    },
+    {
+      "id": "Tree_050",
+      "x": 62.0,
+      "z": -21.0,
+      "height": 5.5,
+      "variant": 0
+    },
+    {
+      "id": "Tree_051",
+      "x": 63.2,
+      "z": -11.0,
+      "height": 7.7,
+      "variant": 2
+    },
+    {
+      "id": "Tree_052",
+      "x": 72.8,
+      "z": -75.0,
+      "height": 5.5,
+      "variant": 0
+    },
+    {
+      "id": "Tree_053",
+      "x": 74.0,
+      "z": 56.0,
+      "height": 6.6,
+      "variant": 0
+    },
+    {
+      "id": "Tree_054",
+      "x": 84.2,
+      "z": -49.0,
+      "height": 6.05,
+      "variant": 1
+    },
+    {
+      "id": "Tree_055",
+      "x": 87.8,
+      "z": -8.0,
+      "height": 7.15,
+      "variant": 1
+    },
+    {
+      "id": "Tree_056",
+      "x": 90.2,
+      "z": 27.5,
+      "height": 5.5,
+      "variant": 1
+    }
+  ],
+  "planningZones": [
+    {
+      "id": "sparring_with_border",
+      "rect": [
+        -53.5,
+        21.5,
+        11,
+        11
+      ]
+    },
+    {
+      "id": "forest_return",
+      "rect": [
+        78,
+        -49,
+        4,
+        4
+      ]
+    }
+  ]
+}

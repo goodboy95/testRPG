@@ -1,0 +1,353 @@
+{
+  "date": "2026-09-14",
+  "provider": "Poly Haven",
+  "providerUrl": "https://polyhaven.com",
+  "licenseUrl": "https://polyhaven.com/license",
+  "tool": "Python Pillow and NumPy offline processing",
+  "aiGenerated": false,
+  "assets": [
+    {
+      "id": "chinese_hackberry_bark",
+      "assetUrl": "https://polyhaven.com/a/chinese_hackberry_bark",
+      "license": "CC0-1.0",
+      "maps": {
+        "diff": {
+          "file": "art/sources/cc0/village-art-v3/chinese_hackberry_bark/chinese_hackberry_bark_diff_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/chinese_hackberry_bark/chinese_hackberry_bark_diff_1k.png",
+          "sha256": "fa883260ab4cfedfeb371ce282272d4da1659180d2ea1ca3a713fd86c0807cf4",
+          "size": 10996200,
+          "dimensions": [
+            1024,
+            2048
+          ]
+        },
+        "nor_gl": {
+          "file": "art/sources/cc0/village-art-v3/chinese_hackberry_bark/chinese_hackberry_bark_nor_gl_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/chinese_hackberry_bark/chinese_hackberry_bark_nor_gl_1k.png",
+          "sha256": "15009e3a29783b7be18b17c04015ec553a0eb493097f30a585497f9b29faa0ab",
+          "size": 10777140,
+          "dimensions": [
+            1024,
+            2048
+          ]
+        },
+        "rough": {
+          "file": "art/sources/cc0/village-art-v3/chinese_hackberry_bark/chinese_hackberry_bark_rough_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/chinese_hackberry_bark/chinese_hackberry_bark_rough_1k.png",
+          "sha256": "269b1f52b3c72f4756dfb75a55c0b59ca55f4e55ba31b15d7a5d5851de740cdf",
+          "size": 3034709,
+          "dimensions": [
+            1024,
+            2048
+          ]
+        }
+      }
+    },
+    {
+      "id": "brick_wall_10",
+      "assetUrl": "https://polyhaven.com/a/brick_wall_10",
+      "license": "CC0-1.0",
+      "maps": {
+        "diff": {
+          "file": "art/sources/cc0/village-art-v3/brick_wall_10/brick_wall_10_diff_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/brick_wall_10/brick_wall_10_diff_1k.png",
+          "sha256": "ee030e3807cebd858442431a9080bf96915a5ce90d5089ce62c5c0d7573891c6",
+          "size": 5455508,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        },
+        "nor_gl": {
+          "file": "art/sources/cc0/village-art-v3/brick_wall_10/brick_wall_10_nor_gl_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/brick_wall_10/brick_wall_10_nor_gl_1k.png",
+          "sha256": "c0fa45a7a1bb16a051f79a9bde3b98c8f93cd5b954e8819d80c02c3f9870a636",
+          "size": 5549701,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        },
+        "rough": {
+          "file": "art/sources/cc0/village-art-v3/brick_wall_10/brick_wall_10_rough_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/brick_wall_10/brick_wall_10_rough_1k.png",
+          "sha256": "63cf0722c97c9002611f2ba29f52ebb07eb2e35ef15be6335302458d52ad105a",
+          "size": 1668258,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        }
+      }
+    },
+    {
+      "id": "grey_roof_tiles",
+      "assetUrl": "https://polyhaven.com/a/grey_roof_tiles",
+      "license": "CC0-1.0",
+      "maps": {
+        "diff": {
+          "file": "art/sources/cc0/village-art-v3/grey_roof_tiles/grey_roof_tiles_diff_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/grey_roof_tiles/grey_roof_tiles_diff_1k.png",
+          "sha256": "aad237515d1a94cdd77671e3d74421de6edfbbf4c1cbcf14892e15ae5be332c7",
+          "size": 2050091,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        },
+        "nor_gl": {
+          "file": "art/sources/cc0/village-art-v3/grey_roof_tiles/grey_roof_tiles_nor_gl_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/grey_roof_tiles/grey_roof_tiles_nor_gl_1k.png",
+          "sha256": "95e5e98c35f3797c689881fbf88c966ff42f4c3ebb777fbe1002f7199d9c0640",
+          "size": 1412599,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        },
+        "rough": {
+          "file": "art/sources/cc0/village-art-v3/grey_roof_tiles/grey_roof_tiles_rough_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/grey_roof_tiles/grey_roof_tiles_rough_1k.png",
+          "sha256": "84714e5620cbac031417eb3acf0771c55dffb1d6117faaf4b0c5ff69cccd12be",
+          "size": 1846721,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        }
+      }
+    },
+    {
+      "id": "denim_fabric",
+      "assetUrl": "https://polyhaven.com/a/denim_fabric",
+      "license": "CC0-1.0",
+      "maps": {
+        "diff": {
+          "file": "art/sources/cc0/village-art-v3/denim_fabric/denim_fabric_diff_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/denim_fabric/denim_fabric_diff_1k.png",
+          "sha256": "45bb6b6e6cc1aa8b558c49a8408fa4a720871fcd3c4cddc1b9ebe77ec7781309",
+          "size": 2691494,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        },
+        "nor_gl": {
+          "file": "art/sources/cc0/village-art-v3/denim_fabric/denim_fabric_nor_gl_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/denim_fabric/denim_fabric_nor_gl_1k.png",
+          "sha256": "4f79950c299e972f0fd3edaa5a6c0cdb625ae7c413c1b90e8da51d9cff7ae685",
+          "size": 1558753,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        },
+        "rough": {
+          "file": "art/sources/cc0/village-art-v3/denim_fabric/denim_fabric_rough_1k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/denim_fabric/denim_fabric_rough_1k.png",
+          "sha256": "59522ca847bebb9ecc046738f48cb5abb1a6a2786bc38a41328d6a24586f51dc",
+          "size": 753042,
+          "dimensions": [
+            1024,
+            1024
+          ]
+        }
+      }
+    },
+    {
+      "id": "island_tree_01",
+      "assetUrl": "https://polyhaven.com/a/island_tree_01",
+      "license": "CC0-1.0",
+      "maps": {
+        "leaves_diff": {
+          "file": "art/sources/cc0/village-art-v3/island_tree_01/island_tree_01_leaves_diff_2k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/island_tree_01/island_tree_01_leaves_diff_2k.png",
+          "sha256": "fca98db31845a92e6374fccd032d40d6134e2c80fdca8038b063897c8e8f0035",
+          "size": 6428036,
+          "dimensions": [
+            2048,
+            2048
+          ]
+        },
+        "leaves_alpha": {
+          "file": "art/sources/cc0/village-art-v3/island_tree_01/island_tree_01_leaves_alpha_2k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/island_tree_01/island_tree_01_leaves_alpha_2k.png",
+          "sha256": "30c36ae0d9023400035f0af9d336ed5f73a84bf8a88c8e2bec8faa07d725992b",
+          "size": 139077,
+          "dimensions": [
+            2048,
+            2048
+          ]
+        },
+        "leaves_nor_gl": {
+          "file": "art/sources/cc0/village-art-v3/island_tree_01/island_tree_01_leaves_nor_gl_2k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/island_tree_01/island_tree_01_leaves_nor_gl_2k.png",
+          "sha256": "2d152d8530e707056fce44303de71cf63503f5d95b80d0820dc7625c99d8d2d9",
+          "size": 10109651,
+          "dimensions": [
+            2048,
+            2048
+          ]
+        },
+        "leaves_rough": {
+          "file": "art/sources/cc0/village-art-v3/island_tree_01/island_tree_01_leaves_rough_2k.png",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/island_tree_01/island_tree_01_leaves_rough_2k.png",
+          "sha256": "eccee8f209c8dd869b478a209ec0b44a3de6bae11c9594700f7e201771a9eac2",
+          "size": 2723975,
+          "dimensions": [
+            2048,
+            2048
+          ]
+        }
+      }
+    }
+  ],
+  "postprocessing": [
+    "1K runtime PBR maps; 2K leaf color/alpha atlas",
+    "muted colors and compressed color contrast; preserved original CC0 maps",
+    "leaf alpha packed into color; no baked sun shadows",
+    "Four twig tiles assembled from one clean scanned leaf crop; stems drawn offline",
+    "Muted photographic plaster resampled to 1K; old normal/ORM maps retained",
+    "Runtime foliage uses branches-color.png; leaf source atlas and normal/rough intermediates are not runtime bindings"
+  ],
+  "derived": {
+    "bark-color.png": "bf80e627c114ed3628834e05d2f147ce7c4b9eccc7ddda0e8fe02882b6ad9560",
+    "bark-normal.png": "42662ede6e151aa2f6226a9608778773f192cebf9e6d214b8840a0de1f7fe687",
+    "bark-rough.png": "92d103ae3b35360d5c817ca0287ddaf222ce4889a230003c99128f0c56eef900",
+    "branches-color.png": "60ea656da2756d9bd15992de09c5a4749c2cac5ffbf3bb0e8bcc9c30411f7c2e",
+    "brick-color.png": "3d516d851420bef97ec798d2b95ffb953a9fab1a9b3749ddeb2241c8d0e127fe",
+    "brick-normal.png": "3404358e93c9f0ac2cbb2ee0a1766021fa62f37f5bfc1e800a8ef84198ea076e",
+    "brick-rough.png": "92d103ae3b35360d5c817ca0287ddaf222ce4889a230003c99128f0c56eef900",
+    "canopygreen-color.png": "7c8dd9b15188272b5206d7eac557be15a9868f1d102bf3419fa3f3cd12687106",
+    "fabric-color.png": "3258f8b95f4317805e61123d2d63db23e13ddaea8d984acbd3c94068d57c454a",
+    "fabric-normal.png": "838bf8061de0adda61a899c0d8dae4e76c02ca7c3210ac5dcd0e531d9e70db42",
+    "fabric-rough.png": "aaede0221a6a1b9214e4fa31eaab056fce950b623bbd1cfe02c49d92ea881d02",
+    "leaves-color.png": "4e2451b93d072e862bc4120f8017786c12eefc5a896cc09c8bccc954a667c445",
+    "leaves-normal.png": "255b22466c794b093c1512643364c3a9eb09aedc3b544a8f54fa8ef3ff8d1729",
+    "leaves-rough.png": "f89f8e239655a8ac6b99a989ac7fa78c1fe83b7c662a904c7a1ebfb0f6461663",
+    "plaster-color.png": "dad3a6e6af786a9710f671782ecc77d154fc958c1e0c6e87ab2c5754aee3f5d7",
+    "roof-color.png": "ce9ca984c9e63f88b42cb72b1c99a456fc5ae34c9f597222fe98483992cfdb7c",
+    "roof-normal.png": "696a9c824365041acc2dd8a89ca58a64e9a4d4d1b1a6055f924022c031d1186e",
+    "roof-rough.png": "92d103ae3b35360d5c817ca0287ddaf222ce4889a230003c99128f0c56eef900"
+  },
+  "reusedSourceManifest": "art/sources/cc0/polyhaven/environment-cinematic-v1/source-manifest.json",
+  "reusedSources": [
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall_arm_2k.jpg",
+      "sha256": "8d6a2e391e87130aabb1dc6fea23e6ebcc80aca6559a0aa82e57b75729055be5",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall_diff_2k.jpg",
+      "sha256": "6fd812ed8dd5be1873c29aeef38ce9bf1fb30a22c6d4b3a12db725e98c26a1be",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall_nor_gl_2k.jpg",
+      "sha256": "2d601a46ed5ce2af866741c53cafa3cba472620c272e633b6484d4de16a80eb1",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/painted_plaster_wall"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/oak_veneer_01/oak_veneer_01_arm_2k.jpg",
+      "sha256": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/oak_veneer_01/oak_veneer_01_diff_2k.jpg",
+      "sha256": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/oak_veneer_01/oak_veneer_01_nor_gl_2k.jpg",
+      "sha256": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/oak_veneer_01"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/terrazzo_tiles/terrazzo_tiles_arm_2k.jpg",
+      "sha256": "4480ba6a92d33d475b730126bb9608cfaa93d9b4b668b57181102cf23c380f1e",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/terrazzo_tiles/terrazzo_tiles_diff_2k.jpg",
+      "sha256": "26cc390c19e468de03fc9699198398590a7adc1ddd4972e6d6fb65d76403bb66",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles"
+    },
+    {
+      "file": "art/sources/cc0/polyhaven/environment-cinematic-v1/terrazzo_tiles/terrazzo_tiles_nor_gl_2k.jpg",
+      "sha256": "48f79a943f626c90cfeac4528b765d9f7df862883890a9d05ddf00a2209e0fa4",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "license": "CC0-1.0",
+      "assetUrl": "https://polyhaven.com/a/terrazzo_tiles"
+    }
+  ],
+  "parameters": {
+    "units": "metres",
+    "colorContrastExponent": {
+      "leaves": 0.7,
+      "plaster": 0.5
+    },
+    "leafColorTarget": [
+      0.44,
+      0.55,
+      0.26
+    ],
+    "leafAtlasSize": [
+      2048,
+      2048
+    ],
+    "leafAtlasCells": 4,
+    "leafSpriteSeed": 371,
+    "alphaCutoff": 0.45,
+    "runtimeGeneration": false,
+    "normalConvention": "OpenGL +Y",
+    "recipe": "scripts/tools/prepare_village_art.py",
+    "bakedSunShadows": false
+  },
+  "licenseSnapshot": {
+    "file": "art/sources/cc0/village-art-v3/license.html",
+    "sha256": "f530abb18e6317a9b0f2a128b94150e372c8456d7491a14e4860c4ed5f5fe69a"
+  }
+}

@@ -12,7 +12,7 @@ public partial class HomeV1Probe : Node
     private readonly bool _capture = OS.GetCmdlineUserArgs().Contains("--home-capture");
     private readonly bool _gray = OS.GetCmdlineUserArgs().Contains("--home-graybox");
     private readonly List<string> _checks = [];
-    private string Output => ProjectSettings.GlobalizePath(_gray ? "res://outputs/home-v1/graybox" : "res://outputs/home-v1/validation");
+    private string Output => ProjectSettings.GlobalizePath(OS.GetCmdlineUserArgs().Contains("--home-access") ? "res://outputs/home-access/home-regression" : _gray ? "res://outputs/home-v1/graybox" : "res://outputs/home-v1/validation");
     public override void _Ready() => CallDeferred(MethodName.Run);
 
     private async void Run()
@@ -78,9 +78,10 @@ public partial class HomeV1Probe : Node
             Require(_home.DoorOpen(d.Id), "open complete " + d.Id);
             Require(!_home.PlayerActor.TestMove(_home.PlayerActor.GlobalTransform, across - near), "open passage " + d.Id);
             await Place(p);
-            Require(!_home.TryOperate("home.door." + d.Id), "occupied doorway " + d.Id);
+            Require(_home.TryOperate("home.door." + d.Id), "begin closing occupied doorway " + d.Id);
+            await Frames(36);
+            Require(_home.DoorMoving(d.Id), "closing waits for occupied doorway " + d.Id);
             await Place(near);
-            Require(_home.TryOperate("home.door." + d.Id), "close " + d.Id);
             await Frames(36);
             Require(!_home.DoorOpen(d.Id), "closed again " + d.Id);
             _home.TryOperate("home.door." + d.Id); await Frames(36);
@@ -256,13 +257,25 @@ public partial class HomeV1Probe : Node
         await WalkTo(new(.65f,0,2));
         Require(_home.TryOperate("home.door.kitchen"),"walkthrough kitchen entrance");await Frames(36);
         await WalkTo(new(3.9f,0,2));await WalkTo(new(.65f,0,2));await WalkTo(new(0,0,3.1f));
-        Require(_home.TryOperate("home.door.entry"),"walkthrough entry");await Frames(36);
+        await InputDoor();await Frames(36);
+        Require(_home.DoorOpen("entry") && _home.DoorOpenSide("entry")==1,"input pushes double entry outside");
         await WalkTo(new(0,0,9.8f));await WalkTo(new(-6.7f,0,9.8f));
         await WalkTo(new(-6.7f,0,-5.1f));await WalkTo(new(6.7f,0,-5.1f));
         await WalkTo(new(6.7f,0,6.1f));await WalkTo(new(6.3f,0,6.1f));
         await WalkTo(new(6.3f,0,9.8f));await WalkTo(new(0,0,9.8f));
+        await WalkTo(new(0,0,5.2f));await InputDoor();await Frames(36);
+        Require(!_home.DoorOpen("entry"),"double entry closes along same direction");
+        await WalkTo(new(0,0,5.1f));await InputDoor();await Frames(36);
+        Require(_home.DoorOpen("entry") && _home.DoorOpenSide("entry")==-1,"input pushes double entry inside");
+        await WalkTo(new(0,0,3.1f));
         _home.PlayerActor.SetPhysicsProcess(false);
         Require(true,"continuous input walkthrough all rooms and courtyard");
+    }
+
+    private async Task InputDoor()
+    {
+        Input.ParseInputEvent(new InputEventKey{PhysicalKeycode=Key.F,Keycode=Key.F,Pressed=true});await Frames(2);
+        Input.ParseInputEvent(new InputEventKey{PhysicalKeycode=Key.F,Keycode=Key.F});await Frames(3);
     }
 
     private async Task ValidateCamera()
