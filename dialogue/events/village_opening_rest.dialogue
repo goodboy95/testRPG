@@ -1,0 +1,8 @@
+~ start
+沈砚: 歇一会儿。我刚才光顾着看轮子，现在才觉得手心热。 [ID:OPENING_REST_001]
+主角: 前两趟还觉得路短，推上车就知道哪儿有弯了。 [ID:OPENING_REST_002]
+沈砚: 你推得还行。下次转弯先说，我好换边扶。 [ID:OPENING_REST_003]
+主角: 记住了。 [ID:OPENING_REST_004]
+沈砚: 你要是还想走走就去吧，我先把袖子放下来。 [ID:OPENING_REST_005]
+do Narrative.Execute("complete_event", "village.opening.rest")
+=> END

@@ -1,5 +1,23 @@
 # 当前实现说明
 
+`[已实现]` 2026-10-04：正式开场的 J／Y 事项列表支持跟踪、取消和手选配送住户；阶段目标、室内出口、暂放木凳／推车及交差领款方向随进度更新。可玩文案润色和原生三档字号样板见[说明](quest-tracking-typography.md)，[实际验证](../production/quest-tracking-validation.md)与负责人字号评价分开。
+
+`[已实现]` 2026-10-02：[正式开场](village-opening.md)已接入 Main 两种醒后路线及既有村庄档，包含七位功能 NPC、任务板、三项劳动、同行、交差领款和恢复。正式 v6；森林、支线、工具箱、第二章未开放。见[真实验收](../production/village-opening-validation.md)，下方旧批次边界保留历史。
+
+`[已实现]` 独立样板，待视觉确认。 2026-09-26：[动画村庄 v8](village-anime-v8.md)新增主角家—广场—两铺与四棵代表树的可玩美术样板、独立资源配置及住宅外侧派生。正式和默认入口仍为 v6；其余村庄推广、目标硬件及正式采用未完成。[实际验证](../production/village-anime-v8-validation.md)。
+
+`[已实现]` 2026-09-21：[成熟完整角色来源初筛](../production/character-mature-source-screening.md)仅交付资料与真实展示比较。八项中无合格免费资产，一项付费观察许可和造型未放行；模型下载、GLB/Godot 试验未执行，共享审图入口与正式角色未改。
+
+`[已实现]` 2026-09-20 后续：v001 正常脸获得负责人确认并归档；[v007-casual 静态穿戴样板](../production/character-casual-preview.md)复用通用审图场景，以参数选择，不替换原入口和正式角色。
+
+`[已实现]` 2026-09-20：[MPFB 工作流](character-workflow-mpfb.md)提供 doctor/baseline/render/check/export 五个命令和独立 `CharacterBaselineReview.tscn`。原生成年男性源可保存重开、修改恢复及重建，v001-game3 静态导入完成三分辨率 48 图检查，正式会话/存档未变。批处理通过、MCP 未接通；G1 用户批准和 G2–G5 未完成。Core/内容 219 项、编译及九场景冒烟通过；[实际结果](../production/character-workflow-mpfb-validation.md)。
+
+`[已实现]` 2026-09-18：[沈砚静态 v2](shen-yan-static-v2.md)新增独立 `ShenYanStaticReview.tscn`，仅加载一个无骨架、无动画的静态候选用于审图。旧 `VillageNpcArtPreview.tscn`／旧 GLB／配方／生成器已退役；新的脸部与发型美术尚未批准，原低模 NPC 试点和正式 v6 保持。[实际验收](../production/shen-yan-static-v2-validation.md)。
+
+`[已实现]` 2026-09-16：[村庄 NPC 试点](village-npc-pilot.md)新增独立 `VillageNpcPreview.tscn`，乔姨与沈砚支持闲聊分支及取消，沈砚短路线走动。正式与默认村庄仍为 v6，无 NPC 自动接入；[验收边界](../production/village-npc-pilot-validation.md)。
+
+`[已实现]` 2026-09-16：新增[村庄流式分区与 LOD v7 独立入口](village-streaming-v7.md)，七区域加载、低模回退与运行时预算／遥测。v7 默认已提高为 GTX 1060 笔记本预算，原集显档显式回归。默认村庄版本仍为 v6；独立场景或显式 `--village-v7` 启用，无 Core／存档变化。目标硬件及整帧达标情况见[新档记录](../production/village-streaming-v7-1060-validation.md)。
+
 > 2026-09-15 正式采用：负责人已确认将 v6（四户住宅 v5、主角家暖色外观、全村树木）与配套住宅外观启用。正式游戏和默认村庄预览现用 v6，沿用修复后的 v4 布局／地形；独立预览 `--village-v4` 保留旧外观回归。第一章委托未接入。[采用与验证](../production/village-v6-adoption.md)。下述样板轮“尚未切换”是当轮交付状态。
 
 
@@ -210,3 +228,5 @@
 `[已实现]` 电影感 UI 第一阶段样板已接入对白、探索、背包与记录，含独立字幕设置。该阶段 143 项测试（135＋5 项设置兼容＋3 项分页）；后两室 v2 增至 145 项，样板视觉确认及其余页面统一仍待完成，见[说明](ui-cinematic-samples.md)和[验收](../production/ui-cinematic-validation.md)。
 
 截至 2026-09-12：`[已实现·仅本机非商业]` 双角色动作 v3 覆盖五区，林晓雨使用 1.6 米流萤外观；两人各 12 段动画，加入按实际速度调频的平滑跟随、到位后协作、模态呼吸与交互姿态。151 项测试、九场景冒烟、五区专项及完整输入通关结果见[双角色动作](character-motion.md)与[验收](../production/character-motion-v3-validation.md)。
+
+`[已实现·静态试验]` [头肩修订](../production/character-head-refinement.md)新增可开关闭唇纠正、局部UV皮肤处理、真实曲线发束及后脑/耳后捕获。v014 脸部改善可保留，v016 头发美术失败，阶段停止。正式入口、NPC与存档未改变。

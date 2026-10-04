@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://xunokuuof4ov"
+path="res://.godot/imported/aunt_qiao.dialogue-453309ec953ee36da56b5cf48d2ac57d.tres"
+
+[deps]
+
+source_file="res://dialogue/previews/village_npcs/aunt_qiao.dialogue"
+dest_files=["res://.godot/imported/aunt_qiao.dialogue-453309ec953ee36da56b5cf48d2ac57d.tres"]
+
+[params]
+
+defaults=true

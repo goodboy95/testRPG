@@ -1,0 +1,523 @@
+{
+  "date": "2026-09-20",
+  "scope": "static head and shoulders; complete original clothed body retained",
+  "technicalChecks": "passed; see individual logs",
+  "agentVisualDecision": "face improved; hair failed; whole sample not approved",
+  "userVisualApproval": false,
+  "runtimeReady": false,
+  "G2_G5": "not tested",
+  "modelingStoppedAfterFocusedHairCorrection": true,
+  "sourceParts": "art/sources/cc0/mpfb-male-stylized-v2/provenance.json",
+  "sourceLicense": "Official MakeHuman core assets CC0-1.0; individual notices preserved",
+  "newAuthoredWork": "Local additive lip corrective, anatomical UV processing, original hair volume and native bevel curves. No external hair model or image generation.",
+  "tools": {
+    "Blender": "5.2.0 LTS",
+    "MPFB": "2.0.17",
+    "Godot": "4.6.3 .NET Compatibility",
+    "gpu": "RTX 2080 Ti",
+    "mcp": "not used; batch Python"
+  },
+  "metadataWarnings": [
+    "v011-v014 inherited legacy appearance/authoredHair strings from the prior workflow. Their actual style.phase and hair.enabled fields and geometry determine content. They contain no authored hair; clothes are unmodified. v015+ descriptive metadata corrected."
+  ],
+  "versions": [
+    {
+      "version": "v011-head-structure",
+      "blend": "art/blender/characters/mpfb-male-v1/candidates/v011-head-structure/character.blend",
+      "blendSha256": "4253513ce841b83ac23ca8c616bec733e4bf89b41d2ac1c6dc38b2ce2bc1ae49",
+      "recipe": "art/blender/characters/mpfb-male-v1/recipes/v011-head-structure.json",
+      "recipeSha256": "20626d7a508d53b0808f5b744bb45446166a40af4baea8b384530e787267370f"
+    },
+    {
+      "version": "v012-head-structure",
+      "blend": "art/blender/characters/mpfb-male-v1/candidates/v012-head-structure/character.blend",
+      "blendSha256": "300a9da25139418fe9722af4db0475cf1a3b9d130fff9f5264db3647d9ae66ce",
+      "recipe": "art/blender/characters/mpfb-male-v1/recipes/v012-head-structure.json",
+      "recipeSha256": "199cd8b232265c326bc32924b0a115dc48f81573703cf326a30a1ba0df074900"
+    },
+    {
+      "version": "v013-head-material",
+      "blend": "art/blender/characters/mpfb-male-v1/candidates/v013-head-material/character.blend",
+      "blendSha256": "7d43669d29583a3b603251f26678d3c4f6009bf4704dd14dcae24967c38fa5f1",
+      "recipe": "art/blender/characters/mpfb-male-v1/recipes/v013-head-material.json",
+      "recipeSha256": "df060f6ada0e62d92279836b2a53cd943e32809f947975551cb42e05bd32583d"
+    },
+    {
+      "version": "v014-head-material",
+      "blend": "art/blender/characters/mpfb-male-v1/candidates/v014-head-material/character.blend",
+      "blendSha256": "315cd4ddea24a471a747fff6f610bf35b239aa7ade52d23b86418103cb990c86",
+      "recipe": "art/blender/characters/mpfb-male-v1/recipes/v014-head-material.json",
+      "recipeSha256": "b6d238417f173c19a0197eec0d90e1ecee6d1f8f042728cb4e2edfeb81e3d06f"
+    },
+    {
+      "version": "v015-hair-volume",
+      "blend": "art/blender/characters/mpfb-male-v1/candidates/v015-hair-volume/character.blend",
+      "blendSha256": "81356e5256519264c333ff9b4021915408af6b2dccdbc6cf966123d083df4eeb",
+      "recipe": "art/blender/characters/mpfb-male-v1/recipes/v015-hair-volume.json",
+      "recipeSha256": "a4c8efae4e2da2d2cda2e2572bcd2c6854682b78865c0abddd119144fa66c866"
+    },
+    {
+      "version": "v016-head-shoulders",
+      "blend": "art/blender/characters/mpfb-male-v1/candidates/v016-head-shoulders/character.blend",
+      "blendSha256": "da0eb92dbbacb9581d2b08f86bf75bc612f7848dec9a03b9505d71ab6ceaebad",
+      "recipe": "art/blender/characters/mpfb-male-v1/recipes/v016-head-shoulders.json",
+      "recipeSha256": "26333c7a7957e3a921bc80792cee5befc8be06a9be4c57550645e62231097c02"
+    }
+  ],
+  "toolSnapshot": [
+    {
+      "path": "art/blender/characters/mpfb-male-v1/refinement/tool-snapshot-20260920/character_head_refine.py",
+      "sha256": "acee2b6c4170af788c2d72137426b40a70aa83238e2ea7ea086042077a6a616c"
+    },
+    {
+      "path": "art/blender/characters/mpfb-male-v1/refinement/tool-snapshot-20260920/character_stylized.py",
+      "sha256": "5a2d465a6edff04ddbecbc2e2883354724d777276bdbe0935ea10a3ecced6d36"
+    },
+    {
+      "path": "art/blender/characters/mpfb-male-v1/refinement/tool-snapshot-20260920/character_workflow.py",
+      "sha256": "8cdb1911cc3a1d8088d396017c2b4409bc56764303d09deef289615d7e095c1d"
+    },
+    {
+      "path": "art/blender/characters/mpfb-male-v1/refinement/tool-snapshot-20260920/head-source-integrity.py",
+      "sha256": "0705c64e51930a3705f0127efbd3c0a220bbb4f5bb6a9f18ba69d16596dfb9df"
+    }
+  ],
+  "commandRuns": [
+    {
+      "record": "outputs/character-workflow/logs/20260920-214848-baseline-v011-head-structure.json",
+      "exitCode": 0,
+      "seconds": 9.03750650001166,
+      "log": "outputs/character-workflow/logs/20260920-214848-baseline-v011-head-structure.log",
+      "command": [
+        "baseline",
+        "--parent",
+        "v007-casual",
+        "--version",
+        "v011-head-structure",
+        "--style",
+        "art/blender/characters/mpfb-male-v1/refinement/structure-r1.json"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-214858-export-v011-head-structure.json",
+      "exitCode": 0,
+      "seconds": 9.485328399998252,
+      "log": "outputs/character-workflow/logs/20260920-214858-export-v011-head-structure.log",
+      "command": [
+        "export",
+        "--version",
+        "v011-head-structure"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-214907-render-v011-head-structure.json",
+      "exitCode": 0,
+      "seconds": 7.170989699996426,
+      "log": "outputs/character-workflow/logs/20260920-214907-render-v011-head-structure.log",
+      "command": [
+        "render",
+        "--version",
+        "v011-head-structure",
+        "--glb",
+        "--quick"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-215534-baseline-v012-head-structure.json",
+      "exitCode": 0,
+      "seconds": 4.235156300012022,
+      "log": "outputs/character-workflow/logs/20260920-215534-baseline-v012-head-structure.log",
+      "command": [
+        "baseline",
+        "--parent",
+        "v007-casual",
+        "--version",
+        "v012-head-structure",
+        "--style",
+        "art/blender/characters/mpfb-male-v1/refinement/structure-r2.json"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-215538-export-v012-head-structure.json",
+      "exitCode": 0,
+      "seconds": 5.031136300007347,
+      "log": "outputs/character-workflow/logs/20260920-215538-export-v012-head-structure.log",
+      "command": [
+        "export",
+        "--version",
+        "v012-head-structure"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-215543-render-v012-head-structure.json",
+      "exitCode": 0,
+      "seconds": 6.9833388999977615,
+      "log": "outputs/character-workflow/logs/20260920-215543-render-v012-head-structure.log",
+      "command": [
+        "render",
+        "--version",
+        "v012-head-structure",
+        "--glb",
+        "--quick"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-215635-check-v012-head-structure.json",
+      "exitCode": 0,
+      "seconds": 4.822484899996198,
+      "log": "outputs/character-workflow/logs/20260920-215635-check-v012-head-structure.log",
+      "command": [
+        "check",
+        "--version",
+        "v012-head-structure"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-220338-baseline-v013-head-material.json",
+      "exitCode": 0,
+      "seconds": 11.944143899992923,
+      "log": "outputs/character-workflow/logs/20260920-220338-baseline-v013-head-material.log",
+      "command": [
+        "baseline",
+        "--parent",
+        "v012-head-structure",
+        "--version",
+        "v013-head-material",
+        "--style",
+        "art/blender/characters/mpfb-male-v1/refinement/material-r1.json"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-220350-export-v013-head-material.json",
+      "exitCode": 0,
+      "seconds": 5.449822599999607,
+      "log": "outputs/character-workflow/logs/20260920-220350-export-v013-head-material.log",
+      "command": [
+        "export",
+        "--version",
+        "v013-head-material"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-220356-render-v013-head-material.json",
+      "exitCode": 0,
+      "seconds": 6.935024999998859,
+      "log": "outputs/character-workflow/logs/20260920-220356-render-v013-head-material.log",
+      "command": [
+        "render",
+        "--version",
+        "v013-head-material",
+        "--glb",
+        "--quick"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-220708-check-v013-head-material.json",
+      "exitCode": 1,
+      "seconds": 11.409490799997002,
+      "log": "outputs/character-workflow/logs/20260920-220708-check-v013-head-material.log",
+      "command": [
+        "check",
+        "--version",
+        "v013-head-material"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-220957-baseline-v014-head-material.json",
+      "exitCode": 0,
+      "seconds": 9.601962100001401,
+      "log": "outputs/character-workflow/logs/20260920-220957-baseline-v014-head-material.log",
+      "command": [
+        "baseline",
+        "--parent",
+        "v012-head-structure",
+        "--version",
+        "v014-head-material",
+        "--style",
+        "art/blender/characters/mpfb-male-v1/refinement/material-r2.json"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-221006-check-v014-head-material.json",
+      "exitCode": 1,
+      "seconds": 9.85911699999997,
+      "log": "outputs/character-workflow/logs/20260920-221006-check-v014-head-material.log",
+      "command": [
+        "check",
+        "--version",
+        "v014-head-material"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-221016-export-v014-head-material.json",
+      "exitCode": 0,
+      "seconds": 5.73169109999435,
+      "log": "outputs/character-workflow/logs/20260920-221016-export-v014-head-material.log",
+      "command": [
+        "export",
+        "--version",
+        "v014-head-material"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-221022-render-v014-head-material.json",
+      "exitCode": 0,
+      "seconds": 6.684432599999127,
+      "log": "outputs/character-workflow/logs/20260920-221022-render-v014-head-material.log",
+      "command": [
+        "render",
+        "--version",
+        "v014-head-material",
+        "--glb",
+        "--quick"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-221449-check-v014-head-material.json",
+      "exitCode": 0,
+      "seconds": 10.25042690000555,
+      "log": "outputs/character-workflow/logs/20260920-221449-check-v014-head-material.log",
+      "command": [
+        "check",
+        "--version",
+        "v014-head-material"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-221756-baseline-v015-hair-volume.json",
+      "exitCode": 0,
+      "seconds": 9.556365700002061,
+      "log": "outputs/character-workflow/logs/20260920-221756-baseline-v015-hair-volume.log",
+      "command": [
+        "baseline",
+        "--parent",
+        "v014-head-material",
+        "--version",
+        "v015-hair-volume",
+        "--style",
+        "art/blender/characters/mpfb-male-v1/refinement/hair-volume-r1.json"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-221805-render-v015-hair-volume.json",
+      "exitCode": 0,
+      "seconds": 7.883939299994381,
+      "log": "outputs/character-workflow/logs/20260920-221805-render-v015-hair-volume.log",
+      "command": [
+        "render",
+        "--version",
+        "v015-hair-volume",
+        "--quick"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222036-baseline-v016-head-shoulders.json",
+      "exitCode": 1,
+      "seconds": 8.722807899990585,
+      "log": "outputs/character-workflow/logs/20260920-222036-baseline-v016-head-shoulders.log",
+      "command": [
+        "baseline",
+        "--parent",
+        "v014-head-material",
+        "--version",
+        "v016-head-shoulders",
+        "--style",
+        "art/blender/characters/mpfb-male-v1/refinement/hair-integrated-r2.json"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222045-export-v016-head-shoulders.json",
+      "exitCode": 1,
+      "seconds": 2.206665999998222,
+      "log": "outputs/character-workflow/logs/20260920-222045-export-v016-head-shoulders.log",
+      "command": [
+        "export",
+        "--version",
+        "v016-head-shoulders"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222047-render-v016-head-shoulders.json",
+      "exitCode": 1,
+      "seconds": 2.1917512999934843,
+      "log": "outputs/character-workflow/logs/20260920-222047-render-v016-head-shoulders.log",
+      "command": [
+        "render",
+        "--version",
+        "v016-head-shoulders",
+        "--glb"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222106-baseline-v016-head-shoulders.json",
+      "exitCode": 0,
+      "seconds": 9.61581699999806,
+      "log": "outputs/character-workflow/logs/20260920-222106-baseline-v016-head-shoulders.log",
+      "command": [
+        "baseline",
+        "--parent",
+        "v014-head-material",
+        "--version",
+        "v016-head-shoulders",
+        "--style",
+        "art/blender/characters/mpfb-male-v1/refinement/hair-integrated-r2.json"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222115-export-v016-head-shoulders.json",
+      "exitCode": 0,
+      "seconds": 5.587592199997744,
+      "log": "outputs/character-workflow/logs/20260920-222115-export-v016-head-shoulders.log",
+      "command": [
+        "export",
+        "--version",
+        "v016-head-shoulders"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222121-render-v016-head-shoulders.json",
+      "exitCode": 0,
+      "seconds": 13.656365799994092,
+      "log": "outputs/character-workflow/logs/20260920-222121-render-v016-head-shoulders.log",
+      "command": [
+        "render",
+        "--version",
+        "v016-head-shoulders",
+        "--glb"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222129-check-v016-head-shoulders.json",
+      "exitCode": 0,
+      "seconds": 11.467814300005557,
+      "log": "outputs/character-workflow/logs/20260920-222129-check-v016-head-shoulders.log",
+      "command": [
+        "check",
+        "--version",
+        "v016-head-shoulders"
+      ]
+    },
+    {
+      "record": "outputs/character-workflow/logs/20260920-222259-check-v012-head-structure.json",
+      "exitCode": 0,
+      "seconds": 4.916558299999451,
+      "log": "outputs/character-workflow/logs/20260920-222259-check-v012-head-structure.log",
+      "command": [
+        "check",
+        "--version",
+        "v012-head-structure"
+      ]
+    }
+  ],
+  "commandMachineSecondsSum": 200.4377307999821,
+  "userActiveMinutes": null,
+  "agentWallClockMinutes": null,
+  "formalStateAndSaveUnchanged": true,
+  "tests": {
+    "core": 219,
+    "buildWarnings": 0,
+    "buildErrors": 0,
+    "smoke": "GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=21 items=31",
+    "godotImagesFinal": 99,
+    "baselineRegressionImages": 48
+  },
+  "incomplete": [
+    "hair root blending, cap boundary, back lock twist",
+    "secondary wisps/directional hair detail",
+    "explicit eyebrow-tail redesign",
+    "remaining scalp stubble",
+    "Blender neck shadow root-cause fix"
+  ],
+  "approvedSourcesUnchanged": {
+    "v007-casual": {
+      "sourceSha256": "3fb1ea533cf251751cae6cf447236434f96b3c17884243ef09ad6917bf9bd6f3",
+      "basisSha256": "6f027242aa6bbd2cdd80ca4c6dd3a6db9294e58bffbde902362a927e70d14f50",
+      "polygonSha256": "1f78e347f544c2377abee83216f297dc9499b73b7a149bd8b8d849b5553d95db",
+      "uvSha256": "239d00e48750312b38368182d714d468f4ed93b48aa0e65345f7c3b14f427b31",
+      "nativeKeyNames": [
+        "Basis",
+        "$md-$as-$ma-$yn",
+        "$md-universal-$ma-$yn-$av$mu-$av$wg"
+      ],
+      "hasCustomNormals": false,
+      "smoothFaces": 18486,
+      "totalFaces": 18486
+    },
+    "v010-stylized-v2": {
+      "sourceSha256": "b22b11d690588e479a1a79d73c2181ec67d6de009510d331777c5810adbc7b6b",
+      "basisSha256": "6f027242aa6bbd2cdd80ca4c6dd3a6db9294e58bffbde902362a927e70d14f50",
+      "polygonSha256": "1f78e347f544c2377abee83216f297dc9499b73b7a149bd8b8d849b5553d95db",
+      "uvSha256": "239d00e48750312b38368182d714d468f4ed93b48aa0e65345f7c3b14f427b31",
+      "nativeKeyNames": [
+        "Basis",
+        "$md-$as-$ma-$yn",
+        "$md-universal-$ma-$yn-$av$mu-$av$wg",
+        "l-eye-scale-incr",
+        "r-eye-scale-incr",
+        "chin-width-decr",
+        "mouth-open",
+        "mouth-compression",
+        "mouth-upperlip-middle-down",
+        "mouth-lowerlip-middle-up"
+      ],
+      "hasCustomNormals": false,
+      "smoothFaces": 18486,
+      "totalFaces": 18486
+    },
+    "v012-head-structure": {
+      "sourceSha256": "300a9da25139418fe9722af4db0475cf1a3b9d130fff9f5264db3647d9ae66ce",
+      "basisSha256": "6f027242aa6bbd2cdd80ca4c6dd3a6db9294e58bffbde902362a927e70d14f50",
+      "polygonSha256": "1f78e347f544c2377abee83216f297dc9499b73b7a149bd8b8d849b5553d95db",
+      "uvSha256": "239d00e48750312b38368182d714d468f4ed93b48aa0e65345f7c3b14f427b31",
+      "nativeKeyNames": [
+        "Basis",
+        "$md-$as-$ma-$yn",
+        "$md-universal-$ma-$yn-$av$mu-$av$wg",
+        "l-eye-scale-incr",
+        "r-eye-scale-incr",
+        "Neutral_Lip_Closure"
+      ],
+      "hasCustomNormals": false,
+      "smoothFaces": 18486,
+      "totalFaces": 18486
+    },
+    "v014-head-material": {
+      "sourceSha256": "315cd4ddea24a471a747fff6f610bf35b239aa7ade52d23b86418103cb990c86",
+      "basisSha256": "6f027242aa6bbd2cdd80ca4c6dd3a6db9294e58bffbde902362a927e70d14f50",
+      "polygonSha256": "1f78e347f544c2377abee83216f297dc9499b73b7a149bd8b8d849b5553d95db",
+      "uvSha256": "239d00e48750312b38368182d714d468f4ed93b48aa0e65345f7c3b14f427b31",
+      "nativeKeyNames": [
+        "Basis",
+        "$md-$as-$ma-$yn",
+        "$md-universal-$ma-$yn-$av$mu-$av$wg",
+        "l-eye-scale-incr",
+        "r-eye-scale-incr",
+        "Neutral_Lip_Closure"
+      ],
+      "hasCustomNormals": false,
+      "smoothFaces": 18486,
+      "totalFaces": 18486
+    },
+    "v016-head-shoulders": {
+      "sourceSha256": "da0eb92dbbacb9581d2b08f86bf75bc612f7848dec9a03b9505d71ab6ceaebad",
+      "basisSha256": "6f027242aa6bbd2cdd80ca4c6dd3a6db9294e58bffbde902362a927e70d14f50",
+      "polygonSha256": "1f78e347f544c2377abee83216f297dc9499b73b7a149bd8b8d849b5553d95db",
+      "uvSha256": "239d00e48750312b38368182d714d468f4ed93b48aa0e65345f7c3b14f427b31",
+      "nativeKeyNames": [
+        "Basis",
+        "$md-$as-$ma-$yn",
+        "$md-universal-$ma-$yn-$av$mu-$av$wg",
+        "l-eye-scale-incr",
+        "r-eye-scale-incr",
+        "Neutral_Lip_Closure"
+      ],
+      "hasCustomNormals": false,
+      "smoothFaces": 18486,
+      "totalFaces": 18486
+    },
+    "baselineUnchanged": {
+      "candidates/v001/character.blend": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4",
+      "approved/v001/character.blend": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4"
+    }
+  }
+}

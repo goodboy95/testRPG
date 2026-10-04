@@ -56,6 +56,8 @@ public sealed class EventOutcomeService(GameState state)
         state.ReadDialogueLines = restored.ReadDialogueLines;
         state.Settings = restored.Settings;
         state.DreamEscape = restored.DreamEscape;
+        state.VillageExploration = restored.VillageExploration;
+        state.VillageOpening = restored.VillageOpening;
     }
 }
 

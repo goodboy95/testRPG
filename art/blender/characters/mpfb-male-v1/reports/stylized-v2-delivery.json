@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-20",
+  "candidate": "v010-stylized-v2",
+  "initialCandidate": "v008-stylized-v2",
+  "parent": "v007-casual",
+  "rounds": [
+    "v008-stylized-v2",
+    "v009-stylized-v2",
+    "v010-stylized-v2"
+  ],
+  "sourceSha256": "b22b11d690588e479a1a79d73c2181ec67d6de009510d331777c5810adbc7b6b",
+  "glbSha256": "984a6bf5160d14358df22818d554c0d319b39a43a9d031f87e33c35837fe9b23",
+  "tools": [
+    {
+      "path": "art/blender/characters/mpfb-male-v1/style/tool-snapshot-20260920/character_stylized.py",
+      "sha256": "5a2d465a6edff04ddbecbc2e2883354724d777276bdbe0935ea10a3ecced6d36"
+    },
+    {
+      "path": "art/blender/characters/mpfb-male-v1/style/tool-snapshot-20260920/character_workflow.py",
+      "sha256": "9cf40ba903d59154a750e475d3fc44da25a8606f94f4c4391c0ae4cd5843469c"
+    }
+  ],
+  "unchangedBaselines": {
+    "candidates/v001/character.blend": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4",
+    "approved/v001/character.blend": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4",
+    "candidates/v007-casual/character.blend": "3fb1ea533cf251751cae6cf447236434f96b3c17884243ef09ad6917bf9bd6f3"
+  },
+  "originalHair": {
+    "author": "town-rpg project / Codex assisted Blender Python",
+    "principalLocks": 12,
+    "source": "style/stylized-v2-r3.json and character_stylized.py",
+    "externalHairModelUsed": false,
+    "restrictedAssetsUsed": false
+  },
+  "materials": "Broad skin vertex color zones; export-only 2K emission/albedo bake; official CC0 clothing albedo low-pass blend 80%, normal strength .3; iris secondary UV 1.05 scale; eyelash alpha .55",
+  "machine": "Blender 5.2.0 LTS / MPFB 2.0.17 / Godot 4.6.3 .NET Compatibility / RTX2080Ti",
+  "userActiveMinutes": null,
+  "runtimeReady": false,
+  "visualApproval": false,
+  "agentVisualVerdict": "Direction visible, but not art-ready: hard ribbon hair roots/cap, insufficient lip color and incomplete natural mouth closure, mild neck shading facets. Three modeled rounds retained. No fourth aesthetic iteration.",
+  "G1NewStyle": "not passed / user pending",
+  "G2_G5": "not tested",
+  "incident": "v008 save destination shadowed native target path. Blend recovered to candidate; vendor target restored exactly from locked zip and verified against preexisting backup. Save destination guard added. Old logs preserved.",
+  "validation": {
+    "coreTests": 219,
+    "compileWarnings": 0,
+    "compileErrors": 0,
+    "smokeLog": "outputs/character-workflow/stylized-v2-smoke.log",
+    "defaultBaselineCapture": "outputs/character-workflow/v001/godot/20260920-203240/results.json",
+    "controlCapture": "outputs/character-workflow/v007-casual/godot/20260920-202326/results.json",
+    "candidateCapture": "outputs/character-workflow/v010-stylized-v2/godot/20260920-202715/results.json",
+    "reproduction": "outputs/character-workflow/v010-stylized-v2/check.json"
+  }
+}

@@ -25,7 +25,7 @@ else
 ~ zhou
 旁白: [#speaker=narrator]住宅巷口，周明把旧地图仔细收回防水袋。 [ID:EVT_D1_PROMISE_ZHOU_001]
 周明: [#speaker=zhou_ming]车站明早会贴工程告示。新线路图或许能解释旧地图为什么被改过。 [ID:EVT_D1_PROMISE_ZHOU_002]
-周明: 一起去核对？ [ID:EVT_D1_PROMISE_ZHOU_003]
+周明: 明早要不要一起去核对一下？ [ID:EVT_D1_PROMISE_ZHOU_003]
 - 【承诺】明早在车站见，我一定到。 [ID:EVT_D1_PROMISE_ZHOU_CHOICE_FIRM]
 	do Narrative.Execute("create_promise", "promise.slice.rail_notice", "protagonist", "zhou_ming", "PROMISE_INSPECT_RAIL_NOTICE")
 	do Narrative.Execute("change_trust", "zhou_ming", "protagonist", "3")

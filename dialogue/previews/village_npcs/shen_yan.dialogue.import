@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://sd3pc5p6cvwg"
+path="res://.godot/imported/shen_yan.dialogue-1b93afe3abb68303d4c4ba3259286a3d.tres"
+
+[deps]
+
+source_file="res://dialogue/previews/village_npcs/shen_yan.dialogue"
+dest_files=["res://.godot/imported/shen_yan.dialogue-1b93afe3abb68303d4c4ba3259286a3d.tres"]
+
+[params]
+
+defaults=true

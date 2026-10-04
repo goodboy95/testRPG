@@ -2,6 +2,20 @@
 
 本文件适用于根目录及全部子目录。任何人或自动化代理修改项目之前都必须先阅读本文件，再从 [doc/README.md](doc/README.md) 进入详细交接文档。
 
+## 任务跟踪、文案与字号（2026-10-04）
+
+- `[已实现]` 后续负责人确认采用舒适 C：正式 UI 默认思源黑体正文 10／对白 11／辅助 8／标题 14，行距 4、按钮最小高 22（640×360 逻辑尺寸）；旧版与 A／B／C 独立对照保留。
+- `[固定约束]` 负责人授权将当前全部可提交修改做本机 Git 提交，替代各较早批次“不提交”的阶段限制；不推送、不导出游戏，受限角色源／镜像／动作及含其媒体仍仅本机保留。提交样板不改变其美术或正式采用状态。
+- `[已实现]` 正式开场支持可选择事项、分段目标、屏边方向与跟踪保存；Core 推导语义候选，Godot 绑定地点。当前可玩文案已润色，工程和验证见[专项说明](doc/engineering/quest-tracking-typography.md)、[实际记录](doc/production/quest-tracking-validation.md)。
+- `[固定约束]` 梦境不加位置跟踪；醒后新任务默认声明阶段目标，无地点时自然说明，不编造坐标或暴露未知信息。SaveEnvelope v1、梦境内容版本 6 保持。原先字号样板待选定的门槛已由本轮 C 档确认解除。
+
+## 正式村庄开场（2026-10-02 后续授权）
+
+- `[已实现]` 两种正式醒来／既有村庄档接入七位功能 NPC、任务板、送凳、三户小件、邀请沈砚、推车米面配送、事项记录、交差领款与保存恢复。正式村庄为 v6，旧 NPC 试点保留；工程与真实验证见[接入说明](doc/engineering/village-opening.md)、[本轮验收](doc/production/village-opening-validation.md)。
+- `[固定约束]` 本轮正式开发授权替代之前“只改 Markdown、不改 Core／存档字段”。新增可选 VillageOpening 状态，SaveEnvelope v1、梦境内容版本 6、Godot 4.6.3、Dialogue Manager 3.10.4、net8.0 不变。森林、后续支线、战斗、工具箱和第二章不开放，合作送货后可自由探索但不能跨日。
+- `[已实现]` 用户目录 `C:/Users/duwei/.dotnet` 已安装并校验 SDK 10.0.400 与 Runtime 8.0.31，用户 PATH／DOTNET_ROOT 已配置。旧 C:/Program Files/dotnet 示例需改用这个本机位置。本轮 Core／内容 304 项；新增 5 个角色定义和 17 个事件，原日程／梦境物品数保持。
+- `[固定约束]` 七人独立低模源不复用受限角色或退役人物；功能验收与人物自然度、真实手柄、GTX 1060 和 30–40 分钟盲测分开。不提交、不推送、不导出游戏，含受限主角的画面仅本机保留。下方较早批次未接入描述为历史状态。
+
 ## 按任务找文档
 
 | 要做的工作 | 直接入口 |
@@ -26,6 +40,11 @@
 | 下一步工作与接入门槛 | [交接路线图](doc/production/roadmap-handoff.md) |
 
 第一章详细正文只维护在细案中；各入口保留摘要。场景、UI、角色动作、资产和历史资料从交接首页分类索引进入，至多两次点击可达。文档设计不代表已经接入游戏。
+
+## 村庄开场剧情文稿（2026-10-02）
+
+- `[可调整草案]` 负责人批准先交付村内开场文稿：七位 NPC 的人物卡、醒来至首次共同送货的逐场对白、可控搬凳／核货／推车步骤、再访反馈及后续任务纲要。正文统一见[第一章细案](doc/design/chapter-one.md)，30–40 分钟仅为写作目标，待审稿及实际游玩验证。
+- `[固定约束]` 本轮仅 Markdown，不创建人物、任务、对白脚本、运行时 ID 或存档字段，不改程序、场景和资产。A1／C1 任意顺序且均交差后主动邀请沈砚；加入后其他委托仍可交错。三链取箱、正常生活无异常及有意留白保持。文档检查见[本轮记录](doc/production/chapter-one-doc-validation.md)，不代表可玩接入或美术通过。
 
 ## v6 正式采用与提交（2026-09-15 后续授权）
 
@@ -129,6 +148,58 @@ Web、数据库、外部微服务、HTTP/gRPC、域名、监听端口、反向�
 - `[固定约束]` 本轮授权主角家外侧材料、门廊浅构件、静态自行车／收纳与全村普通树枝叶替换，替代前轮相应“不变”边界。位置体量、室内、门轴、院门净宽、双向推门、修复地形、四户和两铺保持；无 Core／存档／剧情改动。
 - [制作与独立入口](doc/engineering/village-home-trees-v6.md)、[实际验收](doc/production/village-home-trees-v6-validation.md)。只复用已采用 CC0；旧源保留，不运行旧构建器覆盖，不提交、推送或导出游戏。
 
+## 村庄分区与 LOD v7（2026-09-16）
+
+- `[固定约束]` 负责人随后允许以笔记本 GTX 1060 的处理能力提高预算，1080p／60 FPS 目标保留。v7 默认 `laptop-gtx1060`，集显旧档通过 `--village-budget-integrated` 回归；这是表现层配置，不改正式采用版本或存档。新档目标硬件实测与本机独显数据分开，见[新预算验证](doc/production/village-streaming-v7-1060-validation.md)。
+
+- `[已实现]` 从保存 v6 派生 v7 独立源与七区流式预览，含显式 LOD、常驻代理、共享贴图及预算／整帧遥测。入口 `VillageStreamingPreview.tscn`，现有路由可显式加 `--village-v7`；正式和无参数默认仍为 v6。
+- `[固定约束]` 本轮获准表现层分区与 LOD 改造，旧源、布局、碰撞、住宅、Core、存档和内容版本保留；v7 地形实例的 clipmap 配置及近景阴影预算独立于 v6，不修改原生地形高度。禁止用旧构建器覆盖 v7；编辑保存源后用 `build_village_v7.py export`，`init` 拒绝覆盖。
+- `[固定约束]` 外景三角面／surface 预算、整帧 primitives／draw calls 和目标硬件帧时分别记录，不得把一项通过写成全部达标。真实目标硬件和负责人视觉终验待验收。见[工程入口](doc/engineering/village-streaming-v7.md)与[首轮集显预算记录](doc/production/village-streaming-v7-validation.md)。不推送、不导出游戏，本机角色及含角色媒体限制继续有效。
+
+## 村庄 NPC 首批独立试点（2026-09-16）
+
+- `[已实现]` 负责人批准独立 v7 内的乔姨和沈砚、简易 3D 人物与闲聊分支；乔姨定点，沈砚短路线走动。入口 `VillageNpcPreview.tscn`，正式与默认仍为 v6。
+- `[固定约束]` 本轮取代此前 NPC 暂不制作的阶段边界；不接第一章委托、交易、关系、奖励、入队或日程，不改布局、Core、存档与内容版本。试点闲聊不注册剧情事件，不调用 `complete_event`；对白上下文与已读记录仅属于预览实例。
+- [工程与来源](doc/engineering/village-npc-pilot.md)、[验收与推广门槛](doc/production/village-npc-pilot-validation.md)。试点人物不是正式美术定稿，目标硬件及负责人视觉确认单列；本机主角与含其画面禁止提交、分发和导出的约束继续有效。
+
+## NPC 美术重新设计与沈砚静态候选（2026-09-18）
+
+- `[已实现]` 09-17 失败的模块化样板已退出活动资源、配置、构建工具和场景入口；旧文件及旋转备份隔离于被 Git/Godot 忽略的 `work/shen-yan-v2/retired/`，不得复用为新模型。原低模 `VillageNpcPreview.tscn` 保留功能对照；[失败记录](doc/engineering/village-npc-art-pilot.md)仅为历史。
+- `[固定约束]` 本轮按负责人批准的新计划，从独立 CC0 人体基模重新制作一个自然比例、半写实国风动画方向的沈砚静态候选；该授权替代上轮“所有人体基底必须项目自制”的限制。允许离线生成原创设计参考，但禁止复用主角 v2、本机角色或旧失败样板的模型、脸、骨架、纹理。MB-Lab／MakeHuman 不进入正式资产。
+- `[已实现]` 新源 `art/blender/characters/shen-yan-v2/shen-yan-static-v2.blend`、静态 GLB、来源记录、PBR 图集与独立 `ShenYanStaticReview.tscn` 可审查；实际制作方式是 CC0 解剖基体改形和脚本网格制作，不能描述为手工高模雕刻。面数／格式通过不代表美术通过，`runtimeReady=false`、`visualApproval=false`。
+- `[固定约束]` 本轮仅静态候选与审图。正式和默认仍为 v6，低模 NPC 试点不替换；先完成近景视觉复核，再决定骨骼、动作、LOD、女性基体、乔姨与居民批量制作。Core、剧情和存档格式不变，受限角色与含其媒体的提交／分发／导出限制继续有效。
+- 制作、入口与下一阶段门槛见[沈砚静态 v2](doc/engineering/shen-yan-static-v2.md)；真实结果和未通过项见[本轮验收](doc/production/shen-yan-static-v2-validation.md)。
+
+## MPFB 人物工作流首轮（2026-09-20）
+
+- `[固定约束]` 负责人批准按 `character_modeling_workflows_v0.1.md` 完成 M0/M1：隔离安装 MPFB 2.0.17 与官方基础资产包，取得未经个性化改形的成年男性正常脸基线。许可合格、验收通过的 MPFB/MakeHuman 体系产物允许成为项目候选，替代 09-18 对此来源的禁令；MB-Lab 与受限角色限制不变。
+- `[已实现]` 独立 Python 创建、保存重开、配方重现、小幅参数修改与恢复、灰模/材质多视图和 Godot 静态审图。入口 `CharacterBaselineReview.tscn`；本轮使用批处理，当前会话没有可调用的 Blender MCP 工具，不宣称 MCP 闭环通过。
+- `[固定约束]` 保留原生基线、全部试验版本和失败记录，不复用旧失败 NPC。G1 的代理视觉意见与负责人批准分开；G2–G5 未验，不进入参考定制、动画、LOD、批量人物或正式替换。正式 v6、低模 NPC 功能试点、Core、剧情、存档不变。
+- [制作与复现](doc/engineering/character-workflow-mpfb.md)、[验收与图像证据](doc/production/character-workflow-mpfb-validation.md)。
+
+## MPFB 正常脸确认与穿戴样板（2026-09-20 后续）
+
+- `[已实现]` 负责人明确“确实像人”，G1 正常脸基线 v001 的源、配方和确认记录归档于 `art/blender/characters/mpfb-male-v1/approved/v001/`；此前 G1 待确认已由本条替代。G2 身份、G3 动态、G4 游戏交付及 G5 量产仍未验收。
+- `[固定约束]` 负责人追加授权为同一人加头发与衣服供审看，取代首轮暂不制作穿戴的范围限制；使用已取得的官方 CC0 资产，保留脸部参数和原始/批准版本。不是正式沈砚造型批准，不接 NPC 逻辑或动画。
+- `[已实现]` 新候选 v007-casual 使用短发、衬衫/牛仔裤和运动鞋，脚袜遮挡与头发材质适配均记录于配方/导出；[制作与实际审图](doc/production/character-casual-preview.md)。正式 v6、低模 NPC、旧审图、Core、存档和受限资产规则不变。
+
+## 自然青年头肩修订（2026-09-20 后续授权）
+
+- `[固定约束]` 负责人允许在 v007 基础上做可关闭的局部唇缘/眼睑纠正层，保留原拓扑、UV及MPFB形变；本轮仅头肩样板，按脸部结构、材质、头发三阶段各一次集中修正。明显缺陷仍在则停止，不自动进入全身、动作、LOD或正式NPC。
+- `[已实现]` v012 闭唇纠正与 v014 局部皮肤/睫毛处理通过技术检查；v016 新曲线确实驱动头发网格，但头套边界、凸条感与后脑折转仍明显，**头发美术失败，整体样板未放行**。保存全部阶段源与失败证据，默认基线与正式 v6 不变。见[实际交付、验证及停止记录](doc/production/character-head-refinement.md)。
+
+## 成熟完整角色来源初筛（2026-09-21）
+
+- `[固定约束]` 负责人批准改用“成熟完整角色 → 小幅定制 → Godot 验证”；MPFB 保留对照，本轮不继续改形。最多八项来源，免费优先、付费仅评估，不自动购买。
+- `[已实现]` 八项初筛完成，无合格免费项；高领便服男性仅列付费观察，造型、来源及修改许可未核清，不能入库。没有下载模型或开始本机静态验证，未新增外部角色运行时适配。
+- [筛选证据、费用与未验证项](doc/production/character-mature-source-screening.md)。正式 v6、低模 NPC、Core、剧情、存档与旧批准资产保持；本轮不是新模型交付或美术批准。
+
+## 村庄清新动画风格 v8（2026-09-26）
+
+- `[固定约束]` 负责人批准全村动画乡村改造，当前执行独立源与主角家—广场—两铺样板；样板确认后才推广全村，完整终验后才采用。允许重做外形、材质与光照，保留 24 栋位置/主体占地、路网、溪流、双桥、门口净空与修复后的地形高度。
+- `[已实现]` v8 独立源、资源配置和 `VillageAnimePreview.tscn`／独立预览 `--village-v8`。正式与无参数默认继续 v6，详见[工程入口](doc/engineering/village-anime-v8.md)与[实际验证](doc/production/village-anime-v8-validation.md)。三栋重点建筑和四棵代表树不代表全村已改造。
+- `[固定约束]` 仅外景，住宅场景外侧同步；室内、人物、NPC、森林、Core、任务、SaveEnvelope 和内容版本不改。旧源保留，不用旧构建器覆盖；不购买、不调用图像生成、不升级、不提交、不推送、不导出游戏，受限角色和媒体限制继续有效。
+
 ## 技术基线
 
 - 引擎固定为 **Godot 4.6.3 .NET/Mono**，开发期不升级。
@@ -175,17 +246,17 @@ $GodotRoot = 'D:\ProgramFiles\Godot'
 $GodotConsole = Join-Path $GodotRoot 'Godot_v4.6.3-stable_mono_win64_console.exe'
 $GodotPackages = Join-Path $GodotRoot 'GodotSharp\Tools\nupkgs'
 
-& 'C:\Program Files\dotnet\dotnet.exe' build .\src\TownRpg.Core\TownRpg.Core.csproj
-& 'C:\Program Files\dotnet\dotnet.exe' test .\tests\TownRpg.Core.Tests\TownRpg.Core.Tests.csproj
-& 'C:\Program Files\dotnet\dotnet.exe' restore .\TownRpg.csproj --source $GodotPackages --ignore-failed-sources
-& 'C:\Program Files\dotnet\dotnet.exe' build .\TownRpg.csproj --configuration Debug --no-restore
+& 'C:\Users\duwei\.dotnet\dotnet.exe' build .\src\TownRpg.Core\TownRpg.Core.csproj
+& 'C:\Users\duwei\.dotnet\dotnet.exe' test .\tests\TownRpg.Core.Tests\TownRpg.Core.Tests.csproj
+& 'C:\Users\duwei\.dotnet\dotnet.exe' restore .\TownRpg.csproj --source $GodotPackages --ignore-failed-sources
+& 'C:\Users\duwei\.dotnet\dotnet.exe' build .\TownRpg.csproj --configuration Debug --no-restore
 & $GodotConsole --headless --path . --scene 'res://scenes/testing/GodotSmokeRunner.tscn'
 ```
 
 换机时只替换本机绝对路径，不得改变版本。冒烟必须出现：
 
 ```text
-GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=21 items=31
+GODOT_SMOKE_PASS scenes=9 characters=10 schedules=21 events=38 items=31
 ```
 
 人工验收、性能和导出要求见 [测试与发布](doc/production/testing-release.md)。
@@ -232,3 +303,8 @@ GODOT_SMOKE_PASS scenes=9 characters=5 schedules=21 events=21 items=31
 - `[已实现]` 房门向玩家对侧开启，真实门叶运动受阻暂停、让开继续；正式正门仍转场。取消原整片扫掠拒绝与临时碰撞，保存稳定开闭及方向。
 - `[固定约束]` 本轮负责人明确批准 Core 可选 `DoorOpenSides` 字典，SaveEnvelope v1／内容版本 6 保留。旧档缺字段先用原方向，必要时选择安全另一侧；住宅缓存不覆盖载入快照。
 - `[已实现]` 连续走到院外低处后回路面复现 Terrain3D 接坡阻挡，局部修改 276 个样本及三处道路网格；住宅、院门宽度与移动参数不变。此前 v4 小段道路高度保护约束由本次修复授权局部替代。详见[修复说明](doc/engineering/home-access.md)与[实际验收](doc/production/home-access-validation.md)，旧测试没有覆盖完整院外往返，不代表这段路线此前顺畅。
+
+## 自然比例动画风格人物第2版（2026-09-20）
+
+- `[固定约束]` 负责人授权从 v007-casual 派生独立动画风格静态样板，使用 MPFB 原生形变、原创侧分发束和派生材质；不另设概念图审批。原正常脸、穿戴版、正式 v6、低模 NPC、Core、剧情和存档保持。身份未定，不复用受限人物。
+- `[已实现]` v008/v009/v010 三轮候选与双引擎对照已制作，当前源 v010-stylized-v2，导出 v010-stylized-v2-game；技术检查通过但发束、口部及局部阴影仍有不足，**美术未通过**。默认审图仍为原基线；原 G1 批准不延伸为此造型或动态批准。见[实际验收与入口](doc/production/character-stylized-v2.md)。

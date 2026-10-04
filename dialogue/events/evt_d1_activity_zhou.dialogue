@@ -1,7 +1,7 @@
 ~ start
 旁白: [#speaker=narrator]学校旧档案室里浮着纸灰。周明已经把镇志、校史和几卷手绘地图排成一列。 [ID:EVT_D1_ZHOU_001]
 周明: [#speaker=zhou_ming]官方地图把北山旧隧道画成了直线，但我祖父留下的版本在这里绕开了一段。 [ID:EVT_D1_ZHOU_002]
-你: 像是在回避某个地点。 [ID:EVT_D1_ZHOU_003]
+你: 这段弯路像是在绕开什么地方。 [ID:EVT_D1_ZHOU_003]
 周明: 或者在保护它。可惜旁注被人刮掉了。 [ID:EVT_D1_ZHOU_004]
 
 - 用民俗学的拓印方法恢复笔痕。 [ID:EVT_D1_ZHOU_CHOICE_RUBBING]
@@ -12,7 +12,7 @@
 	=> finish
 - 先比对不同年代的线路走向。 [ID:EVT_D1_ZHOU_CHOICE_COMPARE]
 	旁白: 三张地图里，只有最近的版本抹去了旧隧道旁的一条山路。 [ID:EVT_D1_ZHOU_007]
-	周明: [#speaker=zhou_ming]不是测绘误差。有人希望后来的人别走到那里。 [ID:EVT_D1_ZHOU_008]
+	周明: [#speaker=zhou_ming]这应该不是测绘误差。有人不希望后来的人走到那里。 [ID:EVT_D1_ZHOU_008]
 	do Narrative.Execute("add_evidence", "slice.evidence.map_route_removed")
 	do Narrative.Execute("change_affinity", "zhou_ming", "protagonist", "5")
 	=> finish

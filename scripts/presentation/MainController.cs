@@ -128,6 +128,7 @@ public partial class MainController : Node
 
         if (inputEvent.IsActionPressed("journal"))
         {
+            if (_opening is not null) { _opening.OpenJournal(); GetViewport().SetInputAsHandled(); return; }
             if (_dream is not null || _village is not null)
             {
                 return;
@@ -606,7 +607,7 @@ public partial class MainController : Node
             }
             else
             {
-                await Line("EVT_D1_REUNION_RESUME", "旁白", "三个人还在等你决定今天的去处。未完成的约定不会因为一次中断而消失。");
+                await Line("EVT_D1_REUNION_RESUME", "旁白", "三个人还在等你。今天想去哪里，可以接着商量。");
             }
 
             var activity = ExistingActivityIndex();
@@ -665,7 +666,7 @@ public partial class MainController : Node
                 M("add_fact", "slice.d1.shared_activity_chosen"), M("add_fact", "slice.d1.activity_zhou"),
                 M("add_lead", "slice.lead.compare_old_rail_maps"), M("timeline", "TIMELINE_D1_STUDIED_OLD_MAP"),
                 M("complete_event", "slice.d1.activity_zhou"), M("grant_xp", "10"));
-            await Line("EVT_D1_ZHOU_008", "周明", "不是测绘误差。有人希望后来的人别走到那里。");
+            await Line("EVT_D1_ZHOU_008", "周明", "这应该不是测绘误差。有人不希望后来的人走到那里。");
             return;
         }
 
@@ -741,7 +742,7 @@ public partial class MainController : Node
             {
                 CharacterIds.Shopkeeper => "冰柜里还有你小时候常买的汽水。开发公司的人这两天也常来问旧隧道的路。",
                 CharacterIds.AbilityHolder => "风向没变，可北山的回声比昨天更近。",
-                CharacterIds.KnowledgeFriend => "有些被删掉的历史，不会因为纸上没有就真正消失。",
+                CharacterIds.KnowledgeFriend => "有些事虽然从纸上删掉了，经历过的人还记得。",
                 CharacterIds.TokenHolder => "怀表只要朝向北山就慢下来，这可不像普通故障。",
                 _ => "今天镇上还算平静。"
             };
@@ -858,7 +859,7 @@ public partial class MainController : Node
                         M("add_fact", "slice.d2.anomaly_concealed"),
                         M("add_evidence", "slice.evidence.resonance_frost_pattern"),
                         M("change_trust", CharacterIds.AbilityHolder, CharacterIds.Protagonist, "6")]);
-                    await Line("EVT_D2_ANOMALY_008", "林晓雨", "好。数到三，我会收声。");
+                    await Line("EVT_D2_ANOMALY_008", "林晓雨", "好，数到三我就停下来。");
                 }
                 else if (choice == 1)
                 {
@@ -989,10 +990,10 @@ public partial class MainController : Node
         _battleLease = null;
         _session.ActiveBattle = null;
         LoadWorld("station_quarter", new Vector2(500, 130));
-        ShowToast("已撤退到安全地点。准备好后仍可重试，剧情不会锁死。");
+        ShowToast("已经退回安全地点。等准备好了，还可以回来继续调查。");
     }
 
-    private void ShowSliceComplete() => ShowCompletionLayout("SliceComplete", "slice-complete", "垂直切片完成", UiText.Get("UI_COMPLETE_LEGACY"), true);
+    private void ShowSliceComplete() => ShowCompletionLayout("SliceComplete", "slice-complete", "这段旅程暂告一段落", UiText.Get("UI_COMPLETE_LEGACY"), true);
     private void ShowCompletionLayout(string name, string owner, string title, string text, bool returnToWorld = false)
     {
         CloseCompletion(); _completionScreen = NewScreen(name); _completionLease = _session.Modal.Acquire(owner);
@@ -1057,7 +1058,7 @@ public partial class MainController : Node
             {
                 ClosePause(); ContinueGame();
             }; menu.AddChild(load);
-            var unstick = UiStyles.Button("脱离卡住：回安全点"); unstick.Pressed += () => { ClosePause(); if (_village is not null) { _village.MoveToSafePoint(); SaveVillageCheckpoint(); } else _world?.MovePlayerToSafePoint(); ShowToast("已回到当前区域的安全点。"); }; menu.AddChild(unstick);
+            var unstick = UiStyles.Button("脱离卡住：回安全点"); unstick.Pressed += () => { ClosePause(); if (_village is not null) { _opening?.StopLaborForRelocation(); _village.MoveToSafePoint(); SaveVillageCheckpoint(); } else _world?.MovePlayerToSafePoint(); ShowToast("已回到当前区域的安全点。"); }; menu.AddChild(unstick);
         }
         var settings = UiStyles.Button("显示与辅助设置"); settings.Name = "PauseSettings"; settings.Alignment = HorizontalAlignment.Left;
         settings.Pressed += () => OpenSettings(); menu.AddChild(settings);
@@ -1248,7 +1249,7 @@ public partial class MainController : Node
         catch (Exception exception)
         {
             GD.PushError(exception.ToString());
-            ShowToast($"事件未提交，可重新交互：{exception.Message}");
+            ShowToast($"这次操作没有完成，可以再试一次：{exception.Message}");
         }
         finally
         {
@@ -1331,7 +1332,7 @@ public partial class MainController : Node
         if (_session.State.World.Day < 2) return "目标：回旧宅睡到第二天";
         if (!facts.Contains("slice.d2.railway_notice_read")) return "目标：阅读车站工程告示";
         if (!facts.Contains("slice.d2.first_anomaly_witnessed")) return "目标：调查右上方废弃隧道";
-        return "切片完成：查看手册中的因果记录";
+        return "可以查看手册里记下的见闻";
     }
 
     private void UpdateInputHint()

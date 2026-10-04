@@ -48,12 +48,21 @@ public partial class WorldArea3D : Node3D
         var markerHost = GetNode<Node3D>("InteractionMarkers");
         foreach (var marker in markerHost.GetChildren().OfType<InteractionMarker3D>())
         {
-            if (string.IsNullOrWhiteSpace(marker.TargetId))
-                throw new InvalidOperationException($"3D interaction marker '{marker.Name}' has no target ID.");
-            if (_markers.Any(existing => existing.TargetId == marker.TargetId))
-                throw new InvalidOperationException($"Duplicate 3D interaction marker '{marker.TargetId}'.");
-            _markers.Add(marker);
+            RegisterInteractionMarker(marker);
         }
+    }
+
+    public void RegisterInteractionMarker(InteractionMarker3D marker)
+    {
+        if (string.IsNullOrWhiteSpace(marker.TargetId) || _markers.Any(m => m.TargetId == marker.TargetId))
+            throw new InvalidOperationException($"Missing or duplicate interaction ID: {marker.TargetId}");
+        _markers.Add(marker);
+    }
+
+    public void UnregisterInteractionMarker(InteractionMarker3D marker)
+    {
+        if (_focused == marker) { Focus(null); SetPrompt(string.Empty); }
+        _markers.Remove(marker);
     }
 
     public override void _ExitTree()
@@ -81,13 +90,15 @@ public partial class WorldArea3D : Node3D
     public override void _UnhandledInput(InputEvent inputEvent)
     {
         if (InputBlocked || _runtimeInputLocked) return;
+        if (inputEvent is InputEventKey { Echo: true }) return;
         if (_focused is not null && inputEvent.IsActionPressed("interact"))
         {
             GetViewport().SetInputAsHandled();
-            var target = _focused;
+            var target = FindInteractionTarget();
+            if (target is null) return;
             var pose = target.TargetId.StartsWith("pickup:", StringComparison.Ordinal) ? "pickup" :
                 target.TargetId.StartsWith("observe:", StringComparison.Ordinal) ? "observe" :
-                target.TargetId == "hint:xiaoyu" ? "talk" : "operate";
+                target.TargetId == "hint:xiaoyu" || target.TargetId.StartsWith("npc:", StringComparison.Ordinal) ? "talk" : "operate";
             Player.PlayInteractionPose(pose, target.GlobalPosition);
             if (pose == "talk") GetNodeOrNull<DreamCompanion3D>("XiaoyuCompanion")?.PlayConversationPose(Player.GlobalPosition);
             InteractionRequested?.Invoke(target.TargetId);

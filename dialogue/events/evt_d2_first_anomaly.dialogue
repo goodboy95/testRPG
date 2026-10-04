@@ -8,7 +8,7 @@
 
 - 【隐瞒】挡住坡上的视线，让晓雨只维持最短的安抚。 [ID:EVT_D2_ANOMALY_CHOICE_CONCEAL]
 	你: 周明，记振动间隔。沈砚，帮我挡住上坡。晓雨，够了就停，不需要证明什么。 [ID:EVT_D2_ANOMALY_007]
-	林晓雨: [#speaker=lin_xiaoyu, #mood=grateful]好。数到三，我会收声。 [ID:EVT_D2_ANOMALY_008]
+	林晓雨: [#speaker=lin_xiaoyu, #mood=grateful]好，数到三我就停下来。 [ID:EVT_D2_ANOMALY_008]
 	do Narrative.Execute("add_fact", "slice.d2.anomaly_concealed")
 	do Narrative.Execute("add_evidence", "slice.evidence.resonance_frost_pattern")
 	do Narrative.Execute("change_trust", "lin_xiaoyu", "protagonist", "6")
@@ -28,7 +28,7 @@
 	do Narrative.Execute("remember", "lin_xiaoyu", "protagonist", "slice.memory.traced_resonance_together")
 	=> aftermath
 - 立即撤离，先确保所有人安全。 [ID:EVT_D2_ANOMALY_CHOICE_WITHDRAW]
-	你: 不继续试。我们记住现象，带齐工具再回来。 [ID:EVT_D2_ANOMALY_012]
+	你: 先不试了。我们把看到的记下来，带齐工具再回来。 [ID:EVT_D2_ANOMALY_012]
 	林晓雨: [#speaker=lin_xiaoyu, #mood=relieved]谢谢。刚才那东西没有恶意，可我不知道再唱下去会发生什么。 [ID:EVT_D2_ANOMALY_013]
 	do Narrative.Execute("add_fact", "slice.d2.anomaly_withdrawal")
 	do Narrative.Execute("add_lead", "slice.lead.return_to_old_railway_prepared")

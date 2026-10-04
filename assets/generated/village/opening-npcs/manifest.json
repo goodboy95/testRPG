@@ -1,0 +1,134 @@
+{
+  "status": "village-opening-functional",
+  "runtimeDefault": true,
+  "source": "art/blender/village/opening-npcs.blend",
+  "sourceSha256": "550f199dc9e0dcc920f7d58f60668d6af30418c8932ffce40f6fe3c48718863f",
+  "provenance": {
+    "tool": "Blender 5.2.0 LTS",
+    "method": "Original deterministic geometry and six-bone rigid weights; runtime procedural poses",
+    "date": "2026-10-02",
+    "externalAssets": [],
+    "aiImages": false
+  },
+  "characters": [
+    {
+      "id": "aunt_qiao",
+      "path": "res://assets/generated/village/opening-npcs/aunt_qiao.glb",
+      "sha256": "542c7fb1bce28d3c69c4db4427f44b99954187d5c18de6b12fd84db19bc9d661",
+      "lods": [
+        {
+          "name": "aunt_qiao_LOD0",
+          "triangles": 1764,
+          "surfaces": 1
+        },
+        {
+          "name": "aunt_qiao_LOD1",
+          "triangles": 564,
+          "surfaces": 1
+        }
+      ]
+    },
+    {
+      "id": "shen_yan",
+      "path": "res://assets/generated/village/opening-npcs/shen_yan.glb",
+      "sha256": "658857d203eb567a4b70ca485ae642778fa3a1fbf22041e4938a740691f32b3a",
+      "lods": [
+        {
+          "name": "shen_yan_LOD0",
+          "triangles": 1584,
+          "surfaces": 1
+        },
+        {
+          "name": "shen_yan_LOD1",
+          "triangles": 504,
+          "surfaces": 1
+        }
+      ]
+    },
+    {
+      "id": "worker_peng",
+      "path": "res://assets/generated/village/opening-npcs/worker_peng.glb",
+      "sha256": "36111c0da2e7847f3ad803373699f66a8f0d23ba8d76cfccbb0f72e013d9f337",
+      "lods": [
+        {
+          "name": "worker_peng_LOD0",
+          "triangles": 1596,
+          "surfaces": 1
+        },
+        {
+          "name": "worker_peng_LOD1",
+          "triangles": 516,
+          "surfaces": 1
+        }
+      ]
+    },
+    {
+      "id": "village_mayor",
+      "path": "res://assets/generated/village/opening-npcs/village_mayor.glb",
+      "sha256": "edfa2ef378144f4f830db67088379f12b950d7a482080f46654254c607446626",
+      "lods": [
+        {
+          "name": "village_mayor_LOD0",
+          "triangles": 1596,
+          "surfaces": 1
+        },
+        {
+          "name": "village_mayor_LOD1",
+          "triangles": 516,
+          "surfaces": 1
+        }
+      ]
+    },
+    {
+      "id": "grandma_xu",
+      "path": "res://assets/generated/village/opening-npcs/grandma_xu.glb",
+      "sha256": "133549c1cbc7122576a9a84da609e8a50d546c6688450253bca95821cb49d620",
+      "lods": [
+        {
+          "name": "grandma_xu_LOD0",
+          "triangles": 1764,
+          "surfaces": 1
+        },
+        {
+          "name": "grandma_xu_LOD1",
+          "triangles": 564,
+          "surfaces": 1
+        }
+      ]
+    },
+    {
+      "id": "uncle_chen",
+      "path": "res://assets/generated/village/opening-npcs/uncle_chen.glb",
+      "sha256": "1608d05c4b8f340d9a671908c905d9dd9183ead92f933eb88f34cc3335b4c207",
+      "lods": [
+        {
+          "name": "uncle_chen_LOD0",
+          "triangles": 1584,
+          "surfaces": 1
+        },
+        {
+          "name": "uncle_chen_LOD1",
+          "triangles": 504,
+          "surfaces": 1
+        }
+      ]
+    },
+    {
+      "id": "uncle_liu",
+      "path": "res://assets/generated/village/opening-npcs/uncle_liu.glb",
+      "sha256": "d2ebc09f606a39f69a1b871e483250a1a6380bace876fdf0a1b551d5750114be",
+      "lods": [
+        {
+          "name": "uncle_liu_LOD0",
+          "triangles": 1596,
+          "surfaces": 1
+        },
+        {
+          "name": "uncle_liu_LOD1",
+          "triangles": 516,
+          "surfaces": 1
+        }
+      ]
+    }
+  ]
+}

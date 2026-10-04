@@ -1,0 +1,7 @@
+~ start
+主角: 两块洗衣皂，您看看。 [ID:OPENING_DELIVER_HOUSE02_001]
+许婆婆: 对，就是这个。新的先放柜里吧，旧的还没用完。 [ID:OPENING_DELIVER_HOUSE02_002]
+主角: 那我给您搁干燥点的地方。 [ID:OPENING_DELIVER_HOUSE02_003]
+许婆婆: 搁这儿就行，我一会儿自己收。单子上也记一下，免得你忘了又跑一趟。 [ID:OPENING_DELIVER_HOUSE02_004]
+do Narrative.Execute("complete_event", "village.opening.deliver_house02")
+=> END

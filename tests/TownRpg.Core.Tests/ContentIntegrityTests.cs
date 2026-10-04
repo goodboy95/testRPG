@@ -569,6 +569,22 @@ public sealed class ContentIntegrityTests
     }
 
     [Fact]
+    public void DialogueFallbackTextMatchesItsChineseLocalization()
+    {
+        var translations = ReadLocalizationRows().ToDictionary(row => row.Key, row => row.Value);
+        foreach (var file in GetDialogueFiles())
+        foreach (var line in File.ReadLines(file).Where(IsPrintableDialogueLine))
+        {
+            var id = StaticIdRegex.Match(line);
+            if (!id.Success) continue; // The ID contract is checked separately.
+            var text = line[..id.Index].Trim();
+            text = text.StartsWith("- ", StringComparison.Ordinal) ? text[2..] : text[(text.IndexOf(':') + 1)..].Trim();
+            text = Regex.Replace(text, @"\[#.*?\]", "").Trim();
+            Assert.True(translations[id.Groups["id"].Value] == text, $"Fallback/translation mismatch at {RelativePath(file)}: {id.Value}");
+        }
+    }
+
+    [Fact]
     public void StaticIdsAndReferencedLocalizationKeys_AreUniqueAndTranslated()
     {
         var characters = LoadCatalog<CharacterCatalog>("data/characters.json");

@@ -1,6 +1,6 @@
 ~ start
 林晓雨: 正面挡住的长尾，原来是最要紧的一截。 [ID:DREAM_V6_STORY_CALIBRATION_001]
 主角: 你说出来之后，几条记录就能对上了。 [ID:DREAM_V6_STORY_CALIBRATION_002]
-林晓雨: 那以后我看另一边。你也记得告诉我，别一个人点头。 [ID:DREAM_V6_STORY_CALIBRATION_003]
+林晓雨: 那以后我就帮你看另一边。你看见什么也告诉我，别自己点点头就算了。 [ID:DREAM_V6_STORY_CALIBRATION_003]
 do Narrative.Execute("complete_event", "dream.prologue.calibration")
 => END

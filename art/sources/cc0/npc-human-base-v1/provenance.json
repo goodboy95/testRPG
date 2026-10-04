@@ -1,0 +1,13 @@
+{
+  "url": "https://download.blender.org/demo/asset-bundles/human-base-meshes/human-base-meshes-bundle-v1.4.1.zip",
+  "packageSha256": "811f43accbb31a88266d932f8f5563b2d13586fca0ba2693aad1f5fe582b3515",
+  "collection": "Body Male - Realistic",
+  "author": "Dan Ulrich",
+  "license": "CC0",
+  "adopted": "2026-09-18",
+  "note": "Independent upstream package; no protagonist or rejected NPC meshes. Unrelated Rain Rig License text is not the asset license; bundle README and selected collection both explicitly CC0.",
+  "extractedSource": "art/sources/cc0/npc-human-base-v1/body-male-realistic.blend",
+  "extractedSourceSha256": "a2815c3d8b5fc64242a4bc694f804d4892ae0b6d3165e85853c9d3a6a45e4dc6",
+  "readmeSha256": "98d7fbbdecead1b44a1e694de0e1a7175253e2d973195fe595ac8d2997133ad8",
+  "extractionTool": "Blender 5.2.0 LTS; selected collection copied independently before authoring modifications"
+}

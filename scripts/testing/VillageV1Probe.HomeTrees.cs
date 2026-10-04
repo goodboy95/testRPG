@@ -12,7 +12,7 @@ public partial class VillageV1Probe
     private bool HomeTreesCheck=>OS.GetCmdlineUserArgs().Contains("--village-v6");
     private bool HomeTreesBaseline=>OS.GetCmdlineUserArgs().Contains("--home-trees-baseline");
     private bool HomeTreesAdoption=>OS.GetCmdlineUserArgs().Contains("--v6-adoption");
-    private string HomeTreesOutput=>ProjectSettings.GlobalizePath($"res://outputs/{(HomeTreesAdoption?"village-v6-adoption":"village-v6")}/{_compactRun}-{(HomeTreesBaseline?"v5":"v6")}");
+    private string HomeTreesOutput=>ProjectSettings.GlobalizePath(OS.GetCmdlineUserArgs().Contains("--village-v8") ? $"res://outputs/village-v8/{_compactRun}-routes" : $"res://outputs/{(HomeTreesAdoption?"village-v6-adoption":"village-v6")}/{_compactRun}-{(HomeTreesBaseline?"v5":"v6")}");
     private async Task HomeTreesTransition(bool interior)
     {
         await KeyInput(Key.F);

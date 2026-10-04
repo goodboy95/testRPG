@@ -52,6 +52,8 @@ public partial class VillageV1Probe
             _village.ActivePlayer.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(ResourceLoader.Load<Texture2D>("res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png")));
         }
         if(_capture)await CaptureCompact();
+        if(_village.Exterior.UseStreaming)
+            Require(_village.Exterior.Streaming!.LoadFailures==0,"no detail load failures during routes");
         var report=new {status="pass",loadMs,checks=_checks,routes=_routes,screens=_captures,humanAcceptance="pending"};
         await ClosePreview();File.WriteAllText(Path.Combine(Output,"results.json"),JsonSerializer.Serialize(report,new JsonSerializerOptions{WriteIndented=true}));GD.Print("VILLAGE_V4_PROBE_PASS checks="+_checks.Count);GetTree().Quit();
     }

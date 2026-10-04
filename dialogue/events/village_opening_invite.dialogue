@@ -1,0 +1,11 @@
+~ start
+主角: 乔姨那批米面得两个人一起送，你有空搭把手吗？ [ID:OPENING_INVITE_001]
+沈砚: 我今天有空。要送哪几家？ [ID:OPENING_INVITE_002]
+主角: 许婆婆、陈叔、刘伯。推车在店前，送完还回去。 [ID:OPENING_INVITE_003]
+沈砚: 工钱怎么算？ [ID:OPENING_INVITE_004]
+主角: 咱们一人 40 元，村长会分别给我们结钱。 [ID:OPENING_INVITE_005]
+沈砚: 那行，我也攒点买工具。走，说好了，最沉的别留到最后才想起我。 [ID:OPENING_INVITE_006]
+主角: 那你先过去，想搬哪袋自己挑。 [ID:OPENING_INVITE_007]
+沈砚: 那我得快一点。 [ID:OPENING_INVITE_008]
+do Narrative.Execute("complete_event", "village.opening.invite")
+=> END

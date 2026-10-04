@@ -1,6 +1,6 @@
 ~ start
 主角: 接缝和先后都对上了，机器也在正常运转。 [ID:DREAM_V6_STORY_TAPE_001]
-林晓雨: 嗯。我这里也是，只有白噪声。 [ID:DREAM_V6_STORY_TAPE_002]
+林晓雨: 嗯，我这边也一样，听到的只有白噪声。 [ID:DREAM_V6_STORY_TAPE_002]
 主角: 先把最后的交接做完。 [ID:DREAM_V6_STORY_TAPE_003]
 do Narrative.Execute("complete_event", "dream.prologue.tape")
 => END

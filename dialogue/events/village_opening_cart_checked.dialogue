@@ -1,0 +1,7 @@
+~ start
+沈砚: 我扶着车，你试一下轮子和车把。 [ID:OPENING_CART_CHECKED_001]
+主角: 轮子转得挺顺，轮轴没晃，车把也很牢。 [ID:OPENING_CART_CHECKED_002]
+乔姨: 绑带就在旁边。许婆婆、陈叔、刘伯，每家一袋米、一袋面。看清名字，再一份份装上车。 [ID:OPENING_CART_CHECKED_003]
+沈砚: 米放下面，面放上头。两边分匀一点，别全压在一边。 [ID:OPENING_CART_CHECKED_004]
+do Narrative.Execute("complete_event", "village.opening.cart_checked")
+=> END

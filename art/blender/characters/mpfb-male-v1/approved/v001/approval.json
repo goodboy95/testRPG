@@ -1,0 +1,9 @@
+{
+  "gate": "G1",
+  "scope": "Normal human face baseline only; no identity/dynamics/runtime approval",
+  "date": "2026-09-20",
+  "userStatement": "不得不说，确实像人。那给他加上头发和衣服再看看吧",
+  "sourceSha256": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4",
+  "source": "candidates/v001/character.blend",
+  "reviewImage": "outputs/character-workflow/v001/godot/20260920-173248/1080-material-head-front.png"
+}

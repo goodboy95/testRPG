@@ -1,0 +1,9 @@
+~ start
+乔姨: 三家的东西都分好了。纸条和酬金在一个信封里，我放这儿了啊。 [ID:OPENING_POSTING_001]
+村长: 好，你先回店吧。我核对好了就挂到牌上。 [ID:OPENING_POSTING_002]
+乔姨: 名单也在信封里，东西到店前拿。看好牌上的说明，再来找我就行。 [ID:OPENING_POSTING_003]
+村长: 今天有张凳子要送，还有乔姨的三份小件。都在牌上，你自己挑顺路的。 [ID:OPENING_POSTING_004]
+主角: 做完还是来这儿结钱？ [ID:OPENING_POSTING_005]
+村长: 先找托你办事的人说一声。他们确认了，我这儿记账。钱可以攒着领。 [ID:OPENING_POSTING_006]
+do Narrative.Execute("complete_event", "village.opening.posting")
+=> END

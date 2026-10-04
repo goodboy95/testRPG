@@ -6,6 +6,7 @@
 *.mp3 filter=lfs diff=lfs merge=lfs -text
 *.blend filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text
+*.obj filter=lfs diff=lfs merge=lfs -text
 *.otf filter=lfs diff=lfs merge=lfs -text
 
 # Terrain sample source data and vendored native extension.
@@ -28,3 +29,5 @@ addons/terrain_3d/brushes/*.exr filter=lfs diff=lfs merge=lfs -text
 # Preserve upstream SVGs and the captured license page byte-for-byte.
 addons/terrain_3d/icons/*.svg -whitespace
 art/sources/cc0/village-art-v3/license.html -whitespace
+# Keep retained upstream character recipes and licenses byte-for-byte.
+art/sources/cc0/mpfb-*/** -text -whitespace

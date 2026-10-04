@@ -1,6 +1,6 @@
 ~ start
 林晓雨: 正面看着完整的时候，这边其实还挡着一截。 [ID:DREAM_V6_STORY_STAGE_001]
 主角: 幸好你在侧台。只看我这里，会停在另一个位置上。 [ID:DREAM_V6_STORY_STAGE_002]
-林晓雨: 两边都看过，再点头。刚才约好了的。 [ID:DREAM_V6_STORY_STAGE_003]
+林晓雨: 我们刚才说好了，两边都看清楚，再确认位置。 [ID:DREAM_V6_STORY_STAGE_003]
 do Narrative.Execute("complete_event", "dream.prologue.stage")
 => END

@@ -1,0 +1,24 @@
+~ start
+沈砚: 你来得巧，我正歇着。 [ID:NPC_PILOT_SHEN_HELLO]
+=> topics
+~ topics
+主角: 对了…… [ID:NPC_PILOT_SHEN_TOPICS]
+- 在忙什么 [ID:NPC_PILOT_SHEN_CHOICE_BUSY]
+	=> busy
+- 周末怎么安排 [ID:NPC_PILOT_SHEN_CHOICE_WEEKEND]
+	=> weekend
+- 先不打扰了 [ID:NPC_PILOT_SHEN_CHOICE_BYE]
+	=> goodbye
+~ busy
+沈砚: 刚把带来的小工具理了一遍。老混在一起，找起来费劲。 [ID:NPC_PILOT_SHEN_BUSY_1]
+主角: 你居然也会找不着工具？ [ID:NPC_PILOT_SHEN_BUSY_2]
+沈砚: 找得着。只是有时候要先把整个袋子倒出来。 [ID:NPC_PILOT_SHEN_BUSY_3]
+=> topics
+~ weekend
+沈砚: 先在附近待会儿。平时坐得多，出来走走舒服点。 [ID:NPC_PILOT_SHEN_WEEKEND_1]
+主角: 我也想趁早上不太热转一转。 [ID:NPC_PILOT_SHEN_WEEKEND_2]
+沈砚: 那挺好。日头起来以后，我可就要往阴凉里躲了。 [ID:NPC_PILOT_SHEN_WEEKEND_3]
+=> topics
+~ goodbye
+沈砚: 行，回头见。 [ID:NPC_PILOT_SHEN_BYE]
+=> END

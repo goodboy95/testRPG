@@ -1,0 +1,38 @@
+{
+  "tool": "Blender 5.2.0 LTS",
+  "date": "2026-09-18",
+  "materials": [
+    {
+      "material": "Shen_SkinEyes",
+      "resolution": 2048,
+      "method": "Cycles EMIT pigment / NORMAL from geometry and procedural bump / AO+part roughness+zero metallic ORM",
+      "images": [
+        "art/blender/characters/shen-yan-v2/textures/shen_skin_albedo.png",
+        "art/blender/characters/shen-yan-v2/textures/shen_skin_normal.png",
+        "art/blender/characters/shen-yan-v2/textures/shen_skin_orm.png"
+      ]
+    },
+    {
+      "material": "Shen_Wardrobe",
+      "resolution": 2048,
+      "method": "Cycles EMIT pigment / NORMAL from geometry and procedural bump / AO+part roughness+zero metallic ORM",
+      "images": [
+        "art/blender/characters/shen-yan-v2/textures/shen_wardrobe_albedo.png",
+        "art/blender/characters/shen-yan-v2/textures/shen_wardrobe_normal.png",
+        "art/blender/characters/shen-yan-v2/textures/shen_wardrobe_orm.png"
+      ]
+    },
+    {
+      "material": "Shen_HairBrows",
+      "resolution": 1024,
+      "method": "Cycles EMIT pigment / NORMAL from geometry and procedural bump / AO+part roughness+zero metallic ORM",
+      "images": [
+        "art/blender/characters/shen-yan-v2/textures/shen_hair_albedo.png",
+        "art/blender/characters/shen-yan-v2/textures/shen_hair_normal.png",
+        "art/blender/characters/shen-yan-v2/textures/shen_hair_orm.png"
+      ]
+    }
+  ],
+  "highPolySculpt": false,
+  "generatedConceptProjected": false
+}

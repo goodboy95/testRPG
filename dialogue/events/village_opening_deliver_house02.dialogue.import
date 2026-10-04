@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://b10ui32sguhkd"
+path="res://.godot/imported/village_opening_deliver_house02.dialogue-f0ec47b0878000e954164e5dd5ac4318.tres"
+
+[deps]
+
+source_file="res://dialogue/events/village_opening_deliver_house02.dialogue"
+dest_files=["res://.godot/imported/village_opening_deliver_house02.dialogue-f0ec47b0878000e954164e5dd5ac4318.tres"]
+
+[params]
+
+defaults=true

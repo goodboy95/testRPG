@@ -24,11 +24,17 @@ public sealed class TerrainVillageSurface3D : IVillageSurface3D
     private readonly Node3D _terrain;
     private readonly GodotObject _data;
     private readonly GodotObject _collision;
-    public TerrainVillageSurface3D(Node3D host,string folder=Folder)
+    public TerrainVillageSurface3D(Node3D host,string folder=Folder,bool streamingProfile=false)
     {
         if(!ClassDB.ClassExists("Terrain3D")) throw new InvalidOperationException("Terrain3D 1.0.2 is unavailable. Use the original village preview.");
         _terrain=ResourceLoader.Load<PackedScene>(folder+"terrain.tscn").Instantiate<Node3D>();
         _terrain.Set("free_editor_textures",false);
+        if(streamingProfile)
+        {
+            // Same native height/collision data and near vertex spacing, smaller clipmap rings.
+            // An extra coarse ring retains horizon coverage without the old 32-wide fine rings.
+            _terrain.Set("mesh_size",16);_terrain.Set("mesh_lods",7);
+        }
         host.AddChild(_terrain);
         _data=_terrain.Get("data").AsGodotObject();
         _collision=_terrain.Get("collision").AsGodotObject();

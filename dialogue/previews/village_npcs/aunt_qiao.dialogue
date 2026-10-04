@@ -1,0 +1,24 @@
+~ start
+乔姨: 来啦？檐下凉快，站这儿歇会儿。 [ID:NPC_PILOT_QIAO_HELLO]
+=> topics
+~ topics
+主角: 乔姨，我想问问…… [ID:NPC_PILOT_QIAO_TOPICS]
+- 今天店里忙吗 [ID:NPC_PILOT_QIAO_CHOICE_BUSY]
+	=> busy
+- 最近备了些什么 [ID:NPC_PILOT_QIAO_CHOICE_STOCK]
+	=> stock
+- 先不打扰了 [ID:NPC_PILOT_QIAO_CHOICE_BYE]
+	=> goodbye
+~ busy
+乔姨: 早上一阵人刚走。这会儿正好把空筐理一理。 [ID:NPC_PILOT_QIAO_BUSY_1]
+主角: 难怪今天门口比平时清爽。 [ID:NPC_PILOT_QIAO_BUSY_2]
+乔姨: 过道总得留出来，抱着东西的人才好走。 [ID:NPC_PILOT_QIAO_BUSY_3]
+=> topics
+~ stock
+乔姨: 日常用的米面都有，也补了些针线。小东西最容易用到的时候找不着。 [ID:NPC_PILOT_QIAO_STOCK_1]
+主角: 我家的线团倒是不少，每回都缠在一起。 [ID:NPC_PILOT_QIAO_STOCK_2]
+乔姨: 拿张硬纸绕好，线头别压在底下，就省事了。 [ID:NPC_PILOT_QIAO_STOCK_3]
+=> topics
+~ goodbye
+乔姨: 好，慢慢走。 [ID:NPC_PILOT_QIAO_BYE]
+=> END

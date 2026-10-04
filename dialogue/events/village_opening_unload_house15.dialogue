@@ -1,0 +1,7 @@
+~ start
+刘伯: 车停菜畦外边就好。 [ID:OPENING_UNLOAD_HOUSE15_001]
+主角: 米面都给您放垫板上。 [ID:OPENING_UNLOAD_HOUSE15_002]
+沈砚: 这一袋放里面吧，外边留着给您走路。 [ID:OPENING_UNLOAD_HOUSE15_003]
+刘伯: 行，数量也对得上。干活的时候互相说一声，能省不少劲。 [ID:OPENING_UNLOAD_HOUSE15_004]
+do Narrative.Execute("complete_event", "village.opening.unload_house15")
+=> END

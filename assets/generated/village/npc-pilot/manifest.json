@@ -1,0 +1,49 @@
+{
+  "status": "independent-npc-pilot",
+  "runtimeDefault": false,
+  "source": "art/blender/village/npc-pilot.blend",
+  "sourceSha256": "abe40d0c632914b9df5056258f72528e8a858bf2437c8a2517ff1d008d13d43b",
+  "provenance": {
+    "tool": "Blender 5.2.0 LTS",
+    "method": "Original deterministic geometry and six-bone rigid weights; runtime procedural poses",
+    "date": "2026-09-16",
+    "externalAssets": [],
+    "aiImages": false
+  },
+  "characters": [
+    {
+      "id": "aunt_qiao",
+      "path": "res://assets/generated/village/npc-pilot/aunt_qiao.glb",
+      "sha256": "4d6ae9993b9b1d4c601a292edfce511fdbec54ebee99e1360fb14120be8a2ffb",
+      "lods": [
+        {
+          "name": "aunt_qiao_LOD0",
+          "triangles": 1764,
+          "surfaces": 1
+        },
+        {
+          "name": "aunt_qiao_LOD1",
+          "triangles": 564,
+          "surfaces": 1
+        }
+      ]
+    },
+    {
+      "id": "shen_yan",
+      "path": "res://assets/generated/village/npc-pilot/shen_yan.glb",
+      "sha256": "b75a65d4c0d1ec0895392d55e749cc8ed9da5d4fd90e111834f3068e361d1297",
+      "lods": [
+        {
+          "name": "shen_yan_LOD0",
+          "triangles": 1584,
+          "surfaces": 1
+        },
+        {
+          "name": "shen_yan_LOD1",
+          "triangles": 504,
+          "surfaces": 1
+        }
+      ]
+    }
+  ]
+}

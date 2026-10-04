@@ -1,6 +1,6 @@
 ~ start
 林晓雨: 这个人一直站在边上，却看得到台上，也够得到总闸。 [ID:DREAM_V6_STORY_PHOTO_001]
-主角: 交接票里的三个条件，都落在这里。 [ID:DREAM_V6_STORY_PHOTO_002]
+主角: 这里正好符合交接票上写的三个条件。 [ID:DREAM_V6_STORY_PHOTO_002]
 林晓雨: 合影把人拍进去了，节目单却没写这份工作。 [ID:DREAM_V6_STORY_PHOTO_003]
 do Narrative.Execute("complete_event", "dream.prologue.photo")
 => END

@@ -12,9 +12,12 @@ public partial class VillageAreaHost : Node
     protected virtual bool CompactSample=>false;
     protected virtual bool HouseArtSample=>false;
     protected virtual bool HomeTreesSample=>false;
+    protected virtual bool StreamingSample=>false;
+    protected virtual bool AnimeSample=>false;
     // Regression switches apply only to independent previews; formal saves always use the adopted surface.
     private bool OriginalTerrain=>OS.GetCmdlineUserArgs().Contains("--village-original-terrain") || OS.GetCmdlineUserArgs().Contains("--terrain-baseline");
     public event Action? CheckpointReached;
+    public event Action? LeavingExterior;
     private bool _hostLocked;
     private PlayerSettings _settings = new();
     private Dictionary<string, bool> _savedDoors = new();
@@ -28,6 +31,10 @@ public partial class VillageAreaHost : Node
     public bool IsInterior { get; private set; }
     public bool IsTransitioning { get; private set; }
     public bool IsPaused { get; private set; }
+    public bool HostLocked => _hostLocked;
+    public void SetOpeningPhase(bool midday)
+    { if (EmbeddedInGame) _areaName.Text = (IsInterior ? "家中 · " : "村庄 · ") + (midday ? "周六午间" : "周六早晨"); }
+    protected virtual bool HasExternalModal => false;
     public PlayerController3D ActivePlayer => IsInterior ? Interior!.PlayerActor : Exterior.PlayerActor;
     public ThirdPersonCameraRig ActiveCamera => IsInterior ? Interior!.CameraController : Exterior.CameraController;
     public IReadOnlyList<double> TransitionTimesMs => _transitionTimes;
@@ -54,7 +61,11 @@ public partial class VillageAreaHost : Node
         var compact=EmbeddedInGame || (!UseV1 && !OriginalTerrain && !ArtSample && !TerrainSample && !legacyPreview && (CompactSample || !Graybox));
         var adoptedArt=EmbeddedInGame || (compact && !Graybox && !CompactSample && !HouseArtSample && !HomeTreesSample
             && !OS.GetCmdlineUserArgs().Contains("--village-v4"));
+        var visual=VillageVisualProfile.Select(EmbeddedInGame,AnimeSample,OS.GetCmdlineUserArgs());
+        if(visual.AnimeLighting) { compact=true; adoptedArt=true; }
         Exterior=new VillageExterior3D { Name="VillageExterior",Graybox=!EmbeddedInGame && Graybox,UseV1=!EmbeddedInGame && UseV1,
+            VisualProfile=visual,
+            UseStreaming=!EmbeddedInGame && compact && !Graybox && (visual.AnimeLighting || StreamingSample || OS.GetCmdlineUserArgs().Contains("--village-v7")),
             UseTerrainSample=EmbeddedInGame || compact || (!UseV1 && !Graybox && !OriginalTerrain),
             UseCompactLayout=compact,
             UseHouseArtSample=adoptedArt || (!EmbeddedInGame && HouseArtSample && compact && !Graybox),
@@ -87,7 +98,7 @@ public partial class VillageAreaHost : Node
     }
     public override void _Input(InputEvent e)
     {
-        if(EmbeddedInGame || e is InputEventKey { Echo:true }) return;
+        if(EmbeddedInGame || HasExternalModal || e is InputEventKey { Echo:true }) return;
         if(e is InputEventJoypadButton or InputEventJoypadMotion) SetGamepadPrompts(true);
         else if(e is InputEventKey or InputEventMouseButton) SetGamepadPrompts(false);
         if(e.IsActionPressed("ui_cancel"))
@@ -102,7 +113,7 @@ public partial class VillageAreaHost : Node
         _gamepad=value;Exterior.SetGamepadPrompts(value);Interior?.SetGamepadPrompts(value);UpdateLabels();
     }
     private void Lock(bool value) { Exterior.SetHostLocked(value || _hostLocked);Interior?.SetHostLocked(value || _hostLocked); }
-    public void SetHostLocked(bool value) { _hostLocked=value;Lock(IsPaused || IsTransitioning); if (EmbeddedInGame && _instructions is not null) _instructions.Visible=!value; }
+    public void SetHostLocked(bool value) { _hostLocked=value;Lock(IsPaused || IsTransitioning); if (_instructions is not null) _instructions.Visible=!value; }
     public void SetPaused(bool value)
     {
         if(IsTransitioning) return;
@@ -112,6 +123,7 @@ public partial class VillageAreaHost : Node
     public async Task<bool> SwitchArea(bool enterHome)
     {
         if(_exiting || IsTransitioning || IsPaused || _hostLocked || enterHome==IsInterior) return false;
+        if (enterHome && !_restoring) LeavingExterior?.Invoke();
         IsTransitioning=true;Lock(true);_prompt.Text=string.Empty;
         var start=Time.GetTicksUsec();
         await Fade(1);
@@ -119,13 +131,17 @@ public partial class VillageAreaHost : Node
         var yaw=ActiveCamera.YawDegrees;
         if(Interior is not null && !_restoring) { _savedDoors=Interior.CaptureDoors();_savedDoorSides=Interior.CaptureDoorSides();_savedLights=Interior.CaptureLights(); }
         var previous=IsInterior ? (Node)Interior! : Exterior;
+        // A hidden cached probe can remain in Compatibility's pending update queue.
+        // Release its render instance before detaching the scenario; recreate on return.
+        if (previous is HomePreviewController3D previousHome) previousHome.SetReflectionActive(false);
         if(!IsInterior) Exterior.SetSurfaceActive(false);
         previous.ProcessMode=ProcessModeEnum.Disabled;_areaHost.RemoveChild(previous);
         if(enterHome)
         {
             if(Interior is null)
             {
-                Interior=new HomePreviewController3D { Name="VillageHomeInterior",EmbeddedInVillage=true,UseIdentitySample=Exterior.UseHomeTreesSample };
+                Interior=new HomePreviewController3D { Name="VillageHomeInterior",EmbeddedInVillage=true,UseIdentitySample=Exterior.UseHomeTreesSample,
+                    ExteriorModelPath=Exterior.VisualProfile.AnimeLighting?Exterior.VisualProfile.HomeModel:null };
                 Interior.VillageExitRequested+=LeaveHome;
                 Interior.FixturesChanged+=OnFixturesChanged;
             }
@@ -144,6 +160,7 @@ public partial class VillageAreaHost : Node
         }
         IsInterior=enterHome;
         var next=IsInterior ? (Node)Interior! : Exterior;
+        if (next is HomePreviewController3D nextHome) nextHome.SetReflectionActive(true);
         next.ProcessMode=ProcessModeEnum.Inherit;
         ActiveCamera.SetYawImmediate(yaw+(enterHome?-Exterior.Layout.Home.Yaw:Exterior.Layout.Home.Yaw));ActiveCamera.SnapToTarget();ActiveCamera.Camera.MakeCurrent();
         UpdateLabels();
@@ -162,7 +179,7 @@ public partial class VillageAreaHost : Node
         await ToSignal(tween,Tween.SignalName.Finished);
         if(!_exiting && alpha==0) _fade.MouseFilter=Control.MouseFilterEnum.Ignore;
     }
-    public async Task ResetPreview()
+    public virtual async Task ResetPreview()
     {
         if(IsTransitioning || _exiting) return;
         SetPaused(false);
@@ -183,6 +200,8 @@ public partial class VillageAreaHost : Node
         if(Exterior.UseArtSample && !EmbeddedInGame && !IsInterior) _areaName.Text="树木与铺面样板 · 夏日上午";
         if(Exterior.UseHouseArtSample && !EmbeddedInGame && !IsInterior) _areaName.Text="四户住宅样板 · 夏日上午";
         if(Exterior.UseHomeTreesSample && !EmbeddedInGame && !IsInterior) _areaName.Text=HomeTreesSample ? "主角家与全村树木样板 · 夏日上午" : "溪谷村庄 v6 · 夏日上午";
+        if(Exterior.VisualProfile.AnimeLighting && !IsInterior) _areaName.Text="溪谷村庄 · 动画风格 v8 样板";
+        if(Exterior.UseStreaming && !EmbeddedInGame && !IsInterior) _areaName.Text="溪谷村庄 v7 · 夏日上午";
         _instructions.Text=EmbeddedInGame ? (_gamepad ? "左摇杆 移动　右摇杆 镜头　A 互动　Menu 暂停" : "WASD 移动　Shift 慢走　鼠标 镜头　F 互动　Esc 暂停") : UiText.Get(_gamepad?"VILLAGE_CONTROLS_PAD":"VILLAGE_CONTROLS_KEYBOARD");
         if(IsInterior) _prompt.Text=string.Empty;
     }
@@ -292,7 +311,8 @@ public partial class VillageAreaHost : Node
     private static Label Label(Control parent,Vector2 position,Vector2 size,int font)
     {
         var label=new Label { Position=position,Size=size,MouseFilter=Control.MouseFilterEnum.Ignore };
-        label.AddThemeFontSizeOverride("font_size",font);label.AddThemeColorOverride("font_shadow_color",new Color(0,0,0,.85f));
+        UiStyles.Role(label,font <= 8 ? UiTextRole.Auxiliary : font >= 12 ? UiTextRole.Heading : UiTextRole.Body);
+        label.AddThemeColorOverride("font_shadow_color",new Color(0,0,0,.85f));
         label.AddThemeConstantOverride("shadow_outline_size",2);parent.AddChild(label);return label;
     }
     private static Button Button(Node parent,string key,Action action)

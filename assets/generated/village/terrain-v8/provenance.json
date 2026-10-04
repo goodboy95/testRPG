@@ -1,0 +1,8 @@
+{
+  "method": "Original mathematical pigment maps",
+  "tool": "Python stdlib",
+  "seed": "deterministic sine fields",
+  "heightSource": "terrain-v4/data unchanged",
+  "normal": "flat",
+  "generatedModel": null
+}

@@ -12,6 +12,8 @@ public sealed class ContentRepository
     public ScheduleCatalog Schedules { get; private set; } = new();
     public EventCatalog Events { get; private set; } = new();
     public ItemCatalog Items { get; private set; } = new();
+    public OpeningResident[] OpeningResidents { get; private set; } = [];
+    public OpeningGoods[] OpeningGoods { get; private set; } = [];
 
     public void Load()
     {
@@ -19,6 +21,8 @@ public sealed class ContentRepository
         Schedules = LoadJson<ScheduleCatalog>("res://data/schedules.json");
         Events = LoadJson<EventCatalog>("res://data/events.json");
         Items = LoadJson<ItemCatalog>("res://data/items.json");
+        OpeningResidents = VillageOpeningContent.ParseResidents(GodotFileAccess.GetFileAsString("res://data/village-opening-npcs.json"));
+        OpeningGoods = VillageOpeningContent.ParseGoods(GodotFileAccess.GetFileAsString("res://data/village-opening-goods.json"));
         Validate();
     }
 
@@ -66,6 +70,10 @@ public sealed class ContentRepository
                 errors.Add($"Event '{gameEvent.Id}' references missing dialogue '{gameEvent.DialoguePath}'.");
             }
         }
+        foreach (var resident in OpeningResidents)
+            if (!characterIds.Contains(resident.Id) || !ResourceLoader.Exists(resident.Model)) errors.Add("Invalid opening resident reference: "+resident.Id);
+        var openingEvents = Events.Events.Where(e=>e.Id.StartsWith("village.opening.")).ToArray();
+        if (!openingEvents.Select(e=>e.Id).ToHashSet().SetEquals(VillageOpeningContent.StoryKeys.Select(VillageOpeningIds.Event))) errors.Add("Opening event catalog is incomplete or contains unknown events.");
 
         foreach (var duplicate in Items.Items.GroupBy(item => item.Id).Where(group => group.Count() > 1))
         {

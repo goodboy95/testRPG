@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://djha7njaxg312"
+path="res://.godot/imported/village_opening_cart_secured.dialogue-4becb8a24492f6ea61b54122022ec903.tres"
+
+[deps]
+
+source_file="res://dialogue/events/village_opening_cart_secured.dialogue"
+dest_files=["res://.godot/imported/village_opening_cart_secured.dialogue-4becb8a24492f6ea61b54122022ec903.tres"]
+
+[params]
+
+defaults=true

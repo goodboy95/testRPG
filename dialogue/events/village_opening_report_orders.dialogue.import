@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://ukaatuiqdiqg"
+path="res://.godot/imported/village_opening_report_orders.dialogue-a717e561f454041253118f199a3df428.tres"
+
+[deps]
+
+source_file="res://dialogue/events/village_opening_report_orders.dialogue"
+dest_files=["res://.godot/imported/village_opening_report_orders.dialogue-a717e561f454041253118f199a3df428.tres"]
+
+[params]
+
+defaults=true

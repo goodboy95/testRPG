@@ -4,13 +4,13 @@ if Narrative.Evaluate("has_fact", "slice.d1.activity_xiaoyu")
 elif Narrative.Evaluate("has_fact", "slice.d1.activity_zhou")
 	周明: [#speaker=zhou_ming, #mood=warm]很准时。告示刚贴好，浆糊还没干。 [ID:EVT_D2_NOTICE_ZHOU_001]
 elif Narrative.Evaluate("has_fact", "slice.d1.activity_shen")
-	沈砚: [#speaker=shen_yan, #mood=warm]守约的人有优先阅读权。来，占个好位置。 [ID:EVT_D2_NOTICE_SHEN_001]
+	沈砚: [#speaker=shen_yan, #mood=warm]你来得正好。来，这边看得清楚。 [ID:EVT_D2_NOTICE_SHEN_001]
 
 旁白: [#speaker=narrator]新告示盖住了旧时刻表。标题写着“北山旧铁路安全整修与遗迹勘察工程”。 [ID:EVT_D2_NOTICE_001]
 旁白: 承建方是东岚遗迹调查开发有限公司。红色施工边界越过废弃支线，正好包住地图上被抹去的旧隧道。 [ID:EVT_D2_NOTICE_002]
 周明: 他们说是清理落石，可勘察点全在线路外侧。 [ID:EVT_D2_NOTICE_003]
 沈砚: 而且怀表现在完全停了。 [ID:EVT_D2_NOTICE_004]
-林晓雨: 北边又有那个声音。比昨天清楚。 [ID:EVT_D2_NOTICE_005]
+林晓雨: 北边又传来那个声音了，比昨天听得更清楚。 [ID:EVT_D2_NOTICE_005]
 
 - 对照告示与残存的旧线路图。 [ID:EVT_D2_NOTICE_CHOICE_MAP]
 	你: 施工边界绕过车站，却精确覆盖了旧隧道旁那条被删掉的山路。 [ID:EVT_D2_NOTICE_006]

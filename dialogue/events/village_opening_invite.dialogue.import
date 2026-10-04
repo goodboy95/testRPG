@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://ce8is38khilhs"
+path="res://.godot/imported/village_opening_invite.dialogue-0c4c4613f85971d554d91ca0e1042692.tres"
+
+[deps]
+
+source_file="res://dialogue/events/village_opening_invite.dialogue"
+dest_files=["res://.godot/imported/village_opening_invite.dialogue-0c4c4613f85971d554d91ca0e1042692.tres"]
+
+[params]
+
+defaults=true

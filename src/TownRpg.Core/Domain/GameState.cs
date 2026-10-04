@@ -15,6 +15,7 @@ public sealed class GameState
     public PlayerSettings Settings { get; set; } = new();
     public DreamEscapeState? DreamEscape { get; set; }
     public VillageExplorationState? VillageExploration { get; set; }
+    public VillageOpeningState? VillageOpening { get; set; }
 
     public static GameState CreateDreamPrologue()
     {

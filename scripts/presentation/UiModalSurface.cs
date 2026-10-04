@@ -32,7 +32,8 @@ public partial class UiModalSurface : PanelContainer
     private void Layout()
     {
         var height = Mathf.Min(332, BaseSize.Y * (ScaleHeight ? UiStyles.Scale(this) : 1));
-        Size = new Vector2(BaseSize.X, height);
+        var width = BaseSize.X + (UiStyles.ActiveTypography is { } p ? (p.Body - 9) * 16 : 0);
+        Size = new Vector2(width, height);
         Position = (new Vector2(640, 360) - Size) / 2;
     }
 }

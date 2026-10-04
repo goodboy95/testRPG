@@ -1,0 +1,254 @@
+{
+  "schema": 1,
+  "assetId": "npc_male_baseline.v006-casual",
+  "source": "art/blender/characters/mpfb-male-v1/candidates/v006-casual/character.blend",
+  "sourceSha256": "244f254b529916e10d4613c2fbe87921370a20f087cdd21c9254a332ee8e5746",
+  "glb": "assets/generated/characters/mpfb-male-v1/v006-casual/character.glb",
+  "glbSha256": "fdfb8453040b62af0d04e2b720e4f75b4fafc90df165f6f0311a5fda44e33e4c",
+  "triangles": 94576,
+  "meshInstances": 9,
+  "surfaces": 9,
+  "embeddedImages": 10,
+  "skins": 0,
+  "animations": 0,
+  "reimported": true,
+  "runtimeReady": false,
+  "visualApproval": false,
+  "geometry": {
+    "body": {
+      "vertices": 31177,
+      "triangles": 62000,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.532257616519928,
+          -0.343735933303833,
+          0.1442546546459198
+        ],
+        [
+          0.532257616519928,
+          0.0597829706966877,
+          1.6273698806762695
+        ]
+      ]
+    },
+    "eyes": {
+      "vertices": 1064,
+      "triangles": 2040,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.044979970902204514,
+          -0.13505856692790985,
+          1.5061180591583252
+        ],
+        [
+          0.04497997462749481,
+          -0.11185919493436813,
+          1.53564453125
+        ]
+      ]
+    },
+    "eyebrows": {
+      "vertices": 124,
+      "triangles": 192,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.056837048381567,
+          -0.14089007675647736,
+          1.5247350931167603
+        ],
+        [
+          0.056837048381567,
+          -0.11512009054422379,
+          1.5343691110610962
+        ]
+      ]
+    },
+    "eyelashes": {
+      "vertices": 250,
+      "triangles": 368,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.04661823809146881,
+          -0.14165447652339935,
+          1.51302969455719
+        ],
+        [
+          0.04661823809146881,
+          -0.1281348466873169,
+          1.5264623165130615
+        ]
+      ]
+    },
+    "teeth": {
+      "vertices": 3868,
+      "triangles": 7120,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.031017286702990532,
+          -0.13467343151569366,
+          1.4155998229980469
+        ],
+        [
+          0.031016958877444267,
+          -0.060273148119449615,
+          1.4662590026855469
+        ]
+      ]
+    },
+    "tongue": {
+      "vertices": 226,
+      "triangles": 448,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.022142747417092323,
+          -0.12503111362457275,
+          1.4342851638793945
+        ],
+        [
+          0.022142747417092323,
+          -0.05487935245037079,
+          1.4601037502288818
+        ]
+      ]
+    },
+    "hair": {
+      "vertices": 1755,
+      "triangles": 3344,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.09027153253555298,
+          -0.15624935925006866,
+          1.43583083152771
+        ],
+        [
+          0.08494988083839417,
+          0.06365488469600677,
+          1.643898844718933
+        ]
+      ]
+    },
+    "clothes.male_casualsuit01": {
+      "vertices": 8426,
+      "triangles": 16672,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.48910626769065857,
+          -0.21472635865211487,
+          0.06592699885368347
+        ],
+        [
+          0.4856290817260742,
+          0.12780006229877472,
+          1.4275414943695068
+        ]
+      ]
+    },
+    "clothes.shoes05": {
+      "vertices": 1310,
+      "triangles": 2392,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.23841509222984314,
+          -0.19610847532749176,
+          -0.015626929700374603
+        ],
+        [
+          0.23841509222984314,
+          0.05763299763202667,
+          0.07488322257995605
+        ]
+      ]
+    }
+  },
+  "recipe": {
+    "schema": 1,
+    "assetId": "npc_male_baseline",
+    "route": "A",
+    "mpfbVersion": "2.0.17",
+    "macro": {
+      "gender": 1.0,
+      "age": 0.5,
+      "muscle": 0.5,
+      "weight": 0.5,
+      "height": 0.5,
+      "proportions": 0.5,
+      "cupsize": 0.5,
+      "firmness": 0.5,
+      "race": {
+        "asian": 1.0,
+        "caucasian": 0.0,
+        "african": 0.0
+      }
+    },
+    "scale": 0.1,
+    "skin": "young_asian_male.mhmat",
+    "bodySubdivision": 1,
+    "assets": [
+      [
+        "eyes",
+        "high-poly",
+        "Eyes"
+      ],
+      [
+        "eyebrows",
+        "eyebrow001",
+        "Eyebrows"
+      ],
+      [
+        "eyelashes",
+        "eyelashes01",
+        "Eyelashes"
+      ],
+      [
+        "teeth",
+        "teeth_base",
+        "Teeth"
+      ],
+      [
+        "tongue",
+        "tongue01",
+        "Tongue"
+      ],
+      [
+        "hair",
+        "short02",
+        "Hair"
+      ],
+      [
+        "clothes",
+        "male_casualsuit01",
+        "Clothes"
+      ],
+      [
+        "clothes",
+        "shoes05",
+        "Clothes"
+      ]
+    ],
+    "noseVolume": 0.0,
+    "randomSeed": null,
+    "note": "Native young-adult male East Asian preset, no identity fitting; age is MPFB normalized parameter, not years.",
+    "parent": {
+      "version": "v001",
+      "sourceSha256": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4"
+    },
+    "version": "v006-casual",
+    "hairSubdivision": 0,
+    "hideUpperSocks": true,
+    "sourceCollection": "mpfb-male-casual-short02",
+    "appearance": "Official short02 hair, navy shirt/jeans male_casualsuit01, white shoes05; masked upper socks; no face edits"
+  },
+  "materialConversion": "MPFB GAMEENGINE Principled, static export copy; emission disabled",
+  "exportVersion": "v006-casual",
+  "alphaPolicy": "Opaque body/teeth/tongue/clothing; BLEND eyes/brows/lashes; MASK .35 hair to avoid overlapping-card sorting artifacts. Static preview only.",
+  "provenance": "art/sources/cc0/mpfb-male-casual-short02/provenance.json"
+}

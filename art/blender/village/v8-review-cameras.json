@@ -1,0 +1,210 @@
+{
+  "source": "VillageAnimeProbe fixed cameras; actual baseline captures retained in outputs/village-v8/20260926-132750-art-baseline",
+  "resolutions": [
+    [
+      1280,
+      720
+    ],
+    [
+      1600,
+      900
+    ],
+    [
+      1920,
+      1080
+    ]
+  ],
+  "views": [
+    {
+      "name": "home-front",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -49,
+        4.2,
+        57
+      ],
+      "target": [
+        -56,
+        2,
+        43
+      ]
+    },
+    {
+      "name": "home-porch",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -52,
+        2.4,
+        49
+      ],
+      "target": [
+        -58,
+        1.8,
+        44.8
+      ]
+    },
+    {
+      "name": "shop-front",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -11,
+        6.3,
+        31
+      ],
+      "target": [
+        -20,
+        4.4,
+        20
+      ]
+    },
+    {
+      "name": "shop-awning",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -24,
+        4.2,
+        24
+      ],
+      "target": [
+        -20,
+        5.15,
+        21
+      ]
+    },
+    {
+      "name": "workshop-front",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -12,
+        6.8,
+        11
+      ],
+      "target": [
+        -23,
+        5,
+        0.7
+      ]
+    },
+    {
+      "name": "plaza-tree",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -20,
+        4.4,
+        38
+      ],
+      "target": [
+        -28,
+        6,
+        29
+      ]
+    },
+    {
+      "name": "plaza-wide",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -8,
+        9,
+        40
+      ],
+      "target": [
+        -25,
+        4,
+        23
+      ]
+    },
+    {
+      "name": "tree-broad",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -56.2426,
+        3.9129,
+        31.7574
+      ],
+      "target": [
+        -62.2426,
+        4.9129,
+        23.7574
+      ]
+    },
+    {
+      "name": "tree-upright",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -34.3,
+        4.1191,
+        36.5
+      ],
+      "target": [
+        -40.3,
+        5.1191,
+        28.5
+      ]
+    },
+    {
+      "name": "tree-open",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        11.9,
+        2.8174,
+        52.5
+      ],
+      "target": [
+        5.9,
+        3.8174,
+        44.5
+      ]
+    },
+    {
+      "name": "tree-under",
+      "width": 1280,
+      "height": 720,
+      "at": [
+        -29,
+        3.1,
+        30
+      ],
+      "target": [
+        -28,
+        8,
+        29
+      ]
+    }
+  ],
+  "playerViews": [
+    {
+      "name": "home-player",
+      "position": [
+        -56,
+        54
+      ],
+      "yaw": 0
+    },
+    {
+      "name": "plaza-player",
+      "position": [
+        -24,
+        30
+      ],
+      "yaw": 0
+    },
+    {
+      "name": "workshop-player",
+      "position": [
+        -23,
+        7
+      ],
+      "yaw": 0
+    }
+  ]
+}

@@ -29,14 +29,22 @@ public partial class DialoguePanel : Control
     private float _subtitleScale = -1;
     private SubtitleBackground _background;
     private bool _gamepad;
+    private bool _windowFocused = true;
     private Control? _returnFocus;
     private GameSession Session => GetNode<GameSession>("/root/GameSession");
+    public DialogueContext? Context { get; init; }
+    private PlayerSettings Settings => Context?.Settings ?? Session.State.Settings;
+    private ISet<string> ReadLines => Context?.ReadLines ?? Session.State.ReadDialogueLines;
     public string HistoryText => string.Join("\n\n", _history.TakeLast(30));
+    public IReadOnlyList<Button> VisibleChoices => _options.GetChildren().OfType<Button>().Where(b => b.IsVisibleInTree()).ToArray();
+    public bool AwaitingAdvance => _advance is not null && !_advance.Task.IsCompleted;
+    public bool AwaitingChoice => _choice is not null && !_choice.Task.IsCompleted;
+    public void ClearHistory() => _history.Clear();
 
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect); MouseFilter = MouseFilterEnum.Ignore;
-        UiStyles.UseCinematic(this, Session.State.Settings.FontScale);
+        UiStyles.UseCinematic(this, Settings.FontScale);
         _subtitle = new SubtitleView { Name = "DialogueSubtitle" }; AddChild(_subtitle);
         _footer = new HBoxContainer { Name = "DialogueFooter" }; AddChild(_footer);
         _continue = UiStyles.Button(UiText.Get("UI_CONTINUE")); _continue.Name = "DialogueContinue";
@@ -63,7 +71,7 @@ public partial class DialoguePanel : Control
         _choiceFrame.AddThemeStyleboxOverride("panel", UiStyles.Panel(Colors.Transparent));
         var scroll = UiStyles.Scroll(_choiceFrame);
         _options = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; scroll.AddChild(_options);
-        _historyPanel = new ReadingPanel { PlainText = true }; AddChild(_historyPanel);
+        _historyPanel = new ReadingPanel { PlainText = true, Modal = Context?.Modal }; AddChild(_historyPanel);
         ApplyPreferences(); Visible = false;
     }
 
@@ -71,7 +79,7 @@ public partial class DialoguePanel : Control
     {
         if (!Visible) return;
         ApplyPreferences(); LayoutDialogue();
-        if (_autoRemaining >= 0 && !_tools.Visible && !_historyPanel.Visible && _auto.ButtonPressed && GetWindow().HasFocus())
+        if (_autoRemaining >= 0 && !_tools.Visible && !_historyPanel.Visible && _auto.ButtonPressed && _windowFocused && GetWindow().HasFocus())
         {
             _autoRemaining -= delta;
             if (_autoRemaining <= 0) { _autoRemaining = -1; _advance?.TrySetResult(true); }
@@ -81,6 +89,7 @@ public partial class DialoguePanel : Control
     public override void _Input(InputEvent e)
     {
         if (!Visible || _historyPanel.Visible) return;
+        if (Context is not null && (!_windowFocused || !GetWindow().HasFocus())) { GetViewport().SetInputAsHandled(); return; }
         if (e is InputEventJoypadButton { Pressed: true }) SetGamepad(true);
         else if (e is InputEventKey { Pressed: true } or InputEventMouseButton { Pressed: true }) SetGamepad(false);
         if (e is InputEventKey { Pressed: true, Echo: false, Keycode: Key.H } or InputEventJoypadButton { Pressed: true, ButtonIndex: JoyButton.Y })
@@ -99,6 +108,12 @@ public partial class DialoguePanel : Control
         _toolsButton.Text = UiText.Get(gamepad ? "UI_DIALOGUE_TOOLS_GAMEPAD" : "UI_DIALOGUE_TOOLS_KEYBOARD");
     }
 
+    public override void _Notification(int what)
+    {
+        if (what == NotificationWMWindowFocusOut) _windowFocused = false;
+        else if (what == NotificationWMWindowFocusIn) _windowFocused = true;
+    }
+
     private void ToggleTools(bool? open = null)
     {
         var show = open ?? !_tools.Visible;
@@ -115,7 +130,7 @@ public partial class DialoguePanel : Control
 
     private void ApplyPreferences()
     {
-        var settings = Session.State.Settings;
+        var settings = Settings;
         var sizeChanged = _subtitleScale != settings.EffectiveSubtitleFontScale;
         var changed = sizeChanged || _background != settings.SubtitleBackground;
         if (_menuScale != settings.FontScale)
@@ -149,10 +164,10 @@ public partial class DialoguePanel : Control
     public async Task ShowLineAsync(string lineId, string speaker, string text)
     {
         CancelPending(); ClearOptions(); Visible = true; ApplyPreferences();
-        var wasRead = Session.State.ReadDialogueLines.Contains(lineId);
+        var wasRead = !string.IsNullOrEmpty(lineId) && ReadLines.Contains(lineId);
         _history.Add($"{speaker}\n{text}");
         await ShowPages(speaker, text, wasRead && _skipRead.ButtonPressed);
-        Session.State.ReadDialogueLines.Add(lineId);
+        if (!string.IsNullOrEmpty(lineId)) ReadLines.Add(lineId);
     }
 
     private async Task ShowPages(string speaker, string text, bool skipRead)
@@ -165,7 +180,7 @@ public partial class DialoguePanel : Control
             if (skipRead) continue;
             var pending = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
             _advance = pending;
-            _autoRemaining = Math.Clamp(_pages[_pageIndex].Length * .06 / Math.Max(.5f, Session.State.Settings.TextSpeed), 1.2, 8);
+            _autoRemaining = Math.Clamp(_pages[_pageIndex].Length * .06 / Math.Max(.5f, Settings.TextSpeed), 1.2, 8);
             _continue.GrabFocus(); await pending.Task;
             _advance = null; _autoRemaining = -1;
         }
@@ -192,7 +207,7 @@ public partial class DialoguePanel : Control
         _history.Add($"{speaker}\n{text}");
         _speaker = speaker; _source = text; _pages = _subtitle.Paginate(text); _pageIndex = 0;
         if (_pages.Count > 1) await ShowPages(speaker, text, false); else ShowCurrentPage(true);
-        Session.State.ReadDialogueLines.Add(lineId);
+        if (!string.IsNullOrEmpty(lineId)) ReadLines.Add(lineId);
         _continue.Visible = false; _choiceFrame.Visible = true;
         var pending = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously); _choice = pending;
         for (var index = 0; index < choices.Count; index++)

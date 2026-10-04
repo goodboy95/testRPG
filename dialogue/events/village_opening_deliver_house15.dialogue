@@ -1,0 +1,7 @@
+~ start
+主角: 刘伯，两条毛巾。 [ID:OPENING_DELIVER_HOUSE15_001]
+刘伯: 放菜畦外边，别踩进泥里。我洗个手就来。 [ID:OPENING_DELIVER_HOUSE15_002]
+主角: 一条放家里，一条带出去？ [ID:OPENING_DELIVER_HOUSE15_003]
+刘伯: 嗯。活动完擦把汗，总不能拿刚擦过手的凑合。货收到了，你忙你的。 [ID:OPENING_DELIVER_HOUSE15_004]
+do Narrative.Execute("complete_event", "village.opening.deliver_house15")
+=> END

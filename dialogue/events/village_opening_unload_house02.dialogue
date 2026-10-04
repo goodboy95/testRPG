@@ -1,0 +1,7 @@
+~ start
+沈砚: 车停稳了。我抬米，你拿上面这袋。 [ID:OPENING_UNLOAD_HOUSE02_001]
+主角: 许婆婆，这是您订的米和面，各一袋，我们核对过名字了。 [ID:OPENING_UNLOAD_HOUSE02_002]
+许婆婆: 放这边干燥的地方，别贴着墙根。两个人搭把手，确实快些。 [ID:OPENING_UNLOAD_HOUSE02_003]
+沈砚: 这边留条过道，您拿东西就不用跨来跨去了。 [ID:OPENING_UNLOAD_HOUSE02_004]
+do Narrative.Execute("complete_event", "village.opening.unload_house02")
+=> END

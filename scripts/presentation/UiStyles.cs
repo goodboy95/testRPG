@@ -5,15 +5,24 @@ using TownRpg.Application;
 namespace TownRpg.Presentation;
 
 public enum UiTextRole { Body, Subtitle, Auxiliary, Heading }
+public sealed record UiTypography(int Body, int Subtitle, int Auxiliary, int Heading, int Spacing, int ButtonHeight);
 
 /// <summary>Shared game UI tokens, in 640×360 logical pixels. Paper is a local reading surface.</summary>
 public static class UiStyles
 {
     public const int BodySize = 14;
     public const int CinematicBodySize = 8;
+    public static readonly UiTypography DefaultTypography = new(10, 11, 8, 14, 4, 22);
+    // These overrides belong to the standalone comparison, never to saved player settings.
+    public static UiTypography? ReviewTypography { get; set; }
+    public static bool ReviewLegacyTypography { get; set; }
+    public static UiTypography? ActiveTypography => ReviewLegacyTypography ? null : ReviewTypography ?? DefaultTypography;
+    public static int ActiveBodySize => ActiveTypography?.Body ?? CinematicBodySize;
     public static int RoleSize(UiTextRole role) => role switch
     {
-        UiTextRole.Subtitle => 9, UiTextRole.Auxiliary => 7, UiTextRole.Heading => 12, _ => CinematicBodySize
+        UiTextRole.Subtitle => ActiveTypography?.Subtitle ?? 9,
+        UiTextRole.Auxiliary => ActiveTypography?.Auxiliary ?? 7,
+        UiTextRole.Heading => ActiveTypography?.Heading ?? 12, _ => ActiveBodySize
     };
     private static Font? _cinematicFont;
     private static Font? _cinematicHeadingFont;
@@ -33,9 +42,10 @@ public static class UiStyles
 
     public static Theme CreateTheme(float scale = 1, bool paper = false, bool cinematic = false)
     {
+        cinematic |= ActiveTypography is not null;
         var text = paper ? PaperInk : Ink;
         var accent = paper ? PaperAccent : Accent;
-        var theme = new Theme { DefaultFont = cinematic ? CinematicFont : CreateFont(), DefaultFontSize = Mathf.RoundToInt((cinematic ? CinematicBodySize : BodySize) * scale) };
+        var theme = new Theme { DefaultFont = cinematic ? CinematicFont : CreateFont(), DefaultFontSize = Mathf.RoundToInt((cinematic ? ActiveBodySize : BodySize) * scale) };
         theme.SetConstant("cinematic", "TownRpg", cinematic ? 1 : 0);
         foreach (var type in new[] { "Button", "OptionButton", "CheckButton", "CheckBox" })
         {
@@ -63,7 +73,7 @@ public static class UiStyles
         }
         theme.SetColor("font_color", "Label", text);
         theme.SetColor("default_color", "RichTextLabel", text);
-        theme.SetConstant("line_spacing", "Label", cinematic ? 3 : 4);
+        theme.SetConstant("line_spacing", "Label", cinematic ? ActiveTypography?.Spacing ?? 3 : 4);
         theme.SetStylebox("panel", "PanelContainer", Panel(paper ? Paper : Background));
         theme.SetStylebox("panel", "PopupMenu", Panel(paper ? Paper : Background));
         theme.SetStylebox("panel", "AcceptDialog", Panel(paper ? Paper : Background));
@@ -99,7 +109,10 @@ public static class UiStyles
         BgColor = color ?? Background,
         CornerRadiusTopLeft = Math.Min(radius, 2), CornerRadiusTopRight = Math.Min(radius, 2),
         CornerRadiusBottomLeft = Math.Min(radius, 2), CornerRadiusBottomRight = Math.Min(radius, 2),
-        ContentMarginLeft = 10, ContentMarginRight = 10, ContentMarginTop = 5, ContentMarginBottom = 5
+        ContentMarginLeft = ActiveTypography is { } p ? 8 + (p.Body - 8) * 2 : 10,
+        ContentMarginRight = ActiveTypography is { } q ? 8 + (q.Body - 8) * 2 : 10,
+        ContentMarginTop = ActiveTypography is { } r ? r.Body - 4 : 5,
+        ContentMarginBottom = ActiveTypography is { } s ? s.Body - 4 : 5
     };
     public static StyleBoxFlat Selected(bool paper = false)
     {
@@ -114,7 +127,7 @@ public static class UiStyles
         button.TreeEntered += () =>
         {
             if (IsCinematic(button) && button.CustomMinimumSize.Y == 28)
-                button.CustomMinimumSize = new Vector2(button.CustomMinimumSize.X, 20);
+                button.CustomMinimumSize = new Vector2(button.CustomMinimumSize.X, ActiveTypography?.ButtonHeight ?? 20);
         };
         return button;
     }
@@ -149,7 +162,7 @@ public static class UiStyles
         if (control.IsInsideTree()) Apply(); else control.TreeEntered += Apply;
     }
     public static bool IsCinematic(Control control) => control.GetThemeConstant("cinematic", "TownRpg") == 1;
-    public static float Scale(Control control) => control.IsInsideTree() ? control.GetThemeDefaultFontSize() / (float)(IsCinematic(control) ? CinematicBodySize : BodySize) : 1;
+    public static float Scale(Control control) => control.IsInsideTree() ? control.GetThemeDefaultFontSize() / (float)(IsCinematic(control) ? ActiveBodySize : BodySize) : 1;
     // Existing shared readers carry legacy sizes; translate only within the opt-in sample theme.
     private static int AdaptSize(Control control, int size) => !IsCinematic(control) ? size : size switch
     {

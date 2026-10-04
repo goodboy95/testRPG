@@ -1,0 +1,7 @@
+~ start
+主角: 三家都收了，单子和袋子给您。 [ID:OPENING_REPORT_ORDERS_001]
+乔姨: 我看看……都齐了。每家都对清楚，就不用再来回跑了。 [ID:OPENING_REPORT_ORDERS_002]
+主角: 空袋也放这儿了。 [ID:OPENING_REPORT_ORDERS_003]
+乔姨: 这趟说好的 30 元，我会跟村长确认。你什么时候方便，过去领就行。 [ID:OPENING_REPORT_ORDERS_004]
+do Narrative.Execute("complete_event", "village.opening.report_orders")
+=> END

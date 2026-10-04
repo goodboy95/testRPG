@@ -1,0 +1,7 @@
+~ start
+主角: 陈叔，您订的一卷棉绳。 [ID:OPENING_DELIVER_HOUSE13_001]
+陈叔: 对，就是这一卷。晾晒那头的绑绳快散了，正好换上。 [ID:OPENING_DELIVER_HOUSE13_002]
+主角: 旧的先别剪，量好再换。 [ID:OPENING_DELIVER_HOUSE13_003]
+陈叔: 我也这么想。上回剪短了，还得接一截。 [ID:OPENING_DELIVER_HOUSE13_004]
+do Narrative.Execute("complete_event", "village.opening.deliver_house13")
+=> END

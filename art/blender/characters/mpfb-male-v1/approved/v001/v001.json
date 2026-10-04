@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "assetId": "npc_male_baseline",
+  "route": "A",
+  "mpfbVersion": "2.0.17",
+  "macro": {
+    "gender": 1.0,
+    "age": 0.5,
+    "muscle": 0.5,
+    "weight": 0.5,
+    "height": 0.5,
+    "proportions": 0.5,
+    "cupsize": 0.5,
+    "firmness": 0.5,
+    "race": {
+      "asian": 1.0,
+      "caucasian": 0.0,
+      "african": 0.0
+    }
+  },
+  "scale": 0.1,
+  "skin": "young_asian_male.mhmat",
+  "bodySubdivision": 1,
+  "assets": [
+    [
+      "eyes",
+      "high-poly",
+      "Eyes"
+    ],
+    [
+      "eyebrows",
+      "eyebrow001",
+      "Eyebrows"
+    ],
+    [
+      "eyelashes",
+      "eyelashes01",
+      "Eyelashes"
+    ],
+    [
+      "teeth",
+      "teeth_base",
+      "Teeth"
+    ],
+    [
+      "tongue",
+      "tongue01",
+      "Tongue"
+    ]
+  ],
+  "noseVolume": 0.0,
+  "randomSeed": null,
+  "note": "Native young-adult male East Asian preset, no identity fitting; age is MPFB normalized parameter, not years.",
+  "parent": null,
+  "version": "v001"
+}

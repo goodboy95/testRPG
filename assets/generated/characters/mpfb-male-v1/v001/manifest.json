@@ -1,0 +1,179 @@
+{
+  "schema": 1,
+  "assetId": "npc_male_baseline.v001",
+  "source": "art/blender/characters/mpfb-male-v1/candidates/v001/character.blend",
+  "sourceSha256": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4",
+  "glb": "assets/generated/characters/mpfb-male-v1/v001/character.glb",
+  "glbSha256": "45ee01d3f426eb0525336e9a1037af7a88f2c34da0b3478c6bf33e90c580b521",
+  "triangles": 117192,
+  "meshInstances": 6,
+  "surfaces": 6,
+  "embeddedImages": 6,
+  "skins": 0,
+  "animations": 0,
+  "reimported": true,
+  "runtimeReady": false,
+  "visualApproval": false,
+  "geometry": {
+    "body": {
+      "vertices": 53514,
+      "triangles": 107024,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.532257616519928,
+          -0.343735933303833,
+          0.0005156928673386574
+        ],
+        [
+          0.532257616519928,
+          0.09904863685369492,
+          1.6273698806762695
+        ]
+      ]
+    },
+    "eyes": {
+      "vertices": 1064,
+      "triangles": 2040,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.044979970902204514,
+          -0.13505856692790985,
+          1.5061180591583252
+        ],
+        [
+          0.04497997462749481,
+          -0.11185919493436813,
+          1.53564453125
+        ]
+      ]
+    },
+    "eyebrows": {
+      "vertices": 124,
+      "triangles": 192,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.056837048381567,
+          -0.14089007675647736,
+          1.5247350931167603
+        ],
+        [
+          0.056837048381567,
+          -0.11512009054422379,
+          1.5343691110610962
+        ]
+      ]
+    },
+    "eyelashes": {
+      "vertices": 250,
+      "triangles": 368,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.04661823809146881,
+          -0.14165447652339935,
+          1.51302969455719
+        ],
+        [
+          0.04661823809146881,
+          -0.1281348466873169,
+          1.5264623165130615
+        ]
+      ]
+    },
+    "teeth": {
+      "vertices": 3868,
+      "triangles": 7120,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.031017286702990532,
+          -0.13467343151569366,
+          1.4155998229980469
+        ],
+        [
+          0.031016958877444267,
+          -0.060273148119449615,
+          1.4662590026855469
+        ]
+      ]
+    },
+    "tongue": {
+      "vertices": 226,
+      "triangles": 448,
+      "surfaces": 1,
+      "bounds": [
+        [
+          -0.022142747417092323,
+          -0.12503111362457275,
+          1.4342851638793945
+        ],
+        [
+          0.022142747417092323,
+          -0.05487935245037079,
+          1.4601037502288818
+        ]
+      ]
+    }
+  },
+  "recipe": {
+    "schema": 1,
+    "assetId": "npc_male_baseline",
+    "route": "A",
+    "mpfbVersion": "2.0.17",
+    "macro": {
+      "gender": 1.0,
+      "age": 0.5,
+      "muscle": 0.5,
+      "weight": 0.5,
+      "height": 0.5,
+      "proportions": 0.5,
+      "cupsize": 0.5,
+      "firmness": 0.5,
+      "race": {
+        "asian": 1.0,
+        "caucasian": 0.0,
+        "african": 0.0
+      }
+    },
+    "scale": 0.1,
+    "skin": "young_asian_male.mhmat",
+    "bodySubdivision": 1,
+    "assets": [
+      [
+        "eyes",
+        "high-poly",
+        "Eyes"
+      ],
+      [
+        "eyebrows",
+        "eyebrow001",
+        "Eyebrows"
+      ],
+      [
+        "eyelashes",
+        "eyelashes01",
+        "Eyelashes"
+      ],
+      [
+        "teeth",
+        "teeth_base",
+        "Teeth"
+      ],
+      [
+        "tongue",
+        "tongue01",
+        "Tongue"
+      ]
+    ],
+    "noseVolume": 0.0,
+    "randomSeed": null,
+    "note": "Native young-adult male East Asian preset, no identity fitting; age is MPFB normalized parameter, not years.",
+    "parent": null,
+    "version": "v001"
+  },
+  "materialConversion": "MPFB GAMEENGINE Principled, static export copy; emission disabled",
+  "provenance": "art/sources/cc0/mpfb-male-v1/provenance.json"
+}

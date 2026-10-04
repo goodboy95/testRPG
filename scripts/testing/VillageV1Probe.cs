@@ -9,6 +9,11 @@ namespace TownRpg.Testing;
 public partial class VillageV1Probe : Node
 {
     private VillagePreviewController _village=null!;
+    private bool _routeFocusLost;
+    public override void _Notification(int what)
+    {
+        if(what==NotificationWMWindowFocusOut)_routeFocusLost=true;
+    }
     private readonly List<string> _checks=[];
     private readonly List<object> _routes=[];
     private readonly List<string> _captures=[];
@@ -139,6 +144,8 @@ public partial class VillageV1Probe : Node
     {
         var first=route.Points[0];await Place(first[0],first[1]);
         _village.ActiveCamera.SetYawImmediate(0);_village.ActiveCamera.SnapToTarget();
+        _village.ActiveCamera.SetInputActive(false);
+        _village.ActivePlayer._Notification((int)NotificationWMWindowFocusIn);_routeFocusLost=false;
         _village.ActivePlayer.SetFacingImmediate(Vector3.Forward);
         var started=Time.GetTicksUsec();
         var seconds=0d;var minY=float.MaxValue;var maxY=float.MinValue;
@@ -151,6 +158,13 @@ public partial class VillageV1Probe : Node
                 minY=Math.Min(minY,p.Y);maxY=Math.Max(maxY,p.Y);
                 if(direction.Length()<.22f) { done=true;break; }
                 var strength=Mathf.Clamp(direction.Length()*1.5f,.25f,1);direction=direction.Normalized();
+                // Focus-loss clearing is asserted separately in Inputs(). These synthetic
+                // route inputs must keep working while the desktop user switches windows.
+                if(_routeFocusLost)
+                {
+                    _village.ActivePlayer._Notification((int)NotificationWMWindowFocusIn);
+                    _routeFocusLost=false;
+                }
                 Input.ActionPress("move_left",Math.Max(0,-direction.X)*strength);Input.ActionPress("move_right",Math.Max(0,direction.X)*strength);
                 Input.ActionPress("move_up",Math.Max(0,-direction.Z)*strength);Input.ActionPress("move_down",Math.Max(0,direction.Z)*strength);
                 await Frames(1);seconds+=GetPhysicsProcessDeltaTime();
@@ -159,6 +173,7 @@ public partial class VillageV1Probe : Node
             if(!done) { var actor=_village.ActivePlayer;var contacts=Enumerable.Range(0,actor.GetSlideCollisionCount()).Select(n=>{var c=actor.GetSlideCollision(n);return $"{c.GetCollider()} normal={c.GetNormal()}";});throw new InvalidOperationException($"Route {route.Id} blocked {actor.Position} -> {destination}; velocity={actor.Velocity}; floor={actor.IsOnFloor()}; contacts={string.Join(" | ",contacts)}"); }
         }
         ReleaseMovement();await Frames(5);
+        _village.ActiveCamera.SetInputActive(true);
         Require(true,"continuous input route "+route.Id);
         _routes.Add(new { id=route.Id,speed=_village.ActivePlayer.Speed,simulatedSeconds=seconds,
             wallSeconds=(Time.GetTicksUsec()-started)/1000000d,timeScale=Engine.TimeScale,

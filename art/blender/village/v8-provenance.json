@@ -1,0 +1,70 @@
+{
+  "status": "sample-awaiting-visual-review",
+  "visualApproval": false,
+  "runtimeDefault": false,
+  "method": "Blender scripted mesh authoring",
+  "palette": {
+    "wall": "e8d8b5",
+    "roof": "7c8c90",
+    "rooflight": "909c9b",
+    "wood": "97704c",
+    "woodlight": "bd9767",
+    "stone": "aaa691",
+    "paving": "c4bca5",
+    "red": "b5654d",
+    "green": "789877",
+    "ivory": "f0e4c7",
+    "glass": "5f8e9b",
+    "metal": "718886",
+    "dark": "465b60",
+    "bark": "827052",
+    "leaf": "7aa65f",
+    "leaflight": "a4bc72",
+    "leafdark": "5b895d",
+    "brick": "b19179",
+    "soil": "99916d",
+    "grass": "96ac75"
+  },
+  "buildings": [
+    "home",
+    "shop",
+    "workshop"
+  ],
+  "trees": [
+    "Tree_023",
+    "Tree_028",
+    "Tree_040",
+    "PlazaTree"
+  ],
+  "oldVillage": "ab13e851d7693891ad560ed12f00961dd6f969e9c7a75504120a50eb3bef9ffd",
+  "oldHome": "e1c755ee46c5b3efdc08600c909049183319b553da4b689ac9b1f93ea9f3dfe2",
+  "preservedVillageMeshes": 190,
+  "preservedHomeMeshes": 76,
+  "sourceAssets": [
+    "v7 saved source",
+    "home-identity-v2 saved source",
+    "previously adopted CC0 unchanged outside sample"
+  ],
+  "generator": "Original Python geometry; deterministic seeds 800-803; no image model",
+  "stages": {
+    "baseline": "complete",
+    "sample": "delivered-awaiting-user-style-review",
+    "remainingBuildings": "planned",
+    "fullEnvironment": "planned",
+    "adoption": "pending"
+  },
+  "refinements": [
+    "rounded leaf lobes",
+    "tile cross courses",
+    "sRGB pigment textures with linear proxy baking",
+    "flattened canopy layers and closed folded leaf sprays",
+    "leaf attachment corrected and petioles added"
+  ],
+  "created": "2026-09-26",
+  "tools": {
+    "Blender": "5.2.0 LTS (fbe6228777e7)",
+    "Godot": "4.6.3 .NET / Compatibility",
+    "production": "Original Python geometry and mathematical pigment maps; saved-source export"
+  },
+  "reviewGate": "User confirmation of sample before remaining buildings/environment; final confirmation before default adoption"
+}

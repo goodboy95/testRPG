@@ -1,0 +1,107 @@
+[
+  {
+    "id": "aunt_qiao",
+    "building": "shop",
+    "points": [
+      [
+        -5.1,
+        7.1
+      ]
+    ],
+    "yaw": 180,
+    "model": "res://assets/generated/village/opening-npcs/aunt_qiao.glb",
+    "dialogue": "",
+    "startTitle": "start",
+    "prompt": "OPENING_TALK_AUNT_QIAO"
+  },
+  {
+    "id": "shen_yan",
+    "building": "community",
+    "points": [
+      [
+        -2.4,
+        8
+      ]
+    ],
+    "yaw": 180,
+    "model": "res://assets/generated/village/opening-npcs/shen_yan.glb",
+    "dialogue": "",
+    "startTitle": "start",
+    "prompt": "OPENING_TALK_SHEN_YAN"
+  },
+  {
+    "id": "worker_peng",
+    "building": "workshop",
+    "points": [
+      [
+        -3,
+        6.7
+      ]
+    ],
+    "yaw": 180,
+    "model": "res://assets/generated/village/opening-npcs/worker_peng.glb",
+    "dialogue": "",
+    "startTitle": "start",
+    "prompt": "OPENING_TALK_WORKER_PENG"
+  },
+  {
+    "id": "village_mayor",
+    "building": "shop",
+    "points": [
+      [
+        -4,
+        12
+      ]
+    ],
+    "yaw": 180,
+    "model": "res://assets/generated/village/opening-npcs/village_mayor.glb",
+    "dialogue": "",
+    "startTitle": "start",
+    "prompt": "OPENING_TALK_VILLAGE_MAYOR"
+  },
+  {
+    "id": "grandma_xu",
+    "building": "house02",
+    "points": [
+      [
+        -1.5,
+        5.7
+      ]
+    ],
+    "yaw": 180,
+    "model": "res://assets/generated/village/opening-npcs/grandma_xu.glb",
+    "dialogue": "",
+    "startTitle": "start",
+    "prompt": "OPENING_TALK_GRANDMA_XU"
+  },
+  {
+    "id": "uncle_chen",
+    "building": "house13",
+    "points": [
+      [
+        -1.5,
+        5.7
+      ]
+    ],
+    "yaw": 180,
+    "model": "res://assets/generated/village/opening-npcs/uncle_chen.glb",
+    "dialogue": "",
+    "startTitle": "start",
+    "prompt": "OPENING_TALK_UNCLE_CHEN"
+  },
+  {
+    "id": "uncle_liu",
+    "building": "house15",
+    "points": [
+      [
+        -1.5,
+        5.7
+      ]
+    ],
+    "yaw": 180,
+    "model": "res://assets/generated/village/opening-npcs/uncle_liu.glb",
+    "dialogue": "",
+    "startTitle": "start",
+    "prompt": "OPENING_TALK_UNCLE_LIU"
+  }
+]

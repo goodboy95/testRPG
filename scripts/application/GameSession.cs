@@ -9,6 +9,7 @@ public partial class GameSession : Node
 {
     public const string SavePath = "user://save-slot-1.json";
     private string? _testSavePath;
+    private bool _openingMigrationPending;
     private string EffectiveSavePath => _testSavePath ?? SavePath;
 
     public GameState State { get; private set; } = GameState.CreateVerticalSlice();
@@ -19,6 +20,7 @@ public partial class GameSession : Node
     public NarrativeCommandService NarrativeCommands { get; private set; } = null!;
     public EventOutcomeService Outcomes { get; private set; } = null!;
     public DreamEscapeService DreamEscape { get; private set; } = null!;
+    public VillageOpeningService VillageOpening { get; private set; } = null!;
     public ResonanceBattle? ActiveBattle { get; set; }
     public string PlayerName => State.Player.Name;
     public string PlayerTitle => State.Player.Title;
@@ -54,6 +56,7 @@ public partial class GameSession : Node
 
     public void NewGame(string playerName, string playerTitle)
     {
+        _openingMigrationPending = false;
         var retainedSettings = State.Settings;
         State = GameState.CreateDreamPrologue();
         State.Settings = retainedSettings;
@@ -104,7 +107,7 @@ public partial class GameSession : Node
     // Only the explicit engine acceptance runner can redirect persistence. No setting or save field is added.
     internal IDisposable UseTestSavePath(string path)
     {
-        if (!OS.GetCmdlineUserArgs().Contains("--prologue-e2e"))
+        if (!OS.GetCmdlineUserArgs().Any(a => a is "--prologue-e2e" or "--village-opening-e2e"))
             throw new InvalidOperationException("A test save path requires the prologue acceptance runner flag.");
         if (_testSavePath is not null)
             throw new InvalidOperationException("A test save path is already active.");
@@ -186,6 +189,13 @@ public partial class GameSession : Node
 
         var saveAbsolute = ProjectSettings.GlobalizePath(EffectiveSavePath);
         var temporaryAbsolute = ProjectSettings.GlobalizePath(temporaryPath);
+        if (_openingMigrationPending && System.IO.File.Exists(saveAbsolute))
+        {
+            // Keep the exact pre-upgrade file, separately from the short-lived atomic-write backup.
+            var migrationBackup = saveAbsolute + ".before-village-opening." + DateTime.UtcNow.ToString("yyyyMMddHHmmssfffffff") + ".bak";
+            System.IO.File.Copy(saveAbsolute, migrationBackup, overwrite: false);
+            _openingMigrationPending = false;
+        }
         var backupAbsolute = saveAbsolute + ".bak";
         if (GodotFileAccess.FileExists(backupAbsolute))
         {
@@ -252,6 +262,7 @@ public partial class GameSession : Node
             }
 
             State = SaveGameSerializer.Deserialize(file.GetAsText());
+            _openingMigrationPending = State.VillageExploration is not null && State.VillageOpening is null;
             RebindServices();
             NotifyChanged();
             return true;
@@ -272,6 +283,7 @@ public partial class GameSession : Node
         NarrativeCommands = new NarrativeCommandService(State);
         Outcomes = new EventOutcomeService(State);
         DreamEscape = new DreamEscapeService(State);
+        VillageOpening = new VillageOpeningService(State);
     }
 
     private DreamActionResult ApplyDreamAction(Func<DreamActionResult> action)

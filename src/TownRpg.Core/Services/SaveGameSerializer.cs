@@ -52,6 +52,7 @@ public static class SaveGameSerializer
 
         var game = envelope.Game ?? throw new InvalidDataException("Save data does not contain a game state.");
         Validate(game);
+        if (game.VillageOpening is not null) new VillageOpeningService(game).ReconcileTracking();
         return game;
     }
 
@@ -136,6 +137,7 @@ public static class SaveGameSerializer
         }
 
         ValidateDreamEscape(game.DreamEscape);
+        VillageOpeningService.Validate(game);
         if (game.VillageExploration is { } village)
         {
             VillageExplorationService.Validate(game.Player.LocationId, village);

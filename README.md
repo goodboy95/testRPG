@@ -1,5 +1,23 @@
 # town-rpg / 《雾山旧轨》
 
+`[已实现]` 2026-10-02：[正式村庄完整开场](doc/engineering/village-opening.md)已接入两种醒后流程：七位功能 NPC、任务板、送凳、三户订货、邀请沈砚、共同推车配送、结款与存档恢复。正式村庄仍为 v6；[实际验证与待验项](doc/production/village-opening-validation.md)单列。下方旧批次未接入描述是历史边界。
+
+`[可调整草案]` 2026-10-02 文稿轮（早于正式接入）：[村庄开场剧情文稿](doc/design/chapter-one.md)补入七位 NPC、两件独自短活、主动邀请沈砚及首次共同送货的完整对白与劳动操作设计，并附后续人物任务纲要。30–40 分钟为写作目标，尚未接入游戏；[纸面走查与验证边界](doc/production/chapter-one-doc-validation.md)。
+
+`[已实现]` 独立样板，待视觉确认。 2026-09-26：[清新动画村庄 v8](doc/engineering/village-anime-v8.md)提供主角家—广场—两铺及代表树的独立可玩样板；正式与默认仍为 v6，全村推广等待样板确认。[验证与剩余工作](doc/production/village-anime-v8-validation.md)。
+
+`[已实现]` 2026-09-21：[成熟完整角色八项初筛](doc/production/character-mature-source-screening.md)及真实展示比较页。没有合格免费项；一项付费观察仍待造型、来源与许可确认，未采购、未做本机资产验证。MPFB 与正式入口不变。
+
+`[已实现]` 2026-09-20 后续：负责人确认 MPFB v001 正常脸，批准副本已归档；新增 [v007 头发与便服静态样板](doc/production/character-casual-preview.md)，原脸不改。穿戴效果待审，动画/正式 NPC 尚未接入。
+
+`[已实现]` 2026-09-20：[MPFB 人物工作流 M0/M1](doc/engineering/character-workflow-mpfb.md)已完成隔离工具、原生成年男性基线、参数复现、固定视角与独立 Godot 静态审图。批处理闭环通过，MCP 未接通；正常脸等待用户 G1 确认，G2–G5 未测试。正式 v6 和低模 NPC 保持。[实际验收与审图](doc/production/character-workflow-mpfb-validation.md)。
+
+`[已实现]` 2026-09-18：失败的 NPC 美术样板已退役，新建[沈砚静态 v2 候选](doc/engineering/shen-yan-static-v2.md)与独立审图场景，采用独立 CC0 人体来源、原创服装／发型和 PBR 图集。仅完成静态制作与技术验证，美术未批准，未绑定或接入居民；[实际验收](doc/production/shen-yan-static-v2-validation.md)。正式／默认村庄仍为 v6，原低模 NPC 功能试点保留。
+
+`[已实现]` 2026-09-16：新增[村庄 NPC 独立试点](doc/engineering/village-npc-pilot.md)，乔姨定点交谈、沈砚短路线走动与话题选择；采用 v7，正式默认仍为 v6，第一章任务未接入。
+
+`[已实现]` 2026-09-16：[村庄分区与 LOD v7 独立预览](doc/engineering/village-streaming-v7.md)，包含七街区、显式 LOD、预算控制与整帧遥测，现以笔记本 GTX 1060 提升画质预算。正式／默认村庄入口仍为 v6；目标硬件与完整预算状态见[新档验证](doc/production/village-streaming-v7-1060-validation.md)，[旧集显预算记录](doc/production/village-streaming-v7-validation.md)保留历史。
+
 > 2026-09-15 正式采用：负责人已确认将 v6（四户住宅 v5、主角家暖色外观、全村树木）与配套住宅外观启用。正式游戏和默认村庄预览现用 v6，沿用修复后的 v4 布局／地形；独立预览 `--village-v4` 保留旧外观回归。第一章委托未接入。[采用与验证](doc/production/village-v6-adoption.md)。下述样板轮“尚未切换”是当轮交付状态。
 
 
@@ -71,3 +89,7 @@ D:\ProgramFiles\Godot\Godot_v4.6.3-stable_mono_win64_console.exe
 `[已实现]` 第二室音乐教室 v2：12×10×4 米、可进入器材间、真实乐器、六把排练椅与晓雨绕行。见[实现](doc/engineering/music-remodel-v2.md)、[验收](doc/production/music-v2-validation.md)和[本机对照页](outputs/music-v2/review.html)。
 
 `[已实现]` 第三、第四室 v2：14×12×4.2 米档案室与 22×16×7.5 米礼堂，共享布局、实体机关、连续绕行与旧档落点恢复。礼堂 32 座共享网格，抬高舞台为不可进入景观。完整输入主线、隔离存读档和四室大头针分支见[验收记录](doc/production/late-rooms-v2-validation.md)；[本机新旧对照](outputs/late-rooms-v2/review.md)与俯视布局供视觉复核。人工视觉确认和真实设备盲测仍待完成。
+
+`[已实现·静态试验，未过美术验收]` [人物第2版：自然比例动画风格样板](doc/production/character-stylized-v2.md)包含三轮可编辑源、静态 GLB 和实际多视角对照；发束与闭嘴仍需精修，未采用为正式 NPC。
+
+`[已实现·未过美术验收]` [自然青年头肩修订](doc/production/character-head-refinement.md)：v014 保留闭唇与局部肤色改善，v016 头发仍失败，按阶段门槛停止。可编辑源、静态GLB、真实对照与回归结果已记录，未进入全身精修。

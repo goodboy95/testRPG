@@ -7,6 +7,7 @@ namespace TownRpg.Presentation;
 public partial class MainController
 {
     private VillageAreaHost? _village;
+    private VillageOpeningController? _opening;
     public VillageAreaHost? VillageRuntime => _village;
 
     public override void _Process(double delta)
@@ -26,6 +27,7 @@ public partial class MainController
         _village.SetHostLocked(true);
         _village.QueueFree();
         _village = null;
+        _opening = null;
     }
 
     private void OnVillageCheckpoint() => SaveVillageCheckpoint();
@@ -86,6 +88,8 @@ public partial class MainController
                 await Line("wake.saturday", "", UiText.Get("VILLAGE_WAKE_SATURDAY"));
                 service.CompleteIntroduction();
             }
+            _opening = new VillageOpeningController { Name = "VillageOpening", Host = runtime };
+            runtime.AddChild(_opening);
             SaveVillageCheckpoint();
         }
         catch (OperationCanceledException) { }

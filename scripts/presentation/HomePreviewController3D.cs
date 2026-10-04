@@ -9,8 +9,10 @@ public partial class HomePreviewController3D : WorldArea3D
     /// <summary>Only set before Ready by the independent village host. Defaults preserve HomePreview v1.</summary>
     public bool EmbeddedInVillage { get; init; }
     public bool UseIdentitySample { get; init; }
+    public string? ExteriorModelPath { get; init; }
     public event Action? VillageExitRequested;
     public event Action? FixturesChanged;
+    public Func<InteractionMarker3D,bool>? AdditionalInteractionActive { get; set; }
     private bool _hostLocked;
     private sealed class DoorRuntime(HomeLayout3D.Door spec)
     {
@@ -118,6 +120,7 @@ public partial class HomePreviewController3D : WorldArea3D
     protected override string BuildPrompt(InteractionMarker3D marker)
     {
         var id = marker.TargetId;
+        if (id.StartsWith("opening:")) return $"[{(UseGamepadPrompts ? "A" : "F")}] {marker.Prompt}";
         if (EmbeddedInVillage && id == "home.door.entry")
             return $"[{(UseGamepadPrompts ? "A" : "F")}] {UiText.Get("VILLAGE_EXIT_HOME")}";
         var open = id.StartsWith("home.door.", StringComparison.Ordinal)
@@ -128,6 +131,7 @@ public partial class HomePreviewController3D : WorldArea3D
     protected override bool IsMarkerActive(InteractionMarker3D marker)
     {
         if (Player is null) return false;
+        if (marker.TargetId.StartsWith("opening:")) return AdditionalInteractionActive?.Invoke(marker) == true;
         if (marker.TargetId.StartsWith("home.door.", StringComparison.Ordinal) && _doors[marker.TargetId[10..]].Motion.IsMoving) return false;
         return HasLineOfSight(marker.TargetId);
     }
@@ -232,7 +236,7 @@ public partial class HomePreviewController3D : WorldArea3D
 
     private void BuildModel()
     {
-        _model = Graybox ? new Node3D() : ResourceLoader.Load<PackedScene>(UseIdentitySample ? "res://assets/generated/home/3d/home-identity-v2.glb" : "res://assets/generated/home/3d/home-v1.glb").Instantiate<Node3D>();
+        _model = Graybox ? new Node3D() : ResourceLoader.Load<PackedScene>(ExteriorModelPath ?? (UseIdentitySample ? "res://assets/generated/home/3d/home-identity-v2.glb" : "res://assets/generated/home/3d/home-v1.glb")).Instantiate<Node3D>();
         _model.Name = "HomeModel"; AddChild(_model);
         foreach (var mesh in Descendants(_model).OfType<MeshInstance3D>())
             if (mesh.Name.ToString().StartsWith("Glass_", StringComparison.Ordinal)) mesh.CastShadow = GeometryInstance3D.ShadowCastingSetting.Off;
@@ -340,6 +344,14 @@ public partial class HomePreviewController3D : WorldArea3D
                 ShadowEnabled = true, Visible = false };
             AddChild(light); _lights.Add(l.Id, light);
         }
+        SetReflectionActive(true);
+    }
+
+    public void SetReflectionActive(bool active)
+    {
+        var probes = GetChildren().OfType<ReflectionProbe>().ToArray();
+        if (!active) { foreach (var probe in probes) probe.Free(); return; }
+        if (probes.Length > 0) return;
         foreach (var (x, z, sx, sz) in new[] { (-3.9f, 0f, 3.6f, 8.4f), (0f, 0f, 3.5f, 8.4f), (3.9f, 0f, 3.6f, 8.4f) })
             AddChild(new ReflectionProbe { Position = new(x, 1.5f, z), Size = new(sx, 3, sz), BoxProjection = true, Interior = true });
     }
@@ -350,13 +362,15 @@ public partial class HomePreviewController3D : WorldArea3D
         var root = new Control { Name = "HomeUi", MouseFilter = Control.MouseFilterEnum.Ignore, Theme = UiStyles.CreateTheme(1, cinematic: true) };
         root.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect); layer.AddChild(root);
         var title = new Label { Text = UiText.Get("HOME_TITLE"), Position = new(18, 13), MouseFilter = Control.MouseFilterEnum.Ignore, Visible = !EmbeddedInVillage };
-        title.AddThemeFontSizeOverride("font_size", 12); root.AddChild(title);
+        UiStyles.Role(title, UiTextRole.Heading); root.AddChild(title);
         title.AddThemeColorOverride("font_shadow_color", new Color(0,0,0,.8f)); title.AddThemeConstantOverride("shadow_outline_size", 2);
         _instructions = new Label { Text = UiText.Get("HOME_CONTROLS_KEYBOARD"), Position = new(18, 333), MouseFilter = Control.MouseFilterEnum.Ignore, Visible = !EmbeddedInVillage };
+        UiStyles.Role(_instructions, UiTextRole.Auxiliary);
         root.AddChild(_instructions);
         _instructions.AddThemeColorOverride("font_shadow_color", new Color(0,0,0,.8f)); _instructions.AddThemeConstantOverride("shadow_outline_size", 2);
         _prompt = new Label { Position = new(180, 300), Size = new(280, 22), HorizontalAlignment = HorizontalAlignment.Center,
             MouseFilter = Control.MouseFilterEnum.Ignore };
+        UiStyles.Role(_prompt, UiTextRole.Body);
         _prompt.AddThemeColorOverride("font_shadow_color", Colors.Black); _prompt.AddThemeConstantOverride("shadow_outline_size", 3);
         root.AddChild(_prompt);
         _pause = new ColorRect { Color = new Color(0.035f, .05f, .055f, .83f), Visible = false, MouseFilter = Control.MouseFilterEnum.Stop };

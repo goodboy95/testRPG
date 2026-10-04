@@ -1,10 +1,10 @@
 ~ start
 林晓雨: 你能动吗？有没有受伤？ [ID:DREAM_V6_STORY_MEETING_001]
 主角: 我没事。你呢？ [ID:DREAM_V6_STORY_MEETING_002]
-林晓雨: 只是被锁住了。林晓雨。 [ID:DREAM_V6_STORY_MEETING_003]
+林晓雨: 我没受伤，就是被锁在里面了。我叫林晓雨。 [ID:DREAM_V6_STORY_MEETING_003]
 主角: 我叫<player_name>。你知道这是哪里吗？ [ID:DREAM_V6_STORY_MEETING_004]
-林晓雨: 不知道，也想不起怎么来的。先一起找出口？ [ID:DREAM_V6_STORY_MEETING_005]
+林晓雨: 我也不知道，连怎么来的都想不起来。要不先一起找找出口？ [ID:DREAM_V6_STORY_MEETING_005]
 主角: 好。我们把各自看到的说清楚，拿不准再商量。 [ID:DREAM_V6_STORY_MEETING_006]
-林晓雨: 成交。刚才你那张谱，我这边可一点也看不到。 [ID:DREAM_V6_STORY_MEETING_007]
+林晓雨: 好。对了，刚才你说的那张谱，我这边一点也看不到。 [ID:DREAM_V6_STORY_MEETING_007]
 do Narrative.Execute("complete_event", "dream.prologue.meeting")
 => END

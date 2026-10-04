@@ -1,0 +1,113 @@
+{
+  "schema": 1,
+  "assetId": "npc_male_baseline",
+  "route": "A",
+  "mpfbVersion": "2.0.17",
+  "macro": {
+    "gender": 1.0,
+    "age": 0.5,
+    "muscle": 0.5,
+    "weight": 0.5,
+    "height": 0.5,
+    "proportions": 0.5,
+    "cupsize": 0.5,
+    "firmness": 0.5,
+    "race": {
+      "asian": 1.0,
+      "caucasian": 0.0,
+      "african": 0.0
+    }
+  },
+  "scale": 0.1,
+  "skin": "young_asian_male.mhmat",
+  "bodySubdivision": 1,
+  "assets": [
+    [
+      "eyes",
+      "high-poly",
+      "Eyes"
+    ],
+    [
+      "eyebrows",
+      "eyebrow001",
+      "Eyebrows"
+    ],
+    [
+      "eyelashes",
+      "eyelashes01",
+      "Eyelashes"
+    ],
+    [
+      "teeth",
+      "teeth_base",
+      "Teeth"
+    ],
+    [
+      "tongue",
+      "tongue01",
+      "Tongue"
+    ],
+    [
+      "clothes",
+      "male_casualsuit01",
+      "Clothes"
+    ],
+    [
+      "clothes",
+      "shoes05",
+      "Clothes"
+    ]
+  ],
+  "noseVolume": 0.0,
+  "randomSeed": null,
+  "note": "Native young-adult male East Asian preset, no identity fitting; age is MPFB normalized parameter, not years.",
+  "parent": {
+    "version": "v007-casual",
+    "sourceSha256": "3fb1ea533cf251751cae6cf447236434f96b3c17884243ef09ad6917bf9bd6f3"
+  },
+  "version": "v011-head-structure",
+  "hairColorFactor": [
+    0.23,
+    0.25,
+    0.29
+  ],
+  "hairSubdivision": 0,
+  "hideUpperSocks": true,
+  "sourceCollection": "mpfb-male-stylized-v2",
+  "appearance": "Natural proportion animation style; original swept opaque hair; derived skin and cloth materials",
+  "style": {
+    "schema": 2,
+    "pipeline": "head_refine_v1",
+    "phase": "structure",
+    "nativeTargets": [
+      {
+        "path": "eyes/l-eye-scale-incr.target.gz",
+        "weight": 0.12,
+        "sha256": "2d2d2d088931ce206eb6dad91e26318f045c7e4e6b6580acc812750b0f18f4bc"
+      },
+      {
+        "path": "eyes/r-eye-scale-incr.target.gz",
+        "weight": 0.12,
+        "sha256": "af556b9a6f930ce74f86d64f32b2f801bb5f4bb91f49c3ed37225b7d0413c5af"
+      }
+    ],
+    "corrective": {
+      "path": "art/blender/characters/mpfb-male-v1/refinement/lip-closure-r1.json",
+      "sha256": "ba9987f34e4804c019ddca7a644f41fd8531552082c9e8b0aa905d72f8f4d859",
+      "weight": 1
+    },
+    "hair": {
+      "enabled": false
+    },
+    "irisScale": 1.05
+  },
+  "styleSource": {
+    "path": "art/blender/characters/mpfb-male-v1/refinement/structure-r1.json",
+    "sha256": "d68d990fc6974587c7be5a30214aa223152cd71d0ac9460489e62c9bd968e2dd"
+  },
+  "authoredHair": {
+    "tool": "Blender Python editable mesh and Bezier guides",
+    "script": "scripts/tools/character_stylized.py",
+    "restrictedSourcesUsed": false
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema": 2,
+  "pipeline": "head_refine_v1",
+  "phase": "structure",
+  "nativeTargets": [
+    {
+      "path": "eyes/l-eye-scale-incr.target.gz",
+      "weight": 0.12
+    },
+    {
+      "path": "eyes/r-eye-scale-incr.target.gz",
+      "weight": 0.12
+    }
+  ],
+  "corrective": {
+    "path": "art/blender/characters/mpfb-male-v1/refinement/lip-closure-r1.json",
+    "sha256": "ba9987f34e4804c019ddca7a644f41fd8531552082c9e8b0aa905d72f8f4d859",
+    "weight": 1
+  },
+  "hair": {
+    "enabled": false
+  },
+  "irisScale": 1.05
+}

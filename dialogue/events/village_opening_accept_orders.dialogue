@@ -1,0 +1,5 @@
+~ start
+旁白: 替三户送订好的小件，报酬 30 元。许婆婆要两块洗衣皂，陈叔要一卷棉绳，刘伯要两条毛巾。到杂货铺交货台逐份核对后，可以一起带走。 [ID:OPENING_ACCEPT_ORDERS_001]
+主角: 那我来送，送完再回乔姨那里交差。 [ID:OPENING_ACCEPT_ORDERS_002]
+do Narrative.Execute("complete_event", "village.opening.accept_orders")
+=> END

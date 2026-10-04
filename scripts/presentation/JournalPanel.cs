@@ -33,7 +33,7 @@ public partial class JournalPanel : Control
         foreach (var id in state.Investigation.KnownScheduleEntries.OrderBy(x => x, StringComparer.Ordinal))
         {
             var next = service.Current(id, state.World) ?? service.NextVisible(id, state.World);
-            schedules.Add(next is null ? $"{WorldSceneController.CharacterName(id)}：目前没有已知的下一时段。" :
+            schedules.Add(next is null ? $"{WorldSceneController.CharacterName(id)}：还不知道接下来会去哪里。" :
                 $"{WorldSceneController.CharacterName(id)}\n第 {next.Day ?? state.World.Day} 日 {FormatTime(next.StartMinute)}–{FormatTime(next.EndMinute)}，{LocationLabel(next.LocationId)}。");
         }
         Add("schedules", "UI_SCHEDULES", schedules);

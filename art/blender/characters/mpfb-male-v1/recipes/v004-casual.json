@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "assetId": "npc_male_baseline",
+  "route": "A",
+  "mpfbVersion": "2.0.17",
+  "macro": {
+    "gender": 1.0,
+    "age": 0.5,
+    "muscle": 0.5,
+    "weight": 0.5,
+    "height": 0.5,
+    "proportions": 0.5,
+    "cupsize": 0.5,
+    "firmness": 0.5,
+    "race": {
+      "asian": 1.0,
+      "caucasian": 0.0,
+      "african": 0.0
+    }
+  },
+  "scale": 0.1,
+  "skin": "young_asian_male.mhmat",
+  "bodySubdivision": 1,
+  "assets": [
+    [
+      "eyes",
+      "high-poly",
+      "Eyes"
+    ],
+    [
+      "eyebrows",
+      "eyebrow001",
+      "Eyebrows"
+    ],
+    [
+      "eyelashes",
+      "eyelashes01",
+      "Eyelashes"
+    ],
+    [
+      "teeth",
+      "teeth_base",
+      "Teeth"
+    ],
+    [
+      "tongue",
+      "tongue01",
+      "Tongue"
+    ],
+    [
+      "hair",
+      "short01",
+      "Hair"
+    ],
+    [
+      "clothes",
+      "male_casualsuit01",
+      "Clothes"
+    ],
+    [
+      "clothes",
+      "shoes05",
+      "Clothes"
+    ]
+  ],
+  "noseVolume": 0.0,
+  "randomSeed": null,
+  "note": "Native young-adult male East Asian preset, no identity fitting; age is MPFB normalized parameter, not years.",
+  "parent": {
+    "version": "v001",
+    "sourceSha256": "35eb232a7af37be24e57315ad3ceda58e359dd97ac109f3eecb797347eb949f4"
+  },
+  "version": "v004-casual",
+  "sourceCollection": "mpfb-male-casual-v1",
+  "appearance": "Official black short01 hair, navy shirt/jeans male_casualsuit01, white shoes05; no face edits"
+}

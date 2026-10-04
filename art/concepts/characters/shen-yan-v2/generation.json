@@ -1,0 +1,10 @@
+{
+  "tool": "OpenAI built-in image_gen",
+  "modelVersion": "Not exposed by tool",
+  "date": "2026-09-18",
+  "purpose": "Original design reference only; not model validation or texture projection",
+  "prompt": "Use case: stylized-concept. Create an original production character design sheet for Shen Yan, a contemporary Chinese village young adult man, age 19, friendly practical craftsperson, 1.73m tall, slim healthy natural proportions (about 7.3 heads), no bulky muscles. Semi-realistic Chinese animated-film art direction, believable modeled facial planes, natural medium eyes, defined eyelids, nose and lips, youthful East Asian face, short dark side-parted layered hair. Clothing EXACTLY: light blue-gray unbuttoned lightweight shirt, sleeves rolled to below elbow, off-white crewneck undershirt, charcoal straight trousers, worn off-white low canvas sneakers with dark sole. Natural relaxed A pose, hands visible with five fingers. No accessories, hat, bag, weapons, fantasy ornament, logos. Wide clean neutral warm-gray design sheet: three full-height orthographic views front, right profile, rear at identical scale, with consistent garment construction and proportions; on right, a large three-quarter head study and a small collar/cuff/shoe detail panel. Face friendly and understated, attractive ordinary neighbor, not idol glamour. Clear readable tailoring, matte cloth texture, organized solid hair clumps with visible parting. Diffuse neutral studio illumination, no cinematic rimlights or depth-of-field. All views must depict exactly same original person and clothes. Minimal labels FRONT SIDE BACK FACE. This is concept art for later genuine 3D modeling, not a render of an existing game character.",
+  "references": [],
+  "postprocessing": "None; original image copied byte-for-byte",
+  "file": "design-sheet.png"
+}

@@ -1,5 +1,25 @@
 # town-rpg 交接文档
 
+`[已实现]` 2026-10-04：[任务跟踪、文案与字号](engineering/quest-tracking-typography.md)已接入正式开场的事项选择与分段目标；梦境不加位置跟踪。负责人已确认舒适 C 并统一正式默认，原版与 A／B／C 原生预览保留。[实际验证与人工边界](production/quest-tracking-validation.md)。
+
+`[已实现]` 2026-10-02：[正式村庄开场](engineering/village-opening.md)提供七位功能居民、送凳／订货／合作推车、事项记录与保存恢复；[本轮运行验收](production/village-opening-validation.md)与纸面、美术及盲测分别记录。后半章仍是后续设计，正文统一在第一章细案。
+
+`[可调整草案]` 2026-10-02 文稿轮（早于正式接入）：[第一章开场文稿](design/chapter-one.md)提供七位 NPC 人物卡、六场对白、搬凳／订货／推车操作、结款与再访反馈及后续任务纲要。正文统一留在细案；[本轮文档检查](production/chapter-one-doc-validation.md)与未来可玩、美术、时长验收分开。本轮仅 Markdown，正式村庄仍未接入委托。
+
+`[已实现]` 独立样板，待视觉确认。 2026-09-26：[村庄动画风格 v8](engineering/village-anime-v8.md)先制作主角家、广场、两铺和代表树，正式与默认仍为 v6；[实际验收与未完成项](production/village-anime-v8-validation.md)。负责人确认样板后再推广全村。
+
+`[已实现]` 2026-09-21：[成熟完整角色来源初筛与比较页](production/character-mature-source-screening.md)。八项筛查，没有合格免费项；一项付费观察未放行，无下载／购买／本机模型验证，MPFB 保留为对照。
+
+`[已实现]` 2026-09-20 后续：[正常脸确认后的头发与便服样板](production/character-casual-preview.md)。v001 已获 G1 正常脸确认，v007-casual 增加短发、衬衫牛仔裤与运动鞋，仅独立静态审图。
+
+`[已实现]` 2026-09-20：[MPFB 人物工作流 M0/M1](engineering/character-workflow-mpfb.md)与[实际验收/审图](production/character-workflow-mpfb-validation.md)。原生成年男性基线和独立静态场景可复现，批处理闭环通过，MCP 未接通。G1 由用户最终确认，G2–G5 未测试；新授权允许许可合格的 MPFB 候选，旧模型及受限主角未复用。
+
+`[已实现]` 2026-09-18：[沈砚静态 v2 候选](engineering/shen-yan-static-v2.md)与[本轮验收](production/shen-yan-static-v2-validation.md)。旧模块化样板已退役；新源使用独立 CC0 解剖基体，先验证单人的静态外观。美术未批准、未绑定、未制作 LOD 或批量外观，正式村庄仍无居民；[旧失败记录](engineering/village-npc-art-pilot.md)仅作历史。
+
+`[已实现]` 2026-09-16：[村庄 NPC 首批试点](engineering/village-npc-pilot.md)与[实际验收](production/village-npc-pilot-validation.md)。独立 v7 中的乔姨、沈砚可交谈，正式村庄仍无居民，第一章任务未接入。
+
+`[已实现]` 2026-09-16：[村庄分区与 LOD v7 独立预览](engineering/village-streaming-v7.md) · [GTX 1060 笔记本预算验证](production/village-streaming-v7-1060-validation.md) · [旧集显档历史记录](production/village-streaming-v7-validation.md)。正式／默认村庄入口仍为 v6；外景提交预算与整个渲染器的帧时／draw call 分别验收。
+
 > 2026-09-15 正式采用：负责人已确认将 v6（四户住宅 v5、主角家暖色外观、全村树木）与配套住宅外观启用。正式游戏和默认村庄预览现用 v6，沿用修复后的 v4 布局／地形；独立预览 `--village-v4` 保留旧外观回归。第一章委托未接入。[采用与验证](production/village-v6-adoption.md)。下述样板轮“尚未切换”是当轮交付状态。
 
 
@@ -37,7 +57,7 @@
 | 门交互与院外通行修复 | [规则、保存与编辑](engineering/home-access.md)、[实际验收](production/home-access-validation.md) |
 | 村庄与住宅制作 | [村庄外景设计](design/village-exterior.md)、[村庄 v2](engineering/village-v2.md)、[村庄 v1](engineering/village-v1.md)、[住宅 v1](engineering/home-v1.md) |
 | 梦境场景制作 | [第一室 v6](engineering/classroom-remodel-v6.md)、[大厅 v3](engineering/manor-remodel-v3.md)、[音乐室 v2](engineering/music-remodel-v2.md)、[档案室 v2](engineering/archive-remodel-v2.md)、[礼堂 v2](engineering/auditorium-remodel-v2.md) |
-| 角色、UI 与资产规范 | [角色动作](engineering/character-motion.md)、[UI 规范](engineering/ui-ux.md)、[电影感 UI 样板](engineering/ui-cinematic-samples.md)、[资产制作与来源](engineering/content-authoring.md) |
+| 角色、UI 与资产规范 | [MPFB 工作流](engineering/character-workflow-mpfb.md)、[正常脸基线验收](production/character-workflow-mpfb-validation.md)、[沈砚静态候选](engineering/shen-yan-static-v2.md)、[静态候选验收](production/shen-yan-static-v2-validation.md)、[NPC 功能试点](engineering/village-npc-pilot.md)、[角色动作](engineering/character-motion.md)、[UI 规范](engineering/ui-ux.md)、[电影感 UI 样板](engineering/ui-cinematic-samples.md)、[资产制作与来源](engineering/content-authoring.md) |
 | 测试与人工验收 | [测试与发布](production/testing-release.md)、[序章盲测](production/prologue-v6-playtest.md)、[第一章文档检查](production/chapter-one-doc-validation.md)、[村庄外景文档检查](production/village-exterior-doc-validation.md) |
 | 正式村庄探索 | [接入与存档](engineering/village-wake.md)、[本轮验收](production/village-wake-validation.md) |
 | 场景验收记录 | [村庄 v2](production/village-v2-validation.md)、 [村庄](production/village-v1-validation.md)、[住宅](production/home-v1-validation.md)、[第一室](production/classroom-v6-validation.md)、[大厅](production/manor-v3-validation.md)、[音乐室](production/music-v2-validation.md)、[档案室与礼堂](production/late-rooms-v2-validation.md) |
@@ -147,3 +167,7 @@ town-rpg/
 `[已实现]` 第二室已采用独立音乐教室 v2 GLB：12×10×4 米、可进入器材间、六把椅子、分阶段门碰撞和晓雨连续绕行。见[实现](engineering/music-remodel-v2.md)与[验收](production/music-v2-validation.md)。
 
 `[已实现]` 后两室已扩大重制：档案室 14×12×4.2 米，礼堂 22×16×7.5 米、32 座共享网格；13／15 个交互 ID、答案、一次集中回访与内容版本 6 保持。见[档案室](engineering/archive-remodel-v2.md)、[礼堂](engineering/auditorium-remodel-v2.md)及[完整流程与两室验收](production/late-rooms-v2-validation.md)。
+
+`[已实现·静态试验，未过美术验收]` [人物第2版](production/character-stylized-v2.md)：v007 派生三轮造型，交付源为 v010；双引擎实际渲染与未通过项分别记录。
+
+`[已实现·未过美术验收]` [自然青年头肩修订](production/character-head-refinement.md)：v012/v014 脸部检查通过，v016 头发仍有头套边界及折转，整体未放行；技术、代理判断与用户批准分开记录。

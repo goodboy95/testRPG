@@ -1,5 +1,15 @@
 # 技术架构
 
+`[已实现]` 2026-10-04：`VillageOpeningState.Tracking` 可选保存任务和语义目标；缺失表示旧档迁移，存在且 Job 为空表示明确取消。`OpeningObjective` 按原任务进度推导目标，不重复存阶段／坐标；表现层持有最近目标选择、位置绑定和投影。见[跟踪架构与恢复](quest-tracking-typography.md)。
+
+`[已实现]` 2026-10-02：[正式开场](village-opening.md)新增可选 GameState.VillageOpening 与 VillageOpeningService，独立于位置／门灯快照；Core 校验任务和原子事件结果，VillageOpeningController 负责 UI／NPC／实物输入适配。SaveEnvelope v1 不变，旧档升级先留持久备份；通用事务回滚补齐两个现实状态段。预览不访问正式开场状态。
+
+`[已实现]` 2026-09-26：[动画村庄 v8 样板](village-anime-v8.md)通过表现层 `VillageVisualProfile` 统一选择清单、地形外观、住宅外侧与光照。流式清单版本 7／8 分别限定包目录；当前正式入口忽略 v8 样板开关。预览不持有 Core／存档状态，Terrain3D 原生高度与门轴、碰撞所有权不变。
+
+`[已实现]` 2026-09-16：[NPC 独立试点](village-npc-pilot.md)新增 `VillageNpcPreviewController`、`VillageNpcActor3D` 与本地对白上下文。动态交互注册由 `WorldArea3D` 管理；NPC 与建筑流式节点分离，闲聊不经过事件提交、不写 GameSession／Core／存档。`DialoguePanel.Context` 未提供时保持原会话行为。
+
+`[已实现]` 2026-09-16：[村庄 v7 流式预览](village-streaming-v7.md)新增表现层 `VillageRenderPolicy`／`VillageStreaming3D`，只持有模型 LOD、资源加载与预算遥测。七区碰撞仍由 `VillageExterior3D` 和已有布局创建，地形高度／存档所有权不变；近景包可卸载，低模代理常驻。默认入口仍为 v6。
+
 > 2026-09-15：[双向推门与院外接坡](home-access.md)更新门方向的可选保存、住宅缓存恢复和 v4 局部地形／路面；[实际验收](../production/home-access-validation.md)记录连续院外往返，保留旧批次的历史结果。
 
 `[已实现]` 2026-09-14 后续布局轮：[紧凑村庄 v4](village-v4.md)已接入正式醒后探索与默认预览，采用 v3 树木／两铺外观和独立派生 Terrain3D。固定主角家、溪流、双桥及 24 栋体量；原布局通过独立预览 `--village-v2` 回归，v1 与 v3 样板入口保留。第一章委托仍未接入。[本轮实际验证](../production/village-v4-validation.md)独立记录；下述旧批次的“正式 v2／样板待采用”均为当时状态。

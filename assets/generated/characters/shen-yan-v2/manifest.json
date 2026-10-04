@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "assetId": "shen_yan.static_v2",
+  "characterId": "shen_yan",
+  "date": "2026-09-18",
+  "runtimeReady": false,
+  "visualApproval": false,
+  "purpose": "Static art candidate; no animation or village adoption",
+  "selfReview": "not_passed: facial character, hair silhouette and clothing finish need art rework",
+  "reviewRecord": "doc/production/shen-yan-static-v2-validation.md",
+  "authoringTool": "Blender 5.2.0 LTS",
+  "source": "art/blender/characters/shen-yan-v2/shen-yan-static-v2.blend",
+  "sourceSha256": "c464ecdae24e8e195ce8170bd4b052d0521e03adee1323f31de88b859b72f913",
+  "glb": "assets/generated/characters/shen-yan-v2/shen-yan-static-v2.glb",
+  "glbSha256": "dca248b7086e965ba481dd13ba12227854c1bda27ec3fbf5bf5414b33e08ed29",
+  "sourceInspection": {
+    "triangles": 31439,
+    "materials": [
+      "Shen_HairBrows",
+      "Shen_SkinEyes",
+      "Shen_Wardrobe"
+    ],
+    "heightMeters": 1.72166,
+    "authoringObjects": 36,
+    "textures": [
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_hair_albedo.png",
+        "sha256": "33c5a6df79ad5f5bb569d42c07ea231291dd998e5f2df088fe68f331518bb5ce",
+        "size": [
+          1024,
+          1024
+        ],
+        "colorSpace": "sRGB"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_hair_normal.png",
+        "sha256": "787b542a4aa17176c885a3ecadd6db571b92ca3cd68402484debe365322e91c7",
+        "size": [
+          1024,
+          1024
+        ],
+        "colorSpace": "Non-Color"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_hair_orm.png",
+        "sha256": "b097f72f2c66e7f531f2c0197cdb3b58a7c01ca69697a8a4a3ad72ce77b4b2a4",
+        "size": [
+          1024,
+          1024
+        ],
+        "colorSpace": "Non-Color"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_skin_albedo.png",
+        "sha256": "786fcca3c6cfd5fe9afd35667612ceeae9c6fee9134c8ccc44e5b769ac3b0fae",
+        "size": [
+          2048,
+          2048
+        ],
+        "colorSpace": "sRGB"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_skin_normal.png",
+        "sha256": "7656aed11f705f964f0f4e72e333c581b228362af3d9e7514422e8eb016f9421",
+        "size": [
+          2048,
+          2048
+        ],
+        "colorSpace": "Non-Color"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_skin_orm.png",
+        "sha256": "615cc370761e866d48cac512d595cb530c3fa315b6860b0cb09f55ab0f8cc290",
+        "size": [
+          2048,
+          2048
+        ],
+        "colorSpace": "Non-Color"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_wardrobe_albedo.png",
+        "sha256": "9ce56e7c1a6d0cd0f8c4f9db25017613a10bc6417a7f411e832fb7473a37cb87",
+        "size": [
+          2048,
+          2048
+        ],
+        "colorSpace": "sRGB"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_wardrobe_normal.png",
+        "sha256": "2d977e998fe95534b7456676f4b8dace2b52faca189e742d0fd40c452db9c39d",
+        "size": [
+          2048,
+          2048
+        ],
+        "colorSpace": "Non-Color"
+      },
+      {
+        "path": "art/blender/characters/shen-yan-v2/textures/shen_wardrobe_orm.png",
+        "sha256": "91c0dcf9b06130e2ae4fcdc877a615a82c60eb0c75c270675c160836b511b5af",
+        "size": [
+          2048,
+          2048
+        ],
+        "colorSpace": "Non-Color"
+      }
+    ],
+    "anatomicalBase": {
+      "url": "https://download.blender.org/demo/asset-bundles/human-base-meshes/human-base-meshes-bundle-v1.4.1.zip",
+      "packageSha256": "811f43accbb31a88266d932f8f5563b2d13586fca0ba2693aad1f5fe582b3515",
+      "collection": "Body Male - Realistic",
+      "author": "Dan Ulrich",
+      "license": "CC0",
+      "adopted": "2026-09-18",
+      "note": "Independent upstream package; no protagonist or rejected NPC meshes. Unrelated Rain Rig License text is not the asset license; bundle README and selected collection both explicitly CC0.",
+      "extractedSource": "art/sources/cc0/npc-human-base-v1/body-male-realistic.blend",
+      "extractedSourceSha256": "a2815c3d8b5fc64242a4bc694f804d4892ae0b6d3165e85853c9d3a6a45e4dc6",
+      "readmeSha256": "98d7fbbdecead1b44a1e694de0e1a7175253e2d973195fe595ac8d2997133ad8",
+      "extractionTool": "Blender 5.2.0 LTS; selected collection copied independently before authoring modifications"
+    }
+  },
+  "exportInspection": {
+    "triangles": 31439,
+    "meshInstances": 1,
+    "materialSurfaces": 3,
+    "embeddedImages": 9,
+    "reimported": true,
+    "skins": 0,
+    "animations": 0
+  },
+  "method": "CC0 anatomy adaptation and scripted mesh authoring; pigment/procedural surface baking; no high-poly sculpt or concept projection",
+  "conceptRecord": "art/concepts/characters/shen-yan-v2/generation.json",
+  "bakeRecord": "art/blender/characters/shen-yan-v2/bake-record.json"
+}

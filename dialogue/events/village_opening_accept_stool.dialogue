@@ -1,0 +1,5 @@
+~ start
+旁白: 把修理铺待领区的木凳送到许婆婆家门廊，报酬 20 元。放稳后请她试坐，再回修理铺告诉彭师傅结果。途中可以暂时放下，不用赶时间。 [ID:OPENING_ACCEPT_STOOL_001]
+主角: 那这件我来吧，先去修理铺看看。 [ID:OPENING_ACCEPT_STOOL_002]
+do Narrative.Execute("complete_event", "village.opening.accept_stool")
+=> END

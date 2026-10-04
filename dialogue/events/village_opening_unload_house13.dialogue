@@ -1,0 +1,7 @@
+~ start
+陈叔: 我把收纳台让开，放这边。米面各一袋，齐了。 [ID:OPENING_UNLOAD_HOUSE13_001]
+沈砚: 你先接这头，我转一下身。 [ID:OPENING_UNLOAD_HOUSE13_002]
+主角: 我接稳了，慢慢放下来吧。 [ID:OPENING_UNLOAD_HOUSE13_003]
+陈叔: 放之前喊一声就对了，省得一个人松了手，另一个还在抬。 [ID:OPENING_UNLOAD_HOUSE13_004]
+do Narrative.Execute("complete_event", "village.opening.unload_house13")
+=> END

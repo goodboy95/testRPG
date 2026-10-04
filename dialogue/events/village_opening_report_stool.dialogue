@@ -1,0 +1,7 @@
+~ start
+主角: 凳子送到了。许婆婆试过，说不晃，高度也合适。 [ID:OPENING_REPORT_STOOL_001]
+彭师傅: 行，那就好。 [ID:OPENING_REPORT_STOOL_002]
+主角: 她还让我跟您说，修得好。 [ID:OPENING_REPORT_STOOL_003]
+彭师傅: 这趟说好的 20 元，我会跟村长说一声。你什么时候方便，过去领就行。 [ID:OPENING_REPORT_STOOL_004]
+do Narrative.Execute("complete_event", "village.opening.report_stool")
+=> END

@@ -1,0 +1,362 @@
+[
+  {
+    "id": "home",
+    "position": [
+      -56,
+      0.0,
+      40
+    ],
+    "size": [
+      12,
+      3.2,
+      9
+    ],
+    "status": "sample-awaiting-review",
+    "phase": 2
+  },
+  {
+    "id": "house02",
+    "position": [
+      -71,
+      0.0,
+      40
+    ],
+    "size": [
+      9,
+      3.5,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house03",
+    "position": [
+      -40,
+      0.0,
+      40
+    ],
+    "size": [
+      10,
+      6.1,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house04",
+    "position": [
+      -71,
+      -1.215,
+      67
+    ],
+    "size": [
+      8,
+      3.3,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house05",
+    "position": [
+      -56,
+      -1.215,
+      67
+    ],
+    "size": [
+      10,
+      3.5,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house06",
+    "position": [
+      -40,
+      -1.215,
+      67
+    ],
+    "size": [
+      9,
+      6.1,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house07",
+    "position": [
+      -71,
+      1.035,
+      17
+    ],
+    "size": [
+      10,
+      3.5,
+      8
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house08",
+    "position": [
+      -71,
+      1.845,
+      -1
+    ],
+    "size": [
+      9,
+      3.3,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house09",
+    "position": [
+      -71,
+      2.7,
+      -20
+    ],
+    "size": [
+      10,
+      3.5,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house10",
+    "position": [
+      -53,
+      2.25,
+      -10
+    ],
+    "size": [
+      9,
+      6.1,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house11",
+    "position": [
+      -54,
+      3.285,
+      -33
+    ],
+    "size": [
+      8,
+      3.3,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house12",
+    "position": [
+      -4,
+      2.745,
+      -21
+    ],
+    "size": [
+      10,
+      3.5,
+      8
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house13",
+    "position": [
+      18,
+      0.0,
+      40
+    ],
+    "size": [
+      10,
+      3.5,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house14",
+    "position": [
+      20,
+      1.62,
+      4
+    ],
+    "size": [
+      9,
+      3.3,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house15",
+    "position": [
+      81,
+      0.0,
+      40
+    ],
+    "size": [
+      9,
+      3.5,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house16",
+    "position": [
+      83,
+      0.9,
+      20
+    ],
+    "size": [
+      10,
+      6.1,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house17",
+    "position": [
+      83,
+      1.755,
+      1
+    ],
+    "size": [
+      9,
+      3.5,
+      7
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "house18",
+    "position": [
+      81,
+      2.79,
+      -22
+    ],
+    "size": [
+      10,
+      3.5,
+      8
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "shop",
+    "position": [
+      -20,
+      1.935,
+      16
+    ],
+    "size": [
+      12,
+      3.8,
+      9
+    ],
+    "status": "sample-awaiting-review",
+    "phase": 2
+  },
+  {
+    "id": "clinic",
+    "position": [
+      10,
+      1.08,
+      16
+    ],
+    "size": [
+      10,
+      3.5,
+      8
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "workshop",
+    "position": [
+      -23,
+      2.7,
+      -4
+    ],
+    "size": [
+      12,
+      3.6,
+      8
+    ],
+    "status": "sample-awaiting-review",
+    "phase": 2
+  },
+  {
+    "id": "community",
+    "position": [
+      -48,
+      1.125,
+      15
+    ],
+    "size": [
+      10,
+      4.0,
+      8
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "station",
+    "position": [
+      -29,
+      3.87,
+      -46
+    ],
+    "size": [
+      20,
+      4.3,
+      9
+    ],
+    "status": "planned",
+    "phase": 3
+  },
+  {
+    "id": "rail_shed",
+    "position": [
+      0,
+      3.645,
+      -41
+    ],
+    "size": [
+      8,
+      3.2,
+      6
+    ],
+    "status": "planned",
+    "phase": 3
+  }
+]

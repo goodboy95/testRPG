@@ -29,6 +29,8 @@ public partial class PlayerController3D : CharacterBody3D
     public event Action<Vector3>? Moved;
 
     public Camera3D? MovementCamera { get; set; }
+    // Controlled props own translation while retaining the ordinary independent camera.
+    public bool ExternalMotion { get; set; }
     private bool _inputEnabled = true;
     public bool InputEnabled
     {
@@ -81,7 +83,7 @@ public partial class PlayerController3D : CharacterBody3D
             UpdateCameraClearance();
             return;
         }
-        if (!InputEnabled)
+        if (!InputEnabled || ExternalMotion)
         {
             StopLocomotion();
             UpdateInteractionFacing((float)delta);

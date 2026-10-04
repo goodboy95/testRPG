@@ -7,6 +7,7 @@ namespace TownRpg.Presentation;
 public partial class VillageExterior3D : WorldArea3D
 {
     public event Action? HomeRequested;
+    public Func<InteractionMarker3D, bool>? AdditionalInteractionActive { get; set; }
     public bool Graybox { get; init; }
     public bool UseV1 { get; init; }
     public bool UseCompactLayout { get; init; }
@@ -15,6 +16,10 @@ public partial class VillageExterior3D : WorldArea3D
     public bool UseArtSample { get; init; }
     public bool UseHouseArtSample { get; init; }
     public bool UseHomeTreesSample { get; init; }
+    public bool UseStreaming { get; init; }
+    public VillageVisualProfile VisualProfile { get; init; }=VillageVisualProfile.V7;
+    public VillageRenderProfile RenderProfile { get; }=VillageRenderProfile.FromArguments(OS.GetCmdlineUserArgs());
+    public VillageStreaming3D? Streaming { get; private set; }
     public IVillageSurface3D Surface { get; private set; } = new OriginalVillageSurface3D();
     public float WalkHeight(float x,float z) => Layout.Geometry.Bridges.FirstOrDefault(b=>b.Contains(new(x,z))) is { } bridge ? bridge.DeckY : Surface.GroundHeight(x,z);
     public Vector3 SurfacePoint(float x,float z,float offset=0)=>new(x,WalkHeight(x,z)+offset,z);
@@ -40,7 +45,7 @@ public partial class VillageExterior3D : WorldArea3D
     {
         if(UseCompactLayout) Layout=VillageLayoutProfile3D.Parse(Godot.FileAccess.GetFileAsString("res://assets/generated/village/layout-v4.json"));
         var stage=Time.GetTicksUsec();
-        ModelRoot=Graybox ? new Node3D { Name="VillageGraybox" } : ResourceLoader.Load<PackedScene>(UseV1
+        ModelRoot=Graybox || UseStreaming ? new Node3D { Name=UseStreaming?"VillageStreamingRoot":"VillageGraybox" } : ResourceLoader.Load<PackedScene>(UseV1
             ? "res://assets/generated/village/3d/village-v1.glb" : UseHomeTreesSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v6.glb" : UseHouseArtSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v5.glb" : UseCompactLayout ? "res://assets/generated/village/3d/village-v4.glb" : UseArtSample ? "res://assets/generated/village/3d/village-v3.glb" : "res://assets/generated/village/3d/village-v2.glb").Instantiate<Node3D>();
         AddChild(ModelRoot);
         if(OS.GetCmdlineUserArgs().Contains("--v4-load")) GD.Print("V4_LOAD_STAGE model="+(Time.GetTicksUsec()-stage)/1000d);
@@ -66,8 +71,9 @@ public partial class VillageExterior3D : WorldArea3D
         if(UseTerrainSample)
         {
             foreach(var mesh in Descendants(ModelRoot).OfType<MeshInstance3D>().Where(m=>m.Name=="Terrain")) mesh.Visible=false;
-            Surface=new TerrainVillageSurface3D(this,UseCompactLayout ? "res://assets/generated/village/terrain-v4/" : TerrainVillageSurface3D.Folder);
-            VillageTerrainDetails3D.AddTo(this,Surface,UseCompactLayout ? "res://assets/generated/village/terrain-v4/" : TerrainVillageSurface3D.Folder);
+            Surface=new TerrainVillageSurface3D(this,UseCompactLayout ? VisualProfile.TerrainFolder : TerrainVillageSurface3D.Folder,UseStreaming);
+            VillageTerrainDetails3D.AddTo(this,Surface,UseCompactLayout ? "res://assets/generated/village/terrain-v4/" : TerrainVillageSurface3D.Folder,UseStreaming,RenderProfile.DetailDistance);
+            if(VisualProfile.AnimeLighting)VillageAnimeDetails3D.AddTo(this,Surface);
         }
         else { Surface=new OriginalVillageSurface3D(Layout);BuildTerrain(); }
         if(OS.GetCmdlineUserArgs().Contains("--v4-load")) GD.Print("V4_LOAD_STAGE ground="+(Time.GetTicksUsec()-stage)/1000d);
@@ -80,6 +86,10 @@ public partial class VillageExterior3D : WorldArea3D
         base._Ready();
         Player.ConfigureDefaultCharacterVisual(DreamCharacterFrames.Create(ResourceLoader.Load<Texture2D>("res://assets/generated/dream_escape/pixel/protagonist-walk-4x4-v1.png")));
         ResetPosition();
+        if(UseStreaming)
+        {
+            Streaming=new VillageStreaming3D { Name="VillageStreaming" };ModelRoot.AddChild(Streaming);Streaming.Initialize(this);
+        }
         if(OS.GetCmdlineUserArgs().Contains("--v4-load")) GD.Print("V4_LOAD_STAGE fixtures_actor="+(Time.GetTicksUsec()-stage)/1000d);
         InteractionRequested += HandleInteraction;
     }
@@ -100,7 +110,8 @@ public partial class VillageExterior3D : WorldArea3D
         query.Exclude=new Godot.Collections.Array<Rid> { Player.GetRid(),_homeSolid.GetRid() };
         return GetWorld3D().DirectSpaceState.IntersectRay(query).Count==0;
     }
-    protected override bool IsMarkerActive(InteractionMarker3D marker) => CanReachHome();
+    protected override bool IsMarkerActive(InteractionMarker3D marker) => marker.TargetId == "village.home.enter"
+        ? CanReachHome() : AdditionalInteractionActive?.Invoke(marker) == true;
     protected override string BuildPrompt(InteractionMarker3D marker) => $"[{(UseGamepadPrompts?"A":"F")}] {UiText.Get(marker.Prompt)}";
     public void SetHostLocked(bool value) { _hostLocked=value; SetRuntimeInputLocked(value); }
     public void ResetPosition()
@@ -254,6 +265,19 @@ public partial class VillageExterior3D : WorldArea3D
     }
     private void BuildLighting()
     {
+        if(VisualProfile.AnimeLighting)
+        {
+            AddChild(new WorldEnvironment { Environment=new Godot.Environment {
+                BackgroundMode=Godot.Environment.BGMode.Sky,
+                Sky=new Sky { SkyMaterial=new ProceduralSkyMaterial { SkyTopColor=new Color("7caed0"),SkyHorizonColor=new Color("e3e9db"),GroundHorizonColor=new Color("d9e2d0"),GroundBottomColor=new Color("9aa781"),SkyCurve=.28f } },
+                AmbientLightSource=Godot.Environment.AmbientSource.Color,AmbientLightColor=new Color("b5c9db"),AmbientLightEnergy=.55f,
+                ReflectedLightSource=Godot.Environment.ReflectionSource.Disabled,TonemapMode=Godot.Environment.ToneMapper.Linear,TonemapExposure=.90f,
+                FogEnabled=true,FogLightColor=new Color("b3ccce"),FogDensity=.00045f } });
+            AddChild(new DirectionalLight3D { Name="AnimeSummerMorning",RotationDegrees=new(-48,-32,0),LightColor=new Color("fff1d9"),LightEnergy=.35f,
+                ShadowEnabled=true,DirectionalShadowMaxDistance=RenderProfile.ShadowDistance,
+                DirectionalShadowMode=DirectionalLight3D.ShadowMode.Orthogonal });
+            return;
+        }
         AddChild(new WorldEnvironment { Environment=new Godot.Environment {
             BackgroundMode=Godot.Environment.BGMode.Sky,
             Sky=new Sky { SkyMaterial=new ProceduralSkyMaterial { SkyTopColor=new Color("6598b7"),SkyHorizonColor=new Color("d0dcda"),GroundHorizonColor=new Color("cad5cc"),GroundBottomColor=new Color("78826b"),SkyCurve=.22f } },
@@ -261,6 +285,7 @@ public partial class VillageExterior3D : WorldArea3D
             ReflectedLightSource=Godot.Environment.ReflectionSource.Disabled,TonemapMode=Godot.Environment.ToneMapper.Filmic,TonemapExposure=.95f
         } });
         AddChild(new DirectionalLight3D { Name="SummerMorning",RotationDegrees=new(-43,-36,0),LightColor=new Color("fff0d7"),LightEnergy=.55f,
-            ShadowEnabled=true,DirectionalShadowMaxDistance=105,DirectionalShadowMode=DirectionalLight3D.ShadowMode.Parallel4Splits });
+            ShadowEnabled=true,DirectionalShadowMaxDistance=UseStreaming?RenderProfile.ShadowDistance:105,
+            DirectionalShadowMode=UseStreaming?DirectionalLight3D.ShadowMode.Orthogonal:DirectionalLight3D.ShadowMode.Parallel4Splits });
     }
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "aunt_qiao", "building": "shop", "points": [[-5.1, 7.1]], "yaw": 0,
+    "model": "res://assets/generated/village/npc-pilot/aunt_qiao.glb",
+    "dialogue": "res://dialogue/previews/village_npcs/aunt_qiao.dialogue",
+    "startTitle": "start", "prompt": "NPC_PILOT_TALK_QIAO"
+  },
+  {
+    "id": "shen_yan", "building": "community", "points": [[-2.4, 8.0], [-3.9, 8.0], [-3.9, 10.0]], "yaw": 90,
+    "model": "res://assets/generated/village/npc-pilot/shen_yan.glb",
+    "dialogue": "res://dialogue/previews/village_npcs/shen_yan.dialogue",
+    "startTitle": "start", "prompt": "NPC_PILOT_TALK_SHEN"
+  }
+]

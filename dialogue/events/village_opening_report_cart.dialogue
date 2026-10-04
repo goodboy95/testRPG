@@ -1,0 +1,8 @@
+~ start
+主角: 三户都收到了。空车停回原处了。 [ID:OPENING_REPORT_CART_001]
+乔姨: 米面都没漏，车也回来了。这趟记你们各 40 元。 [ID:OPENING_REPORT_CART_002]
+沈砚: 我那份可得单独记啊，别让他顺手一起领走了。 [ID:OPENING_REPORT_CART_003]
+主角: 还不信我？ [ID:OPENING_REPORT_CART_004]
+乔姨: 村长那儿各有一笔，谁也少不了。 [ID:OPENING_REPORT_CART_005]
+do Narrative.Execute("complete_event", "village.opening.report_cart")
+=> END

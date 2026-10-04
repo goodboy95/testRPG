@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://bonojxffb6scq"
+path="res://.godot/imported/village_opening_accept_orders.dialogue-3cc28be3f51e88b0cc7a9f84a644cb05.tres"
+
+[deps]
+
+source_file="res://dialogue/events/village_opening_accept_orders.dialogue"
+dest_files=["res://.godot/imported/village_opening_accept_orders.dialogue-3cc28be3f51e88b0cc7a9f84a644cb05.tres"]
+
+[params]
+
+defaults=true

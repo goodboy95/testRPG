@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://nyqdbl25ypw2"
+path="res://.godot/imported/village_opening_unload_house13.dialogue-350eba1ac929837444395fcc76329dc4.tres"
+
+[deps]
+
+source_file="res://dialogue/events/village_opening_unload_house13.dialogue"
+dest_files=["res://.godot/imported/village_opening_unload_house13.dialogue-350eba1ac929837444395fcc76329dc4.tres"]
+
+[params]
+
+defaults=true

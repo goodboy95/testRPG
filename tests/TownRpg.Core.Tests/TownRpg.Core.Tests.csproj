@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\scripts\presentation\VillageVisualProfile.cs" Link="Presentation\VillageVisualProfile.cs" />
+    <Compile Include="..\..\scripts\presentation\VillageNpcPolicy.cs" Link="Presentation\VillageNpcPolicy.cs" />
+    <Compile Include="..\..\scripts\presentation\VillageNpcArtPolicy.cs" Link="Presentation\VillageNpcArtPolicy.cs" />
+    <Compile Include="..\..\scripts\presentation\VillageRenderPolicy.cs" Link="Presentation\VillageRenderPolicy.cs" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">

@@ -1,0 +1,6083 @@
+{
+  "version": 7,
+  "status": "independent-preview",
+  "sourceSha256": "ab13e851d7693891ad560ed12f00961dd6f969e9c7a75504120a50eb3bef9ffd",
+  "baselineSha256": "343b94ef2e849eedf407d3955e44478f0ccac44e85a2b3f70186e69d7ceded4f",
+  "layoutSha256": "10fc02e76c78830c0643a3ebdf334e1df4a2622ac7ce4bca512efee481779949",
+  "tool": "Blender 5.2.0 LTS",
+  "source": "saved v6 derivative; CC0 materials reused; no characters",
+  "collisionSource": "VillageLayoutProfile3D + repaired terrain-v4; visual meshes have no collision",
+  "districts": [
+    "home",
+    "west",
+    "plaza",
+    "station",
+    "east_south",
+    "east_north",
+    "creek"
+  ],
+  "bundles": [
+    {
+      "id": "creek_detail",
+      "path": "res://assets/generated/village/stream-v7/creek_detail.glb",
+      "sha256": "b3f088b73cb670758fca84452302fa6444caa873b671727eb274efab6a145655"
+    },
+    {
+      "id": "creek_proxy",
+      "path": "res://assets/generated/village/stream-v7/creek_proxy.glb",
+      "sha256": "d8d3313c59fe2fafb42d4ff4ea726fdedc8a2782418d5fae95cfeaab7c02e2ef"
+    },
+    {
+      "id": "east_north_detail",
+      "path": "res://assets/generated/village/stream-v7/east_north_detail.glb",
+      "sha256": "c2f250f0bf9f49333360808158006091539cd00eb5f2205cbaff6b48a88342e3"
+    },
+    {
+      "id": "east_north_proxy",
+      "path": "res://assets/generated/village/stream-v7/east_north_proxy.glb",
+      "sha256": "cf32063c37c3d203e56512285821d58536a6548e511cafceb88cb5c2e22c3326"
+    },
+    {
+      "id": "east_south_detail",
+      "path": "res://assets/generated/village/stream-v7/east_south_detail.glb",
+      "sha256": "97827b2582c2a4515bcc41423d45a93bb367cad35782a5e7cbebc02104d54bce"
+    },
+    {
+      "id": "east_south_proxy",
+      "path": "res://assets/generated/village/stream-v7/east_south_proxy.glb",
+      "sha256": "fa6ddc2103b4bf719ba1d30204639c3933e52e67f9547c25904fd6fdd6ea3f52"
+    },
+    {
+      "id": "home_detail",
+      "path": "res://assets/generated/village/stream-v7/home_detail.glb",
+      "sha256": "ac0e5b2224394499f8c7dd582247775faee35fb3ef948a5afa6b09ef24c048dc"
+    },
+    {
+      "id": "home_proxy",
+      "path": "res://assets/generated/village/stream-v7/home_proxy.glb",
+      "sha256": "c29daf159c04d259cedc396a618503654adbb4079b6673788dedf631cd93047c"
+    },
+    {
+      "id": "plaza_detail",
+      "path": "res://assets/generated/village/stream-v7/plaza_detail.glb",
+      "sha256": "e317233ddeab0ed9637ad44feecbb4eb692791d68f39190ccec214f577133560"
+    },
+    {
+      "id": "plaza_proxy",
+      "path": "res://assets/generated/village/stream-v7/plaza_proxy.glb",
+      "sha256": "8410d1fd9ee2deb4d54c5276d2a6a555ec4828de66559f1840bb1a8a20e1dd9c"
+    },
+    {
+      "id": "station_detail",
+      "path": "res://assets/generated/village/stream-v7/station_detail.glb",
+      "sha256": "6726814a68689805fa7352112608339bf1627f95e43b1a99532be1286fc74d23"
+    },
+    {
+      "id": "station_proxy",
+      "path": "res://assets/generated/village/stream-v7/station_proxy.glb",
+      "sha256": "db9e32d2d16796c430d001b2deec30e89f4a7e7d49fece6d41203a8dc4ced014"
+    },
+    {
+      "id": "west_detail",
+      "path": "res://assets/generated/village/stream-v7/west_detail.glb",
+      "sha256": "7109dc6a1296069b249a7298a28c2eb17790fecc2c1684b6c479268460d6d2b7"
+    },
+    {
+      "id": "west_proxy",
+      "path": "res://assets/generated/village/stream-v7/west_proxy.glb",
+      "sha256": "93470c201f54017c82c37764038e75394713e656c0863c4e5417c34b0abc1e5e"
+    }
+  ],
+  "units": [
+    {
+      "id": "ground_creek",
+      "district": "creek",
+      "category": "ground",
+      "important": false,
+      "bounds": [
+        -24.0165958404541,
+        -14.508516311645508,
+        -432.0028381347656,
+        128.01695442199707,
+        88.05381965637207,
+        864.0052795410156
+      ],
+      "lods": [
+        {
+          "node": "ground_creek_lod0",
+          "bundle": "creek_detail",
+          "screenFraction": 0.3,
+          "triangles": 9490,
+          "surfaces": 5,
+          "materials": [
+            "Village_Concrete",
+            "Village_Grass",
+            "Village_Mortar",
+            "Village_Stone",
+            "Village_StreamWater"
+          ]
+        },
+        {
+          "node": "ground_creek_lod1",
+          "bundle": "creek_detail",
+          "screenFraction": 0.12,
+          "triangles": 9465,
+          "surfaces": 5,
+          "materials": [
+            "Village_Concrete",
+            "Village_Grass",
+            "Village_Mortar",
+            "Village_Stone",
+            "Village_StreamWater"
+          ]
+        },
+        {
+          "node": "ground_creek_lod2",
+          "bundle": "creek_proxy",
+          "screenFraction": 0.035,
+          "triangles": 9465,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "ground_creek_lod3",
+          "bundle": "creek_proxy",
+          "screenFraction": 0,
+          "triangles": 9465,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree_047",
+      "district": "creek",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        34.384315490722656,
+        -0.5665380954742432,
+        50.6297721862793,
+        3.793628692626953,
+        5.490412950515747,
+        3.651416778564453
+      ],
+      "lods": [
+        {
+          "node": "tree_047_lod0",
+          "bundle": "creek_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_047_lod1",
+          "bundle": "creek_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_047_lod2",
+          "bundle": "creek_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_047_lod3",
+          "bundle": "creek_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "ground_east_north",
+      "district": "east_north",
+      "category": "ground",
+      "important": false,
+      "bounds": [
+        5.3148932456970215,
+        0.42500001192092896,
+        -432.02777099609375,
+        410.69972467422485,
+        66.50406950712204,
+        536.0270919799805
+      ],
+      "lods": [
+        {
+          "node": "ground_east_north_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 5477,
+          "surfaces": 4,
+          "materials": [
+            "Village_Concrete",
+            "Village_Grass",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_east_north_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 5473,
+          "surfaces": 4,
+          "materials": [
+            "Village_Concrete",
+            "Village_Grass",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_east_north_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 5473,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "ground_east_north_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 5473,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house16",
+      "district": "east_north",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        73.36499786376953,
+        0.8700000047683716,
+        13.375,
+        14.175003051757812,
+        7.6249998807907104,
+        13.25
+      ],
+      "lods": [
+        {
+          "node": "house16_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 9574,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_CoolPlaster",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house16_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 9574,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_CoolPlaster",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house16_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1922,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house16_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 1370,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house17",
+      "district": "east_north",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        73.36499786376953,
+        1.725000023841858,
+        -5.125,
+        14.175003051757812,
+        5.024999976158142,
+        12.25
+      ],
+      "lods": [
+        {
+          "node": "house17_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 8866,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house17_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 8866,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house17_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1214,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house17_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 914,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house18",
+      "district": "east_north",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        74.375,
+        2.759999990463257,
+        -32.135005950927734,
+        13.25,
+        5.0249998569488525,
+        15.175006866455078
+      ],
+      "lods": [
+        {
+          "node": "house18_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house18_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house18_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1214,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house18_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 926,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree_048",
+      "district": "east_north",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        59.83710479736328,
+        4.584751129150391,
+        -64.82623291015625,
+        5.2079620361328125,
+        7.159427642822266,
+        5.544708251953125
+      ],
+      "lods": [
+        {
+          "node": "tree_048_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_048_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_048_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_048_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_049",
+      "district": "east_north",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        61.701725006103516,
+        3.8876540660858154,
+        -48.6309928894043,
+        4.258907318115234,
+        6.771865129470825,
+        4.14544677734375
+      ],
+      "lods": [
+        {
+          "node": "tree_049_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_049_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_049_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_049_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_050",
+      "district": "east_north",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        60.1731071472168,
+        2.740961790084839,
+        -22.748029708862305,
+        3.6655921936035156,
+        5.490412950515747,
+        3.928800582885742
+      ],
+      "lods": [
+        {
+          "node": "tree_050_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_050_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_050_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_050_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_051",
+      "district": "east_north",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        60.61829376220703,
+        2.289346694946289,
+        -13.779305458068848,
+        5.450592041015625,
+        7.710153579711914,
+        5.526766777038574
+      ],
+      "lods": [
+        {
+          "node": "tree_051_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_051_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_051_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_051_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_052",
+      "district": "east_north",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        71.05503845214844,
+        5.170961856842041,
+        -76.59247589111328,
+        3.4234466552734375,
+        5.6432204246521,
+        3.0845565795898438
+      ],
+      "lods": [
+        {
+          "node": "tree_052_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_052_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_052_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_052_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_054",
+      "district": "east_north",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        81.86080932617188,
+        4.005516529083252,
+        -51.0646858215332,
+        4.610725402832031,
+        6.057977199554443,
+        4.542045593261719
+      ],
+      "lods": [
+        {
+          "node": "tree_054_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_054_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_054_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_054_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_055",
+      "district": "east_north",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        85.45098114013672,
+        2.1547508239746094,
+        -10.360553741455078,
+        4.490684509277344,
+        7.336187362670898,
+        4.512637615203857
+      ],
+      "lods": [
+        {
+          "node": "tree_055_lod0",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_055_lod1",
+          "bundle": "east_north_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_055_lod2",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_055_lod3",
+          "bundle": "east_north_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "ground_east_south",
+      "district": "east_south",
+      "category": "ground",
+      "important": false,
+      "bounds": [
+        45.88631057739258,
+        -19.69867515563965,
+        0.9078596830368042,
+        370.14204025268555,
+        56.47826957702637,
+        431.1395341157913
+      ],
+      "lods": [
+        {
+          "node": "ground_east_south_lod0",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.3,
+          "triangles": 3146,
+          "surfaces": 4,
+          "materials": [
+            "Village_Concrete",
+            "Village_Grass",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_east_south_lod1",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.12,
+          "triangles": 3142,
+          "surfaces": 4,
+          "materials": [
+            "Village_Concrete",
+            "Village_Grass",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_east_south_lod2",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0.035,
+          "triangles": 3142,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "ground_east_south_lod3",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0,
+          "triangles": 3142,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house15",
+      "district": "east_south",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        73.2300033569336,
+        -1.962499976158142,
+        30.364999771118164,
+        17.23999786376953,
+        6.957499861717224,
+        53.59499931335449
+      ],
+      "lods": [
+        {
+          "node": "house15_lod0",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.3,
+          "triangles": 20504,
+          "surfaces": 14,
+          "materials": [
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Lime",
+            "V5_Timber",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageDark",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "house15_lod1",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.12,
+          "triangles": 20504,
+          "surfaces": 14,
+          "materials": [
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Lime",
+            "V5_Timber",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageDark",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "house15_lod2",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0.035,
+          "triangles": 12788,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house15_lod3",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0,
+          "triangles": 5194,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree_053",
+      "district": "east_south",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        71.59233093261719,
+        -0.724845826625824,
+        53.70710754394531,
+        4.624176025390625,
+        6.588496148586273,
+        4.525890350341797
+      ],
+      "lods": [
+        {
+          "node": "tree_053_lod0",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_053_lod1",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_053_lod2",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_053_lod3",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_056",
+      "district": "east_south",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        88.57769775390625,
+        0.5661425590515137,
+        25.861543655395508,
+        3.8056182861328125,
+        5.490412712097168,
+        3.4705371856689453
+      ],
+      "lods": [
+        {
+          "node": "tree_056_lod0",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_056_lod1",
+          "bundle": "east_south_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_056_lod2",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_056_lod3",
+          "bundle": "east_south_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "ground_home",
+      "district": "home",
+      "category": "ground",
+      "important": false,
+      "bounds": [
+        -416.0146179199219,
+        -19.862348556518555,
+        -11.953795433044434,
+        398.36570930480957,
+        62.35781288146973,
+        443.9815664291382
+      ],
+      "lods": [
+        {
+          "node": "ground_home_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 5489,
+          "surfaces": 6,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_home_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 5464,
+          "surfaces": 6,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_home_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 5464,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "ground_home_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 5464,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "district": "home",
+      "category": "building",
+      "important": true,
+      "bounds": [
+        -63.500003814697266,
+        -0.19999998807907104,
+        34.0,
+        15.000003814697266,
+        4.877000033855438,
+        18.03499984741211
+      ],
+      "lods": [
+        {
+          "node": "home_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 39934,
+          "surfaces": 17,
+          "materials": [
+            "Home_Aluminium",
+            "Home_Concrete",
+            "Home_Dark",
+            "Home_Fabric",
+            "Home_Green",
+            "Home_Plaster",
+            "Home_Tile",
+            "Home_Wood",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Ivory",
+            "V5_Repair",
+            "V5_Timber",
+            "V6_OchrePaint",
+            "Village_Dark",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "home_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 39862,
+          "surfaces": 17,
+          "materials": [
+            "Home_Aluminium",
+            "Home_Concrete",
+            "Home_Dark",
+            "Home_Fabric",
+            "Home_Green",
+            "Home_Plaster",
+            "Home_Tile",
+            "Home_Wood",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Ivory",
+            "V5_Repair",
+            "V5_Timber",
+            "V6_OchrePaint",
+            "Village_Dark",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "home_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 23282,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "home_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 15358,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house02",
+      "district": "home",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -77.125,
+        -0.029999999329447746,
+        35.459999084472656,
+        12.25,
+        5.02499988488853,
+        14.175006866455078
+      ],
+      "lods": [
+        {
+          "node": "house02_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 9018,
+          "surfaces": 10,
+          "materials": [
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Ivory",
+            "V5_Repair",
+            "V5_Timber",
+            "Village_Concrete",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "house02_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 9018,
+          "surfaces": 10,
+          "materials": [
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Ivory",
+            "V5_Repair",
+            "V5_Timber",
+            "Village_Concrete",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "house02_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1366,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house02_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 1198,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house03",
+      "district": "home",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -46.625,
+        -0.029999999329447746,
+        24.649999618530273,
+        13.614997863769531,
+        7.625000266358256,
+        24.98500633239746
+      ],
+      "lods": [
+        {
+          "node": "house03_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 18878,
+          "surfaces": 19,
+          "materials": [
+            "V2_UncoatedPaper",
+            "V2_WeatheredGalvanised",
+            "V2_WornWoodEdge",
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_BluePaint",
+            "V5_Repair",
+            "V5_Silver",
+            "V5_Timber",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house03_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 18734,
+          "surfaces": 19,
+          "materials": [
+            "V2_UncoatedPaper",
+            "V2_WeatheredGalvanised",
+            "V2_WornWoodEdge",
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_BluePaint",
+            "V5_Repair",
+            "V5_Silver",
+            "V5_Timber",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house03_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 7528,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house03_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 3110,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house04",
+      "district": "home",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -76.625,
+        -1.2432857751846313,
+        57.36499786376953,
+        11.25,
+        4.737857222557068,
+        14.175003051757812
+      ],
+      "lods": [
+        {
+          "node": "house04_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house04_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house04_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1202,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house04_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 894,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house05",
+      "district": "home",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -62.625,
+        -1.2450000047683716,
+        57.36499786376953,
+        13.25,
+        5.024999737739563,
+        14.175003051757812
+      ],
+      "lods": [
+        {
+          "node": "house05_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 8866,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house05_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 8866,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house05_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1214,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house05_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 926,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house06",
+      "district": "home",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -46.125,
+        -1.2450000047683716,
+        57.36499786376953,
+        12.25,
+        7.6250001192092896,
+        14.175003051757812
+      ],
+      "lods": [
+        {
+          "node": "house06_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 9574,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house06_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 9574,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house06_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1922,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house06_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 1358,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree_006",
+      "district": "home",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -98.06710815429688,
+        0.4451542794704437,
+        27.5111083984375,
+        4.908042907714844,
+        6.608703047037125,
+        5.083442687988281
+      ],
+      "lods": [
+        {
+          "node": "tree_006_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_006_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_006_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_006_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_007",
+      "district": "home",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -96.59993743896484,
+        -1.3094418048858643,
+        67.17350006103516,
+        3.8644027709960938,
+        6.207543134689331,
+        3.8078765869140625
+      ],
+      "lods": [
+        {
+          "node": "tree_007_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_007_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_007_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_007_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_008",
+      "district": "home",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -95.1327133178711,
+        -1.7590382099151611,
+        76.8059310913086,
+        3.5722732543945312,
+        5.490412950515747,
+        3.858642578125
+      ],
+      "lods": [
+        {
+          "node": "tree_008_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_008_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_008_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_008_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_016",
+      "district": "home",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -87.00163269042969,
+        0.37922197580337524,
+        29.985265731811523,
+        3.2283248901367188,
+        5.643220841884613,
+        3.4461536407470703
+      ],
+      "lods": [
+        {
+          "node": "tree_016_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_016_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_016_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_016_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_021",
+      "district": "home",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -71.51475524902344,
+        -1.895653486251831,
+        79.09671783447266,
+        5.533439636230469,
+        7.710154294967651,
+        5.909416198730469
+      ],
+      "lods": [
+        {
+          "node": "tree_021_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_021_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_021_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_021_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_024",
+      "district": "home",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -62.342830657958984,
+        -1.9173457622528076,
+        80.20386505126953,
+        4.833446502685547,
+        6.608703374862671,
+        4.86065673828125
+      ],
+      "lods": [
+        {
+          "node": "tree_024_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_024_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_024_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_024_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_031",
+      "district": "home",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -36.87834930419922,
+        -1.8044418096542358,
+        78.09820556640625,
+        3.394237518310547,
+        6.207542777061462,
+        3.7593307495117188
+      ],
+      "lods": [
+        {
+          "node": "tree_031_lod0",
+          "bundle": "home_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_031_lod1",
+          "bundle": "home_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_031_lod2",
+          "bundle": "home_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_031_lod3",
+          "bundle": "home_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "clinic",
+      "district": "plaza",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        3.5,
+        1.0049999952316284,
+        11.0,
+        13.0,
+        5.0700002908706665,
+        15.0
+      ],
+      "lods": [
+        {
+          "node": "clinic_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 11186,
+          "surfaces": 9,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "clinic_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 10408,
+          "surfaces": 9,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "clinic_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1242,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "clinic_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 590,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ground_plaza",
+      "district": "plaza",
+      "category": "ground",
+      "important": false,
+      "bounds": [
+        -104.00035095214844,
+        -15.636686325073242,
+        -31.787616729736328,
+        208.0007095336914,
+        35.58232307434082,
+        463.7912788391113
+      ],
+      "lods": [
+        {
+          "node": "ground_plaza_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 14102,
+          "surfaces": 6,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_plaza_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 14083,
+          "surfaces": 6,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_plaza_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 14083,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "ground_plaza_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 14083,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house12",
+      "district": "plaza",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -9.040000915527344,
+        2.7149999141693115,
+        -27.625,
+        15.17500114440918,
+        5.0249998569488525,
+        13.25
+      ],
+      "lods": [
+        {
+          "node": "house12_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 8754,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house12_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 8754,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house12_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1102,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house12_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 850,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house13",
+      "district": "plaza",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        3.2300000190734863,
+        -1.6475000381469727,
+        30.364999771118164,
+        21.394999980926514,
+        6.642499923706055,
+        46.59499931335449
+      ],
+      "lods": [
+        {
+          "node": "house13_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 22246,
+          "surfaces": 13,
+          "materials": [
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Timber",
+            "V5_Warm",
+            "Village_Concrete",
+            "Village_FoliageDark",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "house13_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 22246,
+          "surfaces": 13,
+          "materials": [
+            "V3_Brick",
+            "V3_Roof",
+            "V3_Stone",
+            "V5_Timber",
+            "V5_Warm",
+            "Village_Concrete",
+            "Village_FoliageDark",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_SignIvory",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "house13_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 14582,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house13_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 4674,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house14",
+      "district": "plaza",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        13.874999046325684,
+        1.5917142629623413,
+        -5.635000228881836,
+        12.250000953674316,
+        4.737857460975647,
+        14.17500114440918
+      ],
+      "lods": [
+        {
+          "node": "house14_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house14_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house14_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1202,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house14_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 894,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plazatree",
+      "district": "plaza",
+      "category": "tree",
+      "important": true,
+      "bounds": [
+        -31.504121780395508,
+        1.3174856901168823,
+        25.413761138916016,
+        7.629236221313477,
+        9.881878972053528,
+        7.746116638183594
+      ],
+      "lods": [
+        {
+          "node": "plazatree_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 4026,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "plazatree_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 4022,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "plazatree_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1420,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "plazatree_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 464,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V3_PrototypeMesh.002"
+    },
+    {
+      "id": "shop",
+      "district": "plaza",
+      "category": "building",
+      "important": true,
+      "bounds": [
+        -32.60000228881836,
+        1.551435947418213,
+        10.5,
+        20.10000228881836,
+        5.690564155578613,
+        19.95863151550293
+      ],
+      "lods": [
+        {
+          "node": "shop_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 58172,
+          "surfaces": 22,
+          "materials": [
+            "V2_FlourSack",
+            "V2_Jute",
+            "V2_PaperInk",
+            "V2_UncoatedPaper",
+            "V2_WeatheredGalvanised",
+            "V2_WornWoodEdge",
+            "V3_CanopyGreen",
+            "V3_CanopyIvory",
+            "V3_Plaster",
+            "V3_Roof",
+            "V3_Stone",
+            "V3_Wood",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "shop_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 55934,
+          "surfaces": 22,
+          "materials": [
+            "V2_FlourSack",
+            "V2_Jute",
+            "V2_PaperInk",
+            "V2_UncoatedPaper",
+            "V2_WeatheredGalvanised",
+            "V2_WornWoodEdge",
+            "V3_CanopyGreen",
+            "V3_CanopyIvory",
+            "V3_Plaster",
+            "V3_Roof",
+            "V3_Stone",
+            "V3_Wood",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "shop_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 24314,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "shop_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 9572,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree_033",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -27.939661026000977,
+        3.0311131477355957,
+        -28.99506950378418,
+        4.544897079467773,
+        6.057977199554443,
+        4.591007232666016
+      ],
+      "lods": [
+        {
+          "node": "tree_033_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_033_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_033_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_033_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_034",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -25.762815475463867,
+        -1.9173457622528076,
+        80.33717346191406,
+        4.131433486938477,
+        6.771865129470825,
+        4.1519622802734375
+      ],
+      "lods": [
+        {
+          "node": "tree_034_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_034_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_034_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_034_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_037",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -13.67936897277832,
+        2.7180376052856445,
+        -22.61866569519043,
+        4.28492546081543,
+        6.407233238220215,
+        4.349891662597656
+      ],
+      "lods": [
+        {
+          "node": "tree_037_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 3760,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_037_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 3756,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_037_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1380,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_037_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 424,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V3_PrototypeMesh.003"
+    },
+    {
+      "id": "tree_038",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -14.058244705200195,
+        -1.2419419288635254,
+        65.15766143798828,
+        4.255781173706055,
+        6.039454936981201,
+        4.415153503417969
+      ],
+      "lods": [
+        {
+          "node": "tree_038_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_038_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_038_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_038_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_040",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        3.3990931510925293,
+        -0.1882827877998352,
+        42.087005615234375,
+        4.886497974395752,
+        7.900509178638458,
+        4.7803802490234375
+      ],
+      "lods": [
+        {
+          "node": "tree_040_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_040_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_040_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_040_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_041",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -1.1133537292480469,
+        -1.8044418096542358,
+        78.13969421386719,
+        4.171338081359863,
+        6.039454817771912,
+        4.0161590576171875
+      ],
+      "lods": [
+        {
+          "node": "tree_041_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_041_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_041_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_041_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_043",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        10.157094955444336,
+        2.3060696125030518,
+        -14.191343307495117,
+        4.6806535720825195,
+        6.407232999801636,
+        4.195014953613281
+      ],
+      "lods": [
+        {
+          "node": "tree_043_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 3760,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_043_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 3756,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_043_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1380,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_043_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 424,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V3_PrototypeMesh.003"
+    },
+    {
+      "id": "tree_046",
+      "district": "plaza",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        22.609521865844727,
+        -0.7031533122062683,
+        53.034393310546875,
+        4.540250778198242,
+        7.900509536266327,
+        4.874717712402344
+      ],
+      "lods": [
+        {
+          "node": "tree_046_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_046_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_046_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_046_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "workshop",
+      "district": "plaza",
+      "category": "building",
+      "important": true,
+      "bounds": [
+        -30.5,
+        2.625,
+        -9.0,
+        15.0,
+        5.182000160217285,
+        15.0
+      ],
+      "lods": [
+        {
+          "node": "workshop_lod0",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.3,
+          "triangles": 47998,
+          "surfaces": 17,
+          "materials": [
+            "V2_Jute",
+            "V2_PalePlywood",
+            "V2_WeatheredGalvanised",
+            "V2_WornWoodEdge",
+            "V3_Brick",
+            "V3_Plaster",
+            "V3_Roof",
+            "V3_Stone",
+            "V3_Wood",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_SignIvory",
+            "Village_TarpBlue",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "workshop_lod1",
+          "bundle": "plaza_detail",
+          "screenFraction": 0.12,
+          "triangles": 46874,
+          "surfaces": 17,
+          "materials": [
+            "V2_Jute",
+            "V2_PalePlywood",
+            "V2_WeatheredGalvanised",
+            "V2_WornWoodEdge",
+            "V3_Brick",
+            "V3_Plaster",
+            "V3_Roof",
+            "V3_Stone",
+            "V3_Wood",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_SignIvory",
+            "Village_TarpBlue",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "workshop_lod2",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0.035,
+          "triangles": 22968,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "workshop_lod3",
+          "bundle": "plaza_proxy",
+          "screenFraction": 0,
+          "triangles": 13390,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ground_station",
+      "district": "station",
+      "category": "ground",
+      "important": false,
+      "bounds": [
+        -416.0350036621094,
+        3.1470398902893066,
+        -432.02130126953125,
+        520.0349731445312,
+        70.93573904037476,
+        443.5526189804077
+      ],
+      "lods": [
+        {
+          "node": "ground_station_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 7773,
+          "surfaces": 8,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedRed",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "ground_station_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 7768,
+          "surfaces": 8,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedRed",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "ground_station_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 7768,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "ground_station_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 7768,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house11",
+      "district": "station",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -58.54000473022461,
+        3.256714344024658,
+        -38.625,
+        14.175006866455078,
+        4.737857341766357,
+        11.25
+      ],
+      "lods": [
+        {
+          "node": "house11_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house11_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house11_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1202,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house11_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 894,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rail_shed",
+      "district": "station",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -5.5,
+        3.569999933242798,
+        -95.95999908447266,
+        32.96999931335449,
+        4.770000219345093,
+        63.959999084472656
+      ],
+      "lods": [
+        {
+          "node": "rail_shed_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 13026,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_FoliageDark",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_Stone",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "rail_shed_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 13026,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_FoliageDark",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_Stone",
+            "Village_WindowGlass"
+          ]
+        },
+        {
+          "node": "rail_shed_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 7626,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "rail_shed_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 2498,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "station",
+      "district": "station",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -40.5,
+        3.794999837875366,
+        -51.5,
+        23.0,
+        5.8700010776519775,
+        16.0
+      ],
+      "lods": [
+        {
+          "node": "station_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 21574,
+          "surfaces": 12,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "station_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 20536,
+          "surfaces": 12,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "station_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1302,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "station_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 746,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree_000",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -96.37831115722656,
+        5.733058452606201,
+        -89.6155776977539,
+        4.672119140625,
+        6.05797815322876,
+        4.3447723388671875
+      ],
+      "lods": [
+        {
+          "node": "tree_000_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_000_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_000_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_000_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_001",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -94.53095245361328,
+        5.283462047576904,
+        -79.26319885253906,
+        3.4095306396484375,
+        5.6432204246521,
+        3.5461959838867188
+      ],
+      "lods": [
+        {
+          "node": "tree_001_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_001_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_001_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_001_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_002",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -96.9560317993164,
+        3.8872506618499756,
+        -49.00189971923828,
+        5.2155303955078125,
+        7.137537240982056,
+        4.8343658447265625
+      ],
+      "lods": [
+        {
+          "node": "tree_002_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_002_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_002_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_002_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_003",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -95.91059875488281,
+        3.437654495239258,
+        -39.02178955078125,
+        4.830047607421875,
+        6.60870361328125,
+        4.774524688720703
+      ],
+      "lods": [
+        {
+          "node": "tree_003_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_003_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_003_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_003_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_009",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -86.41770935058594,
+        6.317250728607178,
+        -103.13265991210938,
+        5.055488586425781,
+        7.159428119659424,
+        5.151519775390625
+      ],
+      "lods": [
+        {
+          "node": "tree_009_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_009_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_009_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_009_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_010",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -83.17411804199219,
+        5.709346771240234,
+        -89.17738342285156,
+        4.7654571533203125,
+        7.900508880615234,
+        4.3198394775390625
+      ],
+      "lods": [
+        {
+          "node": "tree_010_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_010_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_010_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_010_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_011",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -84.81977081298828,
+        4.562654495239258,
+        -63.72346878051758,
+        4.669952392578125,
+        6.588495254516602,
+        4.641326904296875
+      ],
+      "lods": [
+        {
+          "node": "tree_011_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_011_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_011_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_011_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_012",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -83.68428802490234,
+        4.113058090209961,
+        -54.00672149658203,
+        4.5587005615234375,
+        6.057977676391602,
+        4.535289764404297
+      ],
+      "lods": [
+        {
+          "node": "tree_012_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_012_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_012_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_012_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_017",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -72.6737289428711,
+        6.295558452606201,
+        -102.24994659423828,
+        4.4453582763671875,
+        6.039453983306885,
+        4.224052429199219
+      ],
+      "lods": [
+        {
+          "node": "tree_017_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_017_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_017_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_017_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_018",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -71.36021423339844,
+        5.146846771240234,
+        -77.48318481445312,
+        5.657844543457031,
+        7.710153579711914,
+        5.827537536621094
+      ],
+      "lods": [
+        {
+          "node": "tree_018_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_018_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_018_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_018_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_019",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -73.40324401855469,
+        4.6972503662109375,
+        -66.81040954589844,
+        4.401130676269531,
+        7.336187362670898,
+        4.549900054931641
+      ],
+      "lods": [
+        {
+          "node": "tree_019_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_019_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_019_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_019_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_020",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -70.96976470947266,
+        3.30305814743042,
+        -35.42359924316406,
+        4.0722198486328125,
+        6.039453983306885,
+        4.133878707885742
+      ],
+      "lods": [
+        {
+          "node": "tree_020_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_020_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_020_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_020_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_022",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -58.45843505859375,
+        5.8222503662109375,
+        -91.673095703125,
+        4.589210510253906,
+        7.336187362670898,
+        4.384864807128906
+      ],
+      "lods": [
+        {
+          "node": "tree_022_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_022_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_022_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_022_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_025",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -47.692466735839844,
+        6.408462047576904,
+        -104.03206634521484,
+        3.456817626953125,
+        5.6432204246521,
+        3.1957778930664062
+      ],
+      "lods": [
+        {
+          "node": "tree_025_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_025_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_025_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_025_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_026",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -48.76616287231445,
+        4.562654495239258,
+        -63.70145797729492,
+        4.460838317871094,
+        6.588495254516602,
+        4.564144134521484
+      ],
+      "lods": [
+        {
+          "node": "tree_026_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_026_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_026_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_026_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_029",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -35.647544860839844,
+        6.3847503662109375,
+        -104.38646697998047,
+        5.068782806396484,
+        7.137537002563477,
+        4.711067199707031
+      ],
+      "lods": [
+        {
+          "node": "tree_029_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_029_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_029_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_029_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_032",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -25.431289672851562,
+        4.115154266357422,
+        -55.93225860595703,
+        4.589897155761719,
+        6.588495254516602,
+        4.6534423828125
+      ],
+      "lods": [
+        {
+          "node": "tree_032_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_032_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_032_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_032_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_035",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -10.427353858947754,
+        6.250154495239258,
+        -100.98592376708984,
+        4.179124355316162,
+        6.588495254516602,
+        4.588676452636719
+      ],
+      "lods": [
+        {
+          "node": "tree_035_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_035_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_035_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_035_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_036",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -13.332135200500488,
+        5.800558090209961,
+        -91.1889419555664,
+        4.393383979797363,
+        6.057977676391602,
+        4.474021911621094
+      ],
+      "lods": [
+        {
+          "node": "tree_036_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_036_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_036_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_036_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_039",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -1.3191776275634766,
+        6.228461742401123,
+        -100.25719451904297,
+        4.170564413070679,
+        5.507252216339111,
+        4.02923583984375
+      ],
+      "lods": [
+        {
+          "node": "tree_039_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_039_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_039_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_039_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_042",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        11.720783233642578,
+        5.214346408843994,
+        -78.84622955322266,
+        5.8563079833984375,
+        7.710154056549072,
+        5.575736999511719
+      ],
+      "lods": [
+        {
+          "node": "tree_042_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_042_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_042_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_042_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_044",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        22.379745483398438,
+        4.495558261871338,
+        -61.916046142578125,
+        4.462709426879883,
+        6.039454936981201,
+        4.104270935058594
+      ],
+      "lods": [
+        {
+          "node": "tree_044_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_044_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_044_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_044_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_045",
+      "district": "station",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        24.111228942871094,
+        4.045961856842041,
+        -51.93944549560547,
+        4.0649566650390625,
+        5.507253170013428,
+        4.070198059082031
+      ],
+      "lods": [
+        {
+          "node": "tree_045_lod0",
+          "bundle": "station_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_045_lod1",
+          "bundle": "station_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_045_lod2",
+          "bundle": "station_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_045_lod3",
+          "bundle": "station_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "community",
+      "district": "west",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -53.0,
+        1.0499999523162842,
+        8.5,
+        15.0,
+        5.569999933242798,
+        13.0
+      ],
+      "lods": [
+        {
+          "node": "community_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 12910,
+          "surfaces": 10,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "community_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 11038,
+          "surfaces": 10,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_FadedGreen",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "community_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1490,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "community_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 674,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ground_west",
+      "district": "west",
+      "category": "ground",
+      "important": false,
+      "bounds": [
+        -416.0208435058594,
+        0.0324924997985363,
+        -111.9992446899414,
+        383.7714424133301,
+        42.462971825152636,
+        215.9987030029297
+      ],
+      "lods": [
+        {
+          "node": "ground_west_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 6240,
+          "surfaces": 6,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_west_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 6240,
+          "surfaces": 6,
+          "materials": [
+            "Village_Concrete",
+            "Village_Dark",
+            "Village_Grass",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Stone"
+          ]
+        },
+        {
+          "node": "ground_west_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 6240,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "ground_west_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 6240,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house07",
+      "district": "west",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -77.625,
+        1.0049999952316284,
+        11.960000038146973,
+        13.25,
+        5.024999737739563,
+        15.175000190734863
+      ],
+      "lods": [
+        {
+          "node": "house07_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house07_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 13114,
+          "surfaces": 17,
+          "materials": [
+            "Village_Brick",
+            "Village_BrickLight",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Mortar",
+            "Village_Plaster",
+            "Village_RoofWarm",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WarmPlaster",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house07_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1214,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house07_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 926,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house08",
+      "district": "west",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -77.125,
+        1.8167142868041992,
+        -5.5400004386901855,
+        12.25,
+        4.737857818603516,
+        14.175001621246338
+      ],
+      "lods": [
+        {
+          "node": "house08_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 8754,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house08_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 8754,
+          "surfaces": 13,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house08_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1090,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house08_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 818,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house09",
+      "district": "west",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -75.54000091552734,
+        2.6700000762939453,
+        -26.625,
+        14.175003051757812,
+        5.024999618530273,
+        13.25
+      ],
+      "lods": [
+        {
+          "node": "house09_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 8866,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house09_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 8866,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_FadedGreen",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house09_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1214,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house09_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 926,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "house10",
+      "district": "west",
+      "category": "building",
+      "important": false,
+      "bounds": [
+        -59.125,
+        2.2200000286102295,
+        -14.539999961853027,
+        12.25,
+        7.625000238418579,
+        14.175000190734863
+      ],
+      "lods": [
+        {
+          "node": "house10_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 9574,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_CoolPlaster",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house10_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 9574,
+          "surfaces": 14,
+          "materials": [
+            "Village_Brick",
+            "Village_Concrete",
+            "Village_CoolPlaster",
+            "Village_FoliageLight",
+            "Village_FoliageMid",
+            "Village_GardenSoil",
+            "Village_Metal",
+            "Village_Plaster",
+            "Village_Roof",
+            "Village_SignIvory",
+            "Village_Stone",
+            "Village_TarpBlue",
+            "Village_WindowGlass",
+            "Village_Wood"
+          ]
+        },
+        {
+          "node": "house10_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 1922,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "house10_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 1358,
+          "surfaces": 1,
+          "materials": [
+            "V7_ProxyColour"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tree_004",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -96.84444427490234,
+        2.2909622192382812,
+        -12.65949821472168,
+        3.149566650390625,
+        5.6432204246521,
+        3.422212600708008
+      ],
+      "lods": [
+        {
+          "node": "tree_004_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_004_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_004_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_004_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_005",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -96.73625183105469,
+        1.5918467044830322,
+        1.9462132453918457,
+        5.3239898681640625,
+        7.6865785121917725,
+        5.282369136810303
+      ],
+      "lods": [
+        {
+          "node": "tree_005_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_005_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_005_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_005_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_013",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -85.54658508300781,
+        2.716846466064453,
+        -22.81256675720215,
+        4.8565521240234375,
+        7.900508880615234,
+        4.823604583740234
+      ],
+      "lods": [
+        {
+          "node": "tree_013_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_013_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_013_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_013_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_014",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -84.79325866699219,
+        2.2672505378723145,
+        -12.956878662109375,
+        4.981201171875,
+        7.137537479400635,
+        4.549924850463867
+      ],
+      "lods": [
+        {
+          "node": "tree_014_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_014_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_014_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_014_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_015",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -86.09175872802734,
+        1.120558261871338,
+        12.855916976928711,
+        4.495491027832031,
+        6.057977676391602,
+        4.408395767211914
+      ],
+      "lods": [
+        {
+          "node": "tree_015_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_015_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_015_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_015_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_023",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -64.98604583740234,
+        0.9072471857070923,
+        20.673282623291016,
+        5.222087860107422,
+        7.68657910823822,
+        5.65601921081543
+      ],
+      "lods": [
+        {
+          "node": "tree_023_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1010,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_023_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1008,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_023_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 343,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_023_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 111,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_open"
+    },
+    {
+      "id": "tree_027",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -46.285465240478516,
+        2.31291127204895,
+        -14.666008949279785,
+        4.256511688232422,
+        5.50725245475769,
+        4.053633689880371
+      ],
+      "lods": [
+        {
+          "node": "tree_027_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_027_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_027_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_027_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    },
+    {
+      "id": "tree_028",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -42.30624771118164,
+        1.1143006086349487,
+        26.431045532226562,
+        4.1554412841796875,
+        6.771865010261536,
+        4.243127822875977
+      ],
+      "lods": [
+        {
+          "node": "tree_028_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_028_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_028_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_028_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_upright"
+    },
+    {
+      "id": "tree_030",
+      "district": "west",
+      "category": "tree",
+      "important": false,
+      "bounds": [
+        -44.15949249267578,
+        3.221412420272827,
+        -31.55685806274414,
+        5.099143981933594,
+        7.159427881240845,
+        5.039834976196289
+      ],
+      "lods": [
+        {
+          "node": "tree_030_lod0",
+          "bundle": "west_detail",
+          "screenFraction": 0.3,
+          "triangles": 1094,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_030_lod1",
+          "bundle": "west_detail",
+          "screenFraction": 0.12,
+          "triangles": 1092,
+          "surfaces": 2,
+          "materials": [
+            "V3_Bark",
+            "V3_Leaves"
+          ]
+        },
+        {
+          "node": "tree_030_lod2",
+          "bundle": "west_proxy",
+          "screenFraction": 0.035,
+          "triangles": 387,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        },
+        {
+          "node": "tree_030_lod3",
+          "bundle": "west_proxy",
+          "screenFraction": 0,
+          "triangles": 123,
+          "surfaces": 2,
+          "materials": [
+            "V3_Leaves",
+            "V7_ProxyColour"
+          ]
+        }
+      ],
+      "sharedPrototype": "V6_Tree_broad"
+    }
+  ]
+}

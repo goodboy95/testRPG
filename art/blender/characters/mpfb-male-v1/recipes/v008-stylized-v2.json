@@ -1,0 +1,483 @@
+{
+  "schema": 1,
+  "assetId": "npc_male_baseline",
+  "route": "A",
+  "mpfbVersion": "2.0.17",
+  "macro": {
+    "gender": 1.0,
+    "age": 0.5,
+    "muscle": 0.5,
+    "weight": 0.5,
+    "height": 0.5,
+    "proportions": 0.5,
+    "cupsize": 0.5,
+    "firmness": 0.5,
+    "race": {
+      "asian": 1.0,
+      "caucasian": 0.0,
+      "african": 0.0
+    }
+  },
+  "scale": 0.1,
+  "skin": "young_asian_male.mhmat",
+  "bodySubdivision": 1,
+  "assets": [
+    [
+      "eyes",
+      "high-poly",
+      "Eyes"
+    ],
+    [
+      "eyebrows",
+      "eyebrow001",
+      "Eyebrows"
+    ],
+    [
+      "eyelashes",
+      "eyelashes01",
+      "Eyelashes"
+    ],
+    [
+      "teeth",
+      "teeth_base",
+      "Teeth"
+    ],
+    [
+      "tongue",
+      "tongue01",
+      "Tongue"
+    ],
+    [
+      "clothes",
+      "male_casualsuit01",
+      "Clothes"
+    ],
+    [
+      "clothes",
+      "shoes05",
+      "Clothes"
+    ]
+  ],
+  "noseVolume": 0.0,
+  "randomSeed": null,
+  "note": "Native young-adult male East Asian preset, no identity fitting; age is MPFB normalized parameter, not years.",
+  "parent": {
+    "version": "v007-casual",
+    "sourceSha256": "3fb1ea533cf251751cae6cf447236434f96b3c17884243ef09ad6917bf9bd6f3"
+  },
+  "version": "v008-stylized-v2",
+  "hairColorFactor": [
+    0.23,
+    0.25,
+    0.29
+  ],
+  "hairSubdivision": 0,
+  "hideUpperSocks": true,
+  "sourceCollection": "mpfb-male-stylized-v2",
+  "appearance": "Natural proportion animation style; original swept opaque hair; derived skin and cloth materials",
+  "style": {
+    "schema": 1,
+    "label": "Natural proportion animation style v2 / first pass",
+    "nativeTargets": [
+      {
+        "path": "eyes/l-eye-scale-incr.target.gz",
+        "weight": 0.12,
+        "sha256": "2d2d2d088931ce206eb6dad91e26318f045c7e4e6b6580acc812750b0f18f4bc"
+      },
+      {
+        "path": "eyes/r-eye-scale-incr.target.gz",
+        "weight": 0.12,
+        "sha256": "af556b9a6f930ce74f86d64f32b2f801bb5f4bb91f49c3ed37225b7d0413c5af"
+      },
+      {
+        "path": "chin/chin-width-decr.target.gz",
+        "weight": 0.06,
+        "sha256": "6c3aaca074630e89951184130a4a158b6f62c9d0cf57cf8eb828c445ff40c21a"
+      },
+      {
+        "path": "expression/units/asian/mouth-open.target.gz",
+        "weight": -0.055,
+        "sha256": "b52bbe631152844bb7b835c0f98d12ab0a1c0689e02e067b239d8349ccf9aab2"
+      },
+      {
+        "path": "expression/units/asian/mouth-compression.target.gz",
+        "weight": 0.08,
+        "sha256": "c1dad4335810949a4591794023de4cf502a677c0aa59d40f7e70b99d4aac20c1"
+      }
+    ],
+    "materials": {
+      "skinColor": [
+        0.6,
+        0.4,
+        0.3
+      ],
+      "lipColor": [
+        0.48,
+        0.2,
+        0.18
+      ],
+      "skinRoughness": 0.73,
+      "clothRoughness": 0.88,
+      "clothNormalStrength": 0.3,
+      "lashOpacity": 0.55
+    },
+    "hair": {
+      "center": [
+        0,
+        -0.028,
+        1.542
+      ],
+      "radius": [
+        0.08,
+        0.104,
+        0.102
+      ],
+      "roughness": 0.57,
+      "colors": [
+        [
+          0.016,
+          0.02,
+          0.026
+        ],
+        [
+          0.024,
+          0.03,
+          0.04
+        ],
+        [
+          0.027,
+          0.033,
+          0.044
+        ],
+        [
+          0.021,
+          0.027,
+          0.035
+        ]
+      ],
+      "locks": [
+        {
+          "points": [
+            [
+              0.025,
+              -0.045,
+              1.639
+            ],
+            [
+              0.003,
+              -0.103,
+              1.66
+            ],
+            [
+              -0.035,
+              -0.151,
+              1.619
+            ],
+            [
+              -0.035,
+              -0.145,
+              1.56
+            ]
+          ],
+          "width": 0.026,
+          "thickness": 0.006
+        },
+        {
+          "points": [
+            [
+              0.019,
+              -0.016,
+              1.644
+            ],
+            [
+              -0.023,
+              -0.084,
+              1.657
+            ],
+            [
+              -0.062,
+              -0.134,
+              1.606
+            ],
+            [
+              -0.068,
+              -0.109,
+              1.543
+            ]
+          ],
+          "width": 0.029,
+          "thickness": 0.005
+        },
+        {
+          "points": [
+            [
+              0.017,
+              0.008,
+              1.638
+            ],
+            [
+              -0.041,
+              -0.037,
+              1.653
+            ],
+            [
+              -0.08,
+              -0.105,
+              1.591
+            ],
+            [
+              -0.075,
+              -0.08,
+              1.523
+            ]
+          ],
+          "width": 0.03,
+          "thickness": 0.005
+        },
+        {
+          "points": [
+            [
+              0.026,
+              -0.073,
+              1.626
+            ],
+            [
+              0.01,
+              -0.126,
+              1.644
+            ],
+            [
+              -0.009,
+              -0.159,
+              1.6
+            ],
+            [
+              -0.004,
+              -0.145,
+              1.573
+            ]
+          ],
+          "width": 0.021,
+          "thickness": 0.004
+        },
+        {
+          "points": [
+            [
+              0.034,
+              -0.06,
+              1.633
+            ],
+            [
+              0.064,
+              -0.085,
+              1.643
+            ],
+            [
+              0.085,
+              -0.117,
+              1.589
+            ],
+            [
+              0.066,
+              -0.113,
+              1.557
+            ]
+          ],
+          "width": 0.022,
+          "thickness": 0.005
+        },
+        {
+          "points": [
+            [
+              0.039,
+              -0.026,
+              1.64
+            ],
+            [
+              0.08,
+              -0.037,
+              1.635
+            ],
+            [
+              0.091,
+              -0.074,
+              1.584
+            ],
+            [
+              0.077,
+              -0.073,
+              1.522
+            ]
+          ],
+          "width": 0.03,
+          "thickness": 0.005
+        },
+        {
+          "points": [
+            [
+              0.035,
+              0.008,
+              1.641
+            ],
+            [
+              0.08,
+              0.003,
+              1.623
+            ],
+            [
+              0.092,
+              -0.015,
+              1.568
+            ],
+            [
+              0.078,
+              -0.026,
+              1.502
+            ]
+          ],
+          "width": 0.029,
+          "thickness": 0.004
+        },
+        {
+          "points": [
+            [
+              0.013,
+              0.014,
+              1.642
+            ],
+            [
+              -0.042,
+              0.031,
+              1.645
+            ],
+            [
+              -0.081,
+              0.038,
+              1.595
+            ],
+            [
+              -0.075,
+              0.033,
+              1.525
+            ]
+          ],
+          "width": 0.035,
+          "thickness": 0.005
+        },
+        {
+          "points": [
+            [
+              0.009,
+              0.025,
+              1.634
+            ],
+            [
+              -0.033,
+              0.076,
+              1.621
+            ],
+            [
+              -0.06,
+              0.092,
+              1.563
+            ],
+            [
+              -0.06,
+              0.061,
+              1.493
+            ]
+          ],
+          "width": 0.035,
+          "thickness": 0.004
+        },
+        {
+          "points": [
+            [
+              0.02,
+              0.033,
+              1.631
+            ],
+            [
+              0.009,
+              0.089,
+              1.616
+            ],
+            [
+              -0.016,
+              0.094,
+              1.556
+            ],
+            [
+              -0.025,
+              0.067,
+              1.479
+            ]
+          ],
+          "width": 0.036,
+          "thickness": 0.005
+        },
+        {
+          "points": [
+            [
+              0.028,
+              0.02,
+              1.639
+            ],
+            [
+              0.061,
+              0.079,
+              1.609
+            ],
+            [
+              0.065,
+              0.079,
+              1.547
+            ],
+            [
+              0.058,
+              0.053,
+              1.484
+            ]
+          ],
+          "width": 0.033,
+          "thickness": 0.004
+        },
+        {
+          "points": [
+            [
+              0.039,
+              0.0,
+              1.638
+            ],
+            [
+              0.079,
+              0.037,
+              1.613
+            ],
+            [
+              0.09,
+              0.04,
+              1.56
+            ],
+            [
+              0.075,
+              0.026,
+              1.515
+            ]
+          ],
+          "width": 0.032,
+          "thickness": 0.004
+        }
+      ]
+    }
+  },
+  "styleSource": {
+    "path": "art/blender/characters/mpfb-male-v1/style/stylized-v2-r1.json",
+    "sha256": "1b16527b1afdcd3e802d4dc283c117aa385f7634db30e12aa3294b47baa17122"
+  },
+  "authoredHair": {
+    "tool": "Blender Python editable mesh and Bezier guides",
+    "script": "scripts/tools/character_stylized.py",
+    "restrictedSourcesUsed": false
+  }
+}

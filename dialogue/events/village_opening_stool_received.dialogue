@@ -1,0 +1,7 @@
+~ start
+许婆婆: 这下不往旁边晃了。以前我一挪，脚底下就咯吱一下。 [ID:OPENING_STOOL_RECEIVED_001]
+主角: 横档换过了。彭师傅让我问您，用着行不行。 [ID:OPENING_STOOL_RECEIVED_002]
+许婆婆: 行，坐着还是原来那个高度。替我告诉他，修得好。 [ID:OPENING_STOOL_RECEIVED_003]
+主角: 我回去跟他说。 [ID:OPENING_STOOL_RECEIVED_004]
+do Narrative.Execute("complete_event", "village.opening.stool_received")
+=> END

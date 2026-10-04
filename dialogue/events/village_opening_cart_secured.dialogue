@@ -1,0 +1,8 @@
+~ start
+主角: 三户的米面都对上了。 [ID:OPENING_CART_SECURED_001]
+沈砚: 绑带我扶住，你收紧。好，不会往边上挤了。 [ID:OPENING_CART_SECURED_002]
+乔姨: 到院口把车停稳了再卸。先送哪一家，你们看怎么顺路。 [ID:OPENING_CART_SECURED_003]
+主角: 我推，你看旁边，转弯提醒一声。 [ID:OPENING_CART_SECURED_004]
+沈砚: 行。窄的地方慢点，别跟车较劲。 [ID:OPENING_CART_SECURED_005]
+do Narrative.Execute("complete_event", "village.opening.cart_secured")
+=> END

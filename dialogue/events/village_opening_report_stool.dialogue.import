@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://di62fov0ritfc"
+path="res://.godot/imported/village_opening_report_stool.dialogue-2475318af6fff4e63899dc564d1f608f.tres"
+
+[deps]
+
+source_file="res://dialogue/events/village_opening_report_stool.dialogue"
+dest_files=["res://.godot/imported/village_opening_report_stool.dialogue-2475318af6fff4e63899dc564d1f608f.tres"]
+
+[params]
+
+defaults=true

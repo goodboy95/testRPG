@@ -61,6 +61,56 @@
       "preferredGifts": [
         "tea_tin"
       ]
+    },
+    {
+      "id": "worker_peng",
+      "nameKey": "CHARACTER_WORKER_PENG_NAME",
+      "roleKey": "ROLE_WORKER_PENG",
+      "colorHex": "#A9BFAA",
+      "portraitId": "worker_peng",
+      "canJoinParty": false,
+      "romanceCandidate": false,
+      "preferredGifts": []
+    },
+    {
+      "id": "village_mayor",
+      "nameKey": "CHARACTER_VILLAGE_MAYOR_NAME",
+      "roleKey": "ROLE_VILLAGE_MAYOR",
+      "colorHex": "#A9BFAA",
+      "portraitId": "village_mayor",
+      "canJoinParty": false,
+      "romanceCandidate": false,
+      "preferredGifts": []
+    },
+    {
+      "id": "grandma_xu",
+      "nameKey": "CHARACTER_GRANDMA_XU_NAME",
+      "roleKey": "ROLE_GRANDMA_XU",
+      "colorHex": "#A9BFAA",
+      "portraitId": "grandma_xu",
+      "canJoinParty": false,
+      "romanceCandidate": false,
+      "preferredGifts": []
+    },
+    {
+      "id": "uncle_chen",
+      "nameKey": "CHARACTER_UNCLE_CHEN_NAME",
+      "roleKey": "ROLE_UNCLE_CHEN",
+      "colorHex": "#A9BFAA",
+      "portraitId": "uncle_chen",
+      "canJoinParty": false,
+      "romanceCandidate": false,
+      "preferredGifts": []
+    },
+    {
+      "id": "uncle_liu",
+      "nameKey": "CHARACTER_UNCLE_LIU_NAME",
+      "roleKey": "ROLE_UNCLE_LIU",
+      "colorHex": "#A9BFAA",
+      "portraitId": "uncle_liu",
+      "canJoinParty": false,
+      "romanceCandidate": false,
+      "preferredGifts": []
     }
   ]
 }
