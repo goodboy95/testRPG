@@ -1,0 +1,48 @@
+{
+  "generator": "Godot 4.6.3 CanvasItem drawing and Source Han Sans SC 2.005R; no generative text",
+  "source": "scripts/testing/RefinementGraphic.cs",
+  "clockHandsBaked": false,
+  "clueKeys": [
+    "DREAM_V6_WORLD_WINDOW",
+    "DREAM_V6_WORLD_SCHEDULE",
+    "DREAM_V6_WORLD_DUTY"
+  ],
+  "images": [
+    {
+      "kind": "clock",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "568D54B7B506365590906E2ACC9DA544BD71A3370B04912657D15CD21ABB8BEB"
+    },
+    {
+      "kind": "shop",
+      "width": 1024,
+      "height": 320,
+      "sha256": "DC58A020B2015670F8ECADCBEB88D5EBC4FE02E827D7EACEF64460E444D1331B"
+    },
+    {
+      "kind": "notebook",
+      "width": 1024,
+      "height": 650,
+      "sha256": "3C09D2CCF1D7D6861CFA3D156FD87F914391A4429CD38E9BAB584CC3408E6561"
+    },
+    {
+      "kind": "maintenance",
+      "width": 1024,
+      "height": 650,
+      "sha256": "9DF6A5F4C28DDBAB96E80E1F0591898FC565A4DE42F9A3099560A590AEA37D2A"
+    },
+    {
+      "kind": "schedule",
+      "width": 1024,
+      "height": 650,
+      "sha256": "7B5394FB8600E86F9F853913F38373DA71FDFFE7B03ED7D99FAA319511F2E08F"
+    },
+    {
+      "kind": "duty",
+      "width": 1024,
+      "height": 650,
+      "sha256": "3760B08ECF0C42CB9C69C46DCCBAAD7FA18316B12AB01C769D92509040AD3DE1"
+    }
+  ]
+}

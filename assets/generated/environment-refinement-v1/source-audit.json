@@ -1,0 +1,134 @@
+{
+  "home": {
+    "removedHelpers": [],
+    "objectCount": 118,
+    "armatures": 0,
+    "largestMeshes": [
+      [
+        "V8_HomeRoof",
+        9888
+      ],
+      [
+        "Refined_BlueDuvet",
+        3330
+      ],
+      [
+        "V6_Bicycle_Mesh",
+        2724
+      ],
+      [
+        "V8_HomeJoinery",
+        1456
+      ],
+      [
+        "ClosedYardGate",
+        1344
+      ],
+      [
+        "Wall_north",
+        1344
+      ],
+      [
+        "Wall_south",
+        1176
+      ],
+      [
+        "FloorGrout",
+        1120
+      ]
+    ]
+  },
+  "classroom": {
+    "removedHelpers": [
+      "Body",
+      "Eyes",
+      "FeetAnchor",
+      "Hair",
+      "HeadAnchor",
+      "Lookdev_ClassroomBoardRim",
+      "Lookdev_ClassroomCamera",
+      "Lookdev_ClassroomCoolFill",
+      "Lookdev_ClassroomWestKey",
+      "Lookdev_ProtagonistAnchor",
+      "ProtagonistRoot",
+      "Shirt",
+      "Shoes",
+      "Trousers"
+    ],
+    "objectCount": 204,
+    "armatures": 0,
+    "largestMeshes": [
+      [
+        "FULL_Classroom_RearWallHardware",
+        3304
+      ],
+      [
+        "StudentDeskArt_01",
+        1440
+      ],
+      [
+        "StudentDeskArt_02",
+        1440
+      ],
+      [
+        "StudentDeskArt_03",
+        1440
+      ],
+      [
+        "StudentDeskArt_04",
+        1440
+      ],
+      [
+        "StudentDeskArt_05",
+        1440
+      ],
+      [
+        "StudentDeskArt_06",
+        1440
+      ],
+      [
+        "StudentDeskArt_07",
+        1440
+      ]
+    ]
+  },
+  "village": {
+    "removedHelpers": [],
+    "objectCount": 353,
+    "armatures": 0,
+    "largestMeshes": [
+      [
+        "ScenicMountainTerrain",
+        45353
+      ],
+      [
+        "Terrain",
+        45353
+      ],
+      [
+        "PublicShell_station",
+        38766
+      ],
+      [
+        "HouseShell_house04",
+        25342
+      ],
+      [
+        "HouseShell_house07",
+        25342
+      ],
+      [
+        "HouseShell_house11",
+        25342
+      ],
+      [
+        "HouseShell_house14",
+        25342
+      ],
+      [
+        "HouseShell_house18",
+        25342
+      ]
+    ]
+  }
+}

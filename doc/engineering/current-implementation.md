@@ -1,5 +1,7 @@
 # 当前实现说明
 
+`[已实现]` 2026-10-05：[三场景环境精修](environment-refinement-v1.md)为独立可审看样板，支持 1／2／3 切场景、B 同位置新旧对照；表盘、招牌、纸面图像同步精修。正式入口与剧情没有切换，美术和目标硬件验收仍单列，见[真实记录](../production/environment-refinement-v1-validation.md)。
+
 `[已实现]` 2026-10-04：正式开场的 J／Y 事项列表支持跟踪、取消和手选配送住户；阶段目标、室内出口、暂放木凳／推车及交差领款方向随进度更新。可玩文案润色和原生三档字号样板见[说明](quest-tracking-typography.md)，[实际验证](../production/quest-tracking-validation.md)与负责人字号评价分开。
 
 `[已实现]` 2026-10-02：[正式开场](village-opening.md)已接入 Main 两种醒后路线及既有村庄档，包含七位功能 NPC、任务板、三项劳动、同行、交差领款和恢复。正式 v6；森林、支线、工具箱、第二章未开放。见[真实验收](../production/village-opening-validation.md)，下方旧批次边界保留历史。

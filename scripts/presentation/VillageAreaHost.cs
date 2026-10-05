@@ -14,6 +14,7 @@ public partial class VillageAreaHost : Node
     protected virtual bool HomeTreesSample=>false;
     protected virtual bool StreamingSample=>false;
     protected virtual bool AnimeSample=>false;
+    protected virtual VillageVisualProfile? IndependentVisualProfile => null;
     // Regression switches apply only to independent previews; formal saves always use the adopted surface.
     private bool OriginalTerrain=>OS.GetCmdlineUserArgs().Contains("--village-original-terrain") || OS.GetCmdlineUserArgs().Contains("--terrain-baseline");
     public event Action? CheckpointReached;
@@ -61,11 +62,12 @@ public partial class VillageAreaHost : Node
         var compact=EmbeddedInGame || (!UseV1 && !OriginalTerrain && !ArtSample && !TerrainSample && !legacyPreview && (CompactSample || !Graybox));
         var adoptedArt=EmbeddedInGame || (compact && !Graybox && !CompactSample && !HouseArtSample && !HomeTreesSample
             && !OS.GetCmdlineUserArgs().Contains("--village-v4"));
-        var visual=VillageVisualProfile.Select(EmbeddedInGame,AnimeSample,OS.GetCmdlineUserArgs());
+        var visual=(!EmbeddedInGame ? IndependentVisualProfile : null)
+            ?? VillageVisualProfile.Select(EmbeddedInGame,AnimeSample,OS.GetCmdlineUserArgs());
         if(visual.AnimeLighting) { compact=true; adoptedArt=true; }
         Exterior=new VillageExterior3D { Name="VillageExterior",Graybox=!EmbeddedInGame && Graybox,UseV1=!EmbeddedInGame && UseV1,
             VisualProfile=visual,
-            UseStreaming=!EmbeddedInGame && compact && !Graybox && (visual.AnimeLighting || StreamingSample || OS.GetCmdlineUserArgs().Contains("--village-v7")),
+            UseStreaming=!EmbeddedInGame && compact && !Graybox && visual.ExteriorModel is null && (visual.AnimeLighting || StreamingSample || OS.GetCmdlineUserArgs().Contains("--village-v7")),
             UseTerrainSample=EmbeddedInGame || compact || (!UseV1 && !Graybox && !OriginalTerrain),
             UseCompactLayout=compact,
             UseHouseArtSample=adoptedArt || (!EmbeddedInGame && HouseArtSample && compact && !Graybox),

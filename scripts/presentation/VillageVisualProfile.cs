@@ -4,6 +4,8 @@ namespace TownRpg.Presentation;
 public sealed record VillageVisualProfile(string Id, string StreamManifest, string TerrainFolder,
     string HomeModel, bool AnimeLighting)
 {
+    /// <summary>Optional saved-source model for an independent art review; no formal selector exposes it.</summary>
+    public string? ExteriorModel { get; init; }
     public static readonly VillageVisualProfile V7 = new("v7",
         "res://assets/generated/village/stream-v7/manifest.json",
         "res://assets/generated/village/terrain-v4/",

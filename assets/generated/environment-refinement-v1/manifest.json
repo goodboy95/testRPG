@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "visualApproval": false,
+  "formalDefault": false,
+  "method": "Saved Blender derivatives, scripted geometry and visual iteration; no character export",
+  "sources": {
+    "home": {
+      "source": "art/blender/environment-refinement-v1/home.blend",
+      "sourceSha256": "928378836cfb23278478afea340da7df75b4266d978be0dd82a049a977b8e513",
+      "baseline": "art/blender/home/home-anime-v8.blend",
+      "baselineSha256": "e367b11908d9c7ea341642fbc442241919b9ff2e18c8bf49cc34df625d2cf916",
+      "glbSha256": "cd999a28e457992e19e29a08b013a49b376517d7811d6d85869f712dced14d08",
+      "glbBytes": 5133608
+    },
+    "classroom": {
+      "source": "art/blender/environment-refinement-v1/classroom.blend",
+      "sourceSha256": "6688c30da3cf956d6ec806b58f3ae8c5e2b96d4a1e66a6e59fff1ba765fd72ed",
+      "baseline": "art/blender/dream_classroom/classroom-art-pass-v6.blend",
+      "baselineSha256": "198c33f8559282e3c9f6512ceb89052c2097c2a97d1260f8a0eb7c7593d84b60",
+      "glbSha256": "5c9ef0c930d0057678a5a26d9ef9009461dd07ac22280c76e49aea51772fae1b",
+      "glbBytes": 5526648
+    },
+    "village": {
+      "source": "art/blender/environment-refinement-v1/village.blend",
+      "sourceSha256": "400368beb86df1567f6de66020eff47d3ee8907eb8d3d710f6bc4acd8b463ba9",
+      "baseline": "art/blender/village/village-v8.blend",
+      "baselineSha256": "2f20aafc2ea1b93326acae5d1b80a87cfcbcc33691fcff1a07045897977fc93d",
+      "glbSha256": "46f83d66f0504b7cdf37113468ee9fb54384d9a3cab98b6b0b51383d8cd146f0",
+      "glbBytes": 32824084
+    }
+  }
+}

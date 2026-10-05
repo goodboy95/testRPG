@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-05",
+  "status": "independent review sample only; visual approval pending",
+  "tool": "built-in image_gen.imagegen",
+  "model": "Not disclosed by tool response",
+  "prompt": "Use case: stylized-concept. Asset type: one seamless tileable wood albedo texture for a finely crafted stylized 3D anime countryside game. Produce a square texture, filling the entire image edge to edge, of clean naturally aged medium honey-brown oak with long quiet vertical grain. Orthographic flat surface scan layout, NO perspective, NO object, NO panel border, NO planks, NO seams, NO knots larger than a small grain swirl. Restrained hand-painted game texture: warm beige ochre brown, subtle low contrast flowing growth grain, broad calm areas, selective fine lines, completely matte and evenly lit. All four edges must tile seamlessly. No directional illumination, shadows, gloss, highlights, vignette, text, watermarks or baked ambient occlusion. Refined material suitable for modest wooden desks, wardrobes, window frames and doors, not rough barn wood, not photorealistic noisy veneer. Keep contrast low so the geometry and lighting supply the structure.",
+  "references": [],
+  "parameters": {
+    "transparent_background": false
+  },
+  "postprocessing": "Copied unchanged; embedded in saved Blender material; derived external shared image on GLB export",
+  "file": "oak-albedo.png",
+  "source": "exec-60b85229-4dc0-4c8c-bafb-49d15c92ff26.png",
+  "limitations": "Seamless tiling requested but not quantitatively certified."
+}

@@ -45,8 +45,8 @@ public partial class VillageExterior3D : WorldArea3D
     {
         if(UseCompactLayout) Layout=VillageLayoutProfile3D.Parse(Godot.FileAccess.GetFileAsString("res://assets/generated/village/layout-v4.json"));
         var stage=Time.GetTicksUsec();
-        ModelRoot=Graybox || UseStreaming ? new Node3D { Name=UseStreaming?"VillageStreamingRoot":"VillageGraybox" } : ResourceLoader.Load<PackedScene>(UseV1
-            ? "res://assets/generated/village/3d/village-v1.glb" : UseHomeTreesSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v6.glb" : UseHouseArtSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v5.glb" : UseCompactLayout ? "res://assets/generated/village/3d/village-v4.glb" : UseArtSample ? "res://assets/generated/village/3d/village-v3.glb" : "res://assets/generated/village/3d/village-v2.glb").Instantiate<Node3D>();
+        ModelRoot=Graybox || UseStreaming ? new Node3D { Name=UseStreaming?"VillageStreamingRoot":"VillageGraybox" } : ResourceLoader.Load<PackedScene>(VisualProfile.ExteriorModel ?? (UseV1
+            ? "res://assets/generated/village/3d/village-v1.glb" : UseHomeTreesSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v6.glb" : UseHouseArtSample && UseCompactLayout ? "res://assets/generated/village/3d/village-v5.glb" : UseCompactLayout ? "res://assets/generated/village/3d/village-v4.glb" : UseArtSample ? "res://assets/generated/village/3d/village-v3.glb" : "res://assets/generated/village/3d/village-v2.glb")).Instantiate<Node3D>();
         AddChild(ModelRoot);
         if(OS.GetCmdlineUserArgs().Contains("--v4-load")) GD.Print("V4_LOAD_STAGE model="+(Time.GetTicksUsec()-stage)/1000d);
         stage=Time.GetTicksUsec();

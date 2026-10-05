@@ -1,5 +1,7 @@
 # town-rpg 交接文档
 
+`[已实现]` 2026-10-05：[三场景环境精修样板](engineering/environment-refinement-v1.md)提供卧室、街段、梦境教室的新旧对照，包含表盘、标牌与纸面图像。正式入口不变，美术待负责人比较；[实际验证与限制](production/environment-refinement-v1-validation.md)。
+
 `[已实现]` 2026-10-04：[任务跟踪、文案与字号](engineering/quest-tracking-typography.md)已接入正式开场的事项选择与分段目标；梦境不加位置跟踪。负责人已确认舒适 C 并统一正式默认，原版与 A／B／C 原生预览保留。[实际验证与人工边界](production/quest-tracking-validation.md)。
 
 `[已实现]` 2026-10-02：[正式村庄开场](engineering/village-opening.md)提供七位功能居民、送凳／订货／合作推车、事项记录与保存恢复；[本轮运行验收](production/village-opening-validation.md)与纸面、美术及盲测分别记录。后半章仍是后续设计，正文统一在第一章细案。
