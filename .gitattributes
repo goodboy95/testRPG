@@ -31,3 +31,8 @@ addons/terrain_3d/icons/*.svg -whitespace
 art/sources/cc0/village-art-v3/license.html -whitespace
 # Keep retained upstream character recipes and licenses byte-for-byte.
 art/sources/cc0/mpfb-*/** -text -whitespace
+
+# Independent bedroom lightmap and UV2 authoring resources.
+assets/generated/bedroom-target-v2/**/*.res filter=lfs diff=lfs merge=lfs -text
+assets/generated/bedroom-target-v2/*.lmbake filter=lfs diff=lfs merge=lfs -text
+assets/generated/bedroom-target-v2/*.exr filter=lfs diff=lfs merge=lfs -text

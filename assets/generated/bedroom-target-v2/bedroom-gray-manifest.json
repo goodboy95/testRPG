@@ -1,0 +1,16 @@
+{
+  "source": "art\\blender\\bedroom-target-v2\\bedroom-gray.blend",
+  "sourceSha256": "9e055579755c1cf6f8058494465a3bc221cc04ca63f801e185d2c44770eb140f",
+  "triangles": 3384,
+  "meshObjects": 7,
+  "materials": 6,
+  "roomMetres": [
+    4.2,
+    4.6,
+    2.9
+  ],
+  "characters": 0,
+  "runtimeClothSimulation": false,
+  "formalAdoption": false,
+  "visualApproval": false
+}

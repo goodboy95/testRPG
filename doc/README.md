@@ -1,5 +1,7 @@
 # town-rpg 交接文档
 
+`[已实现]` 2026-10-05 后续：[卧室专项三维重建 v2](engineering/bedroom-target-v2.md)提供完整独立房间、离线布料床品、结构家具、可侧看窗外及 LightmapGI，五视角与漫游保留旧住宅／三场景样板；[实际验证与未通过的美术门槛](production/bedroom-target-v2-validation.md)。正式入口不变，GTX 1060 与负责人视觉终验待验。
+
 `[已实现]` 2026-10-05：[三场景环境精修样板](engineering/environment-refinement-v1.md)提供卧室、街段、梦境教室的新旧对照，包含表盘、标牌与纸面图像。正式入口不变，美术待负责人比较；[实际验证与限制](production/environment-refinement-v1-validation.md)。
 
 `[已实现]` 2026-10-04：[任务跟踪、文案与字号](engineering/quest-tracking-typography.md)已接入正式开场的事项选择与分段目标；梦境不加位置跟踪。负责人已确认舒适 C 并统一正式默认，原版与 A／B／C 原生预览保留。[实际验证与人工边界](production/quest-tracking-validation.md)。
@@ -58,6 +60,7 @@
 | 四户住宅美术样板 | [v5 制作与入口](engineering/village-houses-v5.md)、[v5 实际验收](production/village-houses-v5-validation.md) |
 | 门交互与院外通行修复 | [规则、保存与编辑](engineering/home-access.md)、[实际验收](production/home-access-validation.md) |
 | 村庄与住宅制作 | [村庄外景设计](design/village-exterior.md)、[村庄 v2](engineering/village-v2.md)、[村庄 v1](engineering/village-v1.md)、[住宅 v1](engineering/home-v1.md) |
+| 卧室参考图专项样板 | [三维重建、烘焙与编辑](engineering/bedroom-target-v2.md)、[实际截图／通行／性能及美术边界](production/bedroom-target-v2-validation.md) |
 | 梦境场景制作 | [第一室 v6](engineering/classroom-remodel-v6.md)、[大厅 v3](engineering/manor-remodel-v3.md)、[音乐室 v2](engineering/music-remodel-v2.md)、[档案室 v2](engineering/archive-remodel-v2.md)、[礼堂 v2](engineering/auditorium-remodel-v2.md) |
 | 角色、UI 与资产规范 | [MPFB 工作流](engineering/character-workflow-mpfb.md)、[正常脸基线验收](production/character-workflow-mpfb-validation.md)、[沈砚静态候选](engineering/shen-yan-static-v2.md)、[静态候选验收](production/shen-yan-static-v2-validation.md)、[NPC 功能试点](engineering/village-npc-pilot.md)、[角色动作](engineering/character-motion.md)、[UI 规范](engineering/ui-ux.md)、[电影感 UI 样板](engineering/ui-cinematic-samples.md)、[资产制作与来源](engineering/content-authoring.md) |
 | 测试与人工验收 | [测试与发布](production/testing-release.md)、[序章盲测](production/prologue-v6-playtest.md)、[第一章文档检查](production/chapter-one-doc-validation.md)、[村庄外景文档检查](production/village-exterior-doc-validation.md) |

@@ -1,0 +1,13 @@
+{
+  "solver": "Blender 5.2 cloth",
+  "frames": 55,
+  "grid": [
+    62,
+    78
+  ],
+  "quality": 8,
+  "collision": "rounded mattress",
+  "selfCollision": true,
+  "postprocess": "two local broad loft corrections, subdivision 1, thickness 0.029m",
+  "runtimeSimulation": false
+}

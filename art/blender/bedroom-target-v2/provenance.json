@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-05",
+  "tool": "Blender 5.2.0 LTS Python mesh authoring + offline cloth simulation",
+  "styleReference": "art/concepts/environment-refinement-v1/bedroom-target.png",
+  "newAIImages": false,
+  "wood": "Original procedural restrained grain; saved PNG source; board-axis UV mapping",
+  "normalMaps": [
+    {
+      "path": "art/sources/cc0/village-art-v3/denim_fabric/denim_fabric_nor_gl_1k.png",
+      "license": "CC0; see retained files.json"
+    },
+    {
+      "path": "art/sources/cc0/polyhaven/environment-cinematic-v1/painted_plaster_wall/painted_plaster_wall_nor_gl_2k.jpg",
+      "license": "CC0; retained Poly Haven sources"
+    }
+  ],
+  "graphics": "Existing notebook and clock from environment-refinement-v1/graphics/manifest.json; hands separate geometry",
+  "characters": false,
+  "authoringMethod": "Scripted bespoke meshes, applied cloth solver and local mesh correction; not hand high-poly sculpting"
+}

@@ -1,5 +1,7 @@
 # town-rpg / 《雾山旧轨》
 
+`[已实现]` 2026-10-05：[卧室专项独立三维样板](doc/engineering/bedroom-target-v2.md)含静态布料床品、结构家具、真实窗外、LightmapGI 和五视角／漫游。运行 `scripts/tools/PreviewBedroomTarget.ps1`；原住宅、三场景样板与正式入口保留，[实际验证及美术待验项](doc/production/bedroom-target-v2-validation.md)。
+
 `[已实现]` 2026-10-02：[正式村庄完整开场](doc/engineering/village-opening.md)已接入两种醒后流程：七位功能 NPC、任务板、送凳、三户订货、邀请沈砚、共同推车配送、结款与存档恢复。正式村庄仍为 v6；[实际验证与待验项](doc/production/village-opening-validation.md)单列。下方旧批次未接入描述是历史边界。
 
 `[可调整草案]` 2026-10-02 文稿轮（早于正式接入）：[村庄开场剧情文稿](doc/design/chapter-one.md)补入七位 NPC、两件独自短活、主动邀请沈砚及首次共同送货的完整对白与劳动操作设计，并附后续人物任务纲要。30–40 分钟为写作目标，尚未接入游戏；[纸面走查与验证边界](doc/production/chapter-one-doc-validation.md)。

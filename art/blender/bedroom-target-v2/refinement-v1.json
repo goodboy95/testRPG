@@ -1,0 +1,12 @@
+{
+  "retained": "revisions/initial-cloth.blend",
+  "changes": [
+    "opened scenic sunlight path",
+    "sRGB wood encoding",
+    "paper normals and clock face depth",
+    "asymmetric duvet loft folds",
+    "rounded fabric seams",
+    "finished short hall",
+    "continuous fabric UVs"
+  ]
+}
