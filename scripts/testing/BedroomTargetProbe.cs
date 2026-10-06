@@ -9,6 +9,12 @@ public partial class BedroomTargetProbe : Node
 {
     private BedroomTargetReview _review=null!;
     private readonly List<string> _checks=[];
+    private readonly List<double> _walkingFrames=[];
+    private bool _sampleWalking;
+    private ulong _lastWalkingTick;
+    private ulong _walkingTexturePeak;
+    private ulong _walkingVideoPeak;
+    private ulong _walkingDrawPeak;
     private static Dictionary<string,string> Saves()
     {
         var path=ProjectSettings.GlobalizePath("user://");
@@ -42,14 +48,18 @@ public partial class BedroomTargetProbe : Node
         {
             var gray=OS.GetCmdlineUserArgs().Contains("--bedroom-gray");
             var captureOnly=OS.GetCmdlineUserArgs().Contains("--capture-only");
-            var directory=ProjectSettings.GlobalizePath("res://outputs/bedroom-target-v2/"+DateTime.Now.ToString("yyyyMMdd-HHmmss")+(gray?"-gray":"-final"));
+            var material=OS.GetCmdlineUserArgs().Contains("--bedroom-material");
+            var textureBytes=0L;
+            var textureFormats=new Dictionary<string,string>();
+            var assetDirectory=material?BedroomMaterialReview.AssetDirectory:"res://assets/generated/bedroom-target-v2/";
+            var directory=ProjectSettings.GlobalizePath((material?"res://outputs/bedroom-material-v1/":"res://outputs/bedroom-target-v2/")+DateTime.Now.ToString("yyyyMMdd-HHmmss")+(gray?"-gray":"-final"));
             Directory.CreateDirectory(directory);
-            _review=new BedroomTargetReview();AddChild(_review);await Frames(30);
+            _review=material?new BedroomMaterialReview():new BedroomTargetReview();AddChild(_review);await Frames(30);
             var gi=_review.Visual.GetNode<LightmapGI>("LightmapGI");
             Require(gi.LightData is not null && gi.LightData.GetUserCount()>0,"LightmapGI baked users loaded");
             var model=_review.Visual.GetNode<Node3D>("BedroomModel");
             var runtimeMeshes=Nodes(model).OfType<MeshInstance3D>().ToArray();
-            using(var manifest=JsonDocument.Parse(File.ReadAllText(ProjectSettings.GlobalizePath("res://assets/generated/bedroom-target-v2/"+(gray?"bedroom-gray":"bedroom-target-v2")+"-manifest.json"))))
+            using(var manifest=JsonDocument.Parse(File.ReadAllText(ProjectSettings.GlobalizePath(assetDirectory+(material?"bedroom-material-v1":gray?"bedroom-gray":"bedroom-target-v2")+"-manifest.json"))))
                 Require(runtimeMeshes.Length==manifest.RootElement.GetProperty("meshObjects").GetInt32(),"exactly one runtime copy of each source mesh");
             Require(runtimeMeshes.Where(m=>m.Name.ToString().StartsWith("Glass_")).All(m=>m.CastShadow==GeometryInstance3D.ShadowCastingSetting.Off),"all glass panes excluded from shadow casting");
             Require(RenderingServer.GetCurrentRenderingMethod()=="gl_compatibility","Compatibility runtime renderer");
@@ -87,13 +97,63 @@ public partial class BedroomTargetProbe : Node
             foreach(var size in new[]{new Vector2I(1920,1080),new Vector2I(1280,720)})
             {
                 DisplayServer.WindowSetSize(size);await Frames(10);
-                for(var i=0;i<BedroomTargetReview.Views.Length;i++)
+                var names=material?BedroomMaterialReview.ViewNames:BedroomTargetReview.Views.Select(v=>v.Name).ToArray();
+                if(_review is BedroomMaterialReview uvCheck)
+                {
+                    uvCheck.SetNeutral(true);uvCheck.SetUvCheck(true);await Frames(15);
+                    await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
+                    Require(GetViewport().GetTexture().GetImage().SavePng(Path.Combine(directory,"uv-checker-"+size.Y+".png"))==Error.Ok,"UV checker capture "+size.Y);
+                    uvCheck.SetUvCheck(false);uvCheck.SetNeutral(false);
+                }
+                foreach(var refined in material?new[]{false,true}:new[]{true})
+                {
+                if(_review is BedroomMaterialReview mr)mr.SetRefined(refined);
+                for(var i=0;i<names.Length;i++)
                 {
                     _review.SetView(i);await Frames(12);await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
                     using var image=GetViewport().GetTexture().GetImage();
                     Require(image.GetWidth()==size.X && image.GetHeight()==size.Y,"viewport "+size);
-                    Require(image.SavePng(Path.Combine(directory,BedroomTargetReview.Views[i].Name+"-"+size.Y+".png"))==Error.Ok,"capture "+i+" "+size.Y);
+                    Require(image.SavePng(Path.Combine(directory,names[i]+(material?(refined?"-new":"-old"):"")+"-"+size.Y+".png"))==Error.Ok,"capture "+i+" "+size.Y+" "+refined);
                 }
+                if(_review is BedroomMaterialReview neutral)
+                {
+                    neutral.SetNeutral(true);await Frames(15);await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
+                    Require(GetViewport().GetTexture().GetImage().SavePng(Path.Combine(directory,"neutral-"+(refined?"new":"old")+"-"+size.Y+".png"))==Error.Ok,"neutral material capture "+size.Y+" "+refined);
+                    neutral.SetNeutral(false);
+                }
+                }
+            }
+            if(_review is BedroomMaterialReview materials)
+            {
+                var lightData=gi.LightData;
+                foreach(var refined in new[]{false,true})
+                {
+                    materials.SetRefined(refined);materials.SetView(5);materials.SetLamp(true);await Frames(15);
+                    await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
+                    GetViewport().GetTexture().GetImage().SavePng(Path.Combine(directory,"desk-lamp-"+(refined?"new":"old")+"-720.png"));
+                    Require(gi.LightData==lightData,"A/B shares identical LightmapGI data "+refined);
+                }
+                materials.ResetReview();Require(materials.Refined && !materials.Neutral,"reset restores new material room mode");
+                foreach(var kind in new[]{"Desk","Wardrobe"})
+                {
+                    var mesh=model.GetNode<MeshInstance3D>("Furniture_"+kind);
+                    var mat=(BaseMaterial3D)mesh.GetActiveMaterial(0);
+                    Require(mat.AlbedoTexture is not null && mat.NormalTexture is not null && mat.RoughnessTexture is not null,"complete texture channels "+kind);
+                    Require(mat.NormalEnabled && mat.RoughnessTextureChannel==BaseMaterial3D.TextureChannel.Green,"normal enabled and roughness uses green "+kind);
+                    var arrays=mesh.Mesh.SurfaceGetArrays(0);
+                    Require(arrays[(int)Mesh.ArrayType.TexUV2].AsVector2Array().Length>0,"UV2 exists "+kind);
+                    Require(arrays[(int)Mesh.ArrayType.Tangent].AsFloat32Array().Length>0,"tangents exist "+kind);
+                    Require(mat.TextureFilter==BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic,"anisotropic filtering "+kind);
+                }
+                foreach(var kind in new[]{"desk","wardrobe"})
+                foreach(var suffix in new[]{"color","normal","orm","old-color","old-orm"})
+                {
+                    var name=(suffix.StartsWith("old-")?"":"bedroom-material-v1_")+kind+"-"+suffix+".png";
+                    using var image=ResourceLoader.Load<Texture2D>(assetDirectory+name).GetImage();
+                    Require(image.GetWidth()==2048 && image.GetHeight()==2048 && image.HasMipmaps(),"2048 atlas with mipmaps "+name);
+                    textureBytes+=image.GetData().LongLength;textureFormats[name]=image.GetFormat().ToString();
+                }
+                Require(textureBytes<=64L*1024*1024,"A/B atlas data fits 64 MiB budget");
             }
             _review.SetLamp(true);Require(_review.LampOn,"lamp switched on");_review.SetView(2);await Frames(12);
             await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
@@ -108,6 +168,8 @@ public partial class BedroomTargetProbe : Node
             }
             if(!gray && !captureOnly)
             {
+                DisplayServer.WindowSetSize(new(1920,1080));DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Disabled);
+                GetTree().ProcessFrame+=SampleWalking;_sampleWalking=true;_lastWalkingTick=Time.GetTicksUsec();
                 _review.SetWalking(true);_review.Rig.Notification((int)NotificationWMWindowFocusIn);await Frames(5);
                 foreach(var p in new[]{new Vector3(-1.06f,0,1.80f),new Vector3(-.30f,0,1.5f),new Vector3(-.30f,0,.35f),
                          new Vector3(-.30f,0,-1.28f),new Vector3(.3f,0,-1.28f),new Vector3(.45f,0,-.85f),
@@ -122,12 +184,17 @@ public partial class BedroomTargetProbe : Node
                 Require(hit.Count>0,"camera wall ray collision");
                 _review.Rig.SetYawImmediate(-90);_review.Rig.SnapToTarget();await Frames(15);
                 Require(_review.Rig.SpringArm.GetHitLength()<_review.Rig.SpringArm.SpringLength,"camera spring arm retracts at wall");
+                _sampleWalking=false;GetTree().ProcessFrame-=SampleWalking;
             }
             DisplayServer.WindowSetSize(new(1920,1080));DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Disabled);
             _review.SetView(0);await Frames(80);
             var frameMs=new List<double>();ulong last=Time.GetTicksUsec();
             for(var i=0;i<180;i++){await Frames(1);var now=Time.GetTicksUsec();frameMs.Add((now-last)/1000d);last=now;}
             frameMs.Sort();
+            _walkingFrames.Sort();
+            var walkingMetrics=new {samples=_walkingFrames.Count,frameWallMedianMs=_walkingFrames.Count>0?_walkingFrames[_walkingFrames.Count/2]:0,
+                frameWallP95Ms=_walkingFrames.Count>0?_walkingFrames[(int)(_walkingFrames.Count*.95)]:0,
+                texturePeakBytes=_walkingTexturePeak,videoPeakBytes=_walkingVideoPeak,drawCallPeak=_walkingDrawPeak};
             var metrics=new {frameWallMedianMs=frameMs[frameMs.Count/2],frameWallP95Ms=frameMs[(int)(frameMs.Count*.95)],
                 primitives=RenderingServer.GetRenderingInfo(RenderingServer.RenderingInfo.TotalPrimitivesInFrame),
                 drawCalls=RenderingServer.GetRenderingInfo(RenderingServer.RenderingInfo.TotalDrawCallsInFrame),
@@ -135,12 +202,20 @@ public partial class BedroomTargetProbe : Node
                 textureMemoryBytes=RenderingServer.GetRenderingInfo(RenderingServer.RenderingInfo.TextureMemUsed)};
             Require(before==JsonSerializer.Serialize(session.State),"formal session unchanged");
             var after=Saves();Require(saves.Count==after.Count && saves.All(k=>after.TryGetValue(k.Key,out var h)&&h==k.Value),"formal JSON saves byte-identical");
-            File.WriteAllText(Path.Combine(directory,"results.json"),JsonSerializer.Serialize(new{status="PASS",gray,captureOnly,checks=_checks,
+            File.WriteAllText(Path.Combine(directory,"results.json"),JsonSerializer.Serialize(new{status="PASS",gray,material,captureOnly,checks=_checks,
                 renderer=RenderingServer.GetCurrentRenderingMethod(),device=RenderingServer.GetVideoAdapterName(),bakedMeshes=gi.LightData!.GetUserCount(),
-                metrics,targetGtx1060Verified=false,visualApproval=false},new JsonSerializerOptions{WriteIndented=true}));
+                metrics,walkingMetrics,atlasDataBytes=textureBytes,atlasFormats=textureFormats,targetGtx1060Verified=false,visualApproval=false},new JsonSerializerOptions{WriteIndented=true}));
             GD.Print($"BEDROOM_PROBE_PASS checks={_checks.Count} output={directory}");GetTree().Quit();
         }
         catch(Exception e){Release();GD.PushError(e.ToString());GetTree().Quit(1);}
+    }
+    private void SampleWalking()
+    {
+        if(!_sampleWalking)return;
+        var now=Time.GetTicksUsec();_walkingFrames.Add((now-_lastWalkingTick)/1000d);_lastWalkingTick=now;
+        _walkingTexturePeak=Math.Max(_walkingTexturePeak,RenderingServer.GetRenderingInfo(RenderingServer.RenderingInfo.TextureMemUsed));
+        _walkingVideoPeak=Math.Max(_walkingVideoPeak,RenderingServer.GetRenderingInfo(RenderingServer.RenderingInfo.VideoMemUsed));
+        _walkingDrawPeak=Math.Max(_walkingDrawPeak,RenderingServer.GetRenderingInfo(RenderingServer.RenderingInfo.TotalDrawCallsInFrame));
     }
     private static IEnumerable<Node> Nodes(Node root)
     {yield return root;foreach(var c in root.GetChildren())foreach(var n in Nodes(c))yield return n;}

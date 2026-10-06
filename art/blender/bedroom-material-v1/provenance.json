@@ -1,0 +1,2720 @@
+{
+  "date": "2026-10-06",
+  "tool": "Blender 5.2.0 LTS / Cycles texture bake",
+  "baseSource": "art\\blender\\bedroom-target-v2\\bedroom-target-v2.blend",
+  "baseSourceSha256": "4f034dbb2814445143841daa798dd45640580734d80824882f9522814b0b577a",
+  "trianglesBefore": 488922,
+  "trianglesAfter": 488922,
+  "boards": [
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        -0.9600000381469727,
+        0.039999961853027344,
+        -2.254999876022339
+      ],
+      "maxGodot": [
+        -0.9000000953674316,
+        2.180000066757202,
+        -1.6850000619888306
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        0.1400001049041748,
+        0.039999961853027344,
+        -2.254999876022339
+      ],
+      "maxGodot": [
+        0.20000004768371582,
+        2.180000066757202,
+        -1.6850000619888306
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        -0.937999963760376,
+        0.6200000047683716,
+        -1.6829999685287476
+      ],
+      "maxGodot": [
+        -0.3880000114440918,
+        2.119999885559082,
+        -1.6490000486373901
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        -0.37199997901916504,
+        0.6200000047683716,
+        -1.6829999685287476
+      ],
+      "maxGodot": [
+        0.17799997329711914,
+        2.119999885559082,
+        -1.6490000486373901
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        -0.9149999618530273,
+        0.19349998235702515,
+        -1.6764999628067017
+      ],
+      "maxGodot": [
+        0.1549999713897705,
+        0.3865000009536743,
+        -1.6355000734329224
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        -0.9149999618530273,
+        0.40849998593330383,
+        -1.6764999628067017
+      ],
+      "maxGodot": [
+        0.1549999713897705,
+        0.6015000343322754,
+        -1.6355000734329224
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        1.3899998664855957,
+        0.6209999918937683,
+        -1.0624998807907104
+      ],
+      "maxGodot": [
+        1.929999828338623,
+        0.7310000061988831,
+        -1.0274999141693115
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        1.4025001525878906,
+        0.042999982833862305,
+        0.05199998617172241
+      ],
+      "maxGodot": [
+        1.4375,
+        0.7229999899864197,
+        0.492000013589859
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        1.8924999237060547,
+        0.042999982833862305,
+        0.05199998617172241
+      ],
+      "maxGodot": [
+        1.927499771118164,
+        0.7229999899864197,
+        0.492000013589859
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        1.379499912261963,
+        0.06700000166893005,
+        0.0755000114440918
+      ],
+      "maxGodot": [
+        1.4144997596740723,
+        0.24300000071525574,
+        0.47449997067451477
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        1.379499912261963,
+        0.2669999897480011,
+        0.0755000114440918
+      ],
+      "maxGodot": [
+        1.4144997596740723,
+        0.4429999887943268,
+        0.47449997067451477
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        1.379499912261963,
+        0.4700000286102295,
+        0.0755000114440918
+      ],
+      "maxGodot": [
+        1.4144997596740723,
+        0.6460000276565552,
+        0.47449997067451477
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodDark",
+      "minGodot": [
+        -0.9200000166893005,
+        0.05500006675720215,
+        -2.253000259399414
+      ],
+      "maxGodot": [
+        0.15999996662139893,
+        2.1649999618530273,
+        -2.2309999465942383
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_WoodDark",
+      "minGodot": [
+        1.9160000085830688,
+        0.034999996423721313,
+        0.0549999475479126
+      ],
+      "maxGodot": [
+        1.9359999895095825,
+        0.7250000238418579,
+        0.4950000047683716
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.9800000190734863,
+        0.047500014305114746,
+        -2.2799999713897705
+      ],
+      "maxGodot": [
+        0.2200000286102295,
+        0.11250007152557373,
+        -1.6600000858306885
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.9800000190734863,
+        2.137500047683716,
+        -2.2799999713897705
+      ],
+      "maxGodot": [
+        0.2200000286102295,
+        2.202500104904175,
+        -1.6600000858306885
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.9269999265670776,
+        0.6474999785423279,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        -0.909000039100647,
+        2.0924999713897705,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.4169999361038208,
+        0.6474999785423279,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        -0.39900004863739014,
+        2.0924999713897705,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.9179999828338623,
+        0.640999972820282,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        -0.40799999237060547,
+        0.6589999794960022,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.9179999828338623,
+        2.0809998512268066,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        -0.40799999237060547,
+        2.0989999771118164,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.3609999418258667,
+        0.6474999785423279,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        -0.34300005435943604,
+        2.0924999713897705,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        0.14899992942810059,
+        0.6474999785423279,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        0.16700005531311035,
+        2.0924999713897705,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.35199999809265137,
+        0.640999972820282,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        0.15799999237060547,
+        0.6589999794960022,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "wardrobe",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        -0.35199999809265137,
+        2.0809998512268066,
+        -1.6484999656677246
+      ],
+      "maxGodot": [
+        0.15799999237060547,
+        2.0989999771118164,
+        -1.6354999542236328
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        1.4049997329711914,
+        -0.0005000829696655273,
+        -1.065000057220459
+      ],
+      "maxGodot": [
+        1.4549999237060547,
+        0.6965000033378601,
+        -1.0149998664855957
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        1.4049997329711914,
+        -0.0005000829696655273,
+        0.43500006198883057
+      ],
+      "maxGodot": [
+        1.4549999237060547,
+        0.6965000033378601,
+        0.48500001430511475
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        1.875,
+        -0.0005000829696655273,
+        -1.065000057220459
+      ],
+      "maxGodot": [
+        1.9250001907348633,
+        0.6965000033378601,
+        -1.0149998664855957
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_WoodEdge",
+      "minGodot": [
+        1.875,
+        -0.0005000829696655273,
+        0.43500006198883057
+      ],
+      "maxGodot": [
+        1.9250001907348633,
+        0.6965000033378601,
+        0.48500001430511475
+      ],
+      "faces": 98
+    },
+    {
+      "kind": "desk",
+      "sourceMesh": "Furniture_Wood",
+      "minGodot": [
+        1.3349997997283936,
+        0.7254999876022339,
+        -1.1399999856948853
+      ],
+      "maxGodot": [
+        1.9849998950958252,
+        0.780500054359436,
+        0.5399999618530273
+      ],
+      "faces": 98
+    }
+  ],
+  "atlasLayouts": {
+    "desk": [
+      {
+        "board": 11,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          0,
+          0,
+          365,
+          893
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          0,
+          893,
+          61,
+          893
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          0,
+          1786,
+          893,
+          61
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": true,
+        "rect": [
+          0,
+          1847,
+          463,
+          199
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          463,
+          1847,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          463,
+          1905,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          463,
+          1963,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          852,
+          1847,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          852,
+          1905,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          852,
+          1963,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1241,
+          0,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1630,
+          0,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          893,
+          0,
+          58,
+          389
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          0,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          754,
+          0,
+          58,
+          389
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          58,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          116,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          174,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          232,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          290,
+          389,
+          58
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          348,
+          386,
+          258
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          951,
+          0,
+          258,
+          386
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          812,
+          0,
+          43,
+          386
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          812,
+          386,
+          43,
+          386
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          606,
+          381,
+          258
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1241,
+          58,
+          381,
+          258
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1622,
+          58,
+          381,
+          258
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1241,
+          316,
+          381,
+          258
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          855,
+          389,
+          381,
+          50
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          855,
+          439,
+          381,
+          50
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          855,
+          489,
+          381,
+          50
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          855,
+          539,
+          381,
+          50
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          751,
+          389,
+          61,
+          365
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          746,
+          754,
+          61,
+          365
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          365,
+          864,
+          309,
+          89
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1622,
+          316,
+          309,
+          89
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          674,
+          864,
+          50,
+          309
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          61,
+          893,
+          258,
+          50
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          61,
+          943,
+          258,
+          50
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          2003,
+          58,
+          43,
+          258
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          319,
+          953,
+          237,
+          123
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          61,
+          993,
+          237,
+          123
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          298,
+          1076,
+          237,
+          123
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          61,
+          1116,
+          237,
+          123
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          535,
+          1076,
+          123,
+          237
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          298,
+          1199,
+          237,
+          123
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          61,
+          1239,
+          237,
+          50
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          61,
+          1289,
+          237,
+          50
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1931,
+          316,
+          50,
+          237
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": false,
+        "rect": [
+          1981,
+          316,
+          41,
+          171
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": false,
+        "rect": [
+          1981,
+          487,
+          41,
+          145
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": true,
+        "rect": [
+          1622,
+          405,
+          145,
+          41
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": false,
+        "rect": [
+          855,
+          0,
+          38,
+          145
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": true,
+        "rect": [
+          1767,
+          405,
+          135,
+          41
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": true,
+        "rect": [
+          1622,
+          446,
+          135,
+          41
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": true,
+        "rect": [
+          1757,
+          446,
+          135,
+          41
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          556,
+          953,
+          50,
+          123
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          606,
+          953,
+          50,
+          123
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1622,
+          487,
+          123,
+          50
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1745,
+          487,
+          123,
+          50
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1868,
+          487,
+          50,
+          123
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1918,
+          553,
+          50,
+          123
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1968,
+          632,
+          50,
+          89
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": true,
+        "rect": [
+          1622,
+          537,
+          89,
+          50
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1711,
+          537,
+          58,
+          58
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1769,
+          537,
+          58,
+          58
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1241,
+          574,
+          58,
+          58
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 512,
+        "rotated": false,
+        "rect": [
+          1299,
+          574,
+          58,
+          58
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": false,
+        "rect": [
+          319,
+          893,
+          45,
+          45
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": false,
+        "rect": [
+          1357,
+          574,
+          45,
+          45
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": false,
+        "rect": [
+          1402,
+          574,
+          45,
+          45
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 256,
+        "rotated": false,
+        "rect": [
+          1447,
+          574,
+          45,
+          45
+        ]
+      }
+    ],
+    "wardrobe": [
+      {
+        "board": 0,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          0,
+          0,
+          288,
+          991
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          0,
+          991,
+          288,
+          991
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          288,
+          0,
+          991,
+          288
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          1279,
+          0,
+          288,
+          991
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          288,
+          288,
+          991,
+          59
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          288,
+          347,
+          991,
+          59
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          288,
+          406,
+          978,
+          516
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          1567,
+          0,
+          279,
+          704
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          1567,
+          704,
+          279,
+          704
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          0,
+          1982,
+          680,
+          41
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          1846,
+          0,
+          41,
+          680
+        ]
+      },
+      {
+        "board": 13,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          1887,
+          0,
+          41,
+          680
+        ]
+      },
+      {
+        "board": 14,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          1928,
+          0,
+          41,
+          680
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          288,
+          1408,
+          62,
+          570
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          350,
+          1408,
+          62,
+          570
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          412,
+          1408,
+          119,
+          512
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          531,
+          1408,
+          119,
+          512
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          412,
+          1920,
+          512,
+          46
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          650,
+          1408,
+          46,
+          512
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          696,
+          1408,
+          274,
+          505
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1969,
+          0,
+          37,
+          505
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          2006,
+          0,
+          37,
+          505
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1846,
+          680,
+          156,
+          368
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1846,
+          1048,
+          156,
+          368
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          2002,
+          505,
+          40,
+          368
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          2002,
+          873,
+          40,
+          368
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          2002,
+          1241,
+          40,
+          368
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          680,
+          1966,
+          368,
+          40
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          970,
+          1609,
+          37,
+          356
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1007,
+          1609,
+          37,
+          356
+        ]
+      },
+      {
+        "board": 13,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1044,
+          1609,
+          37,
+          356
+        ]
+      },
+      {
+        "board": 14,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          680,
+          2006,
+          356,
+          37
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1036,
+          2006,
+          356,
+          35
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1048,
+          1965,
+          356,
+          35
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1081,
+          1609,
+          35,
+          356
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1116,
+          1609,
+          35,
+          356
+        ]
+      },
+      {
+        "board": 13,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1151,
+          1609,
+          35,
+          356
+        ]
+      },
+      {
+        "board": 13,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1186,
+          1609,
+          35,
+          356
+        ]
+      },
+      {
+        "board": 14,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1221,
+          1609,
+          35,
+          356
+        ]
+      },
+      {
+        "board": 14,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1256,
+          1609,
+          35,
+          356
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          970,
+          922,
+          301,
+          171
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          288,
+          1093,
+          171,
+          301
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          288,
+          922,
+          301,
+          171
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          459,
+          1093,
+          171,
+          301
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1392,
+          2000,
+          301,
+          47
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1693,
+          1416,
+          301,
+          47
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1291,
+          991,
+          274,
+          37
+        ]
+      },
+      {
+        "board": 6,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1291,
+          1028,
+          274,
+          37
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1291,
+          1065,
+          272,
+          76
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1291,
+          1141,
+          272,
+          76
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1291,
+          1217,
+          272,
+          42
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1291,
+          1259,
+          272,
+          42
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1291,
+          1301,
+          272,
+          42
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1291,
+          1343,
+          272,
+          42
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          1291,
+          1385,
+          261,
+          41
+        ]
+      },
+      {
+        "board": 12,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          1404,
+          1426,
+          261,
+          41
+        ]
+      },
+      {
+        "board": 15,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": true,
+        "rect": [
+          1693,
+          1463,
+          261,
+          41
+        ]
+      },
+      {
+        "board": 16,
+        "faceAxis": 1,
+        "faceSign": -1,
+        "density": 448,
+        "rotated": false,
+        "rect": [
+          1954,
+          1463,
+          41,
+          261
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          589,
+          922,
+          47,
+          171
+        ]
+      },
+      {
+        "board": 7,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1995,
+          1609,
+          47,
+          171
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          970,
+          1426,
+          47,
+          171
+        ]
+      },
+      {
+        "board": 8,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1017,
+          1426,
+          47,
+          171
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          1064,
+          1426,
+          46,
+          160
+        ]
+      },
+      {
+        "board": 0,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1110,
+          1093,
+          160,
+          46
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1110,
+          1139,
+          160,
+          46
+        ]
+      },
+      {
+        "board": 1,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          1110,
+          1185,
+          160,
+          46
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          630,
+          1231,
+          40,
+          156
+        ]
+      },
+      {
+        "board": 2,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          670,
+          1231,
+          40,
+          156
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          710,
+          1231,
+          40,
+          156
+        ]
+      },
+      {
+        "board": 3,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          750,
+          1231,
+          40,
+          156
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          790,
+          1231,
+          37,
+          147
+        ]
+      },
+      {
+        "board": 12,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          827,
+          1231,
+          37,
+          147
+        ]
+      },
+      {
+        "board": 15,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          864,
+          1231,
+          37,
+          147
+        ]
+      },
+      {
+        "board": 16,
+        "faceAxis": 1,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          901,
+          1231,
+          37,
+          147
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          938,
+          1093,
+          147,
+          35
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          636,
+          922,
+          35,
+          147
+        ]
+      },
+      {
+        "board": 12,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          636,
+          1069,
+          35,
+          147
+        ]
+      },
+      {
+        "board": 12,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          671,
+          922,
+          35,
+          147
+        ]
+      },
+      {
+        "board": 15,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          671,
+          1069,
+          35,
+          147
+        ]
+      },
+      {
+        "board": 15,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          706,
+          922,
+          35,
+          147
+        ]
+      },
+      {
+        "board": 16,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          706,
+          1069,
+          35,
+          147
+        ]
+      },
+      {
+        "board": 16,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          741,
+          922,
+          35,
+          147
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          741,
+          1128,
+          42,
+          76
+        ]
+      },
+      {
+        "board": 4,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          741,
+          1069,
+          76,
+          42
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          783,
+          1128,
+          42,
+          76
+        ]
+      },
+      {
+        "board": 5,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          825,
+          1128,
+          42,
+          76
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          924,
+          1913,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 9,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          867,
+          922,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          817,
+          922,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 10,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          776,
+          922,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          904,
+          922,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 11,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          867,
+          957,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 12,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          817,
+          957,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 12,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          776,
+          957,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 13,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          904,
+          957,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 13,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          867,
+          992,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 14,
+        "faceAxis": 2,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          776,
+          1027,
+          35,
+          37
+        ]
+      },
+      {
+        "board": 14,
+        "faceAxis": 2,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          776,
+          992,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 15,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          811,
+          1027,
+          35,
+          37
+        ]
+      },
+      {
+        "board": 15,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": true,
+        "rect": [
+          813,
+          992,
+          37,
+          35
+        ]
+      },
+      {
+        "board": 16,
+        "faceAxis": 0,
+        "faceSign": -1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          817,
+          1064,
+          35,
+          37
+        ]
+      },
+      {
+        "board": 16,
+        "faceAxis": 0,
+        "faceSign": 1,
+        "density": 224,
+        "rotated": false,
+        "rect": [
+          846,
+          1027,
+          35,
+          37
+        ]
+      }
+    ]
+  },
+  "oldMaterialBake": "Diffuse color only on OriginalUV; old roughness baked independently; no lighting",
+  "materialBake": "CC0 oak_veneer_01, source dimension 1.8m; tangent normal strength 0.15; ORM R=1,G=roughness,B=0",
+  "newAIImages": false,
+  "characters": false,
+  "formalAdoption": false,
+  "visualApproval": false,
+  "desktopEdit": "Saved-source edit; original complete v2 and first derivative retained; desktop component added to Desk"
+}

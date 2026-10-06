@@ -2,6 +2,12 @@
 
 本文件适用于根目录及全部子目录。任何人或自动化代理修改项目之前都必须先阅读本文件，再从 [doc/README.md](doc/README.md) 进入详细交接文档。
 
+## 卧室木家具材质对照（2026-10-06）
+
+- `[固定约束]` 负责人批准仅精修书桌与衣柜木质表面，独立源与入口保留原版结构、布局及卧室灯光。新旧材质使用同一网格与新材质烘焙后的 GI，原版完整卧室另行回归。无 AI 新贴图、购买或新材质插件；床品、墙地面和全村不推广，正式住宅不采用。
+- `[已实现]` `BedroomMaterialReview.tscn` 提供 V 材质对照、N 中性白光、七视角、原生漫游、门与台灯；保存源、2K PBR／旧外观图集和来源见[工程说明](doc/engineering/bedroom-material-v1.md)，实际截图、技术检查与本机对照见[验收](doc/production/bedroom-material-v1-validation.md)。技术检查与负责人视觉批准分开，GTX 1060 仍待实测。
+- `[固定约束]` 后续编辑 `art/blender/bedroom-material-v1/bedroom-material-v1.blend` 后只执行 `export`，禁止重跑派生及一次性修正。重新烘焙图集须刷新 packed image 并核对源／导出像素；UV2 网格、LightmapGI 与 EXR array 导入一同更新。Core、剧情、SaveEnvelope v1、内容版本 6、Compatibility 及角色媒体限制不变。沿用本机提交授权，不推送、不导出游戏。
+
 ## 卧室专项三维重建（2026-10-05 后续）
 
 - `[固定约束]` 负责人批准参考图方向的独立可走动卧室重建：完整三维空间、离线布料静态床品、结构家具、窗帘与可侧看的窗外、清晰表盘／封面／纸面；同版本 Godot 工作副本离线 LightmapGI 烘焙，主项目保持 Compatibility。原住宅和三场景样板保留，正式接入另行评估；Core、剧情、SaveEnvelope v1、内容版本 6 不变。

@@ -1,0 +1,13 @@
+{
+  "source": "art\\blender\\bedroom-material-v1\\bedroom-material-v1.blend",
+  "sourceSha256": "8ab95a70608a768f36e19771e699f848ad0708b441e915f803374ad9c6933200",
+  "triangles": 454362,
+  "sourceTriangles": 488922,
+  "meshObjects": 45,
+  "vertices": 254513,
+  "baseTriangles": 454362,
+  "characters": 0,
+  "runtimeClothSimulation": false,
+  "formalAdoption": false,
+  "visualApproval": false
+}

@@ -36,3 +36,6 @@ art/sources/cc0/mpfb-*/** -text -whitespace
 assets/generated/bedroom-target-v2/**/*.res filter=lfs diff=lfs merge=lfs -text
 assets/generated/bedroom-target-v2/*.lmbake filter=lfs diff=lfs merge=lfs -text
 assets/generated/bedroom-target-v2/*.exr filter=lfs diff=lfs merge=lfs -text
+assets/generated/bedroom-material-v1/**/*.res filter=lfs diff=lfs merge=lfs -text
+assets/generated/bedroom-material-v1/*.lmbake filter=lfs diff=lfs merge=lfs -text
+assets/generated/bedroom-material-v1/*.exr filter=lfs diff=lfs merge=lfs -text

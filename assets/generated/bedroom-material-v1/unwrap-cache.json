@@ -1,0 +1,6 @@
+{
+  "sourceSha256": "51F22271597B27E29758B4127EEE2884EFA465F6A688AC651BF22397364EA63A",
+  "texelMetres": 0.045,
+  "meshes": 30,
+  "note": "Invalidate by exact GLB bytes; material surfaces are refreshed from source on reuse."
+}

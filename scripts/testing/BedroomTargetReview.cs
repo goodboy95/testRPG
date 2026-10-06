@@ -6,6 +6,7 @@ namespace TownRpg.Scripts.Testing;
 /// <summary>Isolated art review. All doors/lights/input state belongs to this instance.</summary>
 public partial class BedroomTargetReview : WorldArea3D
 {
+    [Export(PropertyHint.File,"*.tscn")] public string VisualScenePath {get;set;} = "res://scenes/testing/BedroomTargetVisual.tscn";
     public PlayerController3D Actor => Player;
     public ThirdPersonCameraRig Rig => CameraRig;
     public Node3D Visual {get;private set;} = null!;
@@ -33,7 +34,7 @@ public partial class BedroomTargetReview : WorldArea3D
 
     public override void _Ready()
     {
-        Visual=ResourceLoader.Load<PackedScene>("res://scenes/testing/BedroomTargetVisual.tscn").Instantiate<Node3D>();
+        Visual=ResourceLoader.Load<PackedScene>(VisualScenePath).Instantiate<Node3D>();
         AddChild(Visual);ReviewCamera=Visual.GetNode<Camera3D>("ReviewCamera");
         var environment=Visual.GetNode<WorldEnvironment>("WorldEnvironment").Environment;
         environment.SsaoEnabled=true;environment.SsaoRadius=.48f;environment.SsaoIntensity=1.05f;
@@ -89,21 +90,21 @@ public partial class BedroomTargetReview : WorldArea3D
         if(_door is not null)Box("DoorCollision",new(.54f,1.115f,0),new(1.08f,2.23f,.06f),_door);
     }
 
-    public void ResetReview()
+    public virtual void ResetReview()
     {
         Actor.GlobalPosition=new(-1.1f,0,1.95f);Actor.SetFacingImmediate(Vector3.Forward);
         Rig.SetYawImmediate(0);Rig.SnapToTarget();
         Paused=false;SetLamp(false);SetDoor(true,true);SetView(0);
     }
 
-    public void SetView(int index)
+    public virtual void SetView(int index)
     {
         var v=Views[index];Walking=false;Actor.Visible=false;
         ReviewCamera.GlobalPosition=v.Position;ReviewCamera.LookAt(v.Target);ReviewCamera.Fov=v.Fov;ReviewCamera.MakeCurrent();
         SetRuntimeInputLocked(true);Input.MouseMode=Input.MouseModeEnum.Visible;
     }
 
-    public void SetWalking(bool walking)
+    public virtual void SetWalking(bool walking)
     {
         if(!walking){SetView(0);return;}
         Walking=true;Paused=false;Actor.Visible=true;Rig.Camera.MakeCurrent();Rig.SnapToTarget();SetRuntimeInputLocked(false);

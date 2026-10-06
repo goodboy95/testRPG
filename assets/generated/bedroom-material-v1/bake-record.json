@@ -1,0 +1,23 @@
+{
+  "producedAt": "2026-10-06T20:56:40.9954952+08:00",
+  "tool": "4.6.3.stable.mono.official.7d41c59c4",
+  "bakeRenderer": "forward_plus/vulkan (isolated work copy)",
+  "runtimeRenderer": "gl_compatibility",
+  "sourceGlbSha256": "51F22271597B27E29758B4127EEE2884EFA465F6A688AC651BF22397364EA63A",
+  "preparation": {
+    "sourceSha256": "51F22271597B27E29758B4127EEE2884EFA465F6A688AC651BF22397364EA63A",
+    "texelMetres": 0.045,
+    "meshes": 30,
+    "note": "Invalidate by exact GLB bytes; material surfaces are refreshed from source on reuse."
+  },
+  "outputs": [
+    {
+      "name": "bedroom.exr",
+      "sha256": "77D127560431197824EBDAA520497720684A9566B6227FCCD1F7912337F7AD5F"
+    },
+    {
+      "name": "bedroom.lmbake",
+      "sha256": "4EB1A10A7CA67CC87B752DC899D313F0A48DE2CD766B3A70FD7D51AE3AF6FF96"
+    }
+  ]
+}

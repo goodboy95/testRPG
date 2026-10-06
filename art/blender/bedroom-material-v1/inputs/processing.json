@@ -1,0 +1,14 @@
+{
+  "provider": "Poly Haven",
+  "asset": "oak_veneer_01",
+  "license": "CC0-1.0",
+  "assetUrl": "https://polyhaven.com/a/oak_veneer_01",
+  "date": "2026-10-06",
+  "processing": "Pillow/NumPy; sRGB contrast 50%, warm mean; independent upstream roughness and GL normal",
+  "newAIImages": false,
+  "sourceHashes": {
+    "oak_veneer_01_arm_2k.jpg": "c1a3453f517fe566ca01f431c72b0ab29120ffce33922f88f3b1100a720b17ce",
+    "oak_veneer_01_diff_2k.jpg": "0718c2e1a209afe6138ccb41d70e1a18cd825d1e73db33ad7cf80806fa9ce5a4",
+    "oak_veneer_01_nor_gl_2k.jpg": "e74a9d3ddcd86473a21815a28464f4dac4ceb8f86e7f170226dede8ed70d8eb9"
+  }
+}

@@ -15,7 +15,8 @@ func nodes(root: Node) -> Array[Node]:
 
 func run_bake() -> void:
 	await get_tree().create_timer(2.0).timeout
-	EditorInterface.open_scene_from_path("res://scenes/testing/BedroomTargetVisual.tscn")
+	var material := "--bedroom-material" in OS.get_cmdline_user_args()
+	EditorInterface.open_scene_from_path("res://scenes/testing/BedroomMaterialVisual.tscn" if material else "res://scenes/testing/BedroomTargetVisual.tscn")
 	await get_tree().create_timer(2.0).timeout
 	var root := EditorInterface.get_edited_scene_root()
 	if root == null:
@@ -41,7 +42,7 @@ func run_bake() -> void:
 	# Same built-in action as selecting a destination in the editor save dialog.
 	# Supplying the file directly avoids modal dialogs in offline automation.
 	var dialog: EditorFileDialog = button.get_child(0)
-	dialog.emit_signal("file_selected", "res://assets/generated/bedroom-target-v2/bedroom.lmbake")
+	dialog.emit_signal("file_selected", "res://assets/generated/bedroom-material-v1/bedroom.lmbake" if material else "res://assets/generated/bedroom-target-v2/bedroom.lmbake")
 	await get_tree().create_timer(1.0).timeout
 	if gi.light_data == null or gi.light_data.get_user_count() == 0:
 		push_error("BEDROOM_BAKE_FAILED no baked users")

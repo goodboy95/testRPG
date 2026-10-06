@@ -20,8 +20,9 @@ public partial class BedroomTargetPrepare : Node
         try
         {
             var gray = OS.GetCmdlineUserArgs().Contains("--bedroom-gray");
-            const string directory = "res://assets/generated/bedroom-target-v2/";
-            var modelPath=directory+(gray?"bedroom-gray.glb":"bedroom-target-v2.glb");
+            var material = OS.GetCmdlineUserArgs().Contains("--bedroom-material");
+            var directory = material ? "res://assets/generated/bedroom-material-v1/" : "res://assets/generated/bedroom-target-v2/";
+            var modelPath=directory+(material?"bedroom-material-v1.glb":gray?"bedroom-gray.glb":"bedroom-target-v2.glb");
             var sourceHash=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(ProjectSettings.GlobalizePath(modelPath))));
             var cachePath=ProjectSettings.GlobalizePath(directory+(gray?"gray-unwrap-cache.json":"unwrap-cache.json"));
             var reuse=false;
@@ -73,8 +74,8 @@ public partial class BedroomTargetPrepare : Node
                 {stable.AddSurfaceFromArrays(data.SurfaceGetPrimitiveType(i),data.SurfaceGetArrays(i));stable.SurfaceSetMaterial(i,data.SurfaceGetMaterial(i));}
                 data=stable;
                 for (var i=0;i<data.GetSurfaceCount();i++)
-                    if (data.SurfaceGetMaterial(i) is BaseMaterial3D material)
-                        material.TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic;
+                    if (data.SurfaceGetMaterial(i) is BaseMaterial3D surfaceMaterial)
+                        surfaceMaterial.TextureFilter = BaseMaterial3D.TextureFilterEnum.LinearWithMipmapsAnisotropic;
                 Directory.CreateDirectory(ProjectSettings.GlobalizePath(directory + "meshes"));
                 if (ResourceSaver.Save(data,path,ResourceSaver.SaverFlags.Compress) != Error.Ok) throw new IOException(path);
                 data.TakeOverPath(path);
@@ -116,7 +117,7 @@ public partial class BedroomTargetPrepare : Node
             Add(root,new Camera3D {Name="ReviewCamera",Position=new(-1.72f,1.62f,2.16f),Fov=53,Near=.05f,Far=120,Current=true});
             root.GetNode<Camera3D>("ReviewCamera").LookAt(new(.1f,1.05f,-.85f));
             var scene = new PackedScene();if(scene.Pack(root)!=Error.Ok)throw new IOException("Scene pack failed");
-            if(ResourceSaver.Save(scene,"res://scenes/testing/BedroomTargetVisual.tscn")!=Error.Ok)throw new IOException("Scene save failed");
+            if(ResourceSaver.Save(scene,material?"res://scenes/testing/BedroomMaterialVisual.tscn":"res://scenes/testing/BedroomTargetVisual.tscn")!=Error.Ok)throw new IOException("Scene save failed");
             File.WriteAllText(cachePath,JsonSerializer.Serialize(new{sourceSha256=sourceHash,texelMetres=gray?.08f:.045f,meshes,
                 note="Invalidate by exact GLB bytes; material surfaces are refreshed from source on reuse."},new JsonSerializerOptions{WriteIndented=true}));
             GD.Print($"BEDROOM_PREPARE_PASS gray={gray} meshes={meshes} reusedUV2={reuse}");GetTree().Quit();

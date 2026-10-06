@@ -1,5 +1,7 @@
 # town-rpg 交接文档
 
+`[已实现]` 2026-10-06：[书桌／衣柜木材贴图对照](engineering/bedroom-material-v1.md)提供同网格与共享 GI 的 V 对照、N 中性光和七视角漫游；[实际验证与美术待验项](production/bedroom-material-v1-validation.md)。仅两件家具，原卧室和正式入口保留，GTX 1060 待实测。
+
 `[已实现]` 2026-10-05 后续：[卧室专项三维重建 v2](engineering/bedroom-target-v2.md)提供完整独立房间、离线布料床品、结构家具、可侧看窗外及 LightmapGI，五视角与漫游保留旧住宅／三场景样板；[实际验证与未通过的美术门槛](production/bedroom-target-v2-validation.md)。正式入口不变，GTX 1060 与负责人视觉终验待验。
 
 `[已实现]` 2026-10-05：[三场景环境精修样板](engineering/environment-refinement-v1.md)提供卧室、街段、梦境教室的新旧对照，包含表盘、标牌与纸面图像。正式入口不变，美术待负责人比较；[实际验证与限制](production/environment-refinement-v1-validation.md)。
